@@ -99,7 +99,7 @@ NSString * const _userDefaultsSerialCacheKey = @"Private Extension Store -> Syst
 	 check length to know how many characters to give Apple. */
 	if (serial.length == 11) {
 		serial = [serial substringFromIndex:(serial.length - 3)];
-	} else if (serial.length == 12) {
+	} else if (serial.length >= 12 && serial.length <= 13) {
 		serial = [serial substringFromIndex:(serial.length - 4)];
 	} else {
 		/* If the serial number length is unexpected, then do not
