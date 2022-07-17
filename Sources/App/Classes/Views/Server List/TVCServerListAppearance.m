@@ -262,21 +262,7 @@ NS_ASSUME_NONNULL_BEGIN
 		case TXAppearanceTypeMojaveLight:
 		case TXAppearanceTypeBigSurLight:
 		{
-			/* When the window is not in focus, when this item is selected, and when we are not
-			 using vibrant dark mode; the outline view does not turn our icon to a light variant
-			 like it would do if the window was in focus and used as a template. To workaround
-			 this oddity that Apple does, we fudge the icon by using another variant of it. */
-			if (isActiveWindow == NO && isSelected) {
-				*treatAsTemplate = NO;
-
-				if (isActive) {
-					return @"channelRoomStatusIconDarkActive";
-				} else {
-					return @"channelRoomStatusIconDarkInactive";
-				}
-			} // quirk fix
-
-			*treatAsTemplate = YES;
+			*treatAsTemplate = NO;
 
 			if (isActive) {
 				return @"channelRoomStatusIconLightActive";
