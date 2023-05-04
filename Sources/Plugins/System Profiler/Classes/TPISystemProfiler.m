@@ -35,7 +35,6 @@
  *
  *********************************************************************** */
 
-#import "TPISystemProfilerModelRequest.h"
 #import "TPISystemProfiler.h"
 #import "TPI_SP_SysInfo.h"
 
@@ -43,8 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TPISystemProfiler ()
 @property (nonatomic, strong) NSView *preferencePaneView;
-
-- (IBAction)didChangePreferenceToUseRemoteRequestForModelID:(id)sender;
 @end
 
 @implementation TPISystemProfiler
@@ -57,20 +54,16 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	[self performBlockOnMainThread:^{
 		NSDictionary *defaults = @{
-			@"System Profiler Extension -> Feature Disabled -> CPU Model" : @(YES),
 			@"System Profiler Extension -> Feature Disabled -> GPU Model" : @(YES),
 			@"System Profiler Extension -> Feature Disabled -> Disk Information" : @(YES),
 			@"System Profiler Extension -> Feature Disabled -> System Uptime" : @(YES),
 			@"System Profiler Extension -> Feature Disabled -> Memory Information" : @(YES),
 			@"System Profiler Extension -> Feature Disabled -> Screen Resolution" : @(YES),
-			@"System Profiler Extension -> Request Model Information from Apple" : @(NO),
 		};
 
 		[RZUserDefaults() registerDefaults:defaults];
 
 		[TPIBundleFromClass() loadNibNamed:@"TPISystemProfiler" owner:self topLevelObjects:nil];
-
-		[self maybeRequestModelIDFromApple];
 	}];
 }
 
@@ -86,28 +79,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)pluginPreferencesPaneMenuItemName
 {
 	return TPILocalizedString(@"BasicLanguage[dff-13]");
-}
-
-- (void)didChangePreferenceToUseRemoteRequestForModelID:(id)sender
-{
-	[self maybeRequestModelIDFromApple];
-}
-
-- (void)maybeRequestModelIDFromApple
-{
-	BOOL featureEnabled = [RZUserDefaults() boolForKey:@"System Profiler Extension -> Request Model Information from Apple"];
-
-	if (featureEnabled == NO) {
-		return;
-	}
-
-	static BOOL _performedRequest = NO;
-
-	if (_performedRequest == NO) {
-		_performedRequest = YES;
-
-		[[TPISystemProfilerModelRequest sharedController] requestIdentifier];
-	}
 }
 
 #pragma mark -
@@ -148,10 +119,20 @@ NS_ASSUME_NONNULL_BEGIN
 		return;
 	}
 
+	BOOL quietMessage = [messageString isEqualIgnoringCase:@"quiet"];
+
+	NSString *messageOut = nil;
+
 	if ([commandString isEqualToString:@"SYSINFO"]) {
-		[self sendMessage:[TPI_SP_CompiledOutput systemInformation] onClient:client toChannel:channel];
+		messageOut = [TPI_SP_CompiledOutput systemInformation];
 	} else if ([commandString isEqualToString:@"MEMORY"]) {
-		[self sendMessage:[TPI_SP_CompiledOutput applicationMemoryUsage] onClient:client toChannel:channel];
+		NSString *memoryMessage = [TPI_SP_CompiledOutput applicationMemoryUsage];
+
+		if (quietMessage) {
+			[self printDebugInformation:memoryMessage onClient:client inChannel:channel];
+		} else {
+			[self sendMessage:memoryMessage onClient:client toChannel:channel];
+		}
 
 		NSString *webKitMemoryUse = [TPI_SP_CompiledOutput webKitFrameworkMemoryUsage];
 
@@ -159,21 +140,29 @@ NS_ASSUME_NONNULL_BEGIN
 			[self printDebugInformation:webKitMemoryUse onClient:client inChannel:channel];
 		}
 	} else if ([commandString isEqualToString:@"UPTIME"]) {
-		[self sendMessage:[TPI_SP_CompiledOutput applicationAndSystemUptime] onClient:client toChannel:channel];
+		messageOut = [TPI_SP_CompiledOutput applicationAndSystemUptime];
 	} else if ([commandString isEqualToString:@"NETSTATS"]) {
-		[self sendMessage:[TPI_SP_CompiledOutput systemNetworkInformation] onClient:client toChannel:channel];
+		messageOut = [TPI_SP_CompiledOutput systemNetworkInformation];
 	} else if ([commandString isEqualToString:@"MSGCOUNT"]) {
-		[self sendMessage:[TPI_SP_CompiledOutput applicationBandwidthStatistics] onClient:client toChannel:channel];
+		messageOut = [TPI_SP_CompiledOutput applicationBandwidthStatistics];
 	} else if ([commandString isEqualToString:@"DISKSPACE"]) {
-		[self sendMessage:[TPI_SP_CompiledOutput systemDiskspaceInformation] onClient:client toChannel:channel];
+		messageOut = [TPI_SP_CompiledOutput systemDiskspaceInformation];
 	} else if ([commandString isEqualToString:@"STYLE"]) {
-		[self sendMessage:[TPI_SP_CompiledOutput applicationActiveStyle] onClient:client toChannel:channel];
+		messageOut = [TPI_SP_CompiledOutput applicationActiveStyle];
 	} else if ([commandString isEqualToString:@"SCREENS"]) {
-		[self sendMessage:[TPI_SP_CompiledOutput systemDisplayInformation] onClient:client toChannel:channel];
+		messageOut = [TPI_SP_CompiledOutput systemDisplayInformation];
 	} else if ([commandString isEqualToString:@"RUNCOUNT"]) {
-		[self sendMessage:[TPI_SP_CompiledOutput applicationRuntimeStatistics] onClient:client toChannel:channel];
+		messageOut = [TPI_SP_CompiledOutput applicationRuntimeStatistics];
 	} else if ([commandString isEqualToString:@"SYSMEM"]) {
-		[self sendMessage:[TPI_SP_CompiledOutput systemMemoryInformation] onClient:client toChannel:channel];
+		messageOut = [TPI_SP_CompiledOutput systemMemoryInformation];
+	}
+
+	if (messageOut) {
+		if (quietMessage) {
+			[self printDebugInformation:messageOut onClient:client inChannel:channel];
+		} else {
+			[self sendMessage:messageOut onClient:client toChannel:channel];
+		}
 	}
 }
 

@@ -45,7 +45,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define _overridesDefaultsKey		@"Nickname Color Style Overrides"
+#define _overridesDefaultsKey			@"Nickname Color Style Overrides (v2)"
 
 @implementation IRCUserNicknameColorStyleGenerator
 
@@ -184,63 +184,119 @@ NS_ASSUME_NONNULL_BEGIN
  *    1. Easier to work with when modifying. No need to perform messy string conversion.
  *    2. Easier to change output format in another update (if that decision is made)
  */
++ (void)migrateNicknameColorStyleOverrides
+{
+	/* Migrate from database that used NSArchiver to one that uses NSKeyedArchiver. */
+	/* This migration is non-destructive to the legacy database. The data that is
+	 translated to NSKeyedUnarchiver is saved into a new defaults key. */
+
+	NSDictionary *legacyOverrides = [RZUserDefaults() dictionaryForKey:@"Nickname Color Style Overrides"];
+
+	NSMutableDictionary<NSString *, NSData *> *newOverrides = [NSMutableDictionary dictionaryWithCapacity:legacyOverrides.count];
+
+	[legacyOverrides enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+TEXTUAL_IGNORE_DEPRECATION_BEGIN
+		id override = [NSUnarchiver unarchiveObjectWithData:obj];
+TEXTUAL_IGNORE_DEPRECATION_END
+
+		if (override == nil || [override isKindOfClass:[NSColor class]] == NO) {
+			LogToConsoleError("Failed to decode contents of '%@'", key);
+
+			return;
+		}
+
+		NSError *error;
+
+		override = [NSKeyedArchiver archivedDataWithRootObject:override
+										 requiringSecureCoding:YES
+														 error:&error];
+
+		if (error) {
+			LogToConsoleError("Failed to decode contents for '%@': %@",
+				 key, error.description);
+
+			return;
+		}
+
+		[newOverrides setObject:override forKey:key];
+	}];
+
+	[RZUserDefaults() setObject:[newOverrides copy] forKey:_overridesDefaultsKey];
+}
+
 + (nullable NSColor *)nicknameColorStyleOverrideForKey:(NSString *)styleKey
 {
 	NSParameterAssert(styleKey != nil);
 
-	NSDictionary *colorStyleOverrides = [RZUserDefaults() dictionaryForKey:_overridesDefaultsKey];
+	NSDictionary *colorOverrides = [RZUserDefaults() dictionaryForKey:_overridesDefaultsKey];
 
-	if (colorStyleOverrides == nil) {
+	if (colorOverrides == nil) {
 		return nil;
 	}
 
-	id objectValue = colorStyleOverrides[styleKey];
+	id colorObject = colorOverrides[styleKey];
 
-	if (objectValue == nil || [objectValue isKindOfClass:[NSData class]] == NO) {
+	if ([colorObject isKindOfClass:[NSData class]] == NO) {
 		return nil;
 	}
 
-	id objectValueObj = [NSUnarchiver unarchiveObjectWithData:objectValue];
+	NSError *error;
 
-	if (objectValueObj == nil || [objectValueObj isKindOfClass:[NSColor class]] == NO) {
-		return nil;
+	NSColor *colorValue = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class]
+															fromData:colorObject
+															   error:&error];
+
+	if (error) {
+		LogToConsoleError("Failed to decode color for '%@': %@",
+				styleKey, error.description);
 	}
 
-	return objectValueObj;
+	return colorValue;
 }
 
 + (void)setNicknameColorStyleOverride:(nullable NSColor *)styleValue forKey:(NSString *)styleKey
 {
 	NSParameterAssert(styleKey != nil);
 
-	NSDictionary *colorStyleOverrides = [RZUserDefaults() dictionaryForKey:_overridesDefaultsKey];
+	NSDictionary *colorOverrides = [RZUserDefaults() dictionaryForKey:_overridesDefaultsKey];
 
-	if (colorStyleOverrides == nil && styleValue == nil) {
+	if (colorOverrides == nil && styleValue == nil) {
 		return;
 	}
 
-	NSData *styleValueRolled = nil;
+	NSData *colorObject = nil;
 
 	if (styleValue) {
-		styleValueRolled = [NSArchiver archivedDataWithRootObject:styleValue];
+		NSError *error;
 
-		if (colorStyleOverrides == nil) {
-			colorStyleOverrides = [NSDictionary new];
+		colorObject = [NSKeyedArchiver archivedDataWithRootObject:styleValue
+											requiringSecureCoding:YES
+															error:&error];
+
+		if (error) {
+			LogToConsoleError("Failed to decode color for '%@': %@",
+				 styleKey, error.description);
+
+			return;
+		}
+
+		if (colorOverrides == nil) {
+			colorOverrides = [NSDictionary new];
 		}
 	}
 
-	NSMutableDictionary *colorStyleOverridesMut = [colorStyleOverrides mutableCopy];
+	NSMutableDictionary *colorOverridesNew = [colorOverrides mutableCopy];
 
 	if (styleValue == nil) {
-		[colorStyleOverridesMut removeObjectForKey:styleKey];
+		[colorOverridesNew removeObjectForKey:styleKey];
 	} else {
-		colorStyleOverridesMut[styleKey] = styleValueRolled;
+		colorOverridesNew[styleKey] = colorObject;
 	}
 
-	if (colorStyleOverridesMut.count == 0) {
+	if (colorOverridesNew.count == 0) {
 		[RZUserDefaults() removeObjectForKey:_overridesDefaultsKey];
 	} else {
-		[RZUserDefaults() setObject:[colorStyleOverridesMut copy] forKey:_overridesDefaultsKey];
+		[RZUserDefaults() setObject:[colorOverridesNew copy] forKey:_overridesDefaultsKey];
 	}
 }
 

@@ -39,8 +39,6 @@
 
 #import "TPI_SP_SysInfo.h"
 
-#import "TPISystemProfilerModelRequest.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 #define _localVolumeBaseDirectory		@"/Volumes"
@@ -278,7 +276,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)systemInformation
 {
 	BOOL showCPUModel = ([RZUserDefaults() boolForKey:@"System Profiler Extension -> Feature Disabled -> CPU Model"] == NO);
+
+#if TARGET_CPU_ARM64
+	BOOL showGPUModel = NO;
+#elif TARGET_CPU_X86_64
 	BOOL showGPUModel = ([RZUserDefaults() boolForKey:@"System Profiler Extension -> Feature Disabled -> GPU Model"] == NO);
+#endif
+
 	BOOL showDiskInfo = ([RZUserDefaults() boolForKey:@"System Profiler Extension -> Feature Disabled -> Disk Information"] == NO);
 	BOOL showMemory = ([RZUserDefaults() boolForKey:@"System Profiler Extension -> Feature Disabled -> Memory Information"] == NO);
 	BOOL showOperatingSystem = ([RZUserDefaults() boolForKey:@"System Profiler Extension -> Feature Disabled -> OS Version"] == NO);
@@ -292,28 +296,22 @@ NS_ASSUME_NONNULL_BEGIN
 	NSString *modelIdentifier = [TPI_SP_SysInfo modelIdentifier];
 
 	if (modelIdentifier.length > 0) {
+		NSString *modelsDictionaryPath = [TPIBundleFromClass() pathForResource:@"MacintoshModels" ofType:@"plist"];
+
+		NSDictionary *modelsDictionary = [NSDictionary dictionaryWithContentsOfFile:modelsDictionaryPath];
+
 		NSString *modelTitle = nil;
 
-		NSString *modelTitleApple = [TPISystemProfilerModelRequest sharedController].cachedIdentifier;
-
-		if (modelTitleApple) {
-			modelTitle = modelTitleApple;
+		if ([modelIdentifier hasPrefix:@"VMware"]) {
+			modelTitle = modelsDictionary[@"VMware"];
+		} else if ([modelIdentifier hasPrefix:@"Parallels"]) {
+			modelTitle = modelsDictionary[@"Parallels"];
 		} else {
-			NSString *modelsDictionaryPath = [TPIBundleFromClass() pathForResource:@"MacintoshModels" ofType:@"plist"];
+			modelTitle = modelsDictionary[modelIdentifier];
+		}
 
-			NSDictionary *modelsDictionary = [NSDictionary dictionaryWithContentsOfFile:modelsDictionaryPath];
-
-			if ([modelIdentifier hasPrefix:@"VMware"]) {
-				modelTitle = modelsDictionary[@"VMware"];
-			} else if ([modelIdentifier hasPrefix:@"Parallels"]) {
-				modelTitle = modelsDictionary[@"Parallels"];
-			} else {
-				modelTitle = modelsDictionary[modelIdentifier];
-			}
-
-			if (modelTitle == nil) {
-				modelTitle = [XRSystemInformation systemModelName];
-			}
+		if (modelTitle == nil) {
+			modelTitle = [XRSystemInformation systemModelName];
 		}
 
 		[resultString appendString:
@@ -322,9 +320,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 	if (showCPUModel) {
 		NSString *_cpu_model = [TPI_SP_SysInfo processor];
-		NSString *_cpu_speed = [TPI_SP_SysInfo processorClockSpeed];
 
 		NSUInteger _cpu_count_p	= [TPI_SP_SysInfo processorPhysicalCoreCount];
+		
+#if TARGET_CPU_ARM64
+		
+		if (_cpu_model.length > 0) {
+			[resultString appendString:
+			 TPILocalizedString(@"BasicLanguage[ifk-s5]",
+					_cpu_model,
+					_cpu_count_p)];
+		}
+		
+#elif TARGET_CPU_X86_64
+
+		NSString *_cpu_speed = [TPI_SP_SysInfo processorClockSpeed];
+
 		NSUInteger _cpu_count_v	= [TPI_SP_SysInfo processorVirtualCoreCount];
 
 		_cpu_model = [XRRegularExpression string:_cpu_model replacedByRegex:@"(\\s*@.*)|CPU|\\(R\\)|\\(TM\\)"	withString:@" "];
@@ -340,6 +351,9 @@ NS_ASSUME_NONNULL_BEGIN
 					_cpu_count_p,
 					_cpu_speed)];
 		}
+
+#endif
+
 	}
 
 	if (showMemory) {
