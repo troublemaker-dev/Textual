@@ -8393,6 +8393,7 @@
 		4C13442620C75C4900343AB7 /* Release (Sandboxed) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				TEXTUAL_BUILT_WITH_LICENSE_MANAGER = "";
 			};
 			name = "Release (Sandboxed)";
 		};
@@ -8426,12 +8427,14 @@
 		4C1DC5711580420500A47BC9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				TEXTUAL_BUILT_WITH_LICENSE_MANAGER = "";
 			};
 			name = Debug;
 		};
 		4C1DC5721580420500A47BC9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				TEXTUAL_BUILT_WITH_LICENSE_MANAGER = "";
 			};
 			name = Release;
 		};
