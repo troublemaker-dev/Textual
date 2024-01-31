@@ -2,9 +2,9 @@
 // This is the code signing identity used by all projects.
 // you need the full name of your signing certificate
 
-CODE_SIGN_IDENTITY = Apple Development: krachynski@me.com (B2Z87RRVMX)
+CODE_SIGN_IDENTITY = Apple Development: Ken Rachynski (B2Z87RRVMX)
 
 // Set these values to empty
 
-DEVELOPMENT_TEAM = AWMA9895VJ
+DEVELOPMENT_TEAM = 
 PROVISIONING_PROFILE_SPECIFIER = 
