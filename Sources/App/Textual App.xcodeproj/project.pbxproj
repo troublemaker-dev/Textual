@@ -8355,18 +8355,21 @@
 		4C0BA6D51990798800857343 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = Debug;
 		};
 		4C0BA6D61990798800857343 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = Release;
 		};
 		4C0BA6D81990798800857343 /* App Store */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PROVISIONING_PROFILE_SPECIFIER = "App Store Dev. (com.codeux.apps.textual-mas)";
 			};
 			name = "App Store";
@@ -8375,12 +8378,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C3154D620EB685700448776 /* Textual App.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = "Release (Sandboxed)";
 		};
 		4C13442420C75C4900343AB7 /* Release (Sandboxed) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = "Release (Sandboxed)";
 		};
@@ -8414,6 +8419,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C3154DF20EB685700448776 /* Textual App.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = Debug;
 		};
@@ -8421,6 +8427,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C3154B720EB685700448776 /* Textual App.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = Release;
 		};
@@ -8478,6 +8485,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C3154C020EB685700448776 /* Textual App.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = "App Store";
 		};
