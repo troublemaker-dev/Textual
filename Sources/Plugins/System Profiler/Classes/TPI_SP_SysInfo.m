@@ -255,19 +255,33 @@ NS_ASSUME_NONNULL_BEGIN
 	[screens enumerateObjectsUsingBlock:^(NSScreen *screen, NSUInteger index, BOOL *stop) {
 		NSInteger screenNumber = (index + 1);
 
+		NSString *refreshRate = [TPI_SP_SysInfo refreshRateForScreen:screen];
+
 		NSString *localization = nil;
 
 		if (screenNumber == 1) {
-			localization = @"BasicLanguage[vvt-zq]";
+			if (refreshRate == nil) {
+				localization = @"BasicLanguage[441-8c]";
+			} else {
+				localization = @"BasicLanguage[vvt-zq]";
+			}
 		} else {
-			localization = @"BasicLanguage[fys-ft]";
+			if (refreshRate == nil) {
+				localization = @"BasicLanguage[dd1-rp]";
+			} else {
+				localization = @"BasicLanguage[fys-ft]";
+			}
+		}
+
+		if (refreshRate == nil) {
+			refreshRate = @"";
 		}
 
 		[rsultString appendString:
 		 TPILocalizedString(localization,
 			screenNumber,
 			screen.screenResolutionString,
-			[TPI_SP_SysInfo refreshRateForScreen:screen])];
+			refreshRate)];
 	}];
 
 	return [rsultString copy];
@@ -389,10 +403,18 @@ NS_ASSUME_NONNULL_BEGIN
 	if (showScreenResolution) {
 		NSScreen *mainScreen = RZMainScreen();
 
-		[resultString appendString:
-		 TPILocalizedString(@"BasicLanguage[b7c-qd]",
-			mainScreen.screenResolutionString,
-			[TPI_SP_SysInfo refreshRateForScreen:mainScreen])];
+		NSString *refreshRate = [TPI_SP_SysInfo refreshRateForScreen:mainScreen];
+
+		if (refreshRate == nil) {
+			[resultString appendString:
+		     TPILocalizedString(@"BasicLanguage[22o-rg]",
+			 mainScreen.screenResolutionString)];
+		} else {
+			[resultString appendString:
+		     TPILocalizedString(@"BasicLanguage[b7c-qd]",
+			 mainScreen.screenResolutionString,
+			 refreshRate)];
+		}
 	}
 
 	if (showOperatingSystem) {
@@ -890,6 +912,12 @@ NS_ASSUME_NONNULL_BEGIN
 	NSParameterAssert(screen != nil);
 
 	CGFloat refreshRate = screen.screenRefreshRate;
+
+	/* Only return a formatted refresh rate if not 60.
+	 Everyone has 60. That's not interesting info. */
+	if (fabs(refreshRate) == 60.0) {
+		return nil;
+	}
 
 	return TPILocalizedString(@"BasicLanguage[zpt-sx]", refreshRate);
 }
