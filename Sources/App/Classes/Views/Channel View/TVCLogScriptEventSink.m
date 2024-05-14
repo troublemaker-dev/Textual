@@ -268,6 +268,19 @@ ClassWithDesignatedInitializerInitMethod
 		return;
 	}
 
+	/* -t_parentView in TVCLogViewInternalWK2 is maintained
+	 as a weak reference. That means that a race condition for
+	 WebKit2 is possible. A script event is received, is invoked
+	 on this function, and while it is waiting to be invoked,
+	 another thread deconstructs the parent view. */
+	if (intWebView == nil) {
+		LogToConsoleFault("(intWebView == nil) condition faulted. \
+						  Possible race condition. \
+						  Invoking '%@'", NSStringFromSelector(selector));
+
+		return;
+	}
+
 	NSInteger promiseIndex = (-1);
 
 	NSArray *values = nil;
