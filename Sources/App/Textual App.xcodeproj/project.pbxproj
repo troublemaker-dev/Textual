@@ -2439,14 +2439,6 @@
 		4C9A1D9C1836E6D300C14835 /* SpammerParadise.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C9A1D921836E6A100C14835 /* SpammerParadise.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4C9A1D9D1836E6D500C14835 /* SystemProfiler.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C9A1D931836E6A100C14835 /* SystemProfiler.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4C9A1D9E1836E6D700C14835 /* ZNCAdditions.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C9A1D941836E6A100C14835 /* ZNCAdditions.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		4CA3866D24C42142005F66F4 /* AppCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA3866B24C42142005F66F4 /* AppCenter.framework */; };
-		4CA3866E24C42142005F66F4 /* AppCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA3866B24C42142005F66F4 /* AppCenter.framework */; };
-		4CA3866F24C42142005F66F4 /* AppCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA3866B24C42142005F66F4 /* AppCenter.framework */; };
-		4CA3867024C42142005F66F4 /* AppCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA3866B24C42142005F66F4 /* AppCenter.framework */; };
-		4CA3867124C42142005F66F4 /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA3866C24C42142005F66F4 /* AppCenterCrashes.framework */; };
-		4CA3867224C42142005F66F4 /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA3866C24C42142005F66F4 /* AppCenterCrashes.framework */; };
-		4CA3867324C42142005F66F4 /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA3866C24C42142005F66F4 /* AppCenterCrashes.framework */; };
-		4CA3867424C42142005F66F4 /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA3866C24C42142005F66F4 /* AppCenterCrashes.framework */; };
 		4CAB27512537EE44009B1F07 /* IRCChannelMemberList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB27502537EE43009B1F07 /* IRCChannelMemberList.m */; };
 		4CAB27522537EE44009B1F07 /* IRCChannelMemberList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB27502537EE43009B1F07 /* IRCChannelMemberList.m */; };
 		4CAB27532537EE44009B1F07 /* IRCChannelMemberList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB27502537EE43009B1F07 /* IRCChannelMemberList.m */; };
@@ -3405,8 +3397,6 @@
 		4C9A1D921836E6A100C14835 /* SpammerParadise.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SpammerParadise.bundle; path = "../../.tmp/SharedBuildProducts-Extensions/SpammerParadise.bundle"; sourceTree = SOURCE_ROOT; };
 		4C9A1D931836E6A100C14835 /* SystemProfiler.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SystemProfiler.bundle; path = "../../.tmp/SharedBuildProducts-Extensions/SystemProfiler.bundle"; sourceTree = SOURCE_ROOT; };
 		4C9A1D941836E6A100C14835 /* ZNCAdditions.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ZNCAdditions.bundle; path = "../../.tmp/SharedBuildProducts-Extensions/ZNCAdditions.bundle"; sourceTree = SOURCE_ROOT; };
-		4CA3866B24C42142005F66F4 /* AppCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenter.framework; path = "../../Frameworks/Static Libraries/Libraries/AppCenter.framework"; sourceTree = "<group>"; };
-		4CA3866C24C42142005F66F4 /* AppCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterCrashes.framework; path = "../../Frameworks/Static Libraries/Libraries/AppCenterCrashes.framework"; sourceTree = "<group>"; };
 		4CA8EC621B63C2970087BF72 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		4CAB27502537EE43009B1F07 /* IRCChannelMemberList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRCChannelMemberList.m; sourceTree = "<group>"; };
 		4CAB27562537EE66009B1F07 /* IRCChannelMemberListPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRCChannelMemberListPrivate.h; sourceTree = "<group>"; };
@@ -3434,9 +3424,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CA3867124C42142005F66F4 /* AppCenterCrashes.framework in Frameworks */,
 				4C06E45320EC53EE0055D09A /* AudioToolbox.framework in Frameworks */,
-				4CA3866D24C42142005F66F4 /* AppCenter.framework in Frameworks */,
 				4C06E45420EC53EE0055D09A /* Cocoa.framework in Frameworks */,
 				4C06E45520EC53EE0055D09A /* CoreServices.framework in Frameworks */,
 				4C06E45720EC53EE0055D09A /* IOKit.framework in Frameworks */,
@@ -3458,8 +3446,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C06E48820EC542C0055D09A /* AudioToolbox.framework in Frameworks */,
-				4CA3867324C42142005F66F4 /* AppCenterCrashes.framework in Frameworks */,
-				4CA3866F24C42142005F66F4 /* AppCenter.framework in Frameworks */,
 				4C06E48920EC542C0055D09A /* Cocoa.framework in Frameworks */,
 				4C06E48A20EC542C0055D09A /* CoreServices.framework in Frameworks */,
 				4C06E48C20EC542C0055D09A /* IOKit.framework in Frameworks */,
@@ -3481,8 +3467,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C06E4A320EC546A0055D09A /* AudioToolbox.framework in Frameworks */,
-				4CA3867424C42142005F66F4 /* AppCenterCrashes.framework in Frameworks */,
-				4CA3867024C42142005F66F4 /* AppCenter.framework in Frameworks */,
 				4C06E4A420EC546A0055D09A /* Cocoa.framework in Frameworks */,
 				4C06E4A520EC546A0055D09A /* CoreServices.framework in Frameworks */,
 				4C06E4A720EC546A0055D09A /* IOKit.framework in Frameworks */,
@@ -3504,8 +3488,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C06E42920EC53620055D09A /* AudioToolbox.framework in Frameworks */,
-				4CA3867224C42142005F66F4 /* AppCenterCrashes.framework in Frameworks */,
-				4CA3866E24C42142005F66F4 /* AppCenter.framework in Frameworks */,
 				4C06E43B20EC539E0055D09A /* GRMustache.framework in Frameworks */,
 				4C06E42A20EC53620055D09A /* Cocoa.framework in Frameworks */,
 				4C06E42B20EC53620055D09A /* CoreServices.framework in Frameworks */,
@@ -4951,8 +4933,6 @@
 		4C46CCCC158046BE00846B64 /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4CA3866B24C42142005F66F4 /* AppCenter.framework */,
-				4CA3866C24C42142005F66F4 /* AppCenterCrashes.framework */,
 				4CF76A371A91153A0088BF9A /* AutoHyperlinks.framework */,
 				4CF76A391A91153A0088BF9A /* CocoaExtensions.framework */,
 				4C8F2F5D1AAE6467007821CC /* EncryptionKit.framework */,
@@ -8355,22 +8335,19 @@
 		4C0BA6D51990798800857343 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = Debug;
 		};
 		4C0BA6D61990798800857343 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = Release;
 		};
 		4C0BA6D81990798800857343 /* App Store */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PROVISIONING_PROFILE_SPECIFIER = "App Store Dev. (com.codeux.apps.textual-mas)";
+				PROVISIONING_PROFILE_SPECIFIER = "Textual 7 App Store Dev.";
 			};
 			name = "App Store";
 		};
@@ -8378,14 +8355,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C3154D620EB685700448776 /* Textual App.xcconfig */;
 			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = "Release (Sandboxed)";
 		};
 		4C13442420C75C4900343AB7 /* Release (Sandboxed) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = "Release (Sandboxed)";
 		};
@@ -8419,7 +8394,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C3154DF20EB685700448776 /* Textual App.xcconfig */;
 			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = Debug;
 		};
@@ -8427,7 +8401,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C3154B720EB685700448776 /* Textual App.xcconfig */;
 			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = Release;
 		};
@@ -8485,7 +8458,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C3154C020EB685700448776 /* Textual App.xcconfig */;
 			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
 			};
 			name = "App Store";
 		};

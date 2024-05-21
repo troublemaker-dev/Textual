@@ -135,7 +135,7 @@ Textual.appearanceDidChange					= function(changedTo) {};
 
     THESE EVENTS ARE PUSHED WHEN THEY OCCUR. When a style is reloaded,
     these events are not sent again. Use sessionStorage or some other
-    means to saeve hem if they are important.
+    means to save them if they are important.
 */
 
 /*  A boolean entry named "Post Textual.handleEvent() Notifications" must be
