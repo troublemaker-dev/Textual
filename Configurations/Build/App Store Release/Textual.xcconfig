@@ -2,7 +2,7 @@
 #include "../Common/Textual.xcconfig"
 #include "Enabled Features.xcconfig"
 
-TEXTUAL_PRODUCT_NAME = Textual 7
+TEXTUAL_PRODUCT_NAME = Textual
 
 TEXTUAL_BUNDLE_IDENTIFIER = com.codeux.apps.textual-mas
 TEXTUAL_GROUP_CONTAINER_IDENTIFIER = 8482Q6EPL6.com.codeux.irc.textual

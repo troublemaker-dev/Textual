@@ -152,6 +152,10 @@ NSString * const TDCLicenseManagerTrialExpiredNotification = @"TDCLicenseManager
 	NSBundle *appStoreApplication = [NSBundle bundleWithPath:@"/Applications/App Store.app"];
 
 	if (appStoreApplication == nil) {
+		appStoreApplication = [NSBundle bundleWithPath:@"/System/Applications/App Store.app"];
+	}
+
+	if (appStoreApplication == nil) {
 		return;
 	}
 

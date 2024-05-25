@@ -52,11 +52,11 @@
 "m4q-ul" = "Successfully queued e-mail for %@";
 "fxj-s6" = "An e-mail which contains your license key will be delivered to %@ within the next few minutes.";
 
-"jbs-64" = "Thank you for your purchase of Textual 7!";
+"jbs-64" = "Thank you for your purchase of Textual!";
 "k39-7l" = "All limitations have been lifted.";
 
 "pg1-a9" = "Are you sure you want to deactivate this copy of Textual?";
-"z87-wb" = "All limitations that apply to the trial version of Textual 7 will immediately take effect once deactivated.";
+"z87-wb" = "All limitations that apply to the trial version of Textual will immediately take effect once deactivated.";
 
 "vft-qo" = "Select a copy of Textual downloaded from the Mac App Store to receive a license key.";
 
@@ -78,10 +78,10 @@
 "o66-ox" = "The license key “%@“ has exceeded its daily activation limit";
 "6aa-ow" = "This license key cannot be activated more than %ld times within a twenty-four (24) hour period. Please try again at a later time.";
 
-"wdl-3f" = "Your trial of Textual 7 will expire in %@";
-"kn7-ju" = "Your trial of Textual 7 has expired.";
+"wdl-3f" = "Your trial of Textual will expire in %@";
+"kn7-ju" = "Your trial of Textual has expired.";
 
-"ccj-ag" = "Please purchase Textual 7 to prevent disruption to your chat experience.";
+"ccj-ag" = "Please purchase Textual to prevent disruption to your chat experience.";
 "b8b-sg" = "More Info";
 
 "f49-rk" = "The following error was returned while processing request:";
