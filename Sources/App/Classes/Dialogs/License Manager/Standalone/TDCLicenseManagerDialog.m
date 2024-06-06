@@ -387,7 +387,7 @@ NSString * const TDCLicenseManagerTrialExpiredNotification = @"TDCLicenseManager
 	TLOLicenseManagerDownloader *licenseManagerDownloader = [TLOLicenseManagerDownloader new];
 
 	licenseManagerDownloader.actionBlock = ^BOOL(NSUInteger statusCode, id _Nullable statusContext) {
-		return TLOLicenseManagerWriteLicenseFileContents(statusContext);
+		return (TLOLicenseManagerWriteLicenseFileContents(statusContext) == TLOLicenseManagerActionResultSuccess);
 	};
 
 	licenseManagerDownloader.errorBlock = ^BOOL(NSUInteger statusCode, id _Nullable statusContext) {
@@ -712,7 +712,7 @@ NSString * const TDCLicenseManagerTrialExpiredNotification = @"TDCLicenseManager
 	TLOLicenseManagerDownloader *licenseManagerDownloader = [TLOLicenseManagerDownloader new];
 
 	licenseManagerDownloader.actionBlock = ^BOOL(NSUInteger statusCode, id _Nullable statusContext) {
-		return TLOLicenseManagerDeleteLicenseFile();
+		return (TLOLicenseManagerDeleteLicenseFile() == TLOLicenseManagerActionResultSuccess);
 	};
 
 	licenseManagerDownloader.completionBlock = ^(BOOL operationSuccessful, NSUInteger statusCode, id _Nullable statusContext) {
@@ -826,7 +826,7 @@ NSString * const TDCLicenseManagerTrialExpiredNotification = @"TDCLicenseManager
 
 - (NSString *)timeRemainingInTrialFormattedMessage
 {
-	NSTimeInterval timeLeft = TLOLicenseManagerTimeReaminingInTrial();
+	NSTimeInterval timeLeft = TLOLicenseManagerTimeRemainingTrial();
 
 	if (timeLeft >= 0) {
 		return TXTLS(@"TLOLicenseManager[kn7-ju]");
