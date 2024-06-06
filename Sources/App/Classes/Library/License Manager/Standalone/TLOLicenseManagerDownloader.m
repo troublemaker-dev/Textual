@@ -237,7 +237,7 @@ typedef void (^TLOLicenseManagerDownloaderConnectionCompletionBlock)(TLOLicenseM
 	/* Define defaults */
 	id propertyList = nil;
 
-	NSUInteger apiStatusCode = 0;
+	__block NSUInteger apiStatusCode = 0;
 
 	if (responseStatusCode == TLOLicenseManagerDownloaderRequestHTTPStatusTryAgainLater) {
 		apiStatusCode = TLOLicenseManagerDownloaderRequestStatusCodeTryAgainLater;
@@ -245,7 +245,7 @@ typedef void (^TLOLicenseManagerDownloaderConnectionCompletionBlock)(TLOLicenseM
 		apiStatusCode = TLOLicenseManagerDownloaderRequestStatusCodeGenericError;
 	}
 
-	id apiStatusContext = nil;
+	__block id apiStatusContext = nil;
 
 	/* Helper blocks */
 	void (^performCompletionBlock)(BOOL) = ^(BOOL success)
