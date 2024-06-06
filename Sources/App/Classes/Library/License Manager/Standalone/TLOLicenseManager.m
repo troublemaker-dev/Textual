@@ -152,12 +152,12 @@ BOOL TLOLicenseManagerTextualIsRegistered(void)
 
 BOOL TLOLicenseManagerIsTrialExpired(void)
 {
-	NSTimeInterval timeLeft = TLOLicenseManagerTimeReaminingInTrial();
+	NSTimeInterval timeLeft = TLOLicenseManagerTimeRemainingTrial();
 
 	return (timeLeft >= 0);
 }
 
-NSTimeInterval TLOLicenseManagerTimeReaminingInTrial(void)
+NSTimeInterval TLOLicenseManagerTimeRemainingTrial(void)
 {
 	/* Determine where trial information will be stored on disk. */
 	NSURL *trialInformationFilePath = TLOLicenseManagerTrialModeInformationFilePath();

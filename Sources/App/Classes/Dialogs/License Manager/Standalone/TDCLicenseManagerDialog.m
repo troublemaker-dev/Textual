@@ -218,7 +218,7 @@ NSString * const TDCLicenseManagerTrialExpiredNotification = @"TDCLicenseManager
 		return;
 	}
 
-	NSTimeInterval timeRemaining = (TLOLicenseManagerTimeReaminingInTrial() * (-1.0));
+	NSTimeInterval timeRemaining = (TLOLicenseManagerTimeRemainingTrial() * (-1.0));
 
 	if (timeRemaining == 0) {
 		return;
