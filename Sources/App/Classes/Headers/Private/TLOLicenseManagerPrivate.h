@@ -37,6 +37,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, TLOLicenseManagerActionResult) {
+	TLOLicenseManagerActionResultSuccess, // Validated successfully and saved
+	TLOLicenseManagerActionResultGenerationPrevious, // License is for previous version. Discount available?
+	TLOLicenseManagerActionResultGenerationNext, // License is for next version. Maybe they should update.
+	TLOLicenseManagerActionResultInvalidSignature, // License signature is invalid
+	TLOLicenseManagerActionResultCannotRead, // License cannot be read from disk
+	TLOLicenseManagerActionResultCannotWrite, // License cannot be written to disk
+	TLOLicenseManagerActionResultMalformedData, // License data is not correct or complete
+	TLOLicenseManagerActionResultOther // Other failure reason
+};
+
 #if TEXTUAL_BUILT_WITH_LICENSE_MANAGER == 1
 typedef NSString *TLOLicenseManagerLicenseDictionaryKey NS_EXTENSIBLE_STRING_ENUM;
 
@@ -55,10 +66,10 @@ TEXTUAL_EXTERN void TLOLicenseManagerSetup(void);
 TEXTUAL_EXTERN BOOL TLOLicenseManagerTextualIsRegistered(void);
 
 TEXTUAL_EXTERN BOOL TLOLicenseManagerIsTrialExpired(void);
-TEXTUAL_EXTERN NSTimeInterval TLOLicenseManagerTimeReaminingInTrial(void);
+TEXTUAL_EXTERN NSTimeInterval TLOLicenseManagerTimeRemainingTrial(void);
 
-TEXTUAL_EXTERN BOOL TLOLicenseManagerDeleteLicenseFile(void);
-TEXTUAL_EXTERN BOOL TLOLicenseManagerWriteLicenseFileContents(NSData * _Nullable newContents);
+TEXTUAL_EXTERN TLOLicenseManagerActionResult TLOLicenseManagerDeleteLicenseFile(void);
+TEXTUAL_EXTERN TLOLicenseManagerActionResult TLOLicenseManagerWriteLicenseFileContents(NSData * _Nullable newContents);
 
 TEXTUAL_EXTERN BOOL TLOLicenseManagerLicenseKeyIsValid(NSString *licenseKey);
 

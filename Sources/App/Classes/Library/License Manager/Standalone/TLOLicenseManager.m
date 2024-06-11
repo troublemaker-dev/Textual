@@ -92,8 +92,8 @@ BOOL TLOLicenseManagerLicenseFileExists(void);
 CFDataRef TLOLicenseManagerExportContentsOfKeyRef(SecKeyRef theKeyRef, BOOL isPublicKey);
 NSData * _Nullable TLOLicenseManagerPublicKeyContents(void);
 NSData * _Nullable TLOLicenseManagerLicenseFileContents(void);
-BOOL TLOLicenseManagerLoadLicenseDictionary(void);
-BOOL TLOLicenseManagerLoadLicenseDictionaryWithData(NSData *licenseContents);
+TLOLicenseManagerActionResult TLOLicenseManagerLoadLicenseDictionary(void);
+TLOLicenseManagerActionResult TLOLicenseManagerLoadLicenseDictionaryWithData(NSData *licenseContents);
 NSDictionary<NSString *, id> * _Nullable TLOLicenseManagerLicenseDictionary(void);
 NSDictionary<NSString *, id> * _Nullable TLOLicenseManagerLicenseDictionaryWithData(NSData *licenseContents);
 NSURL * _Nullable TLOLicenseManagerTrialModeInformationFilePath(void);
@@ -152,12 +152,12 @@ BOOL TLOLicenseManagerTextualIsRegistered(void)
 
 BOOL TLOLicenseManagerIsTrialExpired(void)
 {
-	NSTimeInterval timeLeft = TLOLicenseManagerTimeReaminingInTrial();
+	NSTimeInterval timeLeft = TLOLicenseManagerTimeRemainingTrial();
 
 	return (timeLeft >= 0);
 }
 
-NSTimeInterval TLOLicenseManagerTimeReaminingInTrial(void)
+NSTimeInterval TLOLicenseManagerTimeRemainingTrial(void)
 {
 	/* Determine where trial information will be stored on disk. */
 	NSURL *trialInformationFilePath = TLOLicenseManagerTrialModeInformationFilePath();
@@ -378,13 +378,13 @@ NSString *TLOLicenseManagerStringValueForObject(id object)
 	return @"";
 }
 
-BOOL TLOLicenseManagerVerifyLicenseSignatureWithDictionary(NSDictionary<NSString *, id> *licenseDictionary)
+TLOLicenseManagerActionResult TLOLicenseManagerVerifyLicenseSignatureWithDictionary(NSDictionary<NSString *, id> *licenseDictionary)
 {
 	NSCParameterAssert(licenseDictionary != nil);
 
 	/* Attempt to populate public key information. */
 	if (TLOLicenseManagerPublicKey == NULL) {
-		return NO;
+		return TLOLicenseManagerActionResultOther;
 	}
 
 	/* Retrieve license signature information */
@@ -393,22 +393,22 @@ BOOL TLOLicenseManagerVerifyLicenseSignatureWithDictionary(NSDictionary<NSString
 	if (licenseSignature == nil) {
 		LogToConsoleError("Missing license signature in license dictionary");
 
-		return NO;
+		return TLOLicenseManagerActionResultMalformedData;
 	}
 
 	/* Retrieve license generation */
 	NSUInteger licenseGeneration = [licenseDictionary unsignedIntegerForKey:TLOLicenseManagerLicenseDictionaryKeyGeneration];
 
-	if (licenseGeneration != TLOLicenseManagerCurrentLicenseGeneration) {
-		LogToConsoleError("Mismatched license generation in license dictionary");
-
-		return NO;
+	if (licenseGeneration < TLOLicenseManagerCurrentLicenseGeneration) {
+		return TLOLicenseManagerActionResultGenerationPrevious;
+	} else if (licenseGeneration > TLOLicenseManagerCurrentLicenseGeneration) {
+		return TLOLicenseManagerActionResultGenerationNext;
 	}
 
 	CFDataRef cfLicenseSignature = (__bridge CFDataRef)(licenseSignature);
 
 	/* Combine all contents of the dictionary, in sorted order, excluding
-	 the license dictinoary signature because thats used for comparison. */
+	 the license dictionary signature because thats used for comparison. */
 	NSMutableDictionary *licenseDictionaryToCombine = [licenseDictionary mutableCopy];
 
 	[licenseDictionaryToCombine removeObjectForKey:TLOLicenseManagerLicenseDictionaryKeySignature];
@@ -417,9 +417,9 @@ BOOL TLOLicenseManagerVerifyLicenseSignatureWithDictionary(NSDictionary<NSString
 	NSString *combinedLicenseDataString = TLOLicenseManagerStringValueForObject(licenseDictionaryToCombine);
 
 	if (combinedLicenseDataString.length <= 0) {
-		LogToConsoleError("Legnth of combinedLicenseDataString is below or equal to zero (0)");
+		LogToConsoleError("Length of combinedLicenseDataString is below or equal to zero (0)");
 
-		return NO;
+		return TLOLicenseManagerActionResultMalformedData;
 	}
 
 	NSData *combinedLicenseData = [combinedLicenseDataString dataUsingEncoding:NSUTF8StringEncoding];
@@ -432,7 +432,7 @@ BOOL TLOLicenseManagerVerifyLicenseSignatureWithDictionary(NSDictionary<NSString
 	if (verifyFunction == NULL) {
 		LogToConsoleError("Failed to create transform using SecVerifyTransformCreate()");
 
-		return NO;
+		return TLOLicenseManagerActionResultInvalidSignature;
 	}
 
 	/* Setup transform attributes */
@@ -444,7 +444,7 @@ BOOL TLOLicenseManagerVerifyLicenseSignatureWithDictionary(NSDictionary<NSString
 
 		LogToConsoleError("Failed to modify transform attributes using SecTransformSetAttribute()");
 
-		return NO;
+		return TLOLicenseManagerActionResultInvalidSignature;
 	}
 
 	/* Perform signature verification */
@@ -464,7 +464,11 @@ BOOL TLOLicenseManagerVerifyLicenseSignatureWithDictionary(NSDictionary<NSString
 		CFRelease(cfVerifyResult);
 	}
 
-	return verifyResult;
+	if (verifyResult == NO) {
+		return TLOLicenseManagerActionResultInvalidSignature;
+	}
+
+	return TLOLicenseManagerActionResultSuccess;
 }
 
 #pragma mark -
@@ -483,20 +487,23 @@ NSURL * _Nullable TLOLicenseManagerLicenseFilePath(void)
 	return baseURL;
 }
 
-BOOL TLOLicenseManagerDeleteLicenseFile(void)
+TLOLicenseManagerActionResult TLOLicenseManagerDeleteLicenseFile(void)
 {
 	return TLOLicenseManagerWriteLicenseFileContents(nil);
 }
 
-BOOL TLOLicenseManagerWriteLicenseFileContents(NSData * _Nullable newContents)
+TLOLicenseManagerActionResult TLOLicenseManagerWriteLicenseFileContents(NSData * _Nullable newContents)
 {
 	NSURL *licenseFilePath = TLOLicenseManagerLicenseFilePath();
 
 	if (newContents) {
-		if (TLOLicenseManagerLoadLicenseDictionaryWithData(newContents) == NO) {
+		TLOLicenseManagerActionResult loadResult =
+		TLOLicenseManagerLoadLicenseDictionaryWithData(newContents);
+
+		if (loadResult != TLOLicenseManagerActionResultSuccess) {
 			LogToConsoleError("Verify for new license file contents failed");
 
-			return NO;
+			return loadResult;
 		}
 
 		NSError *writeFileError = nil;
@@ -504,7 +511,7 @@ BOOL TLOLicenseManagerWriteLicenseFileContents(NSData * _Nullable newContents)
 		if ([newContents writeToURL:licenseFilePath options:NSDataWritingAtomic error:&writeFileError] == NO) {
 			LogToConsoleError("Failed to write user license file with error: %@", writeFileError.localizedDescription);
 
-			return NO;
+			return TLOLicenseManagerActionResultCannotWrite;
 		}
 	} else {
 		TLOLicenseManagerCachedLicenseDictionary = nil;
@@ -514,11 +521,11 @@ BOOL TLOLicenseManagerWriteLicenseFileContents(NSData * _Nullable newContents)
 		if ([RZFileManager() removeItemAtURL:licenseFilePath error:&deleteError] == NO) {
 			LogToConsoleError("Failed to delete user license file with error: %@", deleteError.localizedDescription);
 
-			return NO;
+			return TLOLicenseManagerActionResultCannotWrite;
 		}
 	}
 
-	return YES;
+	return TLOLicenseManagerActionResultSuccess;
 }
 
 BOOL TLOLicenseManagerLicenseFileExists(void)
@@ -563,7 +570,7 @@ NSData * _Nullable TLOLicenseManagerLicenseFileContents(void)
 	return licenseContents;
 }
 
-BOOL TLOLicenseManagerLoadLicenseDictionary(void)
+TLOLicenseManagerActionResult TLOLicenseManagerLoadLicenseDictionary(void)
 {
 	NSData *licenseContents = TLOLicenseManagerLicenseFileContents();
 
@@ -574,23 +581,24 @@ BOOL TLOLicenseManagerLoadLicenseDictionary(void)
 	return TLOLicenseManagerLoadLicenseDictionaryWithData(licenseContents);
 }
 
-BOOL TLOLicenseManagerLoadLicenseDictionaryWithData(NSData *licenseContents)
+TLOLicenseManagerActionResult TLOLicenseManagerLoadLicenseDictionaryWithData(NSData *licenseContents)
 {
 	NSCParameterAssert(licenseContents != nil);
 
 	NSDictionary *licenseDictionary = TLOLicenseManagerLicenseDictionaryWithData(licenseContents);
 
 	if (licenseDictionary == nil) {
-		return NO;
+		return TLOLicenseManagerActionResultCannotRead;
 	}
 
-	if (TLOLicenseManagerVerifyLicenseSignatureWithDictionary(licenseDictionary) == NO) {
-		return NO;
+	TLOLicenseManagerActionResult result =
+	TLOLicenseManagerVerifyLicenseSignatureWithDictionary(licenseDictionary);
+
+	if (result == TLOLicenseManagerActionResultSuccess) {
+		TLOLicenseManagerCachedLicenseDictionary = [licenseDictionary copy];
 	}
 
-	TLOLicenseManagerCachedLicenseDictionary = [licenseDictionary copy];
-
-	return YES;
+	return result;
 }
 
 NSDictionary<NSString *, id> *TLOLicenseManagerLicenseDictionaryWithData(NSData *licenseContents)
