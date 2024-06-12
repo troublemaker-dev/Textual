@@ -49,7 +49,7 @@ final class ConnectionSocketNWF: ConnectionSocket, ConnectionSocketProtocol
 
 	fileprivate var trustRef: SecTrust?
 
-	// MARK: - Grand Centeral Dispatch
+	// MARK: - Grand Central Dispatch
 
 	fileprivate func destroyDispatchQueues()
 	{
@@ -207,7 +207,7 @@ final class ConnectionSocketNWF: ConnectionSocket, ConnectionSocketProtocol
 		 When I first wrote this code, I wrote the logic in the
 		 form "newBuffer = (oldBuffer + data)" When writing it
 		 using this syntax, Foundation would throw at random
-		 an out of range exception similiar to the following:
+		 an out of range exception similar to the following:
 
 		 *** Terminating app due to uncaught exception 'NSRangeException', reason: '*** -[NSConcreteMutableData subdataWithRange:]: range {12945, 87} exceeds data length 7282'
 

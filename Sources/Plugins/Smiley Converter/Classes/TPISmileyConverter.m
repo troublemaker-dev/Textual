@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)buildConversionTable
 {
-	NSMutableDictionary<NSString *, NSString *> *converstionTable = [NSMutableDictionary dictionary];
+	NSMutableDictionary<NSString *, NSString *> *conversionTable = [NSMutableDictionary dictionary];
 
 	NSURL *tablePath = [TPIBundleFromClass() URLForResource:@"conversionTable" withExtension:@"plist"];
 
@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 	NSAssert((tableData != nil),
 		@"Failed to load conversion table");
 
-	[converstionTable addEntriesFromDictionary:tableData];
+	[conversionTable addEntriesFromDictionary:tableData];
 
 	/* Load larger table */
 	if ([RZUserDefaults() boolForKey:@"Smiley Converter Extension -> Enable Extra Emoticons"]) {
@@ -95,13 +95,13 @@ NS_ASSUME_NONNULL_BEGIN
 		NSAssert((tableData2 != nil),
 			@"Failed to load conversion table");
 
-		[converstionTable addEntriesFromDictionary:tableData2];
+		[conversionTable addEntriesFromDictionary:tableData2];
 	}
 
 	/* Save table contents */
-	self.conversionTable = converstionTable;
+	self.conversionTable = conversionTable;
 
-	self.sortedSmileyList = converstionTable.sortedDictionaryKeysReversed;
+	self.sortedSmileyList = conversionTable.sortedDictionaryKeysReversed;
 }
 
 - (void)destroyConversionTable
@@ -159,7 +159,7 @@ NS_ASSUME_NONNULL_BEGIN
 	return [finalString copy];
 }
 
-/* The replacement call uses a lot of work done by the actual Textual renderring engine. */
+/* The replacement call uses a lot of work done by the actual Textual rendering engine. */
 - (void)stringWithReplacedSmiley:(NSString *)smiley inString:(NSMutableString *)inString
 {
 	NSUInteger currentPosition = 0;

@@ -42,7 +42,7 @@ TEXTUAL_EXTERN NSString *TXTLS(NSString *key, ...);
 TEXTUAL_EXTERN NSString *TXLocalizedString(NSBundle *bundle, NSString *key, va_list arguments) TEXTUAL_SYMBOL_USED;
 TEXTUAL_EXTERN NSString *TXLocalizedStringAlternative(NSBundle *bundle, NSString *key, ...) TEXTUAL_SYMBOL_USED;
 
-/* This function exists so that static analzyer doesn't warn
+/* This function exists so that static analyzer doesn't warn
  certain static strings aren't localized. Some strings wont
  be localized because it is inappropriate (e.g. a number) */
 __attribute__((annotate("returns_localized_nsstring")))

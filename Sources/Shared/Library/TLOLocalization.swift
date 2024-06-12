@@ -102,7 +102,7 @@ fileprivate extension String
 		let tableName = String(string[string.startIndex ..< openBracket])
 		let tableKey = String(string[(string.index(openBracket, offsetBy: 1)) ..< closeBracket])
 
-		/* Backwards compatability for plugins */
+		/* Backwards compatibility for plugins */
 		//
 		// The format of key assignments changed in version 7.1.0.
 		// In prior versions, the table name was included in the assignment.

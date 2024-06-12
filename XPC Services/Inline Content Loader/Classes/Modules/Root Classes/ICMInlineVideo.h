@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)notifyUnsafeToLoadVideo;
 @end
 
-/* Subclass that can be used for videos that should be trated as such:
+/* Subclass that can be used for videos that should be treated as such:
  videoAutoplayEnabled = YES,
  videoControlsEnabled = NO,
  videoLoopEnabled = YES,

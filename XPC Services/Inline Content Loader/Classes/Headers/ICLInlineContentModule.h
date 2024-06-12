@@ -54,7 +54,7 @@ typedef void (^ICLInlineContentModuleActionBlock)(ICLInlineContentModule *module
 @interface ICLInlineContentModule : NSObject
 /**
  * Mutable copy of the payload this module has access to modify.
- * This paylaod includes the address and the unique identifier.
+ * This payload includes the address and the unique identifier.
  */
 @property (readonly, strong) ICLPayloadMutable *payload;
 
@@ -124,7 +124,7 @@ typedef void (^ICLInlineContentModuleActionBlock)(ICLInlineContentModule *module
 
 /**
  Whether the module's content is a regular file,
- such as an image or video. Not an iframe, embeded,
+ such as an image or video. Not an iframe, embedded,
  or dynamic content (such as JavaScript).
  */
 @property (readonly, class) BOOL contentIsFile;
