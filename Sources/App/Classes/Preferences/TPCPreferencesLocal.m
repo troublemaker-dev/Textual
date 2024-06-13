@@ -1367,7 +1367,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 #else
 	[dynamicDefaults setBool:NO forKey:@"System -> 3rd-party Services -> Built with Sparkle Framework"];
 #endif
-#endif
 
 #if TEXTUAL_BUILT_WITH_ADVANCED_ENCRYPTION == 1
 	[dynamicDefaults setBool:YES forKey:@"System -> Built with Off-the-Record Messaging Support"];
