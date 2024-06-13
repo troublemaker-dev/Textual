@@ -152,22 +152,22 @@ ClassWithDesignatedInitializerInitMethod
 
 - (void)updateTextFields
 {
-	self.kText.enabled = (self.kCheck.state == NSOnState);
+	self.kText.enabled = (self.kCheck.state == NSControlStateValueOn);
 
-	self.lText.enabled = (self.lCheck.state == NSOnState);
+	self.lText.enabled = (self.lCheck.state == NSControlStateValueOn);
 }
 
 - (void)onChangeCheck:(id)sender
 {
 	[self updateTextFields];
 
-	if (self.sCheck.state == NSOnState &&
-		self.pCheck.state == NSOnState)
+	if (self.sCheck.state == NSControlStateValueOn &&
+		self.pCheck.state == NSControlStateValueOn)
 	{
 		if (sender == self.sCheck) {
-			self.pCheck.state = NSOffState;
+			self.pCheck.state = NSControlStateValueOff;
 		} else {
-			self.sCheck.state = NSOffState;
+			self.sCheck.state = NSControlStateValueOff;
 		}
 	}
 }
@@ -213,29 +213,29 @@ ClassWithDesignatedInitializerInitMethod
 - (void)ok:(id)sender
 {
 	[self.modes changeMode:@"i"
-				 modeIsSet:(self.iCheck.state == NSOnState)];
+				 modeIsSet:(self.iCheck.state == NSControlStateValueOn)];
 
 	[self.modes changeMode:@"m"
-				 modeIsSet:(self.mCheck.state == NSOnState)];
+				 modeIsSet:(self.mCheck.state == NSControlStateValueOn)];
 
 	[self.modes changeMode:@"n"
-				 modeIsSet:(self.nCheck.state == NSOnState)];
+				 modeIsSet:(self.nCheck.state == NSControlStateValueOn)];
 
 	[self.modes changeMode:@"p"
-				 modeIsSet:(self.pCheck.state == NSOnState)];
+				 modeIsSet:(self.pCheck.state == NSControlStateValueOn)];
 
 	[self.modes changeMode:@"s"
-				 modeIsSet:(self.sCheck.state == NSOnState)];
+				 modeIsSet:(self.sCheck.state == NSControlStateValueOn)];
 
 	[self.modes changeMode:@"t"
-				 modeIsSet:(self.tCheck.state == NSOnState)];
+				 modeIsSet:(self.tCheck.state == NSControlStateValueOn)];
 
 	[self.modes changeMode:@"k"
-				 modeIsSet:(self.kCheck.state == NSOnState)
+				 modeIsSet:(self.kCheck.state == NSControlStateValueOn)
 			 modeParameter:self.kText.stringValue];
 
 	[self.modes changeMode:@"l"
-				 modeIsSet:(self.lCheck.state == NSOnState)
+				 modeIsSet:(self.lCheck.state == NSControlStateValueOn)
 			 modeParameter:self.lText.stringValue];
 
 	if ([self.delegate respondsToSelector:@selector(channelModifyModesSheet:onOk:)]) {

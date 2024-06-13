@@ -635,7 +635,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		return NO;
 	}
 
-	BOOL suppressed = (suppressionButton.state == NSOnState);
+	BOOL suppressed = (suppressionButton.state == NSControlStateValueOn);
 
 	if (suppressed) {
 		[RZUserDefaults() setBool:YES forKey:suppressionKey];

@@ -1019,7 +1019,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 		self.serverPortTextField.integerValue = IRCConnectionDefaultServerPort;
 
-		self.prefersSecuredConnectionCheck.state = NSOffState;
+		self.prefersSecuredConnectionCheck.state = NSControlStateValueOff;
 
 		self.serverPasswordTextField.stringValue = @"";
 
@@ -1069,26 +1069,26 @@ NS_ASSUME_NONNULL_BEGIN
 	/* General */
 	self.config.connectionName = self.connectionNameTextField.value;
 
-	self.config.autoConnect	= (self.autoConnectCheck.state == NSOnState);
-	self.config.autoReconnect = (self.autoReconnectCheck.state == NSOnState);
-	self.config.autoSleepModeDisconnect = (self.autoDisconnectOnSleepCheck.state == NSOnState);
+	self.config.autoConnect	= (self.autoConnectCheck.state == NSControlStateValueOn);
+	self.config.autoReconnect = (self.autoReconnectCheck.state == NSControlStateValueOn);
+	self.config.autoSleepModeDisconnect = (self.autoDisconnectOnSleepCheck.state == NSControlStateValueOn);
 
 #if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	self.config.excludedFromCloudSyncing = (self.excludedFromCloudSyncingCheck.state == NSOnState);
+	self.config.excludedFromCloudSyncing = (self.excludedFromCloudSyncingCheck.state == NSControlStateValueOn);
 #endif
 
 	/* ZNC Bouncer */
-	self.config.zncIgnoreConfiguredAutojoin = (self.zncIgnoreConfiguredAutojoinCheck.state == NSOnState);
-	self.config.zncIgnorePlaybackNotifications = (self.zncIgnorePlaybackNotificationsCheck.state == NSOnState);
-	self.config.zncOnlyPlaybackLatest = (self.zncOnlyPlaybackLatestCheck.state == NSOnState);
+	self.config.zncIgnoreConfiguredAutojoin = (self.zncIgnoreConfiguredAutojoinCheck.state == NSControlStateValueOn);
+	self.config.zncIgnorePlaybackNotifications = (self.zncIgnorePlaybackNotificationsCheck.state == NSControlStateValueOn);
+	self.config.zncOnlyPlaybackLatest = (self.zncOnlyPlaybackLatestCheck.state == NSControlStateValueOn);
 
 	/* Network Socket */
-	self.config.performPongTimer = (self.pongTimerCheck.state == NSOnState);
-	self.config.performDisconnectOnPongTimer = (self.performDisconnectOnPongTimerCheck.state == NSOnState);
+	self.config.performPongTimer = (self.pongTimerCheck.state == NSControlStateValueOn);
+	self.config.performDisconnectOnPongTimer = (self.performDisconnectOnPongTimerCheck.state == NSControlStateValueOn);
 
-	self.config.performDisconnectOnReachabilityChange = (self.disconnectOnReachabilityChangeCheck.state == NSOnState);
+	self.config.performDisconnectOnReachabilityChange = (self.disconnectOnReachabilityChangeCheck.state == NSControlStateValueOn);
 
-	self.config.validateServerCertificateChain = (self.validateServerCertificateChainCheck.state == NSOnState);
+	self.config.validateServerCertificateChain = (self.validateServerCertificateChainCheck.state == NSControlStateValueOn);
 
 	self.config.cipherSuites = self.preferredCipherSuitesButton.selectedTag;
 
@@ -1101,9 +1101,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 	self.config.nicknamePassword = self.nicknamePasswordTextField.trimmedStringValue;
 
-	self.config.autojoinWaitsForNickServ = (self.autojoinWaitsForNickServCheck.state == NSOnState);
+	self.config.autojoinWaitsForNickServ = (self.autojoinWaitsForNickServCheck.state == NSControlStateValueOn);
 
-	self.config.hideAutojoinDelayedWarnings = (self.hideAutojoinDelayedWarningsCheck.state != NSOnState);
+	self.config.hideAutojoinDelayedWarnings = (self.hideAutojoinDelayedWarningsCheck.state != NSControlStateValueOn);
 
 	/* Alternate nicknames */
 	NSString *alternateNicknamesString = self.alternateNicknamesTextField.value;
@@ -1140,7 +1140,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	self.config.loginCommands = [connectCommands arrayByRemovingEmptyValues:YES trimming:YES uniquing:NO];
 
-	self.config.setInvisibleModeOnConnect = (self.setInvisibleModeOnConnectCheck.state == NSOnState);
+	self.config.setInvisibleModeOnConnect = (self.setInvisibleModeOnConnectCheck.state == NSControlStateValueOn);
 
 	/* Flood Control */
 	self.config.floodControlMaximumMessages = self.floodControlMessageCountSlider.integerValue;
@@ -1191,7 +1191,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	serverMutable.serverPort = self.serverPortTextField.integerValue;
 
-	serverMutable.prefersSecuredConnection = (self.prefersSecuredConnectionCheck.state == NSOnState);
+	serverMutable.prefersSecuredConnection = (self.prefersSecuredConnectionCheck.state == NSControlStateValueOn);
 
 	self.previousPrimaryServer = serverMutable;
 }
@@ -1243,7 +1243,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	self.serverPortTextField.integerValue = network.serverPort;
 
-	self.prefersSecuredConnectionCheck.state = (network.prefersSecuredConnection == NSOnState);
+	self.prefersSecuredConnectionCheck.state = (network.prefersSecuredConnection == NSControlStateValueOn);
 
 	self.populatingPrimaryServer = NO;
 }
@@ -1287,7 +1287,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	NSInteger serverPort = self.serverPortTextField.integerValue;
 
-	BOOL useSSL = (self.prefersSecuredConnectionCheck.state == NSOnState);
+	BOOL useSSL = (self.prefersSecuredConnectionCheck.state == NSControlStateValueOn);
 
 	if (useSSL) {
 		if (serverPort == 6667) {
@@ -1305,7 +1305,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateIdentityPage
 {
 	self.hideAutojoinDelayedWarningsCheck.hidden =
-	(self.autojoinWaitsForNickServCheck.state == NSOffState);
+	(self.autojoinWaitsForNickServCheck.state == NSControlStateValueOff);
 }
 
 #pragma mark -
@@ -1361,7 +1361,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	[self updateIdentityPage];
 
-	if (self.autojoinWaitsForNickServCheck.state != NSOnState) {
+	if (self.autojoinWaitsForNickServCheck.state != NSControlStateValueOn) {
 		return;
 	}
 
@@ -1476,7 +1476,7 @@ NS_ASSUME_NONNULL_BEGIN
 		return;
 	}
 
-	if (self.excludedFromCloudSyncingCheck.state == NSOnState)
+	if (self.excludedFromCloudSyncingCheck.state == NSControlStateValueOn)
 	{
 		NSWindow *window = self.sheet;
 
@@ -1494,7 +1494,7 @@ NS_ASSUME_NONNULL_BEGIN
 						   }
 					   }];
 	}
-	else // state == NSOnState
+	else // state == NSControlStateValueOn
 	{
 		self.requestRemovalFromCloudOnClose = NO;
 	}
@@ -1649,8 +1649,8 @@ TEXTUAL_IGNORE_DEPRECATION_END
 
 	self.config.identityClientSideCertificate = (__bridge NSData *)certificateDataRef;
 
-	if (self.prefersSecuredConnectionCheck.state == NSOffState) {
-		self.prefersSecuredConnectionCheck.state = NSOnState;
+	if (self.prefersSecuredConnectionCheck.state == NSControlStateValueOff) {
+		self.prefersSecuredConnectionCheck.state = NSControlStateValueOn;
 
 		[self useSSLCheckChanged:nil];
 	}
@@ -1814,7 +1814,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 
 	serverMutable.serverPort = self.serverPortTextField.integerValue;
 
-	serverMutable.prefersSecuredConnection = (self.prefersSecuredConnectionCheck.state == NSOnState);
+	serverMutable.prefersSecuredConnection = (self.prefersSecuredConnectionCheck.state == NSControlStateValueOn);
 
 	serverMutable.serverPassword = self.serverPasswordTextField.trimmedStringValue;
 

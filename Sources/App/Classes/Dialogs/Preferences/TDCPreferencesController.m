@@ -1307,8 +1307,8 @@ NS_ASSUME_NONNULL_BEGIN
 #if TEXTUAL_BUILT_WITH_SPARKLE_ENABLED == 1
 	SPUUpdater *updater = masterController().updateController.updater;
 
-	updater.automaticallyChecksForUpdates = (self.checkForUpdatesAutomaticallyCheck.state == NSOnState);
-	updater.automaticallyDownloadsUpdates = (self.checkForUpdatesAutomaticallyDownload.state == NSOnState);
+	updater.automaticallyChecksForUpdates = (self.checkForUpdatesAutomaticallyCheck.state == NSControlStateValueOn);
+	updater.automaticallyDownloadsUpdates = (self.checkForUpdatesAutomaticallyDownload.state == NSControlStateValueOn);
 #endif
 }
 

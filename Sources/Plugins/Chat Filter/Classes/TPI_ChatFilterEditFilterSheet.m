@@ -263,13 +263,13 @@ typedef NS_ENUM(NSUInteger, TPI_ChatFilterEditFilterSheetSelection)
 
 	self.filter.filterForwardToDestination = self.filterForwardToDestinationTextField.stringValue;
 
-	self.filter.filterIgnoreOperators = (self.filterIgnoreOperatorsCheck.state == NSOnState);
+	self.filter.filterIgnoreOperators = (self.filterIgnoreOperatorsCheck.state == NSControlStateValueOn);
 
-	self.filter.filterIgnoreContent = (self.filterIgnoreContentCheck.state == NSOnState);
+	self.filter.filterIgnoreContent = (self.filterIgnoreContentCheck.state == NSControlStateValueOn);
 
-	self.filter.filterLogMatch = (self.filterLogMatchCheck.state == NSOnState);
+	self.filter.filterLogMatch = (self.filterLogMatchCheck.state == NSControlStateValueOn);
 
-	self.filter.filterLimitedToMyself = (self.filterLimitedToMyselfCheck.state == NSOnState);
+	self.filter.filterLimitedToMyself = (self.filterLimitedToMyselfCheck.state == NSControlStateValueOn);
 
 	self.filter.filterEvents = [self compileFilterEvents];
 
@@ -352,40 +352,40 @@ typedef NS_ENUM(NSUInteger, TPI_ChatFilterEditFilterSheetSelection)
 {
 	TPI_ChatFilterEventType filterEvents = 0;
 
-	if (self.filterEventPlainTextMessageCheck.state == NSOnState)
+	if (self.filterEventPlainTextMessageCheck.state == NSControlStateValueOn)
 		filterEvents |= TPI_ChatFilterEventTypePlainTextMessage;
 
-	if (self.filterEventActionMessageCheck.state == NSOnState)
+	if (self.filterEventActionMessageCheck.state == NSControlStateValueOn)
 		filterEvents |= TPI_ChatFilterEventTypeActionMessage;
 
-	if (self.filterEventNoticeMessageCheck.state == NSOnState)
+	if (self.filterEventNoticeMessageCheck.state == NSControlStateValueOn)
 		filterEvents |= TPI_ChatFilterEventTypeNoticeMessage;
 
-	if (self.filterEventUserJoinedChannelCheck.state == NSOnState)
+	if (self.filterEventUserJoinedChannelCheck.state == NSControlStateValueOn)
 		filterEvents |= TPI_ChatFilterEventTypeUserJoinedChannel;
 
-	if (self.filterEventUserLeftChannelCheck.state == NSOnState)
+	if (self.filterEventUserLeftChannelCheck.state == NSControlStateValueOn)
 		filterEvents |= TPI_ChatFilterEventTypeUserLeftChannel;
 
-	if (self.filterEventUserKickedFromChannelCheck.state == NSOnState)
+	if (self.filterEventUserKickedFromChannelCheck.state == NSControlStateValueOn)
 		filterEvents |= TPI_ChatFilterEventTypeUserKickedFromChannel;
 
-	if (self.filterEventUserDisconnectedCheck.state == NSOnState)
+	if (self.filterEventUserDisconnectedCheck.state == NSControlStateValueOn)
 		filterEvents |= TPI_ChatFilterEventTypeUserDisconnected;
 
-	if (self.filterEventUserChangedNicknameCheck.state == NSOnState)
+	if (self.filterEventUserChangedNicknameCheck.state == NSControlStateValueOn)
 		filterEvents |= TPI_ChatFilterEventTypeUserChangedNickname;
 
-	if (self.filterEventChannelTopicReceivedCheck.state == NSOnState)
+	if (self.filterEventChannelTopicReceivedCheck.state == NSControlStateValueOn)
 		filterEvents |= TPI_ChatFilterEventTypeChannelTopicReceived;
 
-	if (self.filterEventChannelTopicChangedCheck.state == NSOnState)
+	if (self.filterEventChannelTopicChangedCheck.state == NSControlStateValueOn)
 		filterEvents |= TPI_ChatFilterEventTypeChannelTopicChanged;
 
-	if (self.filterEventChannelModeReceivedCheck.state == NSOnState)
+	if (self.filterEventChannelModeReceivedCheck.state == NSControlStateValueOn)
 		filterEvents |= TPI_ChatFilterEventTypeChannelModeReceived;
 
-	if (self.filterEventChannelModeChangedCheck.state == NSOnState)
+	if (self.filterEventChannelModeChangedCheck.state == NSControlStateValueOn)
 		filterEvents |= TPI_ChatFilterEventTypeChannelModeChanged;
 
 	return filterEvents;
@@ -674,7 +674,7 @@ typedef NS_ENUM(NSUInteger, TPI_ChatFilterEditFilterSheetSelection)
 	}
 
 	if (disabled == NO) {
-		if (self.filterIgnoreContentCheck.state == NSOffState &&
+		if (self.filterIgnoreContentCheck.state == NSControlStateValueOff &&
 			self.filterForwardToDestinationTextField.stringValue.length == 0)
 		{
 			if (self.filterActionTokenField.stringValue.length == 0) {
@@ -758,9 +758,9 @@ typedef NS_ENUM(NSUInteger, TPI_ChatFilterEditFilterSheetSelection)
 
 - (void)updateEnabledStateOfComponentsConstrainedByFilterEvents
 {
-	BOOL enabled = (self.filterEventPlainTextMessageCheck.state == NSOnState ||
-					self.filterEventActionMessageCheck.state == NSOnState ||
-					self.filterEventNoticeMessageCheck.state == NSOnState);
+	BOOL enabled = (self.filterEventPlainTextMessageCheck.state == NSControlStateValueOn ||
+					self.filterEventActionMessageCheck.state == NSControlStateValueOn ||
+					self.filterEventNoticeMessageCheck.state == NSControlStateValueOn);
 
 	self.filterIgnoreOperatorsCheckEnabled = enabled;
 
@@ -770,7 +770,7 @@ typedef NS_ENUM(NSUInteger, TPI_ChatFilterEditFilterSheetSelection)
 
 - (void)updateEnabledStateOfSenderMatch
 {
-	BOOL enabled = (self.filterLimitedToMyselfCheck.state == NSOffState);
+	BOOL enabled = (self.filterLimitedToMyselfCheck.state == NSControlStateValueOff);
 
 	self.filterSenderMatchTextField.enabled = enabled;
 }

@@ -72,8 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)manageLicense:(id)sender activateLicenseKey:(nullable NSString *)licenseKey licenseKeyPassedByArgument:(BOOL)licenseKeyPassedByArgument;
 #endif
 
-- (void)toggleMuteOnNotificationsShortcut:(NSInteger)state;
-- (void)toggleMuteOnNotificationSoundsShortcut:(NSInteger)state;
+- (void)toggleMuteOnNotificationsShortcutOn:(BOOL)toggleOn;
+- (void)toggleMuteOnNotificationSoundsShortcutOn:(BOOL)toggleOn;
 
 - (void)navigateToTreeItemAtURL:(NSURL *)url;
 - (void)navigateToTreeItemWithIdentifier:(NSString *)identifier;

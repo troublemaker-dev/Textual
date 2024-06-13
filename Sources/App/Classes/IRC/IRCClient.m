@@ -4095,7 +4095,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 			} else {
 				[self printDebugInformation:TXTLS(@"IRC[u48-aa]")];
 
-				[menuController() toggleMuteOnNotificationSoundsShortcut:NSOnState];
+				[menuController() toggleMuteOnNotificationSoundsShortcutOn:YES];
 			}
 
 			break;
@@ -4761,7 +4761,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 			} else {
 				[self printDebugInformation:TXTLS(@"IRC[190-f2]")];
 
-				[menuController() toggleMuteOnNotificationSoundsShortcut:NSOffState];
+				[menuController() toggleMuteOnNotificationSoundsShortcutOn:NO];
 			}
 
 			break;

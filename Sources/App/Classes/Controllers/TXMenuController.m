@@ -137,8 +137,8 @@ NS_ASSUME_NONNULL_BEGIN
 	self.currentSearchPhrase = @"";
 
 	if ([TPCPreferences soundIsMuted]) {
-		self.muteNotificationsSoundsDockMenuItem.state = NSOnState;
-		self.muteNotificationsSoundsFileMenuItem.state = NSOnState;
+		self.muteNotificationsSoundsDockMenuItem.state = NSControlStateValueOn;
+		self.muteNotificationsSoundsFileMenuItem.state = NSControlStateValueOn;
 	}
 
 	[self.channelViewGeneralMenu itemWithTag:MTWKGeneralChannelMenu].submenu = [self.mainMenuChannelMenu copy];
@@ -1018,9 +1018,9 @@ NS_ASSUME_NONNULL_BEGIN
 		case MTMMHelpAdvancedMenuEnableDeveloperMode: // Developer Mode
 		{
 			if ([TPCPreferences developerModeEnabled]) {
-				menuItem.state = NSOnState;
+				menuItem.state = NSControlStateValueOn;
 			} else {
-				menuItem.state = NSOffState;
+				menuItem.state = NSControlStateValueOff;
 			}
 
 			return YES;
@@ -2840,24 +2840,22 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Notifications
 
-- (void)toggleMuteOnNotificationsShortcut:(NSInteger)state
+- (void)toggleMuteOnNotificationsShortcutOn:(BOOL)toggleOn
 {
-	NSParameterAssert(state == NSOffState ||
-					  state == NSOnState);
+	sharedGrowlController().areNotificationsDisabled = toggleOn;
 
-	sharedGrowlController().areNotificationsDisabled = (state == NSOnState);
+	NSControlStateValue state = ((toggleOn) ? NSControlStateValueOn : NSControlStateValueOff);
 
 	self.muteNotificationsFileMenuItem.state = state;
 
 	self.muteNotificationsDockMenuItem.state = state;
 }
 
-- (void)toggleMuteOnNotificationSoundsShortcut:(NSInteger)state
+- (void)toggleMuteOnNotificationSoundsShortcutOn:(BOOL)toggleOn
 {
-	NSParameterAssert(state == NSOffState ||
-					  state == NSOnState);
+	[TPCPreferences setSoundIsMuted:toggleOn];
 
-	[TPCPreferences setSoundIsMuted:(state == NSOnState)];
+	NSControlStateValue state = ((toggleOn) ? NSControlStateValueOn : NSControlStateValueOff);
 
 	self.muteNotificationsSoundsDockMenuItem.state = state;
 
@@ -2867,18 +2865,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)toggleMuteOnNotificationSounds:(id)sender
 {
 	if ([TPCPreferences soundIsMuted]) {
-		[self toggleMuteOnNotificationSoundsShortcut:NSOffState];
+		[self toggleMuteOnNotificationSoundsShortcutOn:NO];
 	} else {
-		[self toggleMuteOnNotificationSoundsShortcut:NSOnState];
+		[self toggleMuteOnNotificationSoundsShortcutOn:YES];
 	}
 }
 
 - (void)toggleMuteOnNotifications:(id)sender
 {
 	if (sharedGrowlController().areNotificationsDisabled) {
-		[self toggleMuteOnNotificationsShortcut:NSOffState];
+		[self toggleMuteOnNotificationsShortcutOn:NO];
 	} else {
-		[self toggleMuteOnNotificationsShortcut:NSOnState];
+		[self toggleMuteOnNotificationsShortcutOn:YES];
 	}
 }
 

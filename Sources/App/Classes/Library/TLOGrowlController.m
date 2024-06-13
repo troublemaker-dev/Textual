@@ -542,8 +542,8 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 	if (channel) {
 		NSUInteger channelValue = [channel.config speakEvent:event];
 
-		if (channelValue != NSMixedState) {
-			return (channelValue == NSOnState);
+		if (channelValue != NSControlStateValueMixed) {
+			return (channelValue == NSControlStateValueOn);
 		}
 	}
 
@@ -555,8 +555,8 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 	if (channel) {
 		NSUInteger channelValue = [channel.config growlEnabledForEvent:event];
 
-		if (channelValue != NSMixedState) {
-			return (channelValue == NSOnState);
+		if (channelValue != NSControlStateValueMixed) {
+			return (channelValue == NSControlStateValueOn);
 		}
 	}
 
@@ -568,8 +568,8 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 	if (channel) {
 		NSUInteger channelValue = [channel.config disabledWhileAwayForEvent:event];
 
-		if (channelValue != NSMixedState) {
-			return (channelValue == NSOnState);
+		if (channelValue != NSControlStateValueMixed) {
+			return (channelValue == NSControlStateValueOn);
 		}
 	}
 
@@ -581,8 +581,8 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 	if (channel) {
 		NSUInteger channelValue = [channel.config bounceDockIconForEvent:event];
 
-		if (channelValue != NSMixedState) {
-			return (channelValue == NSOnState);
+		if (channelValue != NSControlStateValueMixed) {
+			return (channelValue == NSControlStateValueOn);
 		}
 	}
 
@@ -594,8 +594,8 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 	if (channel) {
 		NSUInteger channelValue = [channel.config bounceDockIconRepeatedlyForEvent:event];
 
-		if (channelValue != NSMixedState) {
-			return (channelValue == NSOnState);
+		if (channelValue != NSControlStateValueMixed) {
+			return (channelValue == NSControlStateValueOn);
 		}
 	}
 

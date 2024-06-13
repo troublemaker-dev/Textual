@@ -437,7 +437,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	}
 }
 
-- (NSUInteger)_stateForEventKey:(NSString *)eventKey
+- (NSControlStateValue)_stateForEventKey:(NSString *)eventKey
 {
 	NSParameterAssert(eventKey != nil);
 
@@ -445,18 +445,18 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		NSNumber *value = self->_notificationsMutable[eventKey];
 
 		if (value == nil) {
-			return NSMixedState;
+			return NSControlStateValueMixed;
 		}
 
 		if (value.boolValue == NO) {
-			return NSOffState;
+			return NSControlStateValueOff;
 		}
 
-		return NSOnState;
+		return NSControlStateValueOn;
 	}
 }
 
-- (NSUInteger)growlEnabledForEvent:(TXNotificationType)event
+- (NSControlStateValue)growlEnabledForEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [TPCPreferences keyForEvent:event category:@"Enabled"];
 
@@ -467,7 +467,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return [self _stateForEventKey:eventKey];
 }
 
-- (NSUInteger)disabledWhileAwayForEvent:(TXNotificationType)event
+- (NSControlStateValue)disabledWhileAwayForEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [TPCPreferences keyForEvent:event category:@"Disable While Away"];
 
@@ -478,7 +478,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return [self _stateForEventKey:eventKey];
 }
 
-- (NSUInteger)bounceDockIconForEvent:(TXNotificationType)event
+- (NSControlStateValue)bounceDockIconForEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [TPCPreferences keyForEvent:event category:@"Bounce Dock Icon"];
 
@@ -489,7 +489,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return [self _stateForEventKey:eventKey];
 }
 
-- (NSUInteger)bounceDockIconRepeatedlyForEvent:(TXNotificationType)event
+- (NSControlStateValue)bounceDockIconRepeatedlyForEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [TPCPreferences keyForEvent:event category:@"Bounce Dock Icon Repeatedly"];
 
@@ -500,7 +500,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return [self _stateForEventKey:eventKey];
 }
 
-- (NSUInteger)speakEvent:(TXNotificationType)event
+- (NSControlStateValue)speakEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [TPCPreferences keyForEvent:event category:@"Speak"];
 
@@ -662,25 +662,25 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	}
 }
 
-- (void)_setState:(NSUInteger)state forEventKey:(NSString *)eventKey
+- (void)_setState:(NSControlStateValue)state forEventKey:(NSString *)eventKey
 {
 	NSParameterAssert(eventKey != nil);
 
 	@synchronized (self->_notificationsMutable) {
 		switch (state) {
-			case NSOnState:
+			case NSControlStateValueOn:
 			{
 				self->_notificationsMutable[eventKey] = @(YES);
 
 				break;
 			}
-			case NSOffState:
+			case NSControlStateValueOff:
 			{
 				self->_notificationsMutable[eventKey] = @(NO);
 
 				break;
 			}
-			case NSMixedState:
+			case NSControlStateValueMixed:
 			{
 				[self->_notificationsMutable removeObjectForKey:eventKey];
 
@@ -694,7 +694,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	}
 }
 
-- (void)setGrowlEnabled:(NSUInteger)value forEvent:(TXNotificationType)event
+- (void)setGrowlEnabled:(NSControlStateValue)value forEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [TPCPreferences keyForEvent:event category:@"Enabled"];
 
@@ -705,7 +705,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	[self _setState:value forEventKey:eventKey];
 }
 
-- (void)setDisabledWhileAway:(NSUInteger)value forEvent:(TXNotificationType)event
+- (void)setDisabledWhileAway:(NSControlStateValue)value forEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [TPCPreferences keyForEvent:event category:@"Disable While Away"];
 
@@ -716,7 +716,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	[self _setState:value forEventKey:eventKey];
 }
 
-- (void)setBounceDockIcon:(NSUInteger)value forEvent:(TXNotificationType)event
+- (void)setBounceDockIcon:(NSControlStateValue)value forEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [TPCPreferences keyForEvent:event category:@"Bounce Dock Icon"];
 
@@ -727,7 +727,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	[self _setState:value forEventKey:eventKey];
 }
 
-- (void)setBounceDockIconRepeatedly:(NSUInteger)value forEvent:(TXNotificationType)event
+- (void)setBounceDockIconRepeatedly:(NSControlStateValue)value forEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [TPCPreferences keyForEvent:event category:@"Bounce Dock Icon Repeatedly"];
 
@@ -738,7 +738,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	[self _setState:value forEventKey:eventKey];
 }
 
-- (void)setEventIsSpoken:(NSUInteger)value forEvent:(TXNotificationType)event
+- (void)setEventIsSpoken:(NSControlStateValue)value forEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [TPCPreferences keyForEvent:event category:@"Speak"];
 

@@ -133,8 +133,8 @@ ClassWithDesignatedInitializerInitMethod
 - (void)actionCancel:(id)sender
 {
 	/* Only one of two sheets can ever be visible so just check if one is on. */
-	if (self.sheetEligibleDiscountSuppressionButton.state == NSOnState ||
-		self.sheetEligibleFreeSuppressionButton.state == NSOnState)
+	if (self.sheetEligibleDiscountSuppressionButton.state == NSControlStateValueOn ||
+		self.sheetEligibleFreeSuppressionButton.state == NSControlStateValueOn)
 	{
 		[self.delegate upgradeActivateSheetSuppressed:self];
 	}

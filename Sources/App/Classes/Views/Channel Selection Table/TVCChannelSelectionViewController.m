@@ -134,8 +134,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 	BOOL isGroupItem = [outlineView isGroupItem:item];
 
-	BOOL isEnablingItem = (clickedCell.selectedCheckbox.state == NSOnState ||
-						   clickedCell.selectedCheckbox.state == NSMixedState);
+	BOOL isEnablingItem = (clickedCell.selectedCheckbox.state == NSControlStateValueOn ||
+						   clickedCell.selectedCheckbox.state == NSControlStateValueMixed);
 
 	/* Add or remove item from appropriate filter */
 	if (isGroupItem) {
@@ -194,15 +194,15 @@ NS_ASSUME_NONNULL_BEGIN
 		BOOL childItemInFilter = [self.cachedSelectedChannelIds containsObject:childItem.uniqueIdentifier];
 
 		if (parentItemInFilter) {
-			childItemView.selectedCheckbox.state = NSOnState;
+			childItemView.selectedCheckbox.state = NSControlStateValueOn;
 		} else if (childItemInFilter) {
 			if (atleastOneChildChecked == NO) {
 				atleastOneChildChecked = YES;
 			}
 
-			childItemView.selectedCheckbox.state = NSOnState;
+			childItemView.selectedCheckbox.state = NSControlStateValueOn;
 		} else {
-			childItemView.selectedCheckbox.state = NSOffState;
+			childItemView.selectedCheckbox.state = NSControlStateValueOff;
 		}
 
 		childItemView.selectedCheckbox.enabled = (parentItemInFilter == NO);
@@ -210,11 +210,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 	/* Process parent item */
 	if (parentItemInFilter) {
-		parentItemView.selectedCheckbox.state = NSOnState;
+		parentItemView.selectedCheckbox.state = NSControlStateValueOn;
 	} else if (atleastOneChildChecked) {
-		parentItemView.selectedCheckbox.state = NSMixedState;
+		parentItemView.selectedCheckbox.state = NSControlStateValueMixed;
 	} else {
-		parentItemView.selectedCheckbox.state = NSOffState;
+		parentItemView.selectedCheckbox.state = NSControlStateValueOff;
 	}
 }
 

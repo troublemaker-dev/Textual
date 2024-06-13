@@ -79,14 +79,15 @@ typedef NS_ENUM(NSUInteger, IRCChannelType) {
 
 // These methods return an integer because there are more than
 // two possible values. When there is no channel defined value
-// for the given event, NSMixedState is returned which indicates
-// that the global value should be used. NSOnState and NSOffState
+// for the given event, NSControlStateValueMixed is returned 
+// which indicates that the global value should be used.
+// NSControlStateValueOn and NSControlStateValueOff
 // are returned when a channel defined value is available.
-- (NSUInteger)growlEnabledForEvent:(TXNotificationType)event;
-- (NSUInteger)disabledWhileAwayForEvent:(TXNotificationType)event;
-- (NSUInteger)bounceDockIconForEvent:(TXNotificationType)event;
-- (NSUInteger)bounceDockIconRepeatedlyForEvent:(TXNotificationType)event;
-- (NSUInteger)speakEvent:(TXNotificationType)event;
+- (NSControlStateValue)growlEnabledForEvent:(TXNotificationType)event;
+- (NSControlStateValue)disabledWhileAwayForEvent:(TXNotificationType)event;
+- (NSControlStateValue)bounceDockIconForEvent:(TXNotificationType)event;
+- (NSControlStateValue)bounceDockIconRepeatedlyForEvent:(TXNotificationType)event;
+- (NSControlStateValue)speakEvent:(TXNotificationType)event;
 
 /* Deprecated */
 /* This property will always return NO */
@@ -113,14 +114,14 @@ typedef NS_ENUM(NSUInteger, IRCChannelType) {
 
 - (void)setSound:(nullable NSString *)value forEvent:(TXNotificationType)event;
 
-// NSOnState = YES
-// NSOffState = NO
-// NSMixedState = Reset, use default
-- (void)setGrowlEnabled:(NSUInteger)value forEvent:(TXNotificationType)event;
-- (void)setDisabledWhileAway:(NSUInteger)value forEvent:(TXNotificationType)event;
-- (void)setBounceDockIcon:(NSUInteger)value forEvent:(TXNotificationType)event;
-- (void)setBounceDockIconRepeatedly:(NSUInteger)value forEvent:(TXNotificationType)event;
-- (void)setEventIsSpoken:(NSUInteger)value forEvent:(TXNotificationType)event;
+// NSControlStateValueOn = YES
+// NSControlStateValueOff = NO
+// NSControlStateValueMixed = Reset, use default
+- (void)setGrowlEnabled:(NSControlStateValue)value forEvent:(TXNotificationType)event;
+- (void)setDisabledWhileAway:(NSControlStateValue)value forEvent:(TXNotificationType)event;
+- (void)setBounceDockIcon:(NSControlStateValue)value forEvent:(TXNotificationType)event;
+- (void)setBounceDockIconRepeatedly:(NSControlStateValue)value forEvent:(TXNotificationType)event;
+- (void)setEventIsSpoken:(NSControlStateValue)value forEvent:(TXNotificationType)event;
 
 /* Deprecated */
 /* Trying to set one of the following properties will throw an exception. */
