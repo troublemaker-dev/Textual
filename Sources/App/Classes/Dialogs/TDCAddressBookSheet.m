@@ -194,21 +194,21 @@ ClassWithDesignatedInitializerInitMethod
 	{
 		self.config.hostmask = self.ignoreEntryHostmaskTextField.value;
 
-		self.config.ignoreClientToClientProtocol = (self.ignoreClientToClientProtocolCheck.state == NSOnState);
-		self.config.ignoreFileTransferRequests = (self.ignoreFileTransferRequestsCheck.state == NSOnState);
-		self.config.ignoreGeneralEventMessages = (self.ignoreGeneralEventMessagesCheck.state == NSOnState);
-		self.config.ignoreInlineMedia = (self.ignoreInlineMediaCheck.state == NSOnState);
-		self.config.ignoreNoticeMessages = (self.ignoreNoticeMessagesCheck.state == NSOnState);
-		self.config.ignorePrivateMessageHighlights = (self.ignorePrivateMessageHighlightsCheck.state == NSOnState);
-		self.config.ignorePrivateMessages = (self.ignorePrivateMessagesCheck.state == NSOnState);
-		self.config.ignorePublicMessageHighlights = (self.ignorePublicMessageHighlightsCheck.state == NSOnState);
-		self.config.ignorePublicMessages = (self.ignorePublicMessagesCheck.state == NSOnState);
+		self.config.ignoreClientToClientProtocol = (self.ignoreClientToClientProtocolCheck.state == NSControlStateValueOn);
+		self.config.ignoreFileTransferRequests = (self.ignoreFileTransferRequestsCheck.state == NSControlStateValueOn);
+		self.config.ignoreGeneralEventMessages = (self.ignoreGeneralEventMessagesCheck.state == NSControlStateValueOn);
+		self.config.ignoreInlineMedia = (self.ignoreInlineMediaCheck.state == NSControlStateValueOn);
+		self.config.ignoreNoticeMessages = (self.ignoreNoticeMessagesCheck.state == NSControlStateValueOn);
+		self.config.ignorePrivateMessageHighlights = (self.ignorePrivateMessageHighlightsCheck.state == NSControlStateValueOn);
+		self.config.ignorePrivateMessages = (self.ignorePrivateMessagesCheck.state == NSControlStateValueOn);
+		self.config.ignorePublicMessageHighlights = (self.ignorePublicMessageHighlightsCheck.state == NSControlStateValueOn);
+		self.config.ignorePublicMessages = (self.ignorePublicMessagesCheck.state == NSControlStateValueOn);
 	}
 	else if (self.entryType == IRCAddressBookEntryTypeUserTracking)
 	{
 		self.config.hostmask = self.userTrackingEntryNicknameTextField.value;
 
-		self.config.trackUserActivity = (self.trackUserActivityCheck.state == NSOnState);
+		self.config.trackUserActivity = (self.trackUserActivityCheck.state == NSControlStateValueOn);
 	}
 
 	if ([self.delegate respondsToSelector:@selector(addressBookSheet:onOk:)]) {

@@ -67,11 +67,6 @@
 #import "TXMasterControllerPrivate.h"
 #import "IRCClient.h"
 
-#if TEXTUAL_BUILT_WITH_APPCENTER_SDK_ENABLED == 1
-#import <AppCenter/AppCenter.h>
-#import <AppCenterCrashes/AppCenterCrashes.h>
-#endif
-
 #if TEXTUAL_BUILT_WITH_SPARKLE_ENABLED == 1
 #import <Sparkle/Sparkle.h>
 #endif
@@ -234,49 +229,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Services
 
-- (void)prepareThirdPartyServiceAppCenterFramework
-{
-#if TEXTUAL_BUILT_WITH_APPCENTER_SDK_ENABLED == 1
-	NSDictionary *acData = [TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStoreAppCenterFramework"];
-
-	NSString *applicationIdentifier = acData[@"Application Identifier"];
-
-	[MSACAppCenter start:applicationIdentifier withServices:@[[MSACCrashes class]]];
-
-	[MSACCrashes setUserConfirmationHandler:^BOOL(NSArray<MSACErrorReport *> *errorReports) {
-		TDCAlertResponse response =
-		[TDCAlert modalAlertWithMessage:TXTLS(@"Prompts[oe3-i3]")
-								  title:TXTLS(@"Prompts[h49-h5]")
-						  defaultButton:TXTLS(@"Prompts[arr-yb]")
-						alternateButton:TXTLS(@"Prompts[98a-kj]")
-							otherButton:TXTLS(@"Prompts[6j7-hw]")];
-
-		switch (response) {
-			case TDCAlertResponseDefault:
-			{
-				[MSACCrashes notifyWithUserConfirmation:MSACUserConfirmationSend];
-
-				break;
-			}
-			case TDCAlertResponseAlternate:
-			{
-				[MSACCrashes notifyWithUserConfirmation:MSACUserConfirmationDontSend];
-
-				break;
-			}
-			case TDCAlertResponseOther:
-			{
-				[MSACCrashes notifyWithUserConfirmation:MSACUserConfirmationAlways];
-
-				break;
-			}
-		} // switch
-
-		return YES;
-	}];
-#endif
-}
-
 - (void)prepareThirdPartyServiceSparkleFramework
 {
 #if TEXTUAL_BUILT_WITH_SPARKLE_ENABLED == 1
@@ -307,8 +259,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)prepareThirdPartyServices
 {
-	[self prepareThirdPartyServiceAppCenterFramework];
-
 	[self prepareThirdPartyServiceSparkleFramework];
 }
 

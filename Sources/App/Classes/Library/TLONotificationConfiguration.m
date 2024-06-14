@@ -80,7 +80,7 @@ ClassWithDesignatedInitializerInitMethod
 
 - (NSString *)displayName
 {
-	return [sharedGrowlController() titleForEvent:self.eventType];
+	return [sharedNotificationController() titleForEvent:self.eventType];
 }
 
 - (nullable NSString *)alertSound
@@ -99,7 +99,7 @@ ClassWithDesignatedInitializerInitMethod
 {
 	[self doesNotRecognizeSelector:_cmd];
 
-	return NSOffState;
+	return NSControlStateValueOff;
 }
 
 - (void)setPushNotification:(NSUInteger)pushNotification
@@ -111,7 +111,7 @@ ClassWithDesignatedInitializerInitMethod
 {
 	[self doesNotRecognizeSelector:_cmd];
 
-	return NSOffState;
+	return NSControlStateValueOff;
 }
 
 - (void)setSpeakEvent:(NSUInteger)speakEvent
@@ -123,7 +123,7 @@ ClassWithDesignatedInitializerInitMethod
 {
 	[self doesNotRecognizeSelector:_cmd];
 
-	return NSOffState;
+	return NSControlStateValueOff;
 }
 
 - (void)setDisabledWhileAway:(NSUInteger)disabledWhileAway
@@ -135,7 +135,7 @@ ClassWithDesignatedInitializerInitMethod
 {
 	[self doesNotRecognizeSelector:_cmd];
 
-	return NSOffState;
+	return NSControlStateValueOff;
 }
 
 - (void)setBounceDockIcon:(NSUInteger)bounceDockIcon
@@ -147,7 +147,7 @@ ClassWithDesignatedInitializerInitMethod
 {
 	[self doesNotRecognizeSelector:_cmd];
 
-	return NSOffState;
+	return NSControlStateValueOff;
 }
 
 - (void)setBounceDockIconRepeatedly:(NSUInteger)bounceDockIconRepeatedly

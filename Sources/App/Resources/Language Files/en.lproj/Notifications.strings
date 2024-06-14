@@ -92,7 +92,7 @@
 "20x-32" = "User Disconnected: %@";
 
 /* Notification bubble descriptions.
- These are only notifications that require locali	zation. Many notifications
+ These are only notifications that require localization. Many notifications
  just send the raw message received so they are not localized here */
 "88k-kl" = "Connection successful";
 "bif-2c" = "Disconnection successful";

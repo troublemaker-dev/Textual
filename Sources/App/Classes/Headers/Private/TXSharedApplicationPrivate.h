@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define windowController()				[TXSharedApplication sharedWindowController]
 
-#define sharedGrowlController()			[TXSharedApplication sharedGrowlController]
+#define sharedNotificationController()			[TXSharedApplication sharedNotificationController]
 
 #define sharedPluginManager()			[TXSharedApplication sharedPluginManager]
 #define sharedCloudManager()			[TXSharedApplication sharedCloudSyncManager]
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class OELReachability;
 @class THOPluginManager;
 @class TDCFileTransferDialog;
-@class TLOGrowlController, TLOSpeechSynthesizer;
+@class TLONotificationController, TLOSpeechSynthesizer;
 @class TVCLogControllerPrintingOperationQueue;
 @class TXWindowController;
 
@@ -74,8 +74,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (TLOEncryptionManager *)sharedEncryptionManager;
 #endif
 
-+ (TLOGrowlController *)sharedGrowlController;
 + (OELReachability *)sharedNetworkReachabilityNotifier;
++ (TLONotificationController *)sharedNotificationController;
 + (THOPluginManager *)sharedPluginManager;
 + (TVCLogControllerPrintingOperationQueue *)sharedPrintingQueue;
 + (TLOSpeechSynthesizer *)sharedSpeechSynthesizer;

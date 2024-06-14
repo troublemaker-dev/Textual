@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23077.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17503.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23077.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,7 +11,6 @@
                 <outlet property="alertBounceDockIconButton" destination="Hkh-C6-mUr" id="dU3-lg-xtZ"/>
                 <outlet property="alertBounceDockIconRepeatedlyButton" destination="bgs-Yr-nUE" id="g7a-zo-qvL"/>
                 <outlet property="alertDisableWhileAwayButton" destination="ghI-8s-WwC" id="ZFi-49-gWK"/>
-                <outlet property="alertNotificationDestinationTextField" destination="Hg1-dW-6ce" id="hc1-7R-Cc8"/>
                 <outlet property="alertPushNotificationButton" destination="357-Bn-nqF" id="zUn-IN-pT6"/>
                 <outlet property="alertSoundChoiceButton" destination="SF6-68-nMU" id="RwI-sk-i6E"/>
                 <outlet property="alertSpeakEventButton" destination="eNG-wb-6fd" id="gVp-7U-UDw"/>
@@ -22,7 +21,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view translatesAutoresizingMaskIntoConstraints="NO" id="r8A-Ud-C6d">
-            <rect key="frame" x="0.0" y="0.0" width="545" height="239"/>
+            <rect key="frame" x="0.0" y="0.0" width="545" height="220"/>
             <subviews>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="ghI-8s-WwC">
                     <rect key="frame" x="98" y="83" width="171" height="18"/>
@@ -44,19 +43,8 @@
                         <action selector="onChangedAlertSpoken:" target="-2" id="ZOs-jC-zxl"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hg1-dW-6ce">
-                    <rect key="frame" x="116" y="140" width="304" height="15"/>
-                    <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="Growl is running. Notifications will be forwarded to it." id="3fI-xx-VQs">
-                        <font key="font" metaFont="cellTitle"/>
-                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <accessibilityConnection property="link" destination="357-Bn-nqF" id="yMv-Uz-aS3"/>
-                    </connections>
-                </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="357-Bn-nqF">
-                    <rect key="frame" x="98" y="162" width="183" height="18"/>
+                    <rect key="frame" x="98" y="143" width="182" height="18"/>
                     <buttonCell key="cell" type="check" title="Show notification for alert" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="Wh7-Vc-DoE">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -76,15 +64,15 @@
                     </connections>
                 </button>
                 <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="9Ke-Id-MhS">
-                    <rect key="frame" x="423" y="207" width="102" height="5"/>
+                    <rect key="frame" x="423" y="188" width="102" height="5"/>
                 </box>
                 <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="gKB-p5-E8Q">
-                    <rect key="frame" x="20" y="207" width="102" height="5"/>
+                    <rect key="frame" x="20" y="188" width="102" height="5"/>
                 </box>
                 <stackView distribution="equalSpacing" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YND-yP-DZn">
-                    <rect key="frame" x="130" y="199" width="285" height="20"/>
+                    <rect key="frame" x="130" y="180" width="285" height="20"/>
                     <subviews>
-                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6Vh-Zp-QDA">
+                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6Vh-Zp-QDA">
                             <rect key="frame" x="-2" y="3" width="101" height="16"/>
                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Selected Alert:" id="Pw9-kC-IY0">
                                 <font key="font" metaFont="systemBold"/>
@@ -94,12 +82,9 @@
                         </textField>
                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VdN-8Y-A2M">
                             <rect key="frame" x="102" y="-4" width="187" height="25"/>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="LjY-vl-EaF"/>
-                            </constraints>
                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" inset="2" id="hzb-aS-M6b">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="menu"/>
+                                <font key="font" usesAppearanceFont="YES"/>
                                 <menu key="menu" title="OtherViews" id="a2c-uV-s9f">
                                     <items>
                                         <menuItem id="VhG-mG-ZCI">
@@ -108,6 +93,9 @@
                                     </items>
                                 </menu>
                             </popUpButtonCell>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="LjY-vl-EaF"/>
+                            </constraints>
                             <connections>
                                 <accessibilityConnection property="title" destination="6Vh-Zp-QDA" id="vcD-K3-cb7"/>
                                 <action selector="onChangedAlertType:" target="-2" id="eNq-mi-YwV"/>
@@ -136,7 +124,7 @@
                 <stackView distribution="equalSpacing" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zfb-Sh-LAJ">
                     <rect key="frame" x="118" y="20" width="192" height="20"/>
                     <subviews>
-                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3x1-zP-s54">
+                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3x1-zP-s54">
                             <rect key="frame" x="-2" y="3" width="124" height="16"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Play sound on alert:" id="EOI-iY-erP">
                                 <font key="font" metaFont="system"/>
@@ -148,7 +136,7 @@
                             <rect key="frame" x="125" y="-4" width="71" height="25"/>
                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" inset="2" id="BZG-sJ-2Ja">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="menu"/>
+                                <font key="font" usesAppearanceFont="YES"/>
                                 <menu key="menu" title="OtherViews" id="eGD-V0-BYc">
                                     <items>
                                         <menuItem title="Beep" id="m4s-0z-vew">
@@ -175,7 +163,6 @@
             </subviews>
             <constraints>
                 <constraint firstItem="eNG-wb-6fd" firstAttribute="leading" secondItem="357-Bn-nqF" secondAttribute="leading" id="7UC-Ja-trG"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Hg1-dW-6ce" secondAttribute="trailing" constant="20" id="9AH-aL-p6Y"/>
                 <constraint firstItem="ghI-8s-WwC" firstAttribute="top" secondItem="eNG-wb-6fd" secondAttribute="bottom" constant="14" id="9BT-vS-qcZ"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ghI-8s-WwC" secondAttribute="trailing" constant="20" id="Acs-Eh-bm8"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bgs-Yr-nUE" secondAttribute="trailing" constant="20" id="BLN-FV-MAO"/>
@@ -190,17 +177,15 @@
                 <constraint firstAttribute="trailing" secondItem="9Ke-Id-MhS" secondAttribute="trailing" constant="20" id="RRl-94-mVE"/>
                 <constraint firstItem="YND-yP-DZn" firstAttribute="centerX" secondItem="r8A-Ud-C6d" secondAttribute="centerX" id="UOc-rg-KeS"/>
                 <constraint firstItem="YND-yP-DZn" firstAttribute="leading" secondItem="gKB-p5-E8Q" secondAttribute="trailing" constant="8" symbolic="YES" id="V04-x8-rR1"/>
-                <constraint firstItem="eNG-wb-6fd" firstAttribute="top" secondItem="Hg1-dW-6ce" secondAttribute="bottom" constant="10" id="YMy-7I-rFA"/>
                 <constraint firstItem="ghI-8s-WwC" firstAttribute="leading" secondItem="eNG-wb-6fd" secondAttribute="leading" id="ZbK-Gq-AiR"/>
                 <constraint firstItem="Zfb-Sh-LAJ" firstAttribute="top" secondItem="Hkh-C6-mUr" secondAttribute="bottom" constant="14" id="Znk-CY-qbX"/>
                 <constraint firstItem="gKB-p5-E8Q" firstAttribute="centerY" secondItem="YND-yP-DZn" secondAttribute="centerY" id="f7B-v7-fgg"/>
                 <constraint firstItem="bgs-Yr-nUE" firstAttribute="firstBaseline" secondItem="Hkh-C6-mUr" secondAttribute="firstBaseline" id="fr2-R9-Ogo"/>
                 <constraint firstItem="bgs-Yr-nUE" firstAttribute="leading" secondItem="Hkh-C6-mUr" secondAttribute="trailing" constant="8" symbolic="YES" id="hn6-v5-2Cc"/>
+                <constraint firstItem="eNG-wb-6fd" firstAttribute="top" secondItem="357-Bn-nqF" secondAttribute="bottom" constant="14" id="iD0-vP-4j6"/>
                 <constraint firstItem="Zfb-Sh-LAJ" firstAttribute="leading" secondItem="Hkh-C6-mUr" secondAttribute="leading" constant="18" id="ign-7W-tkT"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eNG-wb-6fd" secondAttribute="trailing" constant="20" id="kR6-WN-tKf"/>
                 <constraint firstItem="YND-yP-DZn" firstAttribute="top" secondItem="r8A-Ud-C6d" secondAttribute="top" constant="20" id="oY9-mL-iW9"/>
-                <constraint firstItem="Hg1-dW-6ce" firstAttribute="top" secondItem="357-Bn-nqF" secondAttribute="bottom" constant="8" symbolic="YES" id="tdf-No-BRQ"/>
-                <constraint firstItem="Hg1-dW-6ce" firstAttribute="leading" secondItem="357-Bn-nqF" secondAttribute="leading" constant="18" id="tz6-h3-kU2"/>
                 <constraint firstItem="Hkh-C6-mUr" firstAttribute="top" secondItem="ghI-8s-WwC" secondAttribute="bottom" constant="14" id="uG1-aD-r2T"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="357-Bn-nqF" secondAttribute="trailing" constant="20" id="uHL-4r-key"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Zfb-Sh-LAJ" secondAttribute="trailing" constant="20" id="zQY-Hs-OIN"/>

@@ -426,7 +426,7 @@ extension ConnectionError: CustomNSError
 			userInfo[NSLocalizedDescriptionKey] = errorDescription
 		}
 
-		// While we don't make us of it right now, pass the original
+		// While we don't make use of it right now, pass the original
 		// error object inside the user info dictionary because at
 		// a later time, we may be interested in its contents.
 		if case let .socket(error) = self {

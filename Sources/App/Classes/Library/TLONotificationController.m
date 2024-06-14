@@ -49,7 +49,7 @@
 #import "IRCClientPrivate.h"
 #import "IRCChannel.h"
 #import "IRCWorld.h"
-#import "TLOGrowlControllerPrivate.h"
+#import "TLONotificationControllerPrivate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -61,12 +61,12 @@ NSString * const TXNotificationDialogActionNicknameFormat		= @"\u2022 %@: %@";
 NSString * const TXNotificationHighlightLogStandardActionFormat			= @"\u2022 %@: %@";
 NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 
-@interface TLOGrowlController ()
+@interface TLONotificationController ()
 @property (nonatomic, copy, nullable) NSDictionary<NSString *, id> *lastClickedContext;
 @property (nonatomic, assign) NSTimeInterval lastClickedTime;
 @end
 
-@implementation TLOGrowlController
+@implementation TLONotificationController
 
 - (instancetype)init
 {
@@ -82,10 +82,6 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 - (void)prepareInitialState
 {
 	RZUserNotificationCenter().delegate = (id)self;
-
-#if TEXTUAL_BUILT_WITH_GROWL_SDK_ENABLED == 1
-	[GrowlApplicationBridge setGrowlDelegate:(id)self];
-#endif
 
 	[RZNotificationCenter() addObserver:self selector:@selector(mainWindowSelectionChanged:) name:TVCMainWindowSelectionChangedNotification object:nil];
 }
@@ -255,49 +251,30 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 		eventDescription = eventDescription.stripIRCEffects;
 	}
 
-#if TEXTUAL_BUILT_WITH_GROWL_SDK_ENABLED == 1
-	if ([GrowlApplicationBridge isGrowlRunning] == NO) {
-#endif
+	NSUserNotification *notification = [NSUserNotification new];
 
-		NSUserNotification *notification = [NSUserNotification new];
+	notification.deliveryDate = [NSDate date];
+	notification.informativeText = eventDescription;
+	notification.title = eventTitle;
+	notification.userInfo = eventContext;
 
-		notification.deliveryDate = [NSDate date];
-		notification.informativeText = eventDescription;
-		notification.title = eventTitle;
-		notification.userInfo = eventContext;
+	if (eventType == TXNotificationTypeFileTransferReceiveRequested) {
+		/* sshhhh... you didn't see nothing. */
+		[notification setValue:@(YES) forKey:@"_showsButtons"];
 
-		if (eventType == TXNotificationTypeFileTransferReceiveRequested) {
-			/* sshhhh... you didn't see nothing. */
-			[notification setValue:@(YES) forKey:@"_showsButtons"];
-
-			notification.actionButtonTitle = TXTLS(@"Prompts[qpv-go]");
-		}
-
-		/* These are the only event types we want to support for now */
-		if (eventType == TXNotificationTypeNewPrivateMessage ||
-			eventType == TXNotificationTypePrivateMessage)
-		{
-			notification.hasReplyButton = YES;
-
-			notification.responsePlaceholder = TXTLS(@"Notifications[do4-2e]");
-		}
-
-		[RZUserNotificationCenter() scheduleNotification:notification];
-
-#if TEXTUAL_BUILT_WITH_GROWL_SDK_ENABLED == 1
-		return; // Do not continue to Growl...
+		notification.actionButtonTitle = TXTLS(@"Prompts[qpv-go]");
 	}
 
-	NSString *eventKind = [self titleForEvent:eventType];
+	/* These are the only event types we want to support for now */
+	if (eventType == TXNotificationTypeNewPrivateMessage ||
+		eventType == TXNotificationTypePrivateMessage)
+	{
+		notification.hasReplyButton = YES;
 
-	[GrowlApplicationBridge notifyWithTitle:eventTitle
-								description:eventDescription
-						   notificationName:eventKind
-								   iconData:nil
-								   priority:(signed int)eventPriority
-								   isSticky:NO
-							   clickContext:eventContext];
-#endif
+		notification.responsePlaceholder = TXTLS(@"Notifications[do4-2e]");
+	}
+
+	[RZUserNotificationCenter() scheduleNotification:notification];
 }
 
 #pragma mark -
@@ -346,56 +323,6 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 		}
 	}
 }
-
-#pragma mark -
-#pragma mark Growl delegate
-
-#if TEXTUAL_BUILT_WITH_GROWL_SDK_ENABLED == 1
-- (NSString *)applicationNameForGrowl
-{
-	return [TPCApplicationInfo applicationNameWithoutVersion];
-}
-
-- (NSDictionary<NSString *, NSArray<NSString *> *> *)registrationDictionaryForGrowl
-{
-	NSArray *allNotifications = @[
-	  TXTLS(@"Notifications[kx3-xk]"),
-	  TXTLS(@"Notifications[qnz-k4]"),
-	  TXTLS(@"Notifications[vuq-jp]"),
-	  TXTLS(@"Notifications[4lr-ej]"),
-	  TXTLS(@"Notifications[wjv-yb]"),
-	  TXTLS(@"Notifications[cs4-x9]"),
-	  TXTLS(@"Notifications[eiu-8q]"),
-	  TXTLS(@"Notifications[2nk-lg]"),
-	  TXTLS(@"Notifications[5yi-gu]"),
-	  TXTLS(@"Notifications[00b-nx]"),
-	  TXTLS(@"Notifications[nhz-io]"),
-	  TXTLS(@"Notifications[0x2-3h]"),
-	  TXTLS(@"Notifications[qle-7v]"),
-	  TXTLS(@"Notifications[sc0-1n]"),
-	  TXTLS(@"Notifications[we9-1b]"),
-	  TXTLS(@"Notifications[st5-0n]"),
-	  TXTLS(@"Notifications[25q-af]"),
-	  TXTLS(@"Notifications[k3s-by]"),
-	  TXTLS(@"Notifications[0fo-bt]"),
-	];
-
-	return @{
-		GROWL_NOTIFICATIONS_ALL	: allNotifications,
-		GROWL_NOTIFICATIONS_DEFAULT	: allNotifications
-	};
-}
-
-- (void)growlNotificationWasClicked:(id)context
-{
-	[self notificationWasClicked:context activationType:0 withReplyMessage:nil];
-}
-
-- (BOOL)hasNetworkClientEntitlement
-{
-	return YES;
-}
-#endif
 
 #pragma mark -
 #pragma mark Notification Callback
@@ -522,7 +449,7 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 
 #pragma mark -
 
-@implementation TLOGrowlController (Preferences)
+@implementation TLONotificationController (Preferences)
 
 - (nullable NSString *)soundForEvent:(TXNotificationType)event inChannel:(nullable IRCChannel *)channel
 {
@@ -542,25 +469,25 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 	if (channel) {
 		NSUInteger channelValue = [channel.config speakEvent:event];
 
-		if (channelValue != NSMixedState) {
-			return (channelValue == NSOnState);
+		if (channelValue != NSControlStateValueMixed) {
+			return (channelValue == NSControlStateValueOn);
 		}
 	}
 
 	return [TPCPreferences speakEvent:event];
 }
 
-- (BOOL)growlEnabledForEvent:(TXNotificationType)event inChannel:(nullable IRCChannel *)channel
+- (BOOL)notificationEnabledForEvent:(TXNotificationType)event inChannel:(nullable IRCChannel *)channel
 {
 	if (channel) {
-		NSUInteger channelValue = [channel.config growlEnabledForEvent:event];
+		NSUInteger channelValue = [channel.config notificationEnabledForEvent:event];
 
-		if (channelValue != NSMixedState) {
-			return (channelValue == NSOnState);
+		if (channelValue != NSControlStateValueMixed) {
+			return (channelValue == NSControlStateValueOn);
 		}
 	}
 
-	return [TPCPreferences growlEnabledForEvent:event];
+	return [TPCPreferences notificationEnabledForEvent:event];
 }
 
 - (BOOL)disabledWhileAwayForEvent:(TXNotificationType)event inChannel:(nullable IRCChannel *)channel
@@ -568,8 +495,8 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 	if (channel) {
 		NSUInteger channelValue = [channel.config disabledWhileAwayForEvent:event];
 
-		if (channelValue != NSMixedState) {
-			return (channelValue == NSOnState);
+		if (channelValue != NSControlStateValueMixed) {
+			return (channelValue == NSControlStateValueOn);
 		}
 	}
 
@@ -581,8 +508,8 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 	if (channel) {
 		NSUInteger channelValue = [channel.config bounceDockIconForEvent:event];
 
-		if (channelValue != NSMixedState) {
-			return (channelValue == NSOnState);
+		if (channelValue != NSControlStateValueMixed) {
+			return (channelValue == NSControlStateValueOn);
 		}
 	}
 
@@ -594,8 +521,8 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 	if (channel) {
 		NSUInteger channelValue = [channel.config bounceDockIconRepeatedlyForEvent:event];
 
-		if (channelValue != NSMixedState) {
-			return (channelValue == NSOnState);
+		if (channelValue != NSControlStateValueMixed) {
+			return (channelValue == NSControlStateValueOn);
 		}
 	}
 
@@ -603,5 +530,21 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 }
 
 @end
+
+#pragma mark -
+#pragma mark Deprecated Growl Controller
+
+TEXTUAL_IGNORE_DEPRECATION_BEGIN
+@implementation TLOGrowlController
+
+- (BOOL)growlEnabledForEvent:(TXNotificationType)event inChannel:(nullable IRCChannel *)channel
+{
+	TEXTUAL_DEPRECATED_WARNING;
+
+	return NO;
+}
+
+@end
+TEXTUAL_IGNORE_DEPRECATION_END
 
 NS_ASSUME_NONNULL_END

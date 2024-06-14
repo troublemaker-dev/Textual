@@ -35,10 +35,6 @@
  *
  *********************************************************************** */
 
-#if TEXTUAL_BUILT_WITH_GROWL_SDK_ENABLED == 1
-#import <Growl/Growl.h>
-#endif
-
 #import "TLOLocalization.h"
 #import "TLONotificationConfigurationPrivate.h"
 #import "TLOSoundPlayer.h"
@@ -97,17 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	[self updateAvailableSounds];
 
-#if TEXTUAL_BUILT_WITH_GROWL_SDK_ENABLED == 1
-	if ([GrowlApplicationBridge isGrowlRunning]) {
-		self.alertNotificationDestinationTextField.stringValue = TXTLS(@"TVCNotificationConfigurationView[gyw-h4]");
-	} else {
-#endif
-
-		self.alertNotificationDestinationTextField.stringValue = TXTLS(@"TVCNotificationConfigurationView[br6-di]");
-
-#if TEXTUAL_BUILT_WITH_GROWL_SDK_ENABLED == 1
-	}
-#endif
+	self.alertNotificationDestinationTextField.stringValue = TXTLS(@"TVCNotificationConfigurationView[br6-di]");
 }
 
 - (void)attachToView:(NSView *)view
@@ -179,12 +165,12 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	[self.alertTypeChoiceButton removeAllItems];
 
-	self.alertSpeakEventButton.state = NSOffState;
-	self.alertBounceDockIconButton.state = NSOffState;
+	self.alertSpeakEventButton.state = NSControlStateValueOff;
+	self.alertBounceDockIconButton.state = NSControlStateValueOff;
 	self.alertBounceDockIconRepeatedlyButton.enabled = NO;
-	self.alertBounceDockIconRepeatedlyButton.state = NSOffState;
-	self.alertDisableWhileAwayButton.state = NSOffState;
-	self.alertPushNotificationButton.state = NSOffState;
+	self.alertBounceDockIconRepeatedlyButton.state = NSControlStateValueOff;
+	self.alertDisableWhileAwayButton.state = NSControlStateValueOff;
+	self.alertPushNotificationButton.state = NSControlStateValueOff;
 
 	[self.alertSoundChoiceButton removeAllItems];
 }
@@ -218,7 +204,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	self.alertSpeakEventButton.state = alert.speakEvent;
 	self.alertBounceDockIconButton.state = alert.bounceDockIcon;
-	self.alertBounceDockIconRepeatedlyButton.enabled = (self.alertBounceDockIconButton.state != NSOffState);
+	self.alertBounceDockIconRepeatedlyButton.enabled = (self.alertBounceDockIconButton.state != NSControlStateValueOff);
 	self.alertBounceDockIconRepeatedlyButton.state = alert.bounceDockIconRepeatedly;
 	self.alertDisableWhileAwayButton.state = alert.disabledWhileAway;
 	self.alertPushNotificationButton.state = alert.pushNotification;
@@ -284,7 +270,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	alert.bounceDockIcon = self.alertBounceDockIconButton.state;
 
-	self.alertBounceDockIconRepeatedlyButton.enabled = (self.alertBounceDockIconButton.state == NSOnState);
+	self.alertBounceDockIconRepeatedlyButton.enabled = (self.alertBounceDockIconButton.state == NSControlStateValueOn);
 }
 
 - (void)onChangedAlertBounceDockIconRepeatedly:(id)sender

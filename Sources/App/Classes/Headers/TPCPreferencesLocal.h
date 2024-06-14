@@ -36,7 +36,7 @@
  *
  *********************************************************************** */
 
-#import "TLOGrowlController.h"
+#import "TLONotificationController.h"
 #import "TPCPreferences.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -285,10 +285,12 @@ typedef NS_ENUM(NSUInteger, TXPreferredAppearance) {
 + (nullable NSString *)soundForEvent:(TXNotificationType)event;
 
 + (BOOL)speakEvent:(TXNotificationType)event;
-+ (BOOL)growlEnabledForEvent:(TXNotificationType)event;
++ (BOOL)notificationEnabledForEvent:(TXNotificationType)event;
 + (BOOL)disabledWhileAwayForEvent:(TXNotificationType)event;
 + (BOOL)bounceDockIconForEvent:(TXNotificationType)event;
 + (BOOL)bounceDockIconRepeatedlyForEvent:(TXNotificationType)event;
+
++ (BOOL)growlEnabledForEvent:(TXNotificationType)event TEXTUAL_DEPRECATED("Use -notificationEnabledForEvent: instead. This method will always return NSControlStateValueOff.");
 
 + (TXTabKeyAction)tabKeyAction;
 

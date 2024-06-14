@@ -215,7 +215,7 @@ ClassWithDesignatedInitializerInitMethod
 		return;
 	}
 
-	/* If no module accepted responsiblity for the urlHost,
+	/* If no module accepted responsibility for the urlHost,
 	 then we try modules that do not map to a specific domain. */
 	(void)processModulesWithDomain(@"*");
 }

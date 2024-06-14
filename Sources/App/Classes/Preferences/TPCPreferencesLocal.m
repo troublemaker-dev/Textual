@@ -841,7 +841,7 @@ NSUInteger const TPCPreferencesDictionaryVersion = 602;
 }
 
 #pragma mark -
-#pragma mark Growl
+#pragma mark Notifications
 
 + (BOOL)soundIsMuted
 {
@@ -916,6 +916,13 @@ NSUInteger const TPCPreferencesDictionaryVersion = 602;
 
 + (BOOL)growlEnabledForEvent:(TXNotificationType)event
 {
+	TEXTUAL_DEPRECATED_WARNING;
+
+	return NO;
+}
+
++ (BOOL)notificationEnabledForEvent:(TXNotificationType)event
+{
 	NSString *eventKey = [self keyForEvent:event category:@"Enabled"];
 
 	if (eventKey == nil) {
@@ -925,7 +932,7 @@ NSUInteger const TPCPreferencesDictionaryVersion = 602;
 	return [RZUserDefaults() boolForKey:eventKey];
 }
 
-+ (void)setGrowlEnabled:(BOOL)value forEvent:(TXNotificationType)event
++ (void)setNotificationEnabled:(BOOL)value forEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [self keyForEvent:event category:@"Enabled"];
 
@@ -1362,28 +1369,10 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	[dynamicDefaults setBool:TEXTUAL_RUNNING_ON_HIGHSIERRA		forKey:@"System -> Running Mac OS High Sierra Or Newer"];
 	[dynamicDefaults setBool:TEXTUAL_RUNNING_ON_MOJAVE			forKey:@"System -> Running Mac OS Mojave Or Newer"];
 
-#if TEXTUAL_BUILT_WITH_APPCENTER_SDK_ENABLED == 1
-	[dynamicDefaults setBool:YES forKey:@"System -> 3rd-party Services -> Built with AppCenter Framework"];
-#else
-	[dynamicDefaults setBool:NO forKey:@"System -> 3rd-party Services -> Built with AppCenter Framework"];
-#endif
-
 #if TEXTUAL_BUILT_WITH_SPARKLE_ENABLED == 1
 	[dynamicDefaults setBool:YES forKey:@"System -> 3rd-party Services -> Built with Sparkle Framework"];
 #else
 	[dynamicDefaults setBool:NO forKey:@"System -> 3rd-party Services -> Built with Sparkle Framework"];
-#endif
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	[dynamicDefaults setBool:YES forKey:@"System -> Built with iCloud Support"];
-#else
-	[dynamicDefaults setBool:NO forKey:@"System -> Built with iCloud Support"];
-#endif
-
-#if TEXTUAL_BUILT_WITH_LICENSE_MANAGER == 1
-	[dynamicDefaults setBool:YES forKey:@"System -> Built with License Manager Backend"];
-#else
-	[dynamicDefaults setBool:NO forKey:@"System -> Built with License Manager Backend"];
 #endif
 
 #if TEXTUAL_BUILT_WITH_ADVANCED_ENCRYPTION == 1

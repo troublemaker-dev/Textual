@@ -242,7 +242,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)updateNavigationEnabledState
 {
-	[self.contentViewTabView setEnabled:(self.pushNotificationsCheck.state == NSOnState)
+	[self.contentViewTabView setEnabled:(self.pushNotificationsCheck.state == NSControlStateValueOn)
 							 forSegment:TDCChannelPropertiesSheetSelectionNotifications];
 }
 
@@ -396,7 +396,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)onInlineMediaCheckChanged:(id)sender
 {
-	if (self.enableInlineMediaCheck.state != NSOnState) {
+	if (self.enableInlineMediaCheck.state != NSControlStateValueOn) {
 		return;
 	}
 

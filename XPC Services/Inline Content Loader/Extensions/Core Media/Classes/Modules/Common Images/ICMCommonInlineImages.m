@@ -70,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 		if ([urlHost isDomainOrSubdomain:@"wikipedia.org"]) {
 			/* Wikipedia URLs end with a file extension but tend to be a web page.
 			 There was no easy way hotlink these images at the time this exception
-			 was added. This should be revisted at a later time... */
+			 was added. This should be revisited at a later time... */
 
 			return nil;
 		} else if ([urlHost isDomainOrSubdomain:@"dropbox.com"]) {
@@ -93,18 +93,6 @@ NS_ASSUME_NONNULL_BEGIN
 	{
 		if ([urlPathCombined hasPrefix:@"/s/"] && hasFileExtension) {
 			return [@"https://dl.dropboxusercontent.com" stringByAppendingString:urlPathCombined];
-		}
-	}
-	else if ([urlHost isDomainOrSubdomain:@"instacod.es"])
-	{
-		if (urlPath.length == 0) {
-			return nil;
-		}
-
-		NSString *s = [urlPath substringFromIndex:1];
-
-		if (s.numericOnly) {
-			return [@"http://instacod.es/file/" stringByAppendingString:s];
 		}
 	}
 	else if ([urlHost isDomain:@"pbs.twimg.com"])
@@ -161,27 +149,6 @@ NS_ASSUME_NONNULL_BEGIN
 			return [NSString stringWithFormat:@"http://twitpic.com/show/large/%@", s];
 		}
 	}
-	else if ([urlHost isDomainOrSubdomain:@"cl.ly"])
-	{
-		if (urlPath.length == 0) {
-			return nil;
-		}
-
-		NSString *s = [urlPath substringFromIndex:1];
-
-		NSArray *components = [s componentsSeparatedByString:@"/"];
-
-		if (components.count != 2) {
-			return nil;
-		}
-
-		NSString *p1 = components[0];
-		NSString *p2 = components[1];
-
-		if ([p1 isEqualToStringIgnoringCase:@"image"]) {
-			return [NSString stringWithFormat:@"http://cl.ly/%@/content", p2];
-		}
-	}
 	else if ([urlHost isDomainOrSubdomain:@"instagram.com"] ||
 			 [urlHost isDomainOrSubdomain:@"instagr.am"])
 	{
@@ -216,18 +183,6 @@ NS_ASSUME_NONNULL_BEGIN
 		NSString *filenameWithoutExtension = filename.stringByDeletingPathExtension;
 
 		return [NSString stringWithFormat:@"%@://%@/webm/thumb/%@.jpg", urlScheme, urlHost, filenameWithoutExtension];
-	}
-	else if ([urlHost isDomainOrSubdomain:@"movapic.com"])
-	{
-		if ([urlPath hasPrefix:@"/pic/"] == NO) {
-			return nil;
-		}
-
-		NSString *s = [urlPath substringFromIndex:5];
-
-		if (s.alphabeticNumericOnly) {
-			return [NSString stringWithFormat:@"http://image.movapic.com/pic/m_%@.jpeg", s];
-		}
 	}
 	else if ([urlHost isDomainOrSubdomain:@"f.hatena.ne.jp"])
 	{
@@ -381,19 +336,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 		if (s.alphabeticNumericOnly) {
 			return [NSString stringWithFormat:@"https://fuelrats.cloud/s/%@/preview", s];
-		}
-	}
-	else if ([urlPath hasPrefix:@"/image/"])
-	{
-		/* Try our best to regonize cl.ly custom domains. */
-		NSString *s = [urlPath substringFromIndex:7];
-
-		if (s.length != 12) {
-			return nil;
-		}
-
-		if (s.alphabeticNumericOnly) {
-			return [NSString stringWithFormat:@"http://cl.ly/%@/content", s];
 		}
 	}
 

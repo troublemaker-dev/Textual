@@ -345,7 +345,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 			return;
 		}
 
-		/* We are getting the lines inbetween these two lines which means we substract self. */
+		/* We are getting the lines in-between these two lines which means we subtract self. */
 		NSInteger lowestEntryId = (firstEntryId + 1);
 		NSInteger highestEntryId = (secondEntryId - 1);
 

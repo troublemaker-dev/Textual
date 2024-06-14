@@ -178,7 +178,7 @@ NS_ASSUME_NONNULL_BEGIN
 		config.serverList = @[[server copy]];
 	}
 
-	config.autoConnect = (self.autoConnectCheck.state == NSOnState);
+	config.autoConnect = (self.autoConnectCheck.state == NSControlStateValueOn);
 
 	config.nickname = self.nicknameTextField.value;
 

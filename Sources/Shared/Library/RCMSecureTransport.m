@@ -436,9 +436,9 @@ static const char * _Nonnull kMacNames[] = {
 	return [[self cipherListDeprecated] containsObject:@(cipherSuite)];
 }
 
-+ (NSArray<NSNumber *> *)cipherSuitesInCollection:(RCMCipherSuiteCollection)collection includeDeprecated:(BOOL)includeDepecated
++ (NSArray<NSNumber *> *)cipherSuitesInCollection:(RCMCipherSuiteCollection)collection includeDeprecated:(BOOL)includeDeprecated
 {
-	if (includeDepecated == NO) {
+	if (includeDeprecated == NO) {
 		return [self cipherSuitesInCollection:collection];
 	}
 
@@ -460,7 +460,7 @@ static const char * _Nonnull kMacNames[] = {
 		case RCMCipherSuiteCollectionMozilla2015:
 		{
 			/* The following list of ciphers, which is ordered from most important
-			 to least important, was aquired from Mozilla's wiki on December 2, 2015. */
+			 to least important, was acquired from Mozilla's wiki on December 2, 2015. */
 
 			return @[
 				 @(TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256),			// ECDHE-RSA-AES128-GCM-SHA256
@@ -494,11 +494,11 @@ static const char * _Nonnull kMacNames[] = {
 		default:
 		{
 			/* The following list of ciphers, which is ordered from most important
-			 to least important, was aquired from Mozilla's wiki on July 5, 2017. */
+			 to least important, was acquired from Mozilla's wiki on July 5, 2017. */
 			/* This list has some slight differences compared to the original wiki
 			 article. Mozilla had/has recommended use of ECDHE-ECDSA-CHACHA20-POLY1305
 			 and ECDHE-RSA-CHACHA20-POLY1305. These are not ciphers that Apple
-			 provides support for. These entries have been omited and a comment
+			 provides support for. These entries have been omitted and a comment
 			 is shown in the place where they would originally sit. */
 			/* This list includes three cipher suites for TLS 1.3 which were not
 			 included in Mozilla's list as well. */
@@ -646,14 +646,14 @@ static const char * _Nonnull kMacNames[] = {
 	return NO;
 }
 
-+ (SecTrustRef)trustFromCertificateChain:(NSArray<NSData *> *)certificatecChain withPolicyName:(NSString *)policyName
++ (SecTrustRef)trustFromCertificateChain:(NSArray<NSData *> *)certificateChain withPolicyName:(NSString *)policyName
 {
-	NSParameterAssert(certificatecChain != nil);
+	NSParameterAssert(certificateChain != nil);
 	NSParameterAssert(policyName != nil);
 
 	CFMutableArrayRef certificatesMutableRef = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
 
-	for (NSData *certificate in certificatecChain) {
+	for (NSData *certificate in certificateChain) {
 		CFDataRef certificateDataRef = (__bridge CFDataRef)certificate;
 
 		SecCertificateRef certificateRef = SecCertificateCreateWithData(kCFAllocatorDefault, certificateDataRef);

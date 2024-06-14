@@ -35,7 +35,7 @@
  *
  *********************************************************************** */
 
-#import "TLOGrowlController.h"
+#import "TLONotificationController.h"
 #import "IRCClient.h"
 
 NS_ASSUME_NONNULL_BEGIN

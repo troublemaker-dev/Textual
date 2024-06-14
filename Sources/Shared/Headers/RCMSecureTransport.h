@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, RCMCipherSuiteCollection) {
 
 + (NSArray<NSNumber *> *)cipherSuitesInCollection:(RCMCipherSuiteCollection)collection;
 + (NSArray<NSNumber *> *)cipherSuitesInCollection:(RCMCipherSuiteCollection)collection
-								includeDeprecated:(BOOL)includeDepecated;
+								includeDeprecated:(BOOL)includeDeprecated;
 
 + (BOOL)isTLSError:(NSError *)error;
 + (nullable NSString *)descriptionForError:(NSError *)error;
@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, RCMCipherSuiteCollection) {
 + (BOOL)isBadCertificateError:(NSError *)error;
 + (BOOL)isBadCertificateErrorCode:(NSInteger)errorCode;
 
-+ (SecTrustRef)trustFromCertificateChain:(NSArray<NSData *> *)certificatecChain withPolicyName:(NSString *)policyName CF_RETURNS_RETAINED;
++ (SecTrustRef)trustFromCertificateChain:(NSArray<NSData *> *)certificateChain withPolicyName:(NSString *)policyName CF_RETURNS_RETAINED;
 
 + (nullable NSArray<NSData *> *)certificatesInTrust:(SecTrustRef)trustRef;
 + (nullable NSString *)policyNameInTrust:(SecTrustRef)trustRef;

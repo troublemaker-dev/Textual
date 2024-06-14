@@ -134,13 +134,13 @@ NS_ASSUME_NONNULL_BEGIN
 	IRCServerMutable *objectValue = self.objectValue;
 
 	if (objectValue == nil) {
-		return @(NSOffState);
+		return @(NSControlStateValueOff);
 	}
 
 	if (objectValue.prefersSecuredConnection) {
-		return @(NSOnState);
+		return @(NSControlStateValueOn);
 	} else {
-		return @(NSOffState);
+		return @(NSControlStateValueOff);
 	}
 }
 
@@ -153,7 +153,7 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 
 	BOOL l_prefersSecuredConnection =
-	(prefersSecuredConnection.unsignedIntegerValue == NSOnState);
+	(prefersSecuredConnection.unsignedIntegerValue == NSControlStateValueOn);
 
 	if (l_prefersSecuredConnection) {
 		objectValue.prefersSecuredConnection = YES;
