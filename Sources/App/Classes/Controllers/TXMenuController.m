@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 										return;													\
 									}
 
-@interface TXMenuController ()
+@interface TXMenuController () <NSMenuItemValidation>
 @property (nonatomic, assign) BOOL menuIsOpen;
 @property (nonatomic, assign) BOOL menuPerformedActionLastOpen;
 @property (nonatomic, weak) IRCClient *pointedClient;
