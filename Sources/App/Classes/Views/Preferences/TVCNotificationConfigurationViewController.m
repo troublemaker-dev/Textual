@@ -35,10 +35,6 @@
  *
  *********************************************************************** */
 
-#if TEXTUAL_BUILT_WITH_GROWL_SDK_ENABLED == 1
-#import <Growl/Growl.h>
-#endif
-
 #import "TLOLocalization.h"
 #import "TLONotificationConfigurationPrivate.h"
 #import "TLOSoundPlayer.h"
@@ -97,17 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	[self updateAvailableSounds];
 
-#if TEXTUAL_BUILT_WITH_GROWL_SDK_ENABLED == 1
-	if ([GrowlApplicationBridge isGrowlRunning]) {
-		self.alertNotificationDestinationTextField.stringValue = TXTLS(@"TVCNotificationConfigurationView[gyw-h4]");
-	} else {
-#endif
-
-		self.alertNotificationDestinationTextField.stringValue = TXTLS(@"TVCNotificationConfigurationView[br6-di]");
-
-#if TEXTUAL_BUILT_WITH_GROWL_SDK_ENABLED == 1
-	}
-#endif
+	self.alertNotificationDestinationTextField.stringValue = TXTLS(@"TVCNotificationConfigurationView[br6-di]");
 }
 
 - (void)attachToView:(NSView *)view

@@ -35,7 +35,7 @@
  *
  *********************************************************************** */
 
-#import "TLOGrowlController.h"
+#import "TLONotificationController.h"
 #import "TVCLogLine.h"
 
 NS_ASSUME_NONNULL_BEGIN

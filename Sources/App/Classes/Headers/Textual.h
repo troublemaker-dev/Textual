@@ -88,7 +88,7 @@
 
 	/* Library */
 	#import "TLOEncryptionManager.h"
-	#import "TLOGrowlController.h"
+	#import "TLONotificationController.h"
 	#import "TLOInternetAddressLookup.h"
 	#import "TLOKeyEventHandler.h"
 	#import "TLOLinkParser.h"

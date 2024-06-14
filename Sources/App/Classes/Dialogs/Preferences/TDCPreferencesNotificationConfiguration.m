@@ -66,12 +66,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)pushNotification
 {
-	return [TPCPreferences growlEnabledForEvent:self.eventType];
+	return [TPCPreferences notificationEnabledForEvent:self.eventType];
 }
 
 - (void)setPushNotification:(NSUInteger)pushNotification
 {
-	[TPCPreferences setGrowlEnabled:pushNotification forEvent:self.eventType];
+	[TPCPreferences setNotificationEnabled:pushNotification forEvent:self.eventType];
 }
 
 - (NSUInteger)speakEvent

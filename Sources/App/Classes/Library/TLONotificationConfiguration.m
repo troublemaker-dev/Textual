@@ -80,7 +80,7 @@ ClassWithDesignatedInitializerInitMethod
 
 - (NSString *)displayName
 {
-	return [sharedGrowlController() titleForEvent:self.eventType];
+	return [sharedNotificationController() titleForEvent:self.eventType];
 }
 
 - (nullable NSString *)alertSound

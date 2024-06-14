@@ -95,10 +95,10 @@
 #import "THOPluginManagerPrivate.h"
 #import "THOPluginProtocol.h"
 #import "TLOEncryptionManagerPrivate.h"
-#import "TLOGrowlControllerPrivate.h"
 #import "TLOFileLoggerPrivate.h"
 #import "TLOInputHistoryPrivate.h"
 #import "TLOLocalization.h"
+#import "TLONotificationControllerPrivate.h"
 #import "TLOpenLink.h"
 #import "TLOSoundPlayer.h"
 #import "TLOSpeechSynthesizerPrivate.h"
@@ -1664,7 +1664,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 }
 
 #pragma mark -
-#pragma mark Growl
+#pragma mark Notifications
 
 - (nullable NSString *)formatNotificationToSpeak:(TLOSpokenNotification *)notification
 {
@@ -1938,7 +1938,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)speakEvent:(TXNotificationType)eventType lineType:(TVCLogLineType)lineType target:(null_unspecified IRCTreeItem *)target nickname:(null_unspecified NSString *)nickname text:(null_unspecified NSString *)text
 {
-	if ([sharedGrowlController() speakEvent:eventType inChannel:(IRCChannel *)target] == NO) {
+	if ([sharedNotificationController() speakEvent:eventType inChannel:(IRCChannel *)target] == NO) {
 		return;
 	}
 
@@ -2013,15 +2013,15 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		}
 	}
 
-	if ([sharedGrowlController() bounceDockIconForEvent:eventType inChannel:target]) {
-		if ([sharedGrowlController() bounceDockIconRepeatedlyForEvent:eventType inChannel:target]) {
+	if ([sharedNotificationController() bounceDockIconForEvent:eventType inChannel:target]) {
+		if ([sharedNotificationController() bounceDockIconRepeatedlyForEvent:eventType inChannel:target]) {
 			[NSApp requestUserAttention:NSCriticalRequest];
 		} else {
 			[NSApp requestUserAttention:NSInformationalRequest];
 		}
 	}
 
-	if (sharedGrowlController().areNotificationsDisabled) {
+	if (sharedNotificationController().areNotificationsDisabled) {
 		return YES;
 	}
 
@@ -2035,7 +2035,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 	if ([TPCPreferences soundIsMuted] == NO) {
 		if (onlySpeakEvent == NO) {
-			NSString *soundName = [sharedGrowlController() soundForEvent:eventType inChannel:target];
+			NSString *soundName = [sharedNotificationController() soundForEvent:eventType inChannel:target];
 
 			if (soundName) {
 				[TLOSoundPlayer playAlertSound:soundName];
@@ -2049,7 +2049,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		return YES;
 	}
 
-	if ([sharedGrowlController() growlEnabledForEvent:eventType inChannel:target] == NO) {
+	if ([sharedNotificationController() notificationEnabledForEvent:eventType inChannel:target] == NO) {
 		return YES;
 	}
 
@@ -2059,7 +2059,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		}
 	}
 
-	if ([sharedGrowlController() disabledWhileAwayForEvent:eventType inChannel:target]) {
+	if ([sharedNotificationController() disabledWhileAwayForEvent:eventType inChannel:target]) {
 		if (self.userIsAway) {
 			return YES;
 		}
@@ -2213,7 +2213,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		}
 	}
 
-	[sharedGrowlController() notify:eventType title:eventTitle description:eventDescription userInfo:userInfo];
+	[sharedNotificationController() notify:eventType title:eventTitle description:eventDescription userInfo:userInfo];
 
 	return YES;
 }

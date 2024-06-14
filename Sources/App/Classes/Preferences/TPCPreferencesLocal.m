@@ -841,7 +841,7 @@ NSUInteger const TPCPreferencesDictionaryVersion = 602;
 }
 
 #pragma mark -
-#pragma mark Growl
+#pragma mark Notifications
 
 + (BOOL)soundIsMuted
 {
@@ -916,6 +916,13 @@ NSUInteger const TPCPreferencesDictionaryVersion = 602;
 
 + (BOOL)growlEnabledForEvent:(TXNotificationType)event
 {
+	TEXTUAL_DEPRECATED_WARNING;
+
+	return NO;
+}
+
++ (BOOL)notificationEnabledForEvent:(TXNotificationType)event
+{
 	NSString *eventKey = [self keyForEvent:event category:@"Enabled"];
 
 	if (eventKey == nil) {
@@ -925,7 +932,7 @@ NSUInteger const TPCPreferencesDictionaryVersion = 602;
 	return [RZUserDefaults() boolForKey:eventKey];
 }
 
-+ (void)setGrowlEnabled:(BOOL)value forEvent:(TXNotificationType)event
++ (void)setNotificationEnabled:(BOOL)value forEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [self keyForEvent:event category:@"Enabled"];
 

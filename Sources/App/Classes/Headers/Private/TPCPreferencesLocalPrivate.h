@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)setSound:(nullable NSString *)value forEvent:(TXNotificationType)event;
 
-+ (void)setGrowlEnabled:(BOOL)value forEvent:(TXNotificationType)event;
++ (void)setNotificationEnabled:(BOOL)value forEvent:(TXNotificationType)event;
 + (void)setDisabledWhileAway:(BOOL)value forEvent:(TXNotificationType)event;
 + (void)setBounceDockIcon:(BOOL)value forEvent:(TXNotificationType)event;
 + (void)setBounceDockIconRepeatedly:(BOOL)value forEvent:(TXNotificationType)event;

@@ -47,7 +47,7 @@
 #import "THOPluginManagerPrivate.h"
 #import "IRCWorld.h"
 #import "TLOEncryptionManagerPrivate.h"
-#import "TLOGrowlController.h"
+#import "TLONotificationController.h"
 #import "TLOSpeechSynthesizerPrivate.h"
 #import "TDCFileTransferDialogPrivate.h"
 #import "TDCLicenseManagerDialogPrivate.h"
@@ -84,8 +84,8 @@ _defineSharedInstance(sharedCloudSyncManager, TPCPreferencesCloudSync, new)
 _defineSharedInstance(sharedEncryptionManager, TLOEncryptionManager, new)
 #endif
 
-_defineSharedInstance(sharedGrowlController, TLOGrowlController, new)
 _defineSharedInstance(sharedNetworkReachabilityNotifier, OELReachability, reachabilityForInternetConnection)
+_defineSharedInstance(sharedNotificationController, TLONotificationController, new)
 _defineSharedInstance(sharedPluginManager, THOPluginManager, new)
 _defineSharedInstance(sharedPrintingQueue, TVCLogControllerPrintingOperationQueue, new)
 _defineSharedInstance(sharedSpeechSynthesizer, TLOSpeechSynthesizer, new)
@@ -97,6 +97,20 @@ _defineSharedInstance(sharedLicenseManagerDialog, TDCLicenseManagerDialog, new)
 #endif
 
 _defineSharedInstance(sharedFileTransferDialog, TDCFileTransferDialog, new)
+
+/* Deprecated */
+TEXTUAL_IGNORE_DEPRECATION_BEGIN
+/* The odds of -sharedGrowlController being used by a plugin is so
+ incredibly small that it is likely zero. Given those odds, effort
+ will not be placed with shim. It will return a new instance each
+ time it is invoked rather than a proper singleton. */
++ (TLOGrowlController *)sharedGrowlController
+{
+	TEXTUAL_DEPRECATED_WARNING;
+
+	return [TLOGrowlController new];
+}
+TEXTUAL_IGNORE_DEPRECATION_END
 
 @end
 

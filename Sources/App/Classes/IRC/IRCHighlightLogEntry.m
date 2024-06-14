@@ -42,8 +42,8 @@
 #import "TXMasterController.h"
 #import "IRCChannel.h"
 #import "IRCWorld.h"
-#import "TLOGrowlControllerPrivate.h"
 #import "TLOLocalization.h"
+#import "TLONotificationControllerPrivate.h"
 #import "TVCLogLinePrivate.h"
 #import "IRCHighlightLogEntryInternal.h"
 

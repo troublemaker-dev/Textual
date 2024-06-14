@@ -36,11 +36,7 @@
  *
  *********************************************************************** */
 
-#if TEXTUAL_BUILT_WITH_GROWL_SDK_ENABLED == 1
-#import <Growl/Growl.h>
-#endif
-
-#import "TLOGrowlController.h"
+#import "TLONotificationController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -52,7 +48,7 @@ TEXTUAL_EXTERN NSString * const TXNotificationDialogActionNicknameFormat;
 TEXTUAL_EXTERN NSString * const TXNotificationHighlightLogStandardActionFormat;
 TEXTUAL_EXTERN NSString * const TXNotificationHighlightLogStandardMessageFormat;
 
-@interface TLOGrowlController ()
+@interface TLONotificationController ()
 - (void)notify:(TXNotificationType)eventType
 		 title:(nullable NSString *)eventTitle
    description:(nullable NSString *)eventDescription

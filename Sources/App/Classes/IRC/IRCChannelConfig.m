@@ -456,7 +456,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	}
 }
 
-- (NSControlStateValue)growlEnabledForEvent:(TXNotificationType)event
+- (NSControlStateValue)notificationEnabledForEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [TPCPreferences keyForEvent:event category:@"Enabled"];
 
@@ -513,6 +513,13 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 #pragma mark -
 #pragma mark Deprecated
+
+- (NSControlStateValue)growlEnabledForEvent:(TXNotificationType)event
+{
+	TEXTUAL_DEPRECATED_WARNING;
+
+	return NSControlStateValueOff;
+}
 
 - (BOOL)ignoreInlineMedia
 {
@@ -573,11 +580,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	if (self->_ignoreHighlights != ignoreHighlights) {
 		self->_ignoreHighlights = ignoreHighlights;
 	}
-}
-
-- (void)setIgnoreInlineMedia:(BOOL)ignoreInlineMedia
-{
-	TEXTUAL_DEPRECATED_ASSERT;
 }
 
 - (void)setInlineMediaDisabled:(BOOL)inlineMediaDisabled
@@ -694,7 +696,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	}
 }
 
-- (void)setGrowlEnabled:(NSControlStateValue)value forEvent:(TXNotificationType)event
+- (void)setNotificationEnabled:(NSControlStateValue)value forEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [TPCPreferences keyForEvent:event category:@"Enabled"];
 
@@ -747,6 +749,19 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	}
 
 	[self _setState:value forEventKey:eventKey];
+}
+
+#pragma mark -
+#pragma mark Deprecated
+
+- (void)setGrowlEnabled:(NSControlStateValue)value forEvent:(TXNotificationType)event
+{
+	TEXTUAL_DEPRECATED_WARNING;
+}
+
+- (void)setIgnoreInlineMedia:(BOOL)ignoreInlineMedia
+{
+	TEXTUAL_DEPRECATED_WARNING;
 }
 
 @end

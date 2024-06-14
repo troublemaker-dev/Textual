@@ -36,7 +36,7 @@
  *
  *********************************************************************** */
 
-#import "TLOGrowlController.h"
+#import "TLONotificationController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -83,15 +83,15 @@ typedef NS_ENUM(NSUInteger, IRCChannelType) {
 // which indicates that the global value should be used.
 // NSControlStateValueOn and NSControlStateValueOff
 // are returned when a channel defined value is available.
-- (NSControlStateValue)growlEnabledForEvent:(TXNotificationType)event;
+- (NSControlStateValue)notificationEnabledForEvent:(TXNotificationType)event;
 - (NSControlStateValue)disabledWhileAwayForEvent:(TXNotificationType)event;
 - (NSControlStateValue)bounceDockIconForEvent:(TXNotificationType)event;
 - (NSControlStateValue)bounceDockIconRepeatedlyForEvent:(TXNotificationType)event;
 - (NSControlStateValue)speakEvent:(TXNotificationType)event;
 
 /* Deprecated */
-/* This property will always return NO */
-@property (readonly) BOOL ignoreInlineMedia;
+- (NSControlStateValue)growlEnabledForEvent:(TXNotificationType)event TEXTUAL_DEPRECATED("Use -notificationEnabledForEvent: instead. This method will always return NSControlStateValueOff.");
+@property (readonly) BOOL ignoreInlineMedia TEXTUAL_DEPRECATED("Use -inlineMediaEnabled and -inlineMediaDdisabled instead. This property will always return NO.");
 @end
 
 #pragma mark -
@@ -117,15 +117,15 @@ typedef NS_ENUM(NSUInteger, IRCChannelType) {
 // NSControlStateValueOn = YES
 // NSControlStateValueOff = NO
 // NSControlStateValueMixed = Reset, use default
-- (void)setGrowlEnabled:(NSControlStateValue)value forEvent:(TXNotificationType)event;
+- (void)setNotificationEnabled:(NSControlStateValue)value forEvent:(TXNotificationType)event;
 - (void)setDisabledWhileAway:(NSControlStateValue)value forEvent:(TXNotificationType)event;
 - (void)setBounceDockIcon:(NSControlStateValue)value forEvent:(TXNotificationType)event;
 - (void)setBounceDockIconRepeatedly:(NSControlStateValue)value forEvent:(TXNotificationType)event;
 - (void)setEventIsSpoken:(NSControlStateValue)value forEvent:(TXNotificationType)event;
 
 /* Deprecated */
-/* Trying to set one of the following properties will throw an exception. */
-@property (nonatomic, assign, readwrite) BOOL ignoreInlineMedia TEXTUAL_DEPRECATED("Use -disableInlineMedia and -enableInlineMedia instead");
+- (void)setGrowlEnabled:(NSControlStateValue)value forEvent:(TXNotificationType)event TEXTUAL_DEPRECATED("Use -setNotificationEnabled:forEvent: instead");
+@property (nonatomic, assign, readwrite) BOOL ignoreInlineMedia TEXTUAL_DEPRECATED("Use -inlineMediaEnabled and -inlineMediaDdisabled instead");
 @end
 
 NS_ASSUME_NONNULL_END

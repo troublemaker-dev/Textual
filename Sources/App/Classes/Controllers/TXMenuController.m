@@ -2842,7 +2842,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)toggleMuteOnNotificationsShortcutOn:(BOOL)toggleOn
 {
-	sharedGrowlController().areNotificationsDisabled = toggleOn;
+	sharedNotificationController().areNotificationsDisabled = toggleOn;
 
 	NSControlStateValue state = ((toggleOn) ? NSControlStateValueOn : NSControlStateValueOff);
 
@@ -2873,7 +2873,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)toggleMuteOnNotifications:(id)sender
 {
-	if (sharedGrowlController().areNotificationsDisabled) {
+	if (sharedNotificationController().areNotificationsDisabled) {
 		[self toggleMuteOnNotificationsShortcutOn:NO];
 	} else {
 		[self toggleMuteOnNotificationsShortcutOn:YES];
