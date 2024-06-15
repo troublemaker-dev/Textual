@@ -35,6 +35,8 @@
  *
  *********************************************************************** */
 
+#import "TXMasterController.h"
+#import "TXMenuController.h"
 #import "TLOLocalization.h"
 #import "TPCApplicationInfo.h"
 #import "TDCAboutDialogPrivate.h"
@@ -78,9 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)displayAcknowledgements:(id)sender
 {
-	NSString *AcknowledgementsPath = [RZMainBundle() pathForResource:@"Acknowledgements" ofType:@"pdf" inDirectory:@"Documentation"];
-
-	[RZWorkspace() openFile:AcknowledgementsPath];
+	[menuController() openAcknowledgements:sender];
 }
 
 - (void)windowWillClose:(NSNotification *)note

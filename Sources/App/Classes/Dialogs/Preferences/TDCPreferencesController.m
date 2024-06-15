@@ -1612,7 +1612,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)onOpenPathToScripts:(id)sender
 {
-	[RZWorkspace() openFile:[TPCPathInfo groupContainerApplicationSupport]];
+	[RZWorkspace() openURL:[TPCPathInfo groupContainerApplicationSupportURL]];
 }
 
 - (void)onManageICloudButtonClicked:(id)sender
@@ -1739,9 +1739,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)openPathToTheme
 {
-	NSString *filepath = themeController().originalPath;
+	NSURL *fileURL = themeController().originalURL;
 
-	[RZWorkspace() openFile:filepath];
+	[RZWorkspace() openURL:fileURL];
 }
 
 #pragma mark -

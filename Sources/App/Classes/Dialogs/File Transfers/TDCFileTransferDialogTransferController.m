@@ -1198,6 +1198,17 @@ ClassWithDesignatedInitializerInitMethod
 	return [path stringByAppendingPathComponent:filename];
 }
 
+- (nullable NSURL *)fileURL
+{
+	NSString *filePath = self.filePath;
+
+	if (filePath == nil) {
+		return nil;
+	}
+
+	return [NSURL fileURLWithPath:filePath];
+}
+
 - (uint64_t)currentFilesize
 {
 	NSString *filePath = self.filePath;

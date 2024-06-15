@@ -503,18 +503,18 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 - (void)extrasInstallerLaunchInstaller
 {
 #if TEXTUAL_BUILT_INSIDE_SANDBOX == 1
-	NSURL *installerURL = [RZMainBundle() URLForResource:@"Textual-Extras-MAS" withExtension:@"pkg"];
+	NSURL *extrasURL = [RZMainBundle() URLForResource:@"Textual-Extras-MAS" withExtension:@"pkg"];
 #else
-	NSURL *installerURL = [RZMainBundle() URLForResource:@"Textual-Extras" withExtension:@"pkg"];
+	NSURL *extrasURL = [RZMainBundle() URLForResource:@"Textual-Extras" withExtension:@"pkg"];
 #endif
 
-	if (installerURL) {
-		[RZWorkspace() openURLs:@[installerURL]
-		withAppBundleIdentifier:@"com.apple.installer"
-						options:NSWorkspaceLaunchDefault
- additionalEventParamDescriptor:nil
-			  launchIdentifiers:NULL];
-	}
+	NSURL *installerURL =
+	[RZWorkspace() URLForApplicationWithBundleIdentifier:@"com.apple.installer"];
+
+	[RZWorkspace() openURLs:@[extrasURL]
+	   withApplicationAtURL:installerURL
+			  configuration:[NSWorkspaceOpenConfiguration new]
+		  completionHandler:nil];;
 }
 
 #pragma mark -

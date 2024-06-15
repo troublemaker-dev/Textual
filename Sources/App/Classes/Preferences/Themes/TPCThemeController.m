@@ -1518,7 +1518,9 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 {
 	/* Maybe open new path of theme */
 	if (self.openThemeWhenCopied) {
-		[RZWorkspace() openFile:self.pathBeingCopiedTo];
+		NSURL *fileURL = [NSURL fileURLWithPath:self.pathBeingCopiedTo];
+
+		[RZWorkspace() openURL:fileURL];
 	}
 
 	/* Maybe reload new theme */

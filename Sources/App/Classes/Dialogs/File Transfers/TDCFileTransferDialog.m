@@ -501,7 +501,7 @@ NS_ASSUME_NONNULL_BEGIN
 			return;
 		}
 
-		[RZWorkspace() openFile:fileTransfer.filePath];
+		[RZWorkspace() openURL:fileTransfer.fileURL];
 	}];
 }
 

@@ -2464,9 +2464,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)openAcknowledgements:(id)sender
 {
-	NSString *AcknowledgementsPath = [RZMainBundle() pathForResource:@"Acknowledgements" ofType:@"pdf" inDirectory:@"Documentation"];
+	NSURL *Acknowledgements = [RZMainBundle() URLForResource:@"Acknowledgements" withExtension:@"pdf" subdirectory:@"Documentation"];
 
-	[RZWorkspace() openFile:AcknowledgementsPath];
+	[RZWorkspace() openURL:Acknowledgements];
 }
 
 - (void)openHelpMenuItem:(id)sender

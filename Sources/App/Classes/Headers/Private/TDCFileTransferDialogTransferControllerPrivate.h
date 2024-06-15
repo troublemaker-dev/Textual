@@ -58,6 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy, nullable) NSString *path;
 @property (readonly, copy) NSString *filename;
 @property (readonly, copy, nullable) NSString *filePath;
+@property (readonly, copy, nullable) NSURL *fileURL;
 @property (readonly, copy) NSString *hostAddress;
 @property (readonly, copy) NSString *peerNickname;
 @property (readonly, copy, nullable) NSString *transferToken;
