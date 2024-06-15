@@ -1120,7 +1120,7 @@ NS_ASSUME_NONNULL_BEGIN
 		NSString *displayName = themeName;
 
 		if (multipleVaraints) {
-			displayName = [NSString stringWithFormat:@"%@ — (%@)",
+			displayName = [NSString stringWithFormat:@"%@ (%@)",
 				themeName, [TPCThemeController descriptionForStorageLocation:storageLocation]];
 		}
 
