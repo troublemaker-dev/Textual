@@ -59,7 +59,7 @@ typedef NS_ENUM(NSUInteger, TDCChannelPropertiesSheetSelection)
 	TDCChannelPropertiesSheetSelectionNotifications = 2
 };
 
-@interface TDCChannelPropertiesSheet ()
+@interface TDCChannelPropertiesSheet () <NSControlTextEditingDelegate>
 @property (nonatomic, strong, readwrite, nullable) IRCClient *client;
 @property (nonatomic, strong, readwrite, nullable) IRCChannel *channel;
 @property (nonatomic, copy, readwrite, nullable) NSString *clientId;

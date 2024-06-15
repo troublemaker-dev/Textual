@@ -65,7 +65,7 @@ NSString * const TDCLicenseManagerTrialExpiredNotification = @"TDCLicenseManager
 
 #define _upgradeDialogRemindMeInterval 		345600 // 4 days
 
-@interface TDCLicenseManagerDialog ()
+@interface TDCLicenseManagerDialog () <NSControlTextEditingDelegate>
 @property (nonatomic, strong) IBOutlet NSView *contentViewUnregisteredTextualView;
 @property (nonatomic, strong) IBOutlet NSView *contentViewRegisteredTextualView;
 @property (nonatomic, weak) IBOutlet NSTextField *unregisteredViewLicenseKeyTextField;
