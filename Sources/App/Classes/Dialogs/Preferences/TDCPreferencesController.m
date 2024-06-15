@@ -36,7 +36,9 @@
  *
  *********************************************************************** */
 
+#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
 #warning TODO: Radio groups that are manually set need to be updated when iCloud syncs.
+#endif
 
 #import "NSViewHelper.h"
 #import "TXMasterController.h"
