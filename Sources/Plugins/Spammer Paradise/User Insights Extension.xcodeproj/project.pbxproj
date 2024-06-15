@@ -3,20 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4C06DE7C20EC45F10055D09A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C06DE7B20EC45F10055D09A /* CoreFoundation.framework */; };
 		4C36AADC20F27CFA007CA939 /* BasicLanguage.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C36AADA20F27CFA007CA939 /* BasicLanguage.strings */; };
-		4C46A09B20EC6B0900094EA4 /* TPISpammerParadise.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C46A09920EC6B0900094EA4 /* TPISpammerParadise.m */; };
+		4C46A09B20EC6B0900094EA4 /* TPIUserInsights.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C46A09920EC6B0900094EA4 /* TPIUserInsights.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4C06DE7B20EC45F10055D09A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		4C36AADB20F27CFA007CA939 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BasicLanguage.strings; sourceTree = "<group>"; };
-		4C46A09920EC6B0900094EA4 /* TPISpammerParadise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPISpammerParadise.m; sourceTree = "<group>"; };
-		4C46A09A20EC6B0900094EA4 /* TPISpammerParadise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPISpammerParadise.h; sourceTree = "<group>"; };
+		4C46A09920EC6B0900094EA4 /* TPIUserInsights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPIUserInsights.m; sourceTree = "<group>"; };
+		4C46A09A20EC6B0900094EA4 /* TPIUserInsights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPIUserInsights.h; sourceTree = "<group>"; };
 		4C46A09F20EC6B1800094EA4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CE1433920EBF4F3000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE1433A20EBF4F3000E01C9 /* Textual Extensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Textual Extensions.xcconfig"; sourceTree = "<group>"; };
@@ -35,7 +35,7 @@
 		4CE1436120EBF4F3000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE1436220EBF4F3000E01C9 /* Textual Extensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Textual Extensions.xcconfig"; sourceTree = "<group>"; };
 		4CE1436620EBF4F3000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
-		8D576316048677EA00EA77CD /* SpammerParadise.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpammerParadise.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D576316048677EA00EA77CD /* User Insights.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "User Insights.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +82,7 @@
 		19C28FB6FE9D52B211CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D576316048677EA00EA77CD /* SpammerParadise.bundle */,
+				8D576316048677EA00EA77CD /* User Insights.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,8 +90,8 @@
 		4C46A09820EC6B0900094EA4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4C46A09A20EC6B0900094EA4 /* TPISpammerParadise.h */,
-				4C46A09920EC6B0900094EA4 /* TPISpammerParadise.m */,
+				4C46A09A20EC6B0900094EA4 /* TPIUserInsights.h */,
+				4C46A09920EC6B0900094EA4 /* TPIUserInsights.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -188,9 +188,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D57630D048677EA00EA77CD /* Spammer Paradise Extension */ = {
+		8D57630D048677EA00EA77CD /* User Insights Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "Spammer Paradise Extension" */;
+			buildConfigurationList = 1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "User Insights Extension" */;
 			buildPhases = (
 				8D57630F048677EA00EA77CD /* Resources */,
 				8D576313048677EA00EA77CD /* Frameworks */,
@@ -200,10 +200,10 @@
 			);
 			dependencies = (
 			);
-			name = "Spammer Paradise Extension";
+			name = "User Insights Extension";
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = BragSpam;
-			productReference = 8D576316048677EA00EA77CD /* SpammerParadise.bundle */;
+			productReference = 8D576316048677EA00EA77CD /* User Insights.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -221,7 +221,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "Spammer Paradise Extension" */;
+			buildConfigurationList = 1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "User Insights Extension" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
@@ -233,7 +233,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D57630D048677EA00EA77CD /* Spammer Paradise Extension */,
+				8D57630D048677EA00EA77CD /* User Insights Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -254,7 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C46A09B20EC6B0900094EA4 /* TPISpammerParadise.m in Sources */,
+				4C46A09B20EC6B0900094EA4 /* TPIUserInsights.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,8 +276,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-SpammerParadise";
-				PRODUCT_NAME = SpammerParadise;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-UserInsights";
+				PRODUCT_NAME = "User Insights";
 			};
 			name = Debug;
 		};
@@ -285,8 +285,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-SpammerParadise";
-				PRODUCT_NAME = SpammerParadise;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-UserInsights";
+				PRODUCT_NAME = "User Insights";
 			};
 			name = Release;
 		};
@@ -315,15 +315,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-SpammerParadise";
-				PRODUCT_NAME = SpammerParadise;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-UserInsights";
+				PRODUCT_NAME = "User Insights";
 			};
 			name = "Release (App Store)";
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "Spammer Paradise Extension" */ = {
+		1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "User Insights Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB911B08733D790010E9CD /* Debug */,
@@ -333,7 +333,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "Spammer Paradise Extension" */ = {
+		1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "User Insights Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB911F08733D790010E9CD /* Debug */,

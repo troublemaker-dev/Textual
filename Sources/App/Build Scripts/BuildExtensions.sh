@@ -10,8 +10,8 @@ TEXTUAL_PRODUCT_BINARY="${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}"
 plugins=(
     'Chat Filter'
     'Smiley Converter'
-    'Spammer Paradise'
     'System Profiler'
+    'User Insights'
     'ZNC Additions'
 )
 

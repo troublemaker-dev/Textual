@@ -39,7 +39,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TPISpammerParadise : NSObject <THOPluginProtocol>
+@interface TPIUserInsights : NSObject <THOPluginProtocol>
 @end
 
 NS_ASSUME_NONNULL_END

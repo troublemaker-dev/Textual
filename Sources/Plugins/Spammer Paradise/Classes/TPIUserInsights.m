@@ -35,11 +35,11 @@
  *
  *********************************************************************** */
 
-#import "TPISpammerParadise.h"
+#import "TPIUserInsights.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation TPISpammerParadise
+@implementation TPIUserInsights
 
 #pragma mark -
 #pragma mark User Input

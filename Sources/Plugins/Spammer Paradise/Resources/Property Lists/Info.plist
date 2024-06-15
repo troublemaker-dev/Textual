@@ -17,6 +17,6 @@
 	<key>MinimumTextualVersion</key>
 	<string>6.0.0</string>
 	<key>NSPrincipalClass</key>
-	<string>TPISpammerParadise</string>
+	<string>TPIUserInsights</string>
 </dict>
 </plist>
