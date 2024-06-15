@@ -21,6 +21,9 @@
       location = "container:"
       name = "Extensions">
       <FileRef
+         location = "group:Sources/Plugins/Caffeine/Caffeine Extension.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Sources/Plugins/Chat Filter/Chat Filter Extension.xcodeproj">
       </FileRef>
       <FileRef

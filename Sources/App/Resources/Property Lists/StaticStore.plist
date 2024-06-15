@@ -203,6 +203,10 @@
 		<string>version</string>
 		<string>whowas</string>
 	</array>
+	<key>THOPluginManager List of Forbidden Extensions</key>
+	<array>
+		<string>com.codeux.app-extensions.textual-Caffeine</string>
+	</array>
 	<key>THOPluginManager List of Reserved Commands</key>
 	<array>
 		<string>apps</string>
@@ -230,8 +234,6 @@
 	<dict>
 		<key>com.codeux.app-extensions.textual-BlowfishEncryption</key>
 		<string>1.0.17</string>
-		<key>com.codeux.app-extensions.textual-Caffeine</key>
-		<string>1.0.8</string>
 		<key>com.codeux.app-extensions.textual-WikiStyleLinkParser</key>
 		<string>1.0.8</string>
 	</dict>
