@@ -38,8 +38,33 @@
 "5dx-rs" = "No users found in %@";
 "gxq-47" = "No clones found";
 "iaa-5v" = "%1$lu clone(s) found in %2$@";
+
 "r6x-ih" = "Bad input";
+
 "nn7-6s" = "%1$lu user(s) found in %2$@ with a cached hostmask.";
 "oq7-mg" = "%1$lu user(s) found in %2$@ with a cached hostmask containing the search string “%3$@”";
 "1ab-27" = "No users found in %2$@ with a cached hostmask.";
 "n1j-tp" = "No users found in %2$@ with a cached hostmask containing the search string “%3$@”";
+
+"30l-sx-1" = "I am in %ld channel while connected to ";
+"30l-sx-2" = "I am in %ld channels while connected to ";
+
+"rks-0t-1" = "%ld network. ";
+"rks-0t-2" = "%ld networks. ";
+
+"614-ac-1" = "I have %ld o:line, ";
+"614-ac-2" = "I have %ld o:lines, ";
+
+"qne-b5-1" = "%ld op, ";
+"qne-b5-2" = "%ld ops, ";
+
+"431-yv-1" = "%ld halfop, ";
+"431-yv-2" = "%ld halfops, ";
+
+"x1m-jp-1" = "and %ld voice ";
+"x1m-jp-2" = "and %ld voices ";
+
+"ny4-wd-1" = "with power over %ld user.";
+"ny4-wd-2" = "with power over %ld unique users.";
+
+"jpi-po" = "I have no power whatsoever.";

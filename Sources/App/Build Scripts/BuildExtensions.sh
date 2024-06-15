@@ -7,7 +7,7 @@ echo "Building using architecture: ${ARCHS}"
 TEXTUAL_PRODUCT_LOCATION="${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}"
 TEXTUAL_PRODUCT_BINARY="${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}"
 
-plugins=('Brag Spam'
+plugins=(
     'Chat Filter'
     'Smiley Converter'
     'Spammer Paradise'
