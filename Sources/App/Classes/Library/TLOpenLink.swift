@@ -44,7 +44,7 @@ public class OpenLink: NSObject
 		if inBackground {
 			/* User should not be clicking links frequently enough that
 			 we need to worry about making the configuration static. */
-			var configuration = NSWorkspace.OpenConfiguration();
+			let configuration = NSWorkspace.OpenConfiguration();
 			configuration.activates = false
 
 			NSWorkspace.shared.open(url, configuration: configuration)
