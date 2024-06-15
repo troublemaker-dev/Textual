@@ -173,11 +173,11 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	NSURL *sourceURL = [TPCPathInfo groupContainerApplicationSupportURL];
 
-	NSURL *baseuRL = [sourceURL URLByAppendingPathComponent:@"/Inline Media Modules/"];
+	NSURL *baseRL = [sourceURL URLByAppendingPathComponent:@"/Inline Media Modules/"];
 
-	[TPCPathInfo _createDirectoryAtURL:baseuRL];
+	[TPCPathInfo _createDirectoryAtURL:baseRL];
 
-	return baseuRL;
+	return baseRL;
 }
 
 #pragma mark -
