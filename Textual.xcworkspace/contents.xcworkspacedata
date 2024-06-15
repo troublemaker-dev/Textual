@@ -30,7 +30,7 @@
          location = "group:Sources/Plugins/System Profiler/System Profiler Extension.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Sources/Plugins/Spammer Paradise/User Insights Extension.xcodeproj">
+         location = "group:Sources/Plugins/User Insights/User Insights Extension.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Sources/Plugins/ZNC Additions/ZNC Additions Extension.xcodeproj">
