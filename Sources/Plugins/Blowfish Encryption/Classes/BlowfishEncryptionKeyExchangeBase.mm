@@ -87,7 +87,7 @@ static NSString *fishPrimeB64 = @"++ECLiPSE+is+proud+to+present+latest+FiSH+rele
 
 		self.publicBigNum = 0;
 
-		[self initalizeKeyExchange];
+		[self initializeKeyExchange];
 
 		return self;
 	}
@@ -121,7 +121,7 @@ static NSString *fishPrimeB64 = @"++ECLiPSE+is+proud+to+present+latest+FiSH+rele
 
 #pragma mark -
 
-- (void)initalizeKeyExchange
+- (void)initializeKeyExchange
 {
 	DHAssertNO(self.DHStatus == 0);
 

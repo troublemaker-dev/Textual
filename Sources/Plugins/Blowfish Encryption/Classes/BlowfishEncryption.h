@@ -34,13 +34,13 @@
 
 typedef enum EKBlowfishEncryptionModeOfOperation : NSInteger {
 	EKBlowfishEncryptionNoneModeOfOperation		= -1,				// Does nothing, just returns original
-	EKBlowfishEncryptionDefaultModeOfOperation	= 0,				// Defualt goes to ECB
+	EKBlowfishEncryptionDefaultModeOfOperation	= 0,				// Default goes to ECB
 	EKBlowfishEncryptionECBModeOfOperation		= 1,
 	EKBlowfishEncryptionCBCModeOfOperation		= 2
 } EKBlowfishEncryptionModeOfOperation;
 
 @interface EKBlowfishEncryption : NSObject
-+ (NSUInteger)estiminatedLengthOfEncodedDataOfLength:(NSUInteger)dataLength;
++ (NSUInteger)estimatedLengthOfEncodedDataOfLength:(NSUInteger)dataLength;
 
 + (NSString *)encodeData:(NSString *)input key:(NSString *)phrase mode:(EKBlowfishEncryptionModeOfOperation)mode encoding:(NSStringEncoding)local;
 + (NSString *)decodeData:(NSString *)input key:(NSString *)phrase mode:(EKBlowfishEncryptionModeOfOperation)mode encoding:(NSStringEncoding)local lostBytes:(NSInteger *)lostBytes;
