@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -54,7 +54,7 @@
 		4C46A0AC20EC6B5A00094EA4 /* TPI_ChatFilterExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPI_ChatFilterExtension.h; sourceTree = "<group>"; };
 		4C46A0AD20EC6B5A00094EA4 /* TPI_ChatFilterEditFilterSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPI_ChatFilterEditFilterSheet.h; sourceTree = "<group>"; };
 		4C46A0B420EC6B6A00094EA4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D576316048677EA00EA77CD /* ChatFilterExtension.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatFilterExtension.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D576316048677EA00EA77CD /* Chat Filters.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chat Filters.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +100,7 @@
 		19C28FB6FE9D52B211CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D576316048677EA00EA77CD /* ChatFilterExtension.bundle */,
+				8D576316048677EA00EA77CD /* Chat Filters.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -241,7 +241,7 @@
 			name = "Chat Filter Extension";
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = PreferencePaneExample;
-			productReference = 8D576316048677EA00EA77CD /* ChatFilterExtension.bundle */;
+			productReference = 8D576316048677EA00EA77CD /* Chat Filters.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -355,7 +355,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-ChatFilterExtension";
-				PRODUCT_NAME = ChatFilterExtension;
+				PRODUCT_NAME = "Chat Filters";
 			};
 			name = Debug;
 		};
@@ -378,7 +378,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-ChatFilterExtension";
-				PRODUCT_NAME = ChatFilterExtension;
+				PRODUCT_NAME = "Chat Filters";
 			};
 			name = Release;
 		};
@@ -394,7 +394,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-ChatFilterExtension";
-				PRODUCT_NAME = ChatFilterExtension;
+				PRODUCT_NAME = "Chat Filters";
 			};
 			name = "Release (App Store)";
 		};

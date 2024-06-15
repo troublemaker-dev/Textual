@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,7 +37,7 @@
 		4C46A07F20EC6A8200094EA4 /* TPI_ZNCAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPI_ZNCAdditions.m; sourceTree = "<group>"; };
 		4C661D481C2428DC001C2352 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4CF7B6C71C02836A00C986AA /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = System/Library/Frameworks/SecurityInterface.framework; sourceTree = SDKROOT; };
-		8D576316048677EA00EA77CD /* ZNCAdditions.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZNCAdditions.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D576316048677EA00EA77CD /* ZNC Additions.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ZNC Additions.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +86,7 @@
 		19C28FB6FE9D52B211CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D576316048677EA00EA77CD /* ZNCAdditions.bundle */,
+				8D576316048677EA00EA77CD /* ZNC Additions.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,7 +207,7 @@
 			name = "ZNC Additions Extension";
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = BragSpam;
-			productReference = 8D576316048677EA00EA77CD /* ZNCAdditions.bundle */;
+			productReference = 8D576316048677EA00EA77CD /* ZNC Additions.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -281,7 +281,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-ZNCAdditions";
-				PRODUCT_NAME = ZNCAdditions;
+				PRODUCT_NAME = "ZNC Additions";
 			};
 			name = Debug;
 		};
@@ -290,7 +290,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-ZNCAdditions";
-				PRODUCT_NAME = ZNCAdditions;
+				PRODUCT_NAME = "ZNC Additions";
 			};
 			name = Release;
 		};
@@ -320,7 +320,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-ZNCAdditions";
-				PRODUCT_NAME = ZNCAdditions;
+				PRODUCT_NAME = "ZNC Additions";
 			};
 			name = "Release (App Store)";
 		};

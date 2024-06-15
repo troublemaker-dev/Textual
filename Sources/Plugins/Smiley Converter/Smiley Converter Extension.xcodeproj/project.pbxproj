@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -39,7 +39,7 @@
 		4C46A0CA20EC6BB700094EA4 /* conversionTable2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = conversionTable2.plist; sourceTree = "<group>"; };
 		4C46A0CB20EC6BB700094EA4 /* conversionTable.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = conversionTable.plist; sourceTree = "<group>"; };
 		4C46A0CC20EC6BB700094EA4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D576316048677EA00EA77CD /* SmileyConverter.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmileyConverter.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D576316048677EA00EA77CD /* Smiley Converter.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smiley Converter.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +85,7 @@
 		19C28FB6FE9D52B211CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D576316048677EA00EA77CD /* SmileyConverter.bundle */,
+				8D576316048677EA00EA77CD /* Smiley Converter.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -216,7 +216,7 @@
 			name = "Smiley Converter Extension";
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = BragSpam;
-			productReference = 8D576316048677EA00EA77CD /* SmileyConverter.bundle */;
+			productReference = 8D576316048677EA00EA77CD /* Smiley Converter.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -301,7 +301,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-SmileyConverter";
-				PRODUCT_NAME = SmileyConverter;
+				PRODUCT_NAME = "Smiley Converter";
 			};
 			name = Debug;
 		};
@@ -310,7 +310,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-SmileyConverter";
-				PRODUCT_NAME = SmileyConverter;
+				PRODUCT_NAME = "Smiley Converter";
 			};
 			name = Release;
 		};
@@ -340,7 +340,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-SmileyConverter";
-				PRODUCT_NAME = SmileyConverter;
+				PRODUCT_NAME = "Smiley Converter";
 			};
 			name = "Release (App Store)";
 		};
