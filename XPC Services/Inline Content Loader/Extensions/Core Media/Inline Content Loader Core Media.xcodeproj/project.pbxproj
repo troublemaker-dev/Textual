@@ -3,14 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4C469ED520EC600900094EA4 /* ICPCoreMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C469EA620EC600900094EA4 /* ICPCoreMedia.m */; };
 		4C469ED620EC600900094EA4 /* ICMCommonInlineVideos.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C469EA920EC600900094EA4 /* ICMCommonInlineVideos.m */; };
 		4C469ED720EC600900094EA4 /* ICMTweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C469EAC20EC600900094EA4 /* ICMTweet.m */; };
-		4C469ED820EC600900094EA4 /* ICMGfycat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C469EB020EC600900094EA4 /* ICMGfycat.m */; };
 		4C469ED920EC600900094EA4 /* ICMLiveleak.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C469EB220EC600900094EA4 /* ICMLiveleak.m */; };
 		4C469EDA20EC600900094EA4 /* ICMGyazo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C469EB620EC600900094EA4 /* ICMGyazo.m */; };
 		4C469EDB20EC600900094EA4 /* ICMStreamable.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C469EB920EC600900094EA4 /* ICMStreamable.m */; };
@@ -42,8 +41,6 @@
 		4C469EAA20EC600900094EA4 /* ICMCommonInlineVideos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICMCommonInlineVideos.h; sourceTree = "<group>"; };
 		4C469EAC20EC600900094EA4 /* ICMTweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICMTweet.m; sourceTree = "<group>"; };
 		4C469EAD20EC600900094EA4 /* ICMTweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICMTweet.h; sourceTree = "<group>"; };
-		4C469EAF20EC600900094EA4 /* ICMGfycat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICMGfycat.h; sourceTree = "<group>"; };
-		4C469EB020EC600900094EA4 /* ICMGfycat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICMGfycat.m; sourceTree = "<group>"; };
 		4C469EB220EC600900094EA4 /* ICMLiveleak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICMLiveleak.m; sourceTree = "<group>"; };
 		4C469EB320EC600900094EA4 /* ICMLiveleak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICMLiveleak.h; sourceTree = "<group>"; };
 		4C469EB520EC600900094EA4 /* ICMGyazo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICMGyazo.h; sourceTree = "<group>"; };
@@ -160,7 +157,6 @@
 				4C469ECF20EC600900094EA4 /* Common Images */,
 				4C469EA820EC600900094EA4 /* Common Videos */,
 				4C469EC620EC600900094EA4 /* Dailymotion */,
-				4C469EAE20EC600900094EA4 /* Gfycat */,
 				4C469EB420EC600900094EA4 /* Gyazo */,
 				4C469EC020EC600900094EA4 /* Imgur .gifv */,
 				4C469EB120EC600900094EA4 /* Liveleak */,
@@ -192,15 +188,6 @@
 				4C469EAD20EC600900094EA4 /* ICMTweet.h */,
 			);
 			path = Twitter;
-			sourceTree = "<group>";
-		};
-		4C469EAE20EC600900094EA4 /* Gfycat */ = {
-			isa = PBXGroup;
-			children = (
-				4C469EAF20EC600900094EA4 /* ICMGfycat.h */,
-				4C469EB020EC600900094EA4 /* ICMGfycat.m */,
-			);
-			path = Gfycat;
 			sourceTree = "<group>";
 		};
 		4C469EB120EC600900094EA4 /* Liveleak */ = {
@@ -620,7 +607,6 @@
 				4C469EE420EC600900094EA4 /* ICMXkcd.m in Sources */,
 				4C469EE020EC600900094EA4 /* ICMDailymotion.m in Sources */,
 				4C469EE120EC600900094EA4 /* ICMTwitchClips.m in Sources */,
-				4C469ED820EC600900094EA4 /* ICMGfycat.m in Sources */,
 				4C469ED520EC600900094EA4 /* ICPCoreMedia.m in Sources */,
 				4C469EDC20EC600900094EA4 /* ICMVimeo.m in Sources */,
 				4C469EDD20EC600900094EA4 /* ICMPornhub.m in Sources */,

@@ -40,7 +40,6 @@
 #import "ICMCommonInlineImages.h"
 #import "ICMCommonInlineVideos.h"
 #import "ICMDailymotion.h"
-#import "ICMGfycat.h"
 #import "ICMGyazo.h"
 #import "ICMImgurGifv.h"
 #import "ICMLiveLeak.h"
@@ -62,7 +61,6 @@ NS_ASSUME_NONNULL_BEGIN
 	return
 	@[
 		[ICMDailymotion class],
-		[ICMGfycat class],
 		[ICMGyazo class],
 		[ICMImgurGifv class],
 		[ICMLiveleak class],
