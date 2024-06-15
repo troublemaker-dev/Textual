@@ -161,7 +161,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (BOOL)o
 {
-	return ((self.ranks & IRCUserRankNonermalOperator) == IRCUserRankNonermalOperator);
+	return ((self.ranks & IRCUserRankNormalOperator) == IRCUserRankNormalOperator);
 }
 
 - (BOOL)h
@@ -222,7 +222,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	} else if ([modeSymbol isEqualToString:@"a"]) {
 		return IRCUserRankSuperOperator;
 	} else if ([modeSymbol isEqualToString:@"o"]) {
-		return IRCUserRankNonermalOperator;
+		return IRCUserRankNormalOperator;
 	} else if ([modeSymbol isEqualToString:@"h"]) {
 		return IRCUserRankHalfOperator;
 	} else if ([modeSymbol isEqualToString:@"v"]) {

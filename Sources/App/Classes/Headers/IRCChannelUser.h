@@ -45,7 +45,7 @@ typedef NS_OPTIONS(NSUInteger, IRCUserRank) {
 	IRCUserRankIRCopByMode		= 1 << 1,	// +y/+Y
 	IRCUserRankChannelOwner		= 1 << 2,	// +q
 	IRCUserRankSuperOperator	= 1 << 3,	// +a
-	IRCUserRankNonermalOperator	= 1 << 4,	// +o
+	IRCUserRankNormalOperator	= 1 << 4,	// +o
 	IRCUserRankHalfOperator		= 1 << 5,	// +h
 	IRCUserRankVoiced			= 1 << 6	// +v
 };

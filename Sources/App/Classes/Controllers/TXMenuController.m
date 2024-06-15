@@ -850,7 +850,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 				IRCUserRank userRanks = user.ranks;
 
-				BOOL UserHasModeO = ((userRanks & IRCUserRankNonermalOperator) == IRCUserRankNonermalOperator);
+				BOOL UserHasModeO = ((userRanks & IRCUserRankNormalOperator) == IRCUserRankNormalOperator);
 				BOOL UserHasModeH = NO;
 				BOOL UserHasModeV = ((userRanks & IRCUserRankVoiced) == IRCUserRankVoiced);
 

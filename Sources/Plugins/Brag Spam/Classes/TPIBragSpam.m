@@ -101,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 				BOOL IHaveModeQ = ((myRanks & IRCUserRankChannelOwner) == IRCUserRankChannelOwner);
 				BOOL IHaveModeA = ((myRanks & IRCUserRankSuperOperator) == IRCUserRankSuperOperator);
-				BOOL IHaveModeO = ((myRanks & IRCUserRankNonermalOperator) == IRCUserRankNonermalOperator);
+				BOOL IHaveModeO = ((myRanks & IRCUserRankNormalOperator) == IRCUserRankNormalOperator);
 				BOOL IHaveModeH = ((myRanks & IRCUserRankHalfOperator) == IRCUserRankHalfOperator);
 				BOOL IHaveModeV = ((myRanks & IRCUserRankVoiced) == IRCUserRankVoiced);
 
@@ -124,7 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 					BOOL UserHasModeQ = ((userRanks & IRCUserRankChannelOwner) == IRCUserRankChannelOwner);
 					BOOL UserHasModeA = ((userRanks & IRCUserRankSuperOperator) == IRCUserRankSuperOperator);
-					BOOL UserHasModeO = ((userRanks & IRCUserRankNonermalOperator) == IRCUserRankNonermalOperator);
+					BOOL UserHasModeO = ((userRanks & IRCUserRankNormalOperator) == IRCUserRankNormalOperator);
 					BOOL UserHasModeH = ((userRanks & IRCUserRankHalfOperator) == IRCUserRankHalfOperator);
 
 					if (client.userIsIRCop && member.user.isIRCop == NO) {
