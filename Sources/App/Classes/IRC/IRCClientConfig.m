@@ -107,17 +107,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	defaults[@"serverPort"] = @(IRCConnectionDefaultServerPort);
 	defaults[@"setInvisibleModeOnConnect"] = @(NO);
 	defaults[@"sidebarItemExpanded"] = @(YES);
-
-	{
-		NSString *macintoshModel = [XRSystemInformation systemModelName];
-
-		if (macintoshModel == nil) {
-			defaults[@"sleepModeLeavingComment"] = TXTLS(@"BasicLanguage[qi7-5y]");
-		} else {
-			defaults[@"sleepModeLeavingComment"] = TXTLS(@"BasicLanguage[zhr-lq]", macintoshModel);
-		}
-	}
-
+	defaults[@"sleepModeLeavingComment"] = TXTLS(@"BasicLanguage[qi7-5y]");
 	defaults[@"validateServerCertificateChain"] = @(YES);
 	defaults[@"zncIgnoreConfiguredAutojoin"] = @(NO);
 	defaults[@"zncIgnorePlaybackNotifications"] = @(YES);
