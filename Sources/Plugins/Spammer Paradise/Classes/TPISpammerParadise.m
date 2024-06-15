@@ -267,7 +267,6 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	NSParameterAssert(resultString != nil);
 	NSParameterAssert(valueToken != nil);
-	NSParameterAssert(value != nil);
 
 	NSString *valueKey = nil;
 
