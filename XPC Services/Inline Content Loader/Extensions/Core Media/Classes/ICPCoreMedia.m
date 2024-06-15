@@ -42,7 +42,6 @@
 #import "ICMDailymotion.h"
 #import "ICMGyazo.h"
 #import "ICMImgurGifv.h"
-#import "ICMLiveLeak.h"
 #import "ICMPornhub.h"
 #import "ICMStreamable.h"
 #import "ICMTweet.h"
@@ -63,7 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 		[ICMDailymotion class],
 		[ICMGyazo class],
 		[ICMImgurGifv class],
-		[ICMLiveleak class],
 		[ICMPornhub class],
 		[ICMStreamable class],
 		[ICMTweet class],
