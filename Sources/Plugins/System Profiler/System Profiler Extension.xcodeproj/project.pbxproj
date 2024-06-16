@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -43,7 +43,7 @@
 		4CE143C120EBF551000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE143C220EBF551000E01C9 /* Textual Extensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Textual Extensions.xcconfig"; sourceTree = "<group>"; };
 		4CE143C620EBF551000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
-		8D576316048677EA00EA77CD /* SystemProfiler.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SystemProfiler.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D576316048677EA00EA77CD /* System Info.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "System Info.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +91,7 @@
 		19C28FB6FE9D52B211CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D576316048677EA00EA77CD /* SystemProfiler.bundle */,
+				8D576316048677EA00EA77CD /* System Info.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -224,7 +224,7 @@
 			name = "System Profiler Extension";
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = BlowfishCommandLine;
-			productReference = 8D576316048677EA00EA77CD /* SystemProfiler.bundle */;
+			productReference = 8D576316048677EA00EA77CD /* System Info.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -309,7 +309,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-SystemProfiler";
-				PRODUCT_NAME = SystemProfiler;
+				PRODUCT_NAME = "System Info";
 			};
 			name = Debug;
 		};
@@ -318,7 +318,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-SystemProfiler";
-				PRODUCT_NAME = SystemProfiler;
+				PRODUCT_NAME = "System Info";
 			};
 			name = Release;
 		};
@@ -348,7 +348,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-SystemProfiler";
-				PRODUCT_NAME = SystemProfiler;
+				PRODUCT_NAME = "System Info";
 			};
 			name = "Release (App Store)";
 		};

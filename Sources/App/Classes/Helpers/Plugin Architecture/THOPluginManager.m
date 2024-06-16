@@ -81,6 +81,8 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (void)_loadPlugins
 {
+	NSArray *forbiddenPlugins = self.listOfForbiddenBundles;
+
 	NSMutableArray<THOPluginItem *> *loadedPlugins = [NSMutableArray array];
 
 	NSMutableArray<NSString *> *loadedBundles = [NSMutableArray array];
@@ -124,6 +126,16 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 			continue;
 		}
 
+		/* The list of forbidden bundles logic was added because a plugin previously
+		 bundled separately was not bundled with the app. This is a simple check to
+		 prevent the old plugin from loading and conflicting with built-in plugin.
+		 This is not designed as a security measure. */
+		if ([forbiddenPlugins containsObject:bundleIdentifier]) {
+			LogToConsoleFault("Forbidden loading of plugin '%@'", bundleIdentifier);
+
+			continue;
+		}
+
 		/* Begin version comparison */
 		NSDictionary *infoDictionary = bundle.infoDictionary;
 
@@ -148,25 +160,25 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 			NSLog(@" --------------------------------------------------------------- ");
 
 			continue;
-		} else {
-			NSComparisonResult comparisonResult =
-			[comparisonVersion compare:THOPluginProtocolCompatibilityMinimumVersion options:NSNumericSearch];
+		}
 
-			if (comparisonResult == NSOrderedAscending) {
-				NSLog(@" ---------------------------- ERROR ---------------------------- ");
-				NSLog(@"                                                                 ");
-				NSLog(@"  Textual has failed to load the bundle at the followig path     ");
-				NSLog(@"  because the specified minimum version is out of range:         ");
-				NSLog(@"                                                                 ");
-				NSLog(@"     Bundle Path: %@", bundle.bundlePath);
-				NSLog(@"                                                                 ");
-				NSLog(@"     Minimum version specified by bundle: %@", comparisonVersion);
-				NSLog(@"     Version used by Textual for comparison: %@", THOPluginProtocolCompatibilityMinimumVersion);
-				NSLog(@"                                                                 ");
-				NSLog(@" --------------------------------------------------------------- ");
+		NSComparisonResult comparisonResult =
+		[comparisonVersion compare:THOPluginProtocolCompatibilityMinimumVersion options:NSNumericSearch];
 
-				continue;
-			}
+		if (comparisonResult == NSOrderedAscending) {
+			NSLog(@" ---------------------------- ERROR ---------------------------- ");
+			NSLog(@"                                                                 ");
+			NSLog(@"  Textual has failed to load the bundle at the followig path     ");
+			NSLog(@"  because the specified minimum version is out of range:         ");
+			NSLog(@"                                                                 ");
+			NSLog(@"     Bundle Path: %@", bundle.bundlePath);
+			NSLog(@"                                                                 ");
+			NSLog(@"     Minimum version specified by bundle: %@", comparisonVersion);
+			NSLog(@"     Version used by Textual for comparison: %@", THOPluginProtocolCompatibilityMinimumVersion);
+			NSLog(@"                                                                 ");
+			NSLog(@" --------------------------------------------------------------- ");
+
+			continue;
 		}
 
 		/* Load bundle as a plugin */
@@ -290,6 +302,22 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 	return cachedValue;
 }
 
+- (NSArray<NSString *> *)listOfForbiddenBundles
+{
+	static NSArray<NSString *> *cachedValue = nil;
+
+	static dispatch_once_t onceToken;
+
+	dispatch_once(&onceToken, ^{
+		NSDictionary *staticValues =
+		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
+
+		cachedValue = [staticValues arrayForKey:@"THOPluginManager List of Forbidden Extensions"];
+	});
+
+	return cachedValue;
+}
+
 #pragma mark -
 #pragma mark Extras Installer
 
@@ -375,7 +403,7 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 	NSParameterAssert(bundles != nil);
 
 	/* Append the current version to the suppression key so that updates 
-	 aren't refused forever. Only until the next verison of Textual is out. */
+	 aren't refused forever. Only until the next version of Textual is out. */
 	NSString *suppressionKey =
 	[@"plugin_manager_extension_update_dialog_"
 	 stringByAppendingString:[TPCApplicationInfo applicationVersionShort]];
@@ -503,18 +531,18 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 - (void)extrasInstallerLaunchInstaller
 {
 #if TEXTUAL_BUILT_INSIDE_SANDBOX == 1
-	NSURL *installerURL = [RZMainBundle() URLForResource:@"Textual-Extras-MAS" withExtension:@"pkg"];
+	NSURL *extrasURL = [RZMainBundle() URLForResource:@"Textual-Extras-MAS" withExtension:@"pkg"];
 #else
-	NSURL *installerURL = [RZMainBundle() URLForResource:@"Textual-Extras" withExtension:@"pkg"];
+	NSURL *extrasURL = [RZMainBundle() URLForResource:@"Textual-Extras" withExtension:@"pkg"];
 #endif
 
-	if (installerURL) {
-		[RZWorkspace() openURLs:@[installerURL]
-		withAppBundleIdentifier:@"com.apple.installer"
-						options:NSWorkspaceLaunchDefault
- additionalEventParamDescriptor:nil
-			  launchIdentifiers:NULL];
-	}
+	NSURL *installerURL =
+	[RZWorkspace() URLForApplicationWithBundleIdentifier:@"com.apple.installer"];
+
+	[RZWorkspace() openURLs:@[extrasURL]
+	   withApplicationAtURL:installerURL
+			  configuration:[NSWorkspaceOpenConfiguration new]
+		  completionHandler:nil];;
 }
 
 #pragma mark -

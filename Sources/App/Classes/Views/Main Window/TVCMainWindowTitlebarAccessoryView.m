@@ -35,8 +35,6 @@
  *
  *********************************************************************** */
 
-#warning TODO: Looks crap on dark mode on Mojave
-
 #import "NSViewHelperPrivate.h"
 #import "TVCMainWindow.h"
 #import "TVCMainWindowAppearance.h"

@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 /* Refuse to have more than X number of items incoming at any given time. */
 #define _addReceiverHardLimit			120
 
-@interface TDCFileTransferDialog ()
+@interface TDCFileTransferDialog () <NSMenuItemValidation>
 @property (nonatomic, weak) IBOutlet NSButton *clearButton;
 @property (nonatomic, weak) IBOutlet NSSegmentedCell *navigationControllerCell;
 @property (nonatomic, weak, readwrite) IBOutlet TVCBasicTableView *fileTransferTable;
@@ -501,7 +501,7 @@ NS_ASSUME_NONNULL_BEGIN
 			return;
 		}
 
-		[RZWorkspace() openFile:fileTransfer.filePath];
+		[RZWorkspace() openURL:fileTransfer.fileURL];
 	}];
 }
 
@@ -536,9 +536,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateMaintenanceTimer
 {
-	[self performBlockOnMainThread:^{
+	XRPerformBlockSynchronouslyOnMainQueue(^{
 		[self updateMaintenanceTimerOnMainThread];
-	}];
+	});
 }
 
 - (void)onMaintenanceTimer

@@ -5,7 +5,7 @@
  *                   | |  __/>  <| |_| |_| | (_| | |
  *                   |_|\___/_/\_\\__|\__,_|\__,_|_|
  *
- * Copyright (c) 2017, 2018 Codeux Software, LLC & respective contributors.
+ * Copyright (c) 2013 - 2018 Codeux Software, LLC & respective contributors.
  *       Please see Acknowledgements.pdf for additional information.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,11 +35,11 @@
  *
  *********************************************************************** */
 
-#import "ICMInlineVideo.h"
+#import "Textual.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ICMGfycat : ICMInlineGifVideo
+@interface TPIUserInsights : NSObject <THOPluginProtocol>
 @end
 
 NS_ASSUME_NONNULL_END

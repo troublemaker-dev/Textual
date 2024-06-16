@@ -705,7 +705,7 @@ ClassWithDesignatedInitializerInitMethod
 {
 	NSParameterAssert(lineNumber != nil);
 
-	/* Jumping to line chains callback functinos which may take time to load.
+	/* Jumping to line chains callback functions which may take time to load.
 	 We do not want invoke the completion handler until we know for certain
 	 whether the line was jumped to. We therefore change the completion
 	 handler and call it from a bridged function when we are finished. */
@@ -1282,7 +1282,7 @@ ClassWithDesignatedInitializerInitMethod
 			/* Redraw view if needed */
 			[self.backingView redrawViewIfNeeded];
 
-			/* Using informationi provided by conversation tracking we can update 
+			/* Using information provided by conversation tracking we can update 
 			 our internal array of favored nicknames for nick completion. */
 			if (logLine.memberType == TVCLogLineMemberTypeLocalUser) {
 				[listOfUsers.allObjects makeObjectsPerformSelector:@selector(outgoingConversation)];

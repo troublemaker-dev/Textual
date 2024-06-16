@@ -261,6 +261,8 @@ final class Connection: NSObject, ConnectionSocketDelegate
 
 		if (bypassQueue) {
 			send(data, removeFromQueue: false)
+
+			return
 		}
 
 		sendQueue(add: data)

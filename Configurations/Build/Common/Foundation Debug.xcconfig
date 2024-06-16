@@ -15,3 +15,23 @@ RUN_CLANG_STATIC_ANALYZER = NO
 SWIFT_COMPILATION_MODE = singlefile
 SWIFT_OPTIMIZATION_LEVEL = -Onone
 VERSION_INFO_BUILDER = ${USER}
+
+//
+// On Xcode 16, Textual failed to run in debug mode because
+// a "Textual.debug.dylib" file was missing in the @rpath
+// of extensions and services. Going to disable this feature
+// of Xcode until a later release of Xcode.
+//
+// From Xcode 16 beta 1 release notes:
+//
+// Some large or complex projects may fail to build and
+// run if they are scanning for specific Mach-O sections
+// in their binaries. (123416939)
+//
+// Workaround: Try setting the build setting ENABLE_DEBUG_DYLIB=NO.
+// This will disable the debug dylib that enables the new preview
+// execution mode. Setting this to NO will still allow you to
+// preview in Xcode 16 Seed 1 using the legacy execution mode,
+// but support for this mode will be removed in a future build.
+//
+ENABLE_DEBUG_DYLIB = NO

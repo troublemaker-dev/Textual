@@ -331,7 +331,7 @@ NS_ASSUME_NONNULL_BEGIN
 		backgroundColor = appearance.markBadgeBackgroundColor_Q;
 	} else if (userRank == IRCUserRankSuperOperator) {
 		backgroundColor = appearance.markBadgeBackgroundColor_A;
-	} else if (userRank == IRCUserRankNonermalOperator) {
+	} else if (userRank == IRCUserRankNormalOperator) {
 		backgroundColor = appearance.markBadgeBackgroundColor_O;
 	} else if (userRank == IRCUserRankHalfOperator) {
 		backgroundColor = appearance.markBadgeBackgroundColor_H;
@@ -531,7 +531,7 @@ NS_ASSUME_NONNULL_BEGIN
 		userPrivileges = TXTLS(@"TVCMainWindow[p1z-sc]");
 	} else if (userRank == IRCUserRankSuperOperator) {
 		userPrivileges = TXTLS(@"TVCMainWindow[som-zo]");
-	} else if (userRank == IRCUserRankNonermalOperator) {
+	} else if (userRank == IRCUserRankNormalOperator) {
 		userPrivileges = TXTLS(@"TVCMainWindow[0kn-s5]");
 	} else if (userRank == IRCUserRankHalfOperator) {
 		userPrivileges = TXTLS(@"TVCMainWindow[0nn-te]");

@@ -58,7 +58,7 @@ static const char blowfish_ecb_base64_chars[64] = "./0123456789abcdefghijklmnopq
 
 @implementation EKBlowfishEncryptionBase
 
-+ (NSUInteger)estiminatedLengthOfEncodedDataOfLength:(NSUInteger)dataLength
++ (NSUInteger)estimatedLengthOfEncodedDataOfLength:(NSUInteger)dataLength
 {
 	/* The returned estimation is the result of base64 encoded,
 	 properly padded encryption block up to input length. */
@@ -91,15 +91,15 @@ static const char blowfish_ecb_base64_chars[64] = "./0123456789abcdefghijklmnopq
 	}
 }
 
-NSData *_commonCryptoIninitializationVector(void)
+NSData *_commonCryptoInitializationVector(void)
 {
-	uint8_t ininitializationVector[kCCBlockSizeBlowfish] = {0};
+	uint8_t initializationVector[kCCBlockSizeBlowfish] = {0};
 
-	CCRNGStatus cryptorRandomBytesStatus =
-	CCRandomGenerateBytes(&ininitializationVector, 8);
+	CCRNGStatus cryptoRandomBytesStatus =
+	CCRandomGenerateBytes(&initializationVector, 8);
 
-	if (cryptorRandomBytesStatus == kCCSuccess) {
-		return [NSData dataWithBytes:ininitializationVector length:kCCBlockSizeBlowfish];
+	if (cryptoRandomBytesStatus == kCCSuccess) {
+		return [NSData dataWithBytes:initializationVector length:kCCBlockSizeBlowfish];
 	} else {
 		return nil;
 	}
@@ -109,7 +109,7 @@ NSData *_performCommonCryptoOperation(CCOperation ccInOperation,
 									  CCAlgorithm ccInOperationAlgorithm,
 									  CCMode ccInOperationMode,
 									  BOOL ccInOperationUsesPadding,
-									  NSData *ccIninitializationVector,
+									  NSData *ccInitializationVector,
 									  NSData *ccInSecretKey,
 									  NSData *ccInRelatedData)
 {
@@ -205,7 +205,7 @@ NSData *_performCommonCryptoOperation(CCOperation ccInOperation,
 							ccInOperationMode,
 							ccInOperationAlgorithm,
 							ccInPadding,
-							[ccIninitializationVector bytes],
+							[ccInitializationVector bytes],
 							[ccInSecretKey bytes],
 							[ccInSecretKey length],
 							NULL,
@@ -280,19 +280,19 @@ cleanup_function:
 
 	NSData *rawInputData = [rawInput dataUsingEncoding:dataEncoding paddedByBytes:kCCBlockSizeBlowfish];
 
-	NSData *ininitializationVectorData = _commonCryptoIninitializationVector();
+	NSData *initializationVectorData = _commonCryptoInitializationVector();
 
-	if (ininitializationVectorData == nil) {
+	if (initializationVectorData == nil) {
 		return nil;
 	}
 
-	/* mIRC fish 10 places the ininitialization vector directly on the data
+	/* mIRC fish 10 places the initialization vector directly on the data
 	 stream rather than allowing the crypto library to handle that itself. 
 	 If we do not append the IV here and instead feed it to Common Crypto,
 	 mIRC will not handle the operation properly. */
 	NSMutableData *objectToEncrypt = [NSMutableData data];
 
-	[objectToEncrypt appendData:ininitializationVectorData];
+	[objectToEncrypt appendData:initializationVectorData];
 	[objectToEncrypt appendData:rawInputData];
 
 	NSData *encryptedData =

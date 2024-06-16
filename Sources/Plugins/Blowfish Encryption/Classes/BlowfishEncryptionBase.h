@@ -33,7 +33,7 @@
 #import "BlowfishEncryption.h" // for enum
 
 @interface EKBlowfishEncryptionBase : NSObject
-+ (NSUInteger)estiminatedLengthOfEncodedDataOfLength:(NSUInteger)dataLength;
++ (NSUInteger)estimatedLengthOfEncodedDataOfLength:(NSUInteger)dataLength;
 
 + (NSString *)encrypt:(NSString *)rawInput key:(NSString *)secretKey mode:(EKBlowfishEncryptionModeOfOperation)mode encoding:(NSStringEncoding)dataEncoding;
 + (NSString *)decrypt:(NSString *)rawInput key:(NSString *)secretKey mode:(EKBlowfishEncryptionModeOfOperation)mode encoding:(NSStringEncoding)dataEncoding lostBytes:(NSInteger *)lostBytes;

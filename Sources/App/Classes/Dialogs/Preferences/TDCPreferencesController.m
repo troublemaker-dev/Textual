@@ -36,7 +36,9 @@
  *
  *********************************************************************** */
 
+#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
 #warning TODO: Radio groups that are manually set need to be updated when iCloud syncs.
+#endif
 
 #import "NSViewHelper.h"
 #import "TXMasterController.h"
@@ -1118,7 +1120,7 @@ NS_ASSUME_NONNULL_BEGIN
 		NSString *displayName = themeName;
 
 		if (multipleVaraints) {
-			displayName = [NSString stringWithFormat:@"%@ — (%@)",
+			displayName = [NSString stringWithFormat:@"%@ (%@)",
 				themeName, [TPCThemeController descriptionForStorageLocation:storageLocation]];
 		}
 
@@ -1612,7 +1614,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)onOpenPathToScripts:(id)sender
 {
-	[RZWorkspace() openFile:[TPCPathInfo groupContainerApplicationSupport]];
+	[RZWorkspace() openURL:[TPCPathInfo groupContainerApplicationSupportURL]];
 }
 
 - (void)onManageICloudButtonClicked:(id)sender
@@ -1739,9 +1741,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)openPathToTheme
 {
-	NSString *filepath = themeController().originalPath;
+	NSURL *fileURL = themeController().originalURL;
 
-	[RZWorkspace() openFile:filepath];
+	[RZWorkspace() openURL:fileURL];
 }
 
 #pragma mark -

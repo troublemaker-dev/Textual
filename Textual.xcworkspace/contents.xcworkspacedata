@@ -21,7 +21,7 @@
       location = "container:"
       name = "Extensions">
       <FileRef
-         location = "group:Sources/Plugins/Brag Spam/Brag Spam Extension.xcodeproj">
+         location = "group:Sources/Plugins/Caffeine/Caffeine Extension.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Sources/Plugins/Chat Filter/Chat Filter Extension.xcodeproj">
@@ -30,10 +30,10 @@
          location = "group:Sources/Plugins/Smiley Converter/Smiley Converter Extension.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Sources/Plugins/Spammer Paradise/Spammer Paradise Extension.xcodeproj">
+         location = "group:Sources/Plugins/System Profiler/System Profiler Extension.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Sources/Plugins/System Profiler/System Profiler Extension.xcodeproj">
+         location = "group:Sources/Plugins/User Insights/User Insights Extension.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Sources/Plugins/ZNC Additions/ZNC Additions Extension.xcodeproj">

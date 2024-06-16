@@ -64,9 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
 		 disconnect from the server ZNC was connected to. ZNC does not localize 
 		 itself so detecting these disconnects is not very hard... */
 
-		[self performBlockOnMainThread:^{
+		XRPerformBlockSynchronouslyOnMainQueue(^{
 			[self handleIRCSideDisconnect:client];
-		}];
+		});
 	}
 }
 
@@ -128,7 +128,7 @@ NS_ASSUME_NONNULL_BEGIN
 			return;
 		}
 
-		[self performBlockOnMainThread:^{
+		XRPerformBlockSynchronouslyOnMainQueue(^{
 			SFCertificateTrustPanel *panel = [SFCertificateTrustPanel new];
 
 			[panel setDefaultButtonTitle:TXTLS(@"Prompts[aqw-q1]")];
@@ -141,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
 						   contextInfo:NULL
 						  certificates:(__bridge NSArray *)certificateArray
 							 showGroup:YES];
-		}];
+		});
 
 		CFRelease(certificateArray);
 	}

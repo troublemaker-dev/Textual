@@ -1216,9 +1216,9 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 	self.reconnectEnabled = YES;
 
-	[self performBlockOnMainThread:^{
+	XRPerformBlockSynchronouslyOnMainQueue(^{
 		[self disconnect];
-	}];
+	});
 }
 
 #pragma mark -
@@ -2949,29 +2949,29 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)sendPrivmsg:(NSString *)message toChannel:(IRCChannel *)channel
 {
-	[self performBlockOnMainThread:^{
+	XRPerformBlockSynchronouslyOnMainQueue(^{
 		[self sendText:[NSAttributedString attributedStringWithString:message]
 			 asCommand:IRCRemoteCommandPrivmsg
 			 toChannel:channel];
-	}];
+	});
 }
 
 - (void)sendAction:(NSString *)message toChannel:(IRCChannel *)channel
 {
-	[self performBlockOnMainThread:^{
+	XRPerformBlockSynchronouslyOnMainQueue(^{
 		[self sendText:[NSAttributedString attributedStringWithString:message]
 			 asCommand:IRCRemoteCommandPrivmsgAction
 			 toChannel:channel];
-	}];
+	});
 }
 
 - (void)sendNotice:(NSString *)message toChannel:(IRCChannel *)channel
 {
-	[self performBlockOnMainThread:^{
+	XRPerformBlockSynchronouslyOnMainQueue(^{
 		[self sendText:[NSAttributedString attributedStringWithString:message]
 			 asCommand:IRCRemoteCommandNotice
 			 toChannel:channel];
-	}];
+	});
 }
 
 - (void)sendPrivmsgToSelectedChannel:(NSString *)message
@@ -6349,7 +6349,9 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		return;
 	}
 
-	[self printDebugInformation:data inChannel:self.rawDataLogQuery];
+	XRPerformBlockSynchronouslyOnMainQueue(^{
+		[self printDebugInformation:data inChannel:self.rawDataLogQuery];
+	});
 }
 
 - (void)rawDataLogOutgoingTraffic:(NSString *)data
@@ -11083,9 +11085,9 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		if (self.socket.EOFReceived || self.config.performDisconnectOnPongTimer) {
 			[self printDebugInformation:TXTLS(@"IRC[bps-la]", (timeSpent / 60.0)) inChannel:nil];
 
-			[self performBlockOnMainThread:^{
+			XRPerformBlockSynchronouslyOnMainQueue(^{
 				[self disconnect];
-			}];
+			});
 
 			return;
 		}
@@ -11163,7 +11165,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		return;
 	}
 
-	[self performBlockOnMainThread:^{
+	XRPerformBlockSynchronouslyOnMainQueue(^{
 		__weak IRCClient *weakSelf = self;
 
 		self.disconnectCallback = ^{
@@ -11171,7 +11173,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		};
 
 		[self disconnect];
-	}];
+	});
 }
 
 #pragma mark -

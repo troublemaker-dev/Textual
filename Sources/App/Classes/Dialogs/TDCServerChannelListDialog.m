@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSAttributedString *channelTopicFormatted;
 @end
 
-@interface TDCServerChannelListDialog ()
+@interface TDCServerChannelListDialog () <NSControlTextEditingDelegate>
 @property (nonatomic, strong, readwrite) IRCClient *client;
 @property (nonatomic, copy, readwrite) NSString *clientId;
 @property (nonatomic, assign) BOOL isWaitingForWrites;

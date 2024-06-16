@@ -562,11 +562,11 @@ ClassWithDesignatedInitializerInitMethod
 
 	[RZNotificationCenter() removeObserver:self name:XRPortMapperDidChangedNotification object:self.portMapping];
 
-	[self performBlockOnMainThread:^{
+	XRPerformBlockSynchronouslyOnMainQueue(^{
 		[self.portMapping close];
 
 		self.portMapping = nil;
-	}];
+	});
 }
 
 - (void)noteIPAddressLookupSucceeded
@@ -1196,6 +1196,17 @@ ClassWithDesignatedInitializerInitMethod
 	}
 
 	return [path stringByAppendingPathComponent:filename];
+}
+
+- (nullable NSURL *)fileURL
+{
+	NSString *filePath = self.filePath;
+
+	if (filePath == nil) {
+		return nil;
+	}
+
+	return [NSURL fileURLWithPath:filePath];
 }
 
 - (uint64_t)currentFilesize

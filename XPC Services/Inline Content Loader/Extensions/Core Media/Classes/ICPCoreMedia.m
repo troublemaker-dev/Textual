@@ -40,10 +40,8 @@
 #import "ICMCommonInlineImages.h"
 #import "ICMCommonInlineVideos.h"
 #import "ICMDailymotion.h"
-#import "ICMGfycat.h"
 #import "ICMGyazo.h"
 #import "ICMImgurGifv.h"
-#import "ICMLiveLeak.h"
 #import "ICMPornhub.h"
 #import "ICMStreamable.h"
 #import "ICMTweet.h"
@@ -62,15 +60,21 @@ NS_ASSUME_NONNULL_BEGIN
 	return
 	@[
 		[ICMDailymotion class],
-		[ICMGfycat class],
 		[ICMGyazo class],
 		[ICMImgurGifv class],
-		[ICMLiveleak class],
 		[ICMPornhub class],
 		[ICMStreamable class],
 		[ICMTweet class],
-		[ICMTwitchClips class],
-		[ICMTwitchLive class],
+
+		/* Twitch now requires a parent= argument when embedding content.
+		 This argument acts as the domain that the content will be embedded in the
+		 context of to allow security headers to be set. Textual is not a
+		 web server. It loads files using file:// scheme. Even using "localhost"
+		 will not allow embeds to work. Is embedding Twitch really worth the
+		 cost of hosting a local server to spoof a localhost? Probably not.  */
+//		[ICMTwitchClips class],
+//		[ICMTwitchLive class],
+
 		[ICMVimeo class],
 		[ICMXkcd class],
 		[ICMYouTube class],

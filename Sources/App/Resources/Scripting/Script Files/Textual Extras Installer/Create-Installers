@@ -18,9 +18,7 @@ export PACKAGES_DESTINATION="${CURRENT_DIRECTORY}/Packages"
 
 echo "**************************"
 
-"${CURRENT_DIRECTORY}/Installer Helpers/Build-Scripts-Package" "AudioVideo" "hermes,music,qt,radium,spotify,vlc"
-"${CURRENT_DIRECTORY}/Installer Helpers/Build-Scripts-Package" "AudioVideo-np-iTunes" "np" "np/iTunes/"
-"${CURRENT_DIRECTORY}/Installer Helpers/Build-Scripts-Package" "AudioVideo-np-Music" "np" "np/Music/"
+"${CURRENT_DIRECTORY}/Installer Helpers/Build-Scripts-Package" "AudioVideo" "hermes,music,np,qt,radium,spotify,vlc"
 
 echo "**************************"
 
@@ -33,10 +31,6 @@ echo "**************************"
 echo "**************************"
 
 "${CURRENT_DIRECTORY}/Installer Helpers/Build-Extension-Package" "BlowfishEncryption"
-
-echo "**************************"
-
-"${CURRENT_DIRECTORY}/Installer Helpers/Build-Extension-Package" "Caffeine"
 
 echo "**************************"
 

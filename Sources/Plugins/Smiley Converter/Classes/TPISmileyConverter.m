@@ -54,9 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)pluginLoadedIntoMemory
 {
-	[self performBlockOnMainThread:^{
+	XRPerformBlockSynchronouslyOnMainQueue(^{
 		[TPIBundleFromClass() loadNibNamed:@"TPISmileyConverter" owner:self topLevelObjects:nil];
-	}];
+	});
 
 	[self maybeBuildConversionTable];
 }

@@ -35,9 +35,9 @@
 
 @implementation EKBlowfishEncryption
 
-+ (NSUInteger)estiminatedLengthOfEncodedDataOfLength:(NSUInteger)dataLength
++ (NSUInteger)estimatedLengthOfEncodedDataOfLength:(NSUInteger)dataLength
 {
-	return [EKBlowfishEncryptionBase estiminatedLengthOfEncodedDataOfLength:dataLength];
+	return [EKBlowfishEncryptionBase estimatedLengthOfEncodedDataOfLength:dataLength];
 }
 
 + (NSString *)encodeData:(NSString *)input key:(NSString *)phrase mode:(EKBlowfishEncryptionModeOfOperation)mode encoding:(NSStringEncoding)local

@@ -297,12 +297,12 @@ ClassWithDesignatedInitializerInitMethod
 
 		__block NSWindow *window = nil;
 
-		[self performBlockOnMainThread:^{
+		XRPerformBlockSynchronouslyOnMainQueue(^{
 			window = [NSApp keyWindow];
-		}];
+		});
 
 		(void)
-		[RCMTrustPanel presentTrustPanelInWindow:[NSApp keyWindow]
+		[RCMTrustPanel presentTrustPanelInWindow:window
 											body:promptInformativeText
 										   title:promptTitleText
 								   defaultButton:defaultButtonTitle

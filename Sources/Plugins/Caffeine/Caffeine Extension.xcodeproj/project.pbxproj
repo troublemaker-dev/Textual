@@ -18,7 +18,6 @@
 		4C36AAF620F27EA3007CA939 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TPI_Caffeine.xib; sourceTree = "<group>"; };
 		4C46A14F20EC6F2600094EA4 /* TPI_Caffeine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPI_Caffeine.h; sourceTree = "<group>"; };
 		4C46A15020EC6F2600094EA4 /* TPI_Caffeine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPI_Caffeine.m; sourceTree = "<group>"; };
-		4C46A15720EC6F3100094EA4 /* Inherited.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Inherited.entitlements; sourceTree = "<group>"; };
 		4C46A15B20EC6F3100094EA4 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4C46A15C20EC6F3100094EA4 /* Textual Extensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Textual Extensions.xcconfig"; sourceTree = "<group>"; };
 		4C46A16020EC6F3100094EA4 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
@@ -128,28 +127,19 @@
 			isa = PBXGroup;
 			children = (
 				4C46A15820EC6F3100094EA4 /* Build */,
-				4C46A15620EC6F3100094EA4 /* Sandbox */,
 			);
 			name = Configurations;
 			path = ../../../Configurations;
 			sourceTree = SOURCE_ROOT;
 		};
-		4C46A15620EC6F3100094EA4 /* Sandbox */ = {
-			isa = PBXGroup;
-			children = (
-				4C46A15720EC6F3100094EA4 /* Inherited.entitlements */,
-			);
-			path = Sandbox;
-			sourceTree = "<group>";
-		};
 		4C46A15820EC6F3100094EA4 /* Build */ = {
 			isa = PBXGroup;
 			children = (
-				4C46A15920EC6F3100094EA4 /* Standard Release */,
 				4C46A16120EC6F3100094EA4 /* App Store Release */,
 				4C46A16A20EC6F3100094EA4 /* Common */,
-				4C46A17520EC6F3100094EA4 /* Standard Release Sandboxed */,
 				4C46A17D20EC6F3100094EA4 /* Debug */,
+				4C46A15920EC6F3100094EA4 /* Standard Release */,
+				4C46A17520EC6F3100094EA4 /* Standard Release Sandboxed */,
 			);
 			path = Build;
 			sourceTree = "<group>";
@@ -305,7 +295,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-Caffeine";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-Caffeine-bundled";
 				PRODUCT_NAME = Caffeine;
 			};
 			name = Debug;
@@ -314,7 +304,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-Caffeine";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-Caffeine-bundled";
 				PRODUCT_NAME = Caffeine;
 			};
 			name = Release;
@@ -344,7 +334,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-Caffeine";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-extensions.textual-Caffeine-bundled";
 				PRODUCT_NAME = Caffeine;
 			};
 			name = "Release (App Store)";

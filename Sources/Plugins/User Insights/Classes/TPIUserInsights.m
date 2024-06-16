@@ -35,11 +35,11 @@
  *
  *********************************************************************** */
 
-#import "TPISpammerParadise.h"
+#import "TPIUserInsights.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation TPISpammerParadise
+@implementation TPIUserInsights
 
 #pragma mark -
 #pragma mark User Input
@@ -49,6 +49,13 @@ NS_ASSUME_NONNULL_BEGIN
 						  messageString:(NSString *)messageString
 {
 	IRCChannel *channel = mainWindow().selectedChannel;
+	
+	/* We can brag in private messages so add above if statement */
+	if ([commandString isEqualToString:@"BRAG"]) {
+		[self bragInChannel:channel onClient:client];
+
+		return;
+	}
 
 	if (channel.isChannel == NO) {
 		return;
@@ -67,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray *)subscribedUserInputCommands
 {
-	return @[@"clones", @"namel", @"finduser"];
+	return @[@"clones", @"namel", @"finduser", @"brag"];
 }
 
 - (void)buildListOfUsersInChannel:(IRCChannel *)channel onClient:(IRCClient *)client parameters:(NSString *)parameters
@@ -235,7 +242,7 @@ NS_ASSUME_NONNULL_BEGIN
 		}
 	}
 
-	/* No cloes found */
+	/* No clones found */
 	if (members.count == 0) {
 		[client printDebugInformation:TPILocalizedString(@"BasicLanguage[gxq-47]") inChannel:channel];
 
@@ -254,6 +261,132 @@ NS_ASSUME_NONNULL_BEGIN
 
 		[client printDebugInformation:resultString inChannel:channel];
 	}
+}
+
+- (void)appendPluralOrSingular:(NSMutableString *)resultString valueToken:(NSString *)valueToken value:(NSInteger)value
+{
+	NSParameterAssert(resultString != nil);
+	NSParameterAssert(valueToken != nil);
+
+	NSString *valueKey = nil;
+
+	if (value == 1) {
+		valueKey = [NSString stringWithFormat:@"BasicLanguage[%@-1]", valueToken];
+	} else {
+		valueKey = [NSString stringWithFormat:@"BasicLanguage[%@-2]", valueToken];
+	}
+
+	[resultString appendString:TPILocalizedString(valueKey, value)];
+}
+
+- (void)bragInChannel:(IRCChannel *)channel onClient:(IRCClient *)client
+{
+	NSParameterAssert(channel != nil);
+	NSParameterAssert(client != nil);
+
+	NSUInteger operCount = 0;
+	NSUInteger channelOpCount = 0;
+	NSUInteger channelHalfopCount = 0;
+	NSUInteger channelVoiceCount = 0;
+	NSUInteger channelCount = 0;
+	NSUInteger networkCount = 0;
+	NSUInteger powerOverCount = 0;
+
+	for (IRCClient *cl in worldController().clientList) {
+		if (cl.isConnected == NO) {
+			continue;
+		}
+
+		networkCount++;
+
+		IRCUser *localUser = cl.myself;
+
+		if (cl.userIsIRCop || localUser.isIRCop) {
+			operCount++;
+		}
+
+		NSMutableArray<NSString *> *trackedUsers = [NSMutableArray new];
+
+		for (IRCChannel *ch in cl.channelList) {
+			if (ch.isActive == NO || ch.isChannel == NO) {
+				continue;
+			}
+
+			channelCount += 1;
+
+			IRCChannelUser *myself = [ch findMember:cl.userNickname];
+
+			IRCUserRank myRanks = myself.ranks;
+
+			BOOL IHaveModeQ = ((myRanks & IRCUserRankChannelOwner) == IRCUserRankChannelOwner);
+			BOOL IHaveModeA = ((myRanks & IRCUserRankSuperOperator) == IRCUserRankSuperOperator);
+			BOOL IHaveModeO = ((myRanks & IRCUserRankNormalOperator) == IRCUserRankNormalOperator);
+			BOOL IHaveModeH = ((myRanks & IRCUserRankHalfOperator) == IRCUserRankHalfOperator);
+			BOOL IHaveModeV = ((myRanks & IRCUserRankVoiced) == IRCUserRankVoiced);
+
+			if (IHaveModeQ || IHaveModeA || IHaveModeO) {
+				channelOpCount++;
+			} else if (IHaveModeH) {
+				channelHalfopCount++;
+			} else if (IHaveModeV) {
+				channelVoiceCount++;
+			}
+
+			for (IRCChannelUser *member in ch.memberList) {
+				if ([member isEqual:myself]) {
+					continue;
+				}
+
+				BOOL addUser = NO;
+
+				IRCUserRank userRanks = member.ranks;
+
+				BOOL UserHasModeQ = ((userRanks & IRCUserRankChannelOwner) == IRCUserRankChannelOwner);
+				BOOL UserHasModeA = ((userRanks & IRCUserRankSuperOperator) == IRCUserRankSuperOperator);
+				BOOL UserHasModeO = ((userRanks & IRCUserRankNormalOperator) == IRCUserRankNormalOperator);
+				BOOL UserHasModeH = ((userRanks & IRCUserRankHalfOperator) == IRCUserRankHalfOperator);
+
+				if (cl.userIsIRCop && member.user.isIRCop == NO) {
+					addUser = YES;
+				} else if (IHaveModeQ && UserHasModeQ == NO) {
+					addUser = YES;
+				} else if (IHaveModeA && UserHasModeQ == NO && UserHasModeA == NO) {
+					addUser = YES;
+				} else if (IHaveModeO && UserHasModeQ == NO && UserHasModeA == NO && UserHasModeO == NO) {
+					addUser = YES;
+				} else if (IHaveModeH && UserHasModeQ == NO && UserHasModeA == NO && UserHasModeO == NO && UserHasModeH == NO) {
+					addUser = YES;
+				}
+
+				if (addUser) {
+					NSString *nickname = member.user.nickname;
+
+					if ([trackedUsers containsObject:nickname] == NO) {
+						[trackedUsers addObject:nickname];
+
+						powerOverCount++;
+					}
+				}
+			}
+		}
+	}
+
+	NSMutableString *resultString = [NSMutableString string];
+
+	[self appendPluralOrSingular:resultString valueToken:@"30l-sx" value:channelCount];
+	[self appendPluralOrSingular:resultString valueToken:@"rks-0t" value:networkCount];
+
+	if (powerOverCount == 0) {
+		[resultString appendString:TPILocalizedString(@"BasicLanguage[jpi-po]")];
+	} else {
+		[self appendPluralOrSingular:resultString valueToken:@"614-ac" value:operCount];
+		[self appendPluralOrSingular:resultString valueToken:@"qne-b5" value:channelOpCount];
+		[self appendPluralOrSingular:resultString valueToken:@"431-yv" value:channelHalfopCount];
+		[self appendPluralOrSingular:resultString valueToken:@"x1m-jp" value:channelVoiceCount];
+		[self appendPluralOrSingular:resultString valueToken:@"ny4-wd" value:powerOverCount];
+	}
+
+	[client sendPrivmsg:[resultString copy] toChannel:channel];
 }
 
 @end

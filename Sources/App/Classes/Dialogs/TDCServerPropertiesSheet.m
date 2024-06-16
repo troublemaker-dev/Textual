@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define _tableDragToken		@"TDCServerPropertiesSheetTableDragToken"
 
-@interface TDCServerPropertiesSheet ()
+@interface TDCServerPropertiesSheet () <NSControlTextEditingDelegate>
 @property (nonatomic, strong, readwrite, nullable) IRCClient *client;
 @property (nonatomic, copy, readwrite, nullable) NSString *clientId;
 @property (nonatomic, strong) IRCClientConfigMutable *config;

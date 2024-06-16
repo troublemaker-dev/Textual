@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 										return;													\
 									}
 
-@interface TXMenuController ()
+@interface TXMenuController () <NSMenuItemValidation>
 @property (nonatomic, assign) BOOL menuIsOpen;
 @property (nonatomic, assign) BOOL menuPerformedActionLastOpen;
 @property (nonatomic, weak) IRCClient *pointedClient;
@@ -850,7 +850,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 				IRCUserRank userRanks = user.ranks;
 
-				BOOL UserHasModeO = ((userRanks & IRCUserRankNonermalOperator) == IRCUserRankNonermalOperator);
+				BOOL UserHasModeO = ((userRanks & IRCUserRankNormalOperator) == IRCUserRankNormalOperator);
 				BOOL UserHasModeH = NO;
 				BOOL UserHasModeV = ((userRanks & IRCUserRankVoiced) == IRCUserRankVoiced);
 
@@ -2464,9 +2464,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)openAcknowledgements:(id)sender
 {
-	NSString *AcknowledgementsPath = [RZMainBundle() pathForResource:@"Acknowledgements" ofType:@"pdf" inDirectory:@"Documentation"];
+	NSURL *Acknowledgements = [RZMainBundle() URLForResource:@"Acknowledgements" withExtension:@"pdf" subdirectory:@"Documentation"];
 
-	[RZWorkspace() openFile:AcknowledgementsPath];
+	[RZWorkspace() openURL:Acknowledgements];
 }
 
 - (void)openHelpMenuItem:(id)sender

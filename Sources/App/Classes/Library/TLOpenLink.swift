@@ -42,7 +42,12 @@ public class OpenLink: NSObject
 	public static func open(url: URL, inBackground: Bool = TPCPreferences.openBrowserInBackground())
 	{
 		if inBackground {
-			NSWorkspace.shared.open([url], withAppBundleIdentifier: nil, options: [.withoutActivation], additionalEventParamDescriptor: nil, launchIdentifiers: nil)
+			/* User should not be clicking links frequently enough that
+			 we need to worry about making the configuration static. */
+			let configuration = NSWorkspace.OpenConfiguration();
+			configuration.activates = false
+
+			NSWorkspace.shared.open(url, configuration: configuration)
 
 			return
 		}

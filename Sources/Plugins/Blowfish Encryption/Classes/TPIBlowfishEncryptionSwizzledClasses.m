@@ -73,7 +73,7 @@
 	NSInteger lastEstimatedSize = 0;
 
 	for (NSInteger i = maximumLength; i >= 0; i--) {
-		NSInteger sizeForLength = [EKBlowfishEncryption estiminatedLengthOfEncodedDataOfLength:i];
+		NSInteger sizeForLength = [EKBlowfishEncryption estimatedLengthOfEncodedDataOfLength:i];
 
 		if (sizeForLength < maximumLength) {
 			break;
