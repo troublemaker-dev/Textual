@@ -362,6 +362,10 @@ NS_ASSUME_NONNULL_BEGIN
 		return YES;
 	}
 
+	if ([TPCPreferences confirmQuit] == NO) {
+		return YES;
+	}
+
 	BOOL stillConnected = NO;
 
 	for (IRCClient *u in worldController().clientList) {
@@ -370,7 +374,7 @@ NS_ASSUME_NONNULL_BEGIN
 		}
 	}
 
-	if ([TPCPreferences confirmQuit] && stillConnected) {
+	if (stillConnected) {
 		BOOL result = [TDCAlert modalAlertWithMessage:TXTLS(@"Prompts[77u-vp]")
 												title:TXTLS(@"Prompts[6vj-2p]")
 										defaultButton:TXTLS(@"Prompts[1bf-k0]")
