@@ -147,7 +147,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	/* Edit column next pass on the main thread to allow the
 	 -addObject to register properly. */
-	[self performBlockOnMainThread:^{
+	XRPerformBlockAsynchronouslyOnMainQueue(^{
 		NSTableView *tableView = self.entryTable;
 
 		NSInteger rowSelection = (tableView.numberOfRows - 1);
@@ -155,7 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
 		[tableView scrollRowToVisible:rowSelection];
 
 		[tableView editColumn:0 row:rowSelection withEvent:nil select:YES];
-	}];
+	});
 }
 
 - (void)removeSelectedEntry

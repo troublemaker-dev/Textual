@@ -53,8 +53,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation THOPluginItem
 
-#define VOCT(o, t)				 [o isKindOfClass:[t class]]
-#define VTAE(o, t)				([o isKindOfClass:[t class]] && NSObjectIsNotEmpty(o))
+#define _isClass(o, t)				 [o isKindOfClass:[t class]]
+#define _isNotEmptyArray(o)			([o isKindOfClass:[NSArray class]] && [(NSArray *)o count] > 0)
+#define _isNotEmptyString(o)		([o isKindOfClass:[NSString class]] && [(NSString *)o length] > 0)
 
 - (BOOL)loadBundle:(NSBundle *)bundle
 {
@@ -81,11 +82,11 @@ NS_ASSUME_NONNULL_BEGIN
 	{
 		id outputRules = primaryClass.pluginOutputSuppressionRules;
 
-		if (VTAE(outputRules, NSArray)) {
+		if (_isNotEmptyArray(outputRules)) {
 			NSMutableArray *sharedRules = [NSMutableArray array];
 
 			for (id outputRule in outputRules) {
-				if (VOCT(outputRule, THOPluginOutputSuppressionRule) == NO) {
+				if (_isClass(outputRule, THOPluginOutputSuppressionRule) == NO) {
 					continue;
 				}
 
@@ -105,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 		id itemTitle = primaryClass.pluginPreferencesPaneMenuItemName;
 		id itemView = primaryClass.pluginPreferencesPaneView;
 
-		if (VTAE(itemTitle, NSString) && VOCT(itemView, NSView)) {
+		if (_isNotEmptyString(itemTitle) && _isClass(itemView, NSView)) {
 			self.pluginPreferencesPaneMenuItemTitle = itemTitle;
 			self.pluginPreferencesPaneView = itemView;
 
@@ -119,11 +120,11 @@ NS_ASSUME_NONNULL_BEGIN
 	{
 		id subscribedCommands = primaryClass.subscribedUserInputCommands;
 
-		if (VTAE(subscribedCommands, NSArray)) {
+		if (_isNotEmptyArray(subscribedCommands)) {
 			NSMutableArray *supportedCommands = [NSMutableArray array];
 
 			for (id command in subscribedCommands) {
-				if (VTAE(command, NSString) == NO)  {
+				if (_isNotEmptyString(command) == NO) {
 					continue;
 				}
 
@@ -142,11 +143,11 @@ NS_ASSUME_NONNULL_BEGIN
 	{
 		id subscribedCommands = primaryClass.subscribedServerInputCommands;
 
-		if (VTAE(subscribedCommands, NSArray)) {
+		if (_isNotEmptyArray(subscribedCommands)) {
 			NSMutableArray *supportedCommands = [NSMutableArray array];
 
 			for (id command in subscribedCommands) {
-				if (VTAE(command, NSString) == NO)  {
+				if (_isNotEmptyString(command) == NO) {
 					continue;
 				}
 
@@ -159,7 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
 		}
 	}
 
-	/* Check whether plugin supports certain evnets so we do not have
+	/* Check whether plugin supports certain events so we do not have
 	 to ask if it responds to the selector every time we call it. */
 
 	/* Renderer events */

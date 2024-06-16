@@ -297,9 +297,9 @@ ClassWithDesignatedInitializerInitMethod
 
 		__block NSWindow *window = nil;
 
-		[self performBlockOnMainThread:^{
+		XRPerformBlockSynchronouslyOnMainQueue(^{
 			window = [NSApp keyWindow];
-		}];
+		});
 
 		(void)
 		[RCMTrustPanel presentTrustPanelInWindow:[NSApp keyWindow]

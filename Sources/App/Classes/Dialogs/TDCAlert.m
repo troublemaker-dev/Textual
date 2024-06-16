@@ -184,7 +184,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 	if ([NSThread isMainThread] == NO) {
 		__block TDCAlertResponse result = TDCAlertResponseAlternate;
 
-		[self performBlockOnMainThread:^{
+		XRPerformBlockSynchronouslyOnQueue(dispatch_get_main_queue(), ^{
 			result =
 			[self modalAlertWithMessage:bodyText
 								  title:titleText
@@ -195,7 +195,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 						suppressionText:suppressText
 						  accessoryView:accessoryView
 					suppressionResponse:suppressionResponse];
-		}];
+		});
 
 		return result;
 	}
@@ -338,7 +338,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 
 	/* Require main thread */
 	if ([NSThread isMainThread] == NO) {
-		[self performBlockOnMainThread:^{
+		XRPerformBlockSynchronouslyOnQueue(dispatch_get_main_queue(), ^{
 			[self alertWithMessage:bodyText
 							 title:titleText
 					 defaultButton:buttonDefault
@@ -347,7 +347,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 				   suppressionText:suppressText
 					 accessoryView:accessoryView
 				   completionBlock:completionBlock];
-		}];
+		});
 
 		return;
 	}
@@ -506,7 +506,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 
 	/* Require main thread */
 	if ([NSThread isMainThread] == NO) {
-		[self performBlockOnMainThread:^{
+		XRPerformBlockSynchronouslyOnQueue(dispatch_get_main_queue(), ^{
 			[self alertSheetWithWindow:window
 								  body:bodyText
 								 title:titleText
@@ -517,7 +517,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 					   suppressionText:suppressText
 						 accessoryView:accessoryView
 					   completionBlock:completionBlock];
-		}];
+		});
 
 		return;
 	}

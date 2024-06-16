@@ -536,9 +536,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateMaintenanceTimer
 {
-	[self performBlockOnMainThread:^{
+	XRPerformBlockSynchronouslyOnMainQueue(^{
 		[self updateMaintenanceTimerOnMainThread];
-	}];
+	});
 }
 
 - (void)onMaintenanceTimer

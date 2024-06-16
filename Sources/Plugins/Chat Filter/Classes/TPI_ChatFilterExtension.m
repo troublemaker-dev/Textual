@@ -159,10 +159,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)pluginLoadedIntoMemory
 {
-	[self performBlockOnMainThread:^{
+	XRPerformBlockSynchronouslyOnMainQueue(^{
 		NSAssert([TPIBundleFromClass() loadNibNamed:@"TPI_ChatFilterExtension" owner:self topLevelObjects:nil],
 			@"Failed to load user interface");
-	}];
+	});
 
 	self.activeChatFilterIndex = (-1);
 

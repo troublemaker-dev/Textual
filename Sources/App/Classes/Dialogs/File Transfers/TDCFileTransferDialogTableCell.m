@@ -103,9 +103,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)reloadStatusInformation
 {
-	[self performBlockOnMainThread:^{
+	XRPerformBlockSynchronouslyOnMainQueue(^{
 		[self _reloadStatusInformation];
-	}];
+	});
 }
 
 - (void)_reloadStatusInformation

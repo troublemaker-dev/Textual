@@ -79,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 	if ([NSThread isMainThread] == NO) {
 		__block SFCertificateTrustPanel *panel = nil;
 
-		[self performBlockOnMainThread:^{
+		XRPerformBlockSynchronouslyOnQueue(dispatch_get_main_queue(), ^{
 			panel =
 			[self presentTrustPanelInWindow:window
 									   body:bodyText
@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 								   trustRef:trustRef
 							completionBlock:completionBlock
 								contextInfo:contextInfo];
-		}];
+		});
 
 		return panel;
 	}

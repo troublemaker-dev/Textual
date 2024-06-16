@@ -1376,9 +1376,9 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 	 then it will either call -cancelOperation itself on failure or wait
 	 for the theme controller itself to call -completeOperation which 
 	 signals to the copier that the theme controller sees the files. */
-	[self performBlockOnGlobalQueue:^{
+	XRPerformBlockAsynchronouslyOnGlobalQueue(^{
 		[self _beginOperation];
-	}];
+	});
 }
 
 - (void)_beginOperation

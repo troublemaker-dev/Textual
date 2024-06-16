@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 /* Allocation & Deallocation */
 - (void)pluginLoadedIntoMemory
 {
-	[self performBlockOnMainThread:^{
+	XRPerformBlockSynchronouslyOnMainQueue(^{
 		NSDictionary *defaults = @{
 			@"System Profiler Extension -> Feature Disabled -> GPU Model" : @(YES),
 			@"System Profiler Extension -> Feature Disabled -> Disk Information" : @(YES),
@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 		[RZUserDefaults() registerDefaults:defaults];
 
 		[TPIBundleFromClass() loadNibNamed:@"TPISystemProfiler" owner:self topLevelObjects:nil];
-	}];
+	});
 }
 
 #pragma mark -
