@@ -332,7 +332,7 @@ NSString * const TDCLicenseManagerTrialExpiredNotification = @"TDCLicenseManager
 	/* This method is allowed to be invoked by another class in order
 	 to activate a license. It is not invoked by this class on its own. */
 	if (TLOLicenseManagerLicenseKeyIsValid(licenseKey)) {
-		[self attemptToActivateLicenseKey:licenseKey];
+		[self attemptToActivateLicenseKey:licenseKey silently:silently];
 	}
 }
 
