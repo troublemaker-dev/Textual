@@ -71,6 +71,12 @@ TEXTUAL_EXTERN NSString * const TLOFileLoggerISOStandardClockFormat;
  is not cached until log file is opened */
 
 /* File path is the path to the log file for the day */
+/* At the time of a write after midnight, this path can be to a
+ log file for the previous date. TLOFileLogger will correct that
+ before writing. Be aware this is the case though if you access
+ this property after midnight and before another write occurs.
+ Unless a specific reason is needed to access this property,
+ it may be better to use -writePath instead. */
 @property (readonly, copy, nullable) NSString *filePath;
 
 /* The last path component (file name) of file path */

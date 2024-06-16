@@ -50,7 +50,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/* How frequent to display alert for no disk space */
 #define _noSpaceLeftOnDeviceAlertInterval		300 // 5 minutes
+
+/* How long a file handle is allowed to be idle */
+#define _fileHandleIdleLimit		1200 // 20 minutes
+
+/* The frequency by which idle is checked for */
+#define _idleTimerInterval			600 // 10 minutes
 
 NSString * const TLOFileLoggerConsoleDirectoryName				= @"Console";
 NSString * const TLOFileLoggerChannelDirectoryName				= @"Channels";
@@ -69,18 +76,8 @@ NSString * const TLOFileLoggerIdleTimerNotification		= @"TLOFileLoggerIdleTimerN
 @property (nonatomic, weak) IRCChannel *channel;
 @property (nonatomic, strong, nullable) NSFileHandle *fileHandle;
 @property (nonatomic, copy, readwrite, nullable) NSString *filePath;
-
-/* Properties that end in an underscore are the live
- (uncached) values for their counterpart. */
-@property (readonly, copy) NSString *fileName_;
-
-/* The file path hash is the hash of the configured save
- location combined with the dated file name. When the hash
- changes, it signals to TLOFileLogger that the file handler
- has to be reopened. */
-@property (nonatomic, assign) NSUInteger filePathHash;
-@property (readonly) NSUInteger filePathHash_;
-
+@property (readonly, copy, readonly, nullable) NSString *filePathComputed;
+@property (nonatomic, copy, nullable) NSDate *dateOpened;
 @property (nonatomic, assign) NSTimeInterval lastWriteTime;
 @property (readonly) BOOL fileHandleIdle;
 @property (readonly, class) TLOTimer *idleTimer;
@@ -240,16 +237,23 @@ ClassWithDesignatedInitializerInitMethod
 	self.fileHandle = nil;
 
 	self.filePath = nil;
-	self.filePathHash = 0;
 
 	self.lastWriteTime = 0;
+
+	self.dateOpened = nil;
 
 	[self removeIdleTimerObserver];
 }
 
 - (void)reopenIfNeeded
 {
-	if (self.fileHandle != nil && self.filePathHash == self.filePathHash_) {
+	/* Implementation discussion: we already have a notification called
+	IRCWorldDateHasChangedNotification that is fired by IRCWorld when
+	the user changes the date of the system or after time has naturally
+	reached midnight. Do we rely on this? I chose not to and here is why:
+	Race conditions. There is no guarantee we will receive notification
+	on time to beat the current write. Of which there can be multiple. */
+	if (self.fileHandle != nil && [self.dateOpened isInSameDayAsDate:[NSDate date]]) {
 		return;
 	}
 
@@ -277,7 +281,7 @@ ClassWithDesignatedInitializerInitMethod
 
 	NSString *filePath = self.filePath;
 
-	NSString *writePath = filePath.stringByDeletingLastPathComponent;
+	NSString *writePath = self.writePath;
 
 	if ([RZFileManager() fileExistsAtPath:writePath] == NO) {
 		NSError *createDirectoryError = nil;
@@ -313,6 +317,8 @@ ClassWithDesignatedInitializerInitMethod
 
 	self.fileHandle = fileHandle;
 
+	self.dateOpened = [NSDate date];
+
 	[self addIdleTimerObserver];
 }
 
@@ -321,8 +327,6 @@ ClassWithDesignatedInitializerInitMethod
 
 - (BOOL)fileHandleIdle
 {
-#define _fileHandleIdleLimit		1200 // 20 minutes
-
 	NSTimeInterval lastWriteTime = self.lastWriteTime;
 
 	NSTimeInterval currentTime = [NSDate timeIntervalSince1970];
@@ -334,8 +338,6 @@ ClassWithDesignatedInitializerInitMethod
 	}
 
 	return NO;
-
-#undef _fileHandleIdleTime
 }
 
 + (TLOTimer *)idleTimer
@@ -372,11 +374,7 @@ ClassWithDesignatedInitializerInitMethod
 		return;
 	}
 
-#define _idleTimerInterval			600 // 10 minutes
-
 	[idleTimer start:_idleTimerInterval onRepeat:YES];
-
-#undef _idleTimerInterval
 }
 
 + (void)stopIdleTimer
@@ -431,6 +429,16 @@ ClassWithDesignatedInitializerInitMethod
 #pragma mark -
 #pragma mark Paths
 
+- (nullable NSString *)writePath
+{
+	return self.filePath.stringByDeletingLastPathComponent;
+}
+
+- (nullable NSString *)fileName
+{
+	return self.filePath.lastPathComponent;
+}
+
 + (nullable NSString *)writePathForItem:(IRCTreeItem *)item
 {
 	NSParameterAssert(item != nil);
@@ -449,14 +457,6 @@ ClassWithDesignatedInitializerInitMethod
 	NSParameterAssert(sourcePath != nil);
 	NSParameterAssert(item != nil);
 
-	return [self writePathForItem:item relativeTo:sourcePath withUniqueIdentifier:YES];
-}
-
-+ (nullable NSString *)writePathForItem:(IRCTreeItem *)item relativeTo:(NSString *)sourcePath withUniqueIdentifier:(BOOL)withUniqueIdentifier
-{
-	NSParameterAssert(sourcePath != nil);
-	NSParameterAssert(item != nil);
-
 	IRCChannel *channel = item.associatedChannel;
 
 	if (channel && channel.isUtility) {
@@ -464,28 +464,10 @@ ClassWithDesignatedInitializerInitMethod
 	}
 	
 	IRCClient *client = item.associatedClient;
+
+	NSString *clientIdentifier = [client.uniqueIdentifier substringToIndex:5];
 	
-	NSString *clientName = nil;
-	
-	/* When our folder structure is not flat, then we have to make sure the folders
-	 that we create are unique. The check of whether our folders are unique was not
-	 added until version 3.0.0. To keep backwards compatible, we first see if our
-	 folder exists using the old naming scheme. If it does, then we use that for
-	 our write path. This makes the transition to the new naming scheme seamless
-	 for the end user. */
-	if (withUniqueIdentifier) {
-		NSString *pathWithoutIdentifier = [self writePathForItem:item relativeTo:sourcePath withUniqueIdentifier:NO];
-		
-		if ([RZFileManager() fileExistsAtPath:pathWithoutIdentifier]) {
-			return pathWithoutIdentifier;
-		}
-		
-		NSString *identifier = [client.uniqueIdentifier substringToIndex:5];
-		
-		clientName = [NSString stringWithFormat:@"%@ (%@)", client.name, identifier];
-	} else {
-		clientName = client.name;
-	}
+	NSString *clientName = [NSString stringWithFormat:@"%@ (%@)", client.name, clientIdentifier];
 
 	NSString *basePath = nil;
 	
@@ -500,11 +482,6 @@ ClassWithDesignatedInitializerInitMethod
 	return [sourcePath stringByAppendingPathComponent:basePath];
 }
 
-- (nullable NSString *)writePath
-{
-	return self.filePath.stringByDeletingLastPathComponent;
-}
-
 - (nullable NSString *)writePathRelativeTo:(NSString *)sourcePath
 {
 	NSParameterAssert(sourcePath != nil);
@@ -515,20 +492,6 @@ ClassWithDesignatedInitializerInitMethod
 	IRCTreeItem *item = ((channel) ?: client);
 
 	return [self.class writePathForItem:item relativeTo:sourcePath];
-}
-
-- (nullable NSString *)fileName
-{
-	return self.filePath.lastPathComponent;
-}
-
-- (NSString *)fileName_
-{
-	NSString *dateTime = TXFormattedTimestamp([NSDate date], @"%Y-%m-%d");
-
-	NSString *fileName = [NSString stringWithFormat:@"%@.txt", dateTime];
-
-	return fileName;
 }
 
 - (BOOL)buildFilePath
@@ -545,32 +508,15 @@ ClassWithDesignatedInitializerInitMethod
 		return NO;
 	}
 
-	NSString *fileName = self.fileName_;
+	NSString *dateTime = TXFormattedTimestamp([NSDate date], @"%Y-%m-%d");
+
+	NSString *fileName = [NSString stringWithFormat:@"%@.txt", dateTime];
 
 	NSString *filePath = [writePath stringByAppendingPathComponent:fileName];
 
 	self.filePath = filePath;
 
-	NSString *filePathHash = [sourcePath stringByAppendingString:fileName];
-
-	self.filePathHash = filePathHash.hash;
-
 	return YES;
-}
-
-- (NSUInteger)filePathHash_
-{
-	NSString *sourcePath = [TPCPathInfo transcriptFolder];
-
-	if (sourcePath == nil) {
-		return 0;
-	}
-
-	NSString *fileName = self.fileName_;
-
-	NSString *filePathHash = [sourcePath stringByAppendingString:fileName];
-
-	return filePathHash.hash;
 }
 
 @end
