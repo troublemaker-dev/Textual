@@ -103,8 +103,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Accessors
 
-- (nullable NSImage *)disclosureTriangleInContext:(BOOL)up selected:(BOOL)selected;
-
 - (nullable NSString *)statusIconForActiveChannel:(BOOL)isActive
 										 selected:(BOOL)isSelected
 									 activeWindow:(BOOL)isActiveWindow

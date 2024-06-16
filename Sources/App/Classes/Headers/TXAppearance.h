@@ -39,10 +39,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, TXAppearanceType)
 {
-	TXAppearanceTypeYosemiteLight,
-	TXAppearanceTypeYosemiteDark,
-	TXAppearanceTypeMojaveLight,
-	TXAppearanceTypeMojaveDark,
+	TXAppearanceTypeYosemiteLight TEXTUAL_DEPRECATED("Operating system is no longer supported"),
+	TXAppearanceTypeYosemiteDark TEXTUAL_DEPRECATED("Operating system is no longer supported"),
+	TXAppearanceTypeMojaveLight TEXTUAL_DEPRECATED("Operating system is no longer supported"),
+	TXAppearanceTypeMojaveDark TEXTUAL_DEPRECATED("Operating system is no longer supported"),
 	TXAppearanceTypeBigSurLight,
 	TXAppearanceTypeBigSurDark,
 };
@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, TXAppearanceType)
 typedef NS_ENUM(NSUInteger, TXAppKitAppearanceTarget)
 {
 	/* The NSAppearance object should be assigned to individual views. */
-	TXAppKitAppearanceTargetView,
+	TXAppKitAppearanceTargetView TEXTUAL_DEPRECATED("No alternative available"),
 
 	/* The NSAppearance object should be assigned to the window. */
 	TXAppKitAppearanceTargetWindow,
@@ -61,7 +61,7 @@ typedef NS_ENUM(NSUInteger, TXAppKitAppearanceTarget)
 	TXAppKitAppearanceTargetNone
 };
 
-/* None of these proeprties are observable.
+/* None of these properties are observable.
  See -[TXAppearance properties] for information about observing. */
 @protocol TXAppearanceProperties <NSObject>
 @property (readonly, copy) NSString *appearanceName;
@@ -86,9 +86,9 @@ typedef NS_ENUM(NSUInteger, TXAppKitAppearanceTarget)
 /* Access through +[TXSharedApplication sharedAppearance] */
 @interface TXAppearance : NSObject
 /* TXAppearance replaces the property collection object whenever the
- appearance changes so that there is no delay from when one proeprty
- is set and another is set. Observe changes to the proeprties collection
- object and not an idividual property. Latter will not work. */
+ appearance changes so that there is no delay from when one property
+ is set and another is set. Observe changes to the properties collection
+ object and not an individual property. Latter will not work. */
 @property (readonly, strong) TXAppearancePropertyCollection *properties;
 @end
 

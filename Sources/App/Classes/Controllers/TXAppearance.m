@@ -80,14 +80,7 @@ NSString * const TXSystemAppearanceChangedNotification = @"TXSystemAppearanceCha
 											name:NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification
 										  object:nil];
 
-	if (TEXTUAL_RUNNING_ON_MOJAVE == NO) {
-		[RZNotificationCenter() addObserver:self
-								   selector:@selector(systemColorsDidChange:)
-									   name:NSControlTintDidChangeNotification
-									 object:nil];
-	} else {
-		[NSApp addObserver:self forKeyPath:@"effectiveAppearance" options:NSKeyValueObservingOptionNew context:NULL];
-	}
+	[NSApp addObserver:self forKeyPath:@"effectiveAppearance" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)prepareForApplicationTermination
@@ -96,9 +89,7 @@ NSString * const TXSystemAppearanceChangedNotification = @"TXSystemAppearanceCha
 
 	[RZNotificationCenter() removeObserver:self];
 
-	if (TEXTUAL_RUNNING_ON_MOJAVE) {
-		[NSApp removeObserver:self forKeyPath:@"effectiveAppearance"];
-	}
+	[NSApp removeObserver:self forKeyPath:@"effectiveAppearance"];
 }
 
 #pragma mark -
@@ -107,22 +98,6 @@ NSString * const TXSystemAppearanceChangedNotification = @"TXSystemAppearanceCha
 + (nullable NSString *)appearanceNameForType:(TXAppearanceType)type
 {
 	switch (type) {
-		case TXAppearanceTypeYosemiteLight:
-		{
-			return @"YosemiteLight";
-		}
-		case TXAppearanceTypeYosemiteDark:
-		{
-			return @"YosemiteDark";
-		}
-		case TXAppearanceTypeMojaveLight:
-		{
-			return @"MojaveLight";
-		}
-		case TXAppearanceTypeMojaveDark:
-		{
-			return @"MojaveDark";
-		}
 		case TXAppearanceTypeBigSurLight:
 		{
 			return @"BigSurLight";
@@ -131,9 +106,11 @@ NSString * const TXSystemAppearanceChangedNotification = @"TXSystemAppearanceCha
 		{
 			return @"BigSurDark";
 		}
+		default:
+		{
+			return nil;
+		}
 	}
-
-	return nil;
 }
 
 #pragma mark -
@@ -178,12 +155,7 @@ NSString * const TXSystemAppearanceChangedNotification = @"TXSystemAppearanceCha
 
 - (void)updateAppearanceBySystemChange:(BOOL)systemChanged
 {
-	TXAppearanceType appearanceType;
-
-	BOOL onMojave = TEXTUAL_RUNNING_ON_MOJAVE;
-	BOOL onBigSur = TEXTUAL_RUNNING_ON_BIGSUR;
-
-	BOOL isAppearanceDark = NO;
+	TXAppearanceType appearanceType = TXAppearanceTypeBigSurLight;
 
 	TXPreferredAppearance preferredAppearance = [TPCPreferences appearance];
 
@@ -191,21 +163,15 @@ NSString * const TXSystemAppearanceChangedNotification = @"TXSystemAppearanceCha
 	switch (preferredAppearance) {
 		case TXPreferredAppearanceInherited:
 		{
-			/* OS Version checks are X or LATER which means we can
-			 cover Mojave and Big Sur together with one condition. */
-			if (onMojave)
-			{
-				/* We only inherit from the system on Mojave.
-				 On earlier operating systems, user is expected
-				 to set an appearance of their own. */
-				isAppearanceDark = [TXAppearancePropertyCollection systemWideDarkModeEnabled];
+			if ([TXAppearancePropertyCollection systemWideDarkModeEnabled]) {
+				appearanceType = TXAppearanceTypeBigSurDark;
 			}
 
 			break;
 		}
 		case TXPreferredAppearanceDark:
 		{
-			isAppearanceDark = YES;
+			appearanceType = TXAppearanceTypeBigSurDark;
 
 			break;
 		}
@@ -214,6 +180,8 @@ NSString * const TXSystemAppearanceChangedNotification = @"TXSystemAppearanceCha
 			break;
 		}
 	}
+
+	BOOL isAppearanceDark = (appearanceType == TXAppearanceTypeBigSurDark);
 
 	/* Determine best appearance inheritance approach */
 	/* Before Mojave, appearance needs to be applied to every view.
@@ -225,36 +193,9 @@ NSString * const TXSystemAppearanceChangedNotification = @"TXSystemAppearanceCha
 	 from the system. */
 	TXAppKitAppearanceTarget appKitAppearanceTarget = TXAppKitAppearanceTargetNone;
 
-	if (onMojave == NO) {
-		appKitAppearanceTarget = TXAppKitAppearanceTargetView;
-	} else if (preferredAppearance != TXPreferredAppearanceInherited) {
+	if (preferredAppearance != TXPreferredAppearanceInherited) {
 		appKitAppearanceTarget = TXAppKitAppearanceTargetWindow;
 	}
-
-	/* Determine best appearance */
-	if (onBigSur)
-	{
-		if (isAppearanceDark) {
-			appearanceType = TXAppearanceTypeBigSurDark;
-		} else {
-			appearanceType = TXAppearanceTypeBigSurLight;
-		} // isAppearanceDark
-	} else if (onMojave)
-	{
-		if (isAppearanceDark) {
-			appearanceType = TXAppearanceTypeMojaveDark;
-		} else {
-			appearanceType = TXAppearanceTypeMojaveLight;
-		} // isAppearanceDark
-	}
-	else
-	{
-		if (isAppearanceDark) {
-			appearanceType = TXAppearanceTypeYosemiteDark;
-		} else {
-			appearanceType = TXAppearanceTypeYosemiteLight;
-		} // isAppearanceDark
-	} // macOS Version
 
 	/* Test for changes */
 	TXAppearancePropertyCollection *oldProperties = self.properties;
@@ -342,43 +283,17 @@ NSString * const TXSystemAppearanceChangedNotification = @"TXSystemAppearanceCha
 
 + (BOOL)systemWideDarkModeEnabled
 {
-#ifdef TXSystemIsOSXMojaveOrLater
-	if (TEXTUAL_RUNNING_ON_MOJAVE) {
-TEXTUAL_IGNORE_AVAILABILITY_BEGIN
-		return ([[NSApp effectiveAppearance] bestMatchFromAppearancesWithNames:@[NSAppearanceNameDarkAqua]] != nil);
-TEXTUAL_IGNORE_AVAILABILITY_END
-	}
-#endif
-
-	NSString *objectValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-
-	return [objectValue isEqualToStringIgnoringCase:@"dark"];
+	return ([[NSApp effectiveAppearance] bestMatchFromAppearancesWithNames:@[NSAppearanceNameDarkAqua]] != nil);
 }
 
 + (nullable NSAppearance *)appKitDarkAppearance
 {
-#ifdef TXSystemIsOSXMojaveOrLater
-	if (TEXTUAL_RUNNING_ON_MOJAVE) {
-TEXTUAL_IGNORE_AVAILABILITY_BEGIN
-		return [NSAppearance appearanceNamed:NSAppearanceNameDarkAqua];
-TEXTUAL_IGNORE_AVAILABILITY_END
-	} else {
-#endif
-
-		return [NSAppearance appearanceNamed:NSAppearanceNameVibrantDark];
-
-#ifdef TXSystemIsOSXMojaveOrLater
-	}
-#endif
+	return [NSAppearance appearanceNamed:NSAppearanceNameDarkAqua];
 }
 
 + (nullable NSAppearance *)appKitLightAppearance
 {
-	if (TEXTUAL_RUNNING_ON_MOJAVE) {
-		return [NSAppearance appearanceNamed:NSAppearanceNameAqua];
-	} else {
-		return [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
-	}
+	return [NSAppearance appearanceNamed:NSAppearanceNameAqua];
 }
 
 @end

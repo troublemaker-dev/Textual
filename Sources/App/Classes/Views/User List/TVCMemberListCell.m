@@ -56,7 +56,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) TVCMemberList *memberList;
 @property (nonatomic, weak) TVCMemberListCell *childCell;
 @property (readonly) TVCMemberListAppearance *userInterfaceObjects;
-@property (nonatomic, assign) BOOL disableQuirks;
 @end
 
 @interface TVCMemberListCell ()
@@ -624,13 +623,6 @@ NS_ASSUME_NONNULL_BEGIN
 	return nil;
 }
 
-- (void)viewWillMoveToWindow:(nullable NSWindow *)newWindow
-{
-	[super viewWillMoveToWindow:newWindow];
-
-	self.disableQuirks = TEXTUAL_RUNNING_ON_MOJAVE;
-}
-
 - (void)setSelected:(BOOL)selected
 {
 	super.selected = selected;
@@ -639,31 +631,7 @@ NS_ASSUME_NONNULL_BEGIN
 		return;
 	}
 
-	[self modifySelectionHighlightStyle];
-
 	[self setNeedsDisplayOnChild];
-}
-
-- (void)modifySelectionHighlightStyle
-{
-	if (self.disableQuirks) {
-		return;
-	}
-
-	if (self.isSelected)
-	{
-		TVCMemberListAppearance *appearance = self.userInterfaceObjects;
-
-		if (appearance.isDarkAppearance) {
-			self.selectionHighlightStyle = NSTableViewSelectionHighlightStyleRegular;
-		} else {
-			self.selectionHighlightStyle = NSTableViewSelectionHighlightStyleSourceList;
-		}
-	}
-	else
-	{
-		self.selectionHighlightStyle = NSTableViewSelectionHighlightStyleRegular;
-	}
 }
 
 - (void)setNeedsDisplayOnChild
@@ -720,21 +688,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 	return (appearance.cellRowEmphasized &&
 			(window == nil || window.isKeyWindow));
-}
-
-- (nullable NSColor *)fontSmoothingBackgroundColor
-{
-	if (self.disableQuirks) {
-		return nil;
-	}
-
-	TVCMemberListAppearance *appearance = self.userInterfaceObjects;
-
-	if (appearance.isDarkAppearance) {
-		return [NSColor grayColor];
-	} else {
-		return [NSColor whiteColor];
-	}
 }
 
 - (TVCMemberListCell * _Nullable)childCell

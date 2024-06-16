@@ -38,12 +38,6 @@
 /* Defines for operating system detection. */
 #define TXLoadMacOSVersionSpecificFeatures		1
 
-#if TXLoadMacOSVersionSpecificFeatures
-	#if defined(AVAILABLE_MAC_OS_X_VERSION_10_14_AND_LATER)
-		#define TXSystemIsOSXMojaveOrLater
-	#endif
-#endif
-
 /* Shortcut defines. */
 #define RZAnimationCurrentContext()				[NSAnimationContext	currentContext]
 #define RZAppearaneCurrentController()			[NSAppearance currentAppearance]

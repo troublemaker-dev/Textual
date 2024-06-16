@@ -252,29 +252,6 @@ NS_ASSUME_NONNULL_BEGIN
 	[textField updateSegmentedController];
 }
 
-#pragma mark -
-#pragma mark Appearance
-
-- (void)applicationAppearanceChanged
-{
-	TVCMainWindowAppearance *appearance = self.mainWindow.userInterfaceObjects;
-
-	[self updateVibrancyWithAppearance:appearance];
-}
-
-- (void)updateVibrancyWithAppearance:(TVCMainWindowAppearance *)appearance
-{
-	NSParameterAssert(appearance != nil);
-
-	NSAppearance *appKitAppearance = nil;
-
-	if (appearance.appKitAppearanceTarget == TXAppKitAppearanceTargetView) {
-		appKitAppearance = appearance.appKitAppearance;
-	}
-
-	self.appearance = appKitAppearance;
-}
-
 @end
 
 NS_ASSUME_NONNULL_END
