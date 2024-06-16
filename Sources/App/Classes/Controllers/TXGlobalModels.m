@@ -77,7 +77,7 @@ NSString * _Nullable TXHumanReadableTimeInterval(NSTimeInterval dateInterval, BO
 					   NSCalendarUnitSecond);
 	}
 
-	/* Convert calander units to a text rep */
+	/* Convert calendar units to a text rep */
 	NSMutableArray<NSNumber *> *units = [NSMutableArray arrayWithCapacity:6];
 
 	if (orderMatrix & NSCalendarUnitYear) {

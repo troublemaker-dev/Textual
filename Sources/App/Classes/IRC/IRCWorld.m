@@ -316,7 +316,7 @@ NSString * const IRCWorldWillDestroyChannelNotification = @"IRCWorldWillDestroyC
 	}
 }
 
-- (void)wakeFomScreenSleep
+- (void)wakeFromScreenSleep
 {
 	if ([TPCPreferences setAwayOnScreenSleep] == NO) {
 		return;

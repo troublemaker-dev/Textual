@@ -65,7 +65,7 @@ typedef NS_ENUM(NSUInteger, _TPCThemeChooseVarietyResult) {
 typedef NS_OPTIONS(NSUInteger, _TPCThemeMonitoringResult) {
 	_TPCThemeMonitoringResultNoChange					= 0, // Default
 	_TPCThemeMonitoringResultReloadableFileModified		= 1 << 0, // Any CSS or JavaScript file was changed in the current variety
-	_TPCThemeMonitoringResultCrticialFileDeleted		= 1 << 1, // The design.css or scripts.js file of any variety was deleted
+	_TPCThemeMonitoringResultCriticalFileDeleted		= 1 << 1, // The design.css or scripts.js file of any variety was deleted
 	_TPCThemeMonitoringResultVarietyCreated				= 1 << 2, // A variety was created
 	_TPCThemeMonitoringResultVarietyDeleted				= 1 << 3, // A variety was deleted
 	_TPCThemeMonitoringResultThemeDeleted				= 1 << 4  // The theme was deleted
@@ -354,7 +354,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 	/* Theme was modified in such a way that it must be validated
 	 and possibly a new best choice is chosen. */
-	if ((result & _TPCThemeMonitoringResultCrticialFileDeleted) == _TPCThemeMonitoringResultCrticialFileDeleted ||
+	if ((result & _TPCThemeMonitoringResultCriticalFileDeleted) == _TPCThemeMonitoringResultCriticalFileDeleted ||
 		(result & _TPCThemeMonitoringResultVarietyCreated) == _TPCThemeMonitoringResultVarietyCreated ||
 		(result & _TPCThemeMonitoringResultVarietyDeleted) == _TPCThemeMonitoringResultVarietyDeleted)
 	{
@@ -404,7 +404,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	TPCThemeVariety *variety = [self _varietyAtURL:directoryURL];
 
 	/* The monitor is used for two parts:
-	 1. To continiously verify the integrity of the theme
+	 1. To continuously verify the integrity of the theme
 	  and varieties so that the next time that it's reloaded,
 	  it will be in a usable state.
 	 2. To automatically reload the theme when CSS and JavaScript
@@ -416,10 +416,10 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 	_TPCThemeMonitoringResult result = _TPCThemeMonitoringResultNoChange;
 
-	BOOL varietyChanged = [self _verifyInegrityOfFileAtURL:url duringMonitoringOfVariety:variety];
+	BOOL varietyChanged = [self _verifyIntegrityOfFileAtURL:url duringMonitoringOfVariety:variety];
 
 	if (varietyChanged) {
-		result |= _TPCThemeMonitoringResultCrticialFileDeleted;
+		result |= _TPCThemeMonitoringResultCriticalFileDeleted;
 	}
 
 	/* Limit #2 to scope of active variety. */
@@ -523,7 +523,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 #pragma mark -
 #pragma mark Integrity
 
-- (BOOL)_verifyInegrityOfFileAtURL:(NSURL *)url duringMonitoringOfVariety:(TPCThemeVariety *)variety
+- (BOOL)_verifyIntegrityOfFileAtURL:(NSURL *)url duringMonitoringOfVariety:(TPCThemeVariety *)variety
 {
 	NSParameterAssert(url != nil);
 	NSParameterAssert(variety != nil);

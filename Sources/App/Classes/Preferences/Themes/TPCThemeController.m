@@ -555,10 +555,10 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 	NSParameterAssert(event != nil);
 
 	/* The purpose of the theme monitor is to recognize when
-	 new themes have appeared aso that we can make them an
+	 new themes have appeared so that we can make them an
 	 option for the user immediately. To accomplish this we
 	 monitor the directory of each storage location. */
-	/* Monitor is recrusive which means we have to use flags
+	/* Monitor is recursive which means we have to use flags
 	 and context information to narrow scope of events. */
 	FSEventStreamEventFlags flags = event.flags;
 

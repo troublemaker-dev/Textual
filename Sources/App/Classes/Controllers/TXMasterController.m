@@ -191,7 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
 		[TPCResourceManager copyResourcesToApplicationSupportFolder];
 	}, DISPATCH_QUEUE_PRIORITY_BACKGROUND);
 
-	/* We want to gurantee some specific things happen before the
+	/* We want to guarantee some specific things happen before the
 	 app is considered "launched" and ready to use. This property
 	 counts down once each task completes and once it reaches 0,
 	 then the app is considered launched. */
@@ -579,7 +579,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	LogToConsole("Waking from screen sleep");
 
-	[self.world wakeFomScreenSleep];
+	[self.world wakeFromScreenSleep];
 }
 
 - (void)computerWillSleep:(NSNotification *)note

@@ -705,7 +705,7 @@ NS_ASSUME_NONNULL_BEGIN
 		[self presentMessage:TXTLS(@"OffTheRecord[m1z-eb]") withAccountName:username];
 
 		/* When policy is changed to never, all open conversations are
-		 closed. Because user probably wont intend to use authenication
+		 closed. Because user probably wont intend to use authentication
 		 dialogs without encryption enabled, then let's cancel any that
 		 are open for this condition. */
 		if ([TPCPreferences textEncryptionIsEnabled] == NO) {

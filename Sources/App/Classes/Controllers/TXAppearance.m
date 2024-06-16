@@ -150,7 +150,7 @@ NSString * const TXSystemAppearanceChangedNotification = @"TXSystemAppearanceCha
 {
 	/* Wait until next pass of the run loop to perform
 	 update because the effective appearance may not
-	 be propegated to all subviews when this is called. */
+	 be propagated to all subviews when this is called. */
 	XRPerformBlockAsynchronouslyOnMainQueue(^{
 		[self updateAppearanceBySystemChange];
 	});

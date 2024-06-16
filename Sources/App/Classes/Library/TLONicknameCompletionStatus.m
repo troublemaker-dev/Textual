@@ -223,8 +223,8 @@ ClassWithDesignatedInitializerInitMethod
 		/* When the search pattern is empty, then special consideration is taken for how
 		 the human brain may expect the result. When there is a search pattern, the list
 		 is sorted using member weight, but that information is not really relevant when
-		 you are targetting all. When the search pattern is empty, the member list is sorted
-		 alphabeticaly and only the single most heighly weighted user is placed at the top
+		 you are targeting all. When the search pattern is empty, the member list is sorted
+		 alphabetically and only the single most highly weighted user is placed at the top
 		 of the list and that only occurs if there is a user with a different weight. */
 		__block IRCChannelUser *userWithGreatestWeight = nil;
 
