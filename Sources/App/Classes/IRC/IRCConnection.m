@@ -302,7 +302,7 @@ ClassWithDesignatedInitializerInitMethod
 		});
 
 		(void)
-		[RCMTrustPanel presentTrustPanelInWindow:[NSApp keyWindow]
+		[RCMTrustPanel presentTrustPanelInWindow:window
 											body:promptInformativeText
 										   title:promptTitleText
 								   defaultButton:defaultButtonTitle
