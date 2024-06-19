@@ -191,19 +191,8 @@ ClassWithDesignatedInitializerInitMethod
 
 + (void)emptyCaches
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-
-	[TVCLogViewInternalWK1 emptyCaches:^{
-		dispatch_semaphore_signal(semaphore);
-	}];
-
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
-	[TVCLogViewInternalWK2 emptyCaches:^{
-		dispatch_semaphore_signal(semaphore);
-	}];
-
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	[TVCLogViewInternalWK1 emptyCaches];
+	[TVCLogViewInternalWK2 emptyCaches];
 }
 
 - (void)recreateTemporaryCopyOfThemeIfNecessary

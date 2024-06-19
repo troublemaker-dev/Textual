@@ -263,29 +263,22 @@ create_normal_pool:
 
 + (void)emptyCaches
 {
-	[self.class emptyCaches:nil];
-}
-
-+ (void)emptyCaches:(void (^ _Nullable)(void))completionHandler
-{
 	WKWebsiteDataStore *wk2WebsiteDataStore = _sharedWebViewConfiguration.websiteDataStore;
 
-	if ( wk2WebsiteDataStore) {
-		NSSet *itemsToRemove = [NSSet setWithArray:@[
-			WKWebsiteDataTypeDiskCache,
-			WKWebsiteDataTypeMemoryCache
-		]];
-
-		[wk2WebsiteDataStore removeDataOfTypes:itemsToRemove
-								 modifiedSince:[NSDate distantPast]
-							 completionHandler:completionHandler];
-
+	if (wk2WebsiteDataStore == nil) {
 		return;
 	}
 
-	if (completionHandler) {
-		XRPerformBlockAsynchronouslyOnMainQueue(completionHandler);
-	}
+	NSSet *itemsToRemove = [NSSet setWithArray:@[
+		WKWebsiteDataTypeDiskCache,
+		WKWebsiteDataTypeMemoryCache
+	]];
+
+	[wk2WebsiteDataStore removeDataOfTypes:itemsToRemove
+							 modifiedSince:[NSDate distantPast]
+						 completionHandler:^{
+		LogToConsoleDebug("WebKit2 cache cleared");
+	}];
 }
 
 - (void)findString:(NSString *)searchString movingForward:(BOOL)movingForward
