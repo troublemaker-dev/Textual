@@ -63,6 +63,7 @@ static WKUserContentController *_sharedUserContentController = nil;
 static WKWebViewConfiguration *_sharedWebViewConfiguration = nil;
 static TVCLogPolicy *_sharedWebPolicy = nil;
 static TVCLogScriptEventSink *_sharedWebViewScriptSink = nil;
+static BOOL _safeToUseWebKit2 = YES;
 
 #pragma mark -
 #pragma mark Factory
@@ -215,6 +216,11 @@ create_normal_pool:
 - (TVCLogPolicy *)webViewPolicy
 {
 	return _sharedWebPolicy;
+}
+
++ (BOOL)t_safeToUse
+{
+	return _safeToUseWebKit2;
 }
 
 #pragma mark -
@@ -458,11 +464,66 @@ create_normal_pool:
 #pragma mark -
 #pragma mark Web View Delegate
 
+/* Defined in WebKit/Source/WebKit/UIProcess/API/Cocoa/WKNavigationDelegatePrivate.h */
+/* Breaking the law, breaking the law... */
+typedef NS_ENUM(NSInteger, _WKProcessTerminationReason) {
+	_WKProcessTerminationReasonExceededMemoryLimit,
+	_WKProcessTerminationReasonExceededCPULimit,
+	_WKProcessTerminationReasonRequestedByClient,
+	_WKProcessTerminationReasonCrash,
+};
+
+- (void)_webView:(WKWebView *)webView webContentProcessDidTerminateWithReason:(_WKProcessTerminationReason)reason
+{
+	NSParameterAssert(webView == self);
+
+	switch (reason) {
+		case _WKProcessTerminationReasonExceededMemoryLimit:
+			LogToConsoleError("WebView [%@] terminated due to memory limit.", self.description);
+
+			break;
+		case _WKProcessTerminationReasonExceededCPULimit:
+			LogToConsoleError("WebView [%@] terminated due to CPU limit.", self.description);
+
+			break;
+		case _WKProcessTerminationReasonRequestedByClient:
+			LogToConsoleDebug("WebView [%@] terminated by client.", self.description);
+
+			break;
+		case _WKProcessTerminationReasonCrash:
+			LogToConsoleError("WebView [%@] terminated due to crash.", self.description);
+
+			break;
+		default:
+			LogToConsoleError("WebView [%@] terminated by other means: %i", self.description, reason);
+
+			break;
+	}
+
+	if (reason == _WKProcessTerminationReasonRequestedByClient) {
+		return;
+	}
+
+	LogToConsoleError("A WebKit process terminated for a reason not understood. Disabling WebKit2 until relaunch.");
+	LogStackTrace();
+
+	_safeToUseWebKit2 = NO;
+
+	[self webViewClosedUnexpectedly];
+}
+
+- (void)_webViewWebProcessDidBecomeUnresponsive:(WKWebView *)webView
+{
+	NSParameterAssert(webView == self);
+
+	LogToConsoleError("WebView [%@] terminated due to unresponsive.", self.description);
+}
+
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView
 {
 	NSParameterAssert(webView == self);
 
-	[self webViewClosedUnexpectedly];
+	LogToConsoleDebug("WebView [%@] terminated", self.description);
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSString *, id> *)change context:(nullable void *)context

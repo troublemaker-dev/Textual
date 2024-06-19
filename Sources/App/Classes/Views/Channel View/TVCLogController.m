@@ -1006,7 +1006,7 @@ ClassWithDesignatedInitializerInitMethod
 
 	self.historyLoaded = NO;
 
-	if (self.backingView.isUsingWebKit2 != [TPCPreferences webKit2Enabled]) {
+	if (self.backingView.isUsingWebKit2 != [TVCLogView webKit2Enabled]) {
 		[self rebuildBackingView];
 	}
 
@@ -1027,8 +1027,6 @@ ClassWithDesignatedInitializerInitMethod
 	if (self.terminating) {
 		return;
 	}
-
-	[self rebuildBackingView];
 
 	[self clearWithReset:YES];
 }

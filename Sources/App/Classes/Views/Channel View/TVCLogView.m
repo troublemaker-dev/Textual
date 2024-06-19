@@ -84,9 +84,18 @@ ClassWithDesignatedInitializerInitMethod
 	self.webViewBacking = nil;
 }
 
++ (BOOL)webKit2Enabled
+{
+	if ([TVCLogViewInternalWK2 t_safeToUse] == NO) {
+		return NO;
+	}
+
+	return [TPCPreferences webKit2Enabled];
+}
+
 - (void)constructWebView
 {
-	BOOL isUsingWebKit2 = [TPCPreferences webKit2Enabled];
+	BOOL isUsingWebKit2 = [self.class webKit2Enabled];
 
 	self.isUsingWebKit2 = isUsingWebKit2;
 

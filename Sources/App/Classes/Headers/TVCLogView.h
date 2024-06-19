@@ -45,6 +45,13 @@ TEXTUAL_EXTERN NSString * const TVCLogViewCommonUserAgentString;
 - (void)clearSelection;
 @property (readonly, copy, nullable) NSString *selection;
 
+/* [TPCPreferences webKit2Enabled] will return YES as long as
+ the preference to enable WebKit2 is enabled. */
+/* [TVCLogView webKit2Enabled] will reflect the value of
+ [TPCPreferences webKit2Enabled] until such time that a
+ WebKit2 process closes unexpectedly. Such as a crash.
+ It will then return NO until the app is relaunched. */
+@property (readonly, class) BOOL webKit2Enabled;
 @property (readonly) BOOL isUsingWebKit2;
 
 @property (readonly) NSView *webView;
