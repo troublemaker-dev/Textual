@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
  In those cases, this property will become NO.
  The rest of Textual will give it priority over any other user
  preference asking for asking access to WebKit2. */
-@property (nonatomic, class) BOOL t_safeToUse;
+@property (readonly, class) BOOL t_safeToUse;
 
 @property (nonatomic, weak) TVCLogView *t_parentView;
 @property (nonatomic, assign) BOOL t_viewIsLoading;
