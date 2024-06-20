@@ -457,17 +457,7 @@ NSString * const TVCMemberListDragType = @"TVCMemberListDragType";
 {
 	NSParameterAssert(appearance != nil);
 
-	NSAppearance *appKitAppearance = nil;
-
-	if (appearance.appKitAppearanceTarget == TXAppKitAppearanceTargetView) {
-		appKitAppearance = appearance.appKitAppearance;
-	}
-
-	self.appearance = appKitAppearance;
-
 	NSVisualEffectView *visaulEffectView = self.visualEffectView;
-
-	visaulEffectView.appearance = appKitAppearance;
 
 	if ([TPCPreferences disableSidebarTranslucency]) {
 		visaulEffectView.state = NSVisualEffectStateInactive;
@@ -475,11 +465,7 @@ NSString * const TVCMemberListDragType = @"TVCMemberListDragType";
 		visaulEffectView.state = NSVisualEffectStateFollowsWindowActiveState;
 	}
 
-#ifdef TXSystemIsOSXMojaveOrLater
-	if (TEXTUAL_RUNNING_ON_MOJAVE) {
-		visaulEffectView.material = NSVisualEffectMaterialSidebar;
-	}
-#endif
+	visaulEffectView.material = NSVisualEffectMaterialSidebar;
 }
 
 - (void)applicationAppearanceChanged

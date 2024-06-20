@@ -247,13 +247,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (nullable NSURL *)logFilePath
 {
-	NSString *writePath = nil;
-
-	if (self.logFile == nil) {
-		writePath = [TLOFileLogger writePathForItem:self];
-	} else {
-		writePath = self.logFile.writePath;
-	}
+	NSString *writePath = [TLOFileLogger writePathForItem:self];
 
 	if (writePath == nil) {
 		return nil;

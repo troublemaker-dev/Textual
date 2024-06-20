@@ -56,14 +56,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) __kindof TVCServerListCell *childCell;
 @property (readonly) TVCServerListAppearance *userInterfaceObjects;
 @property (readonly) BOOL isGroupItem;
-@property (nonatomic, assign) BOOL disableQuirks;
 @end
 
 @interface TVCServerListCell ()
 @property (nonatomic, weak) IBOutlet NSTextField *cellTextField;
 @property (nonatomic, weak) IBOutlet NSImageView *messageCountBadgeImageView;
-// Deactivating thse constraints will dereference them.
-// We need to maintrain a strong reference.
+// Deactivating the constraints will dereference them.
+// We need to maintain a strong reference.
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *cellTextFieldLeftMarginConstraint;
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *messageCountBadgeLeadingConstraint;
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *messageCountBadgeTrailingConstraint;
@@ -597,66 +596,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TVCServerListCellGroupItem
 
-#pragma mark -
-#pragma mark Disclosure Triangle
-
-- (void)setNeedsDisplay:(BOOL)needsDisplay
-{
-	if (needsDisplay) {
-		[self updateDisclosureTriangle];
-	}
-
-	[super setNeedsDisplay:needsDisplay];
-}
-
-- (void)updateDisclosureTriangle
-{
-	NSButton *disclosureTriangle = self.disclosureTriangle;
-
-	if (disclosureTriangle == nil) {
-		return;
-	}
-
-	TVCServerListRowCell *rowCell = self.rowCell;
-
-	BOOL isSelected = rowCell.isSelected;
-
-	[self updateGroupDisclosureTriangle:disclosureTriangle isSelected:isSelected];
-}
-
-- (void)updateGroupDisclosureTriangle:(NSButton *)disclosureTriangle isSelected:(BOOL)isSelected
-{
-	NSParameterAssert(disclosureTriangle != nil);
-
-	TVCServerListAppearance *appearance = self.userInterfaceObjects;
-
-	/* The defaults are only saved if none is already set which means
-	 we can always call to this here, even if we set a different image,
-	 because it will only save the value once. */
-	[appearance setOutlineViewDefaultDisclosureTriangle:disclosureTriangle.image];
-	[appearance setOutlineViewAlternateDisclosureTriangle:disclosureTriangle.alternateImage];
-
-	/* Change disclosure button image. */
-	NSImage *primaryImage = [appearance disclosureTriangleInContext:YES selected:isSelected];
-	NSImage *alternateImage = [appearance disclosureTriangleInContext:NO selected:isSelected];
-
-	if (primaryImage == nil && alternateImage == nil) {
-		return;
-	}
-
-	NSButtonCell *buttonCell = disclosureTriangle.cell;
-
-	if (primaryImage) {
-		buttonCell.image = primaryImage;
-	}
-
-	if (alternateImage) {
-		buttonCell.alternateImage = alternateImage;
-	}
-
-	buttonCell.highlightsBy = NSNoCellMask;
-}
-
 - (void)defineConstraints
 {
 	TVCServerListAppearance *appearance = self.userInterfaceObjects;
@@ -695,13 +634,6 @@ NS_ASSUME_NONNULL_BEGIN
 	return nil;
 }
 
-- (void)viewWillMoveToWindow:(nullable NSWindow *)newWindow
-{
-	[super viewWillMoveToWindow:newWindow];
-
-	self.disableQuirks = TEXTUAL_RUNNING_ON_MOJAVE;
-}
-
 - (void)drawDraggingDestinationFeedbackInRect:(NSRect)dirtyRect
 {
 	; // Do nothing for this...
@@ -715,31 +647,7 @@ NS_ASSUME_NONNULL_BEGIN
 		return;
 	}
 
-	[self modifySelectionHighlightStyle];
-
 	[self setNeedsDisplayOnChild];
-}
-
-- (void)modifySelectionHighlightStyle
-{
-	if (self.disableQuirks) {
-		return;
-	}
-
-	if (self.isSelected)
-	{
-		TVCServerListAppearance *appearance = self.userInterfaceObjects;
-
-		if (appearance.isDarkAppearance) {
-			self.selectionHighlightStyle = NSTableViewSelectionHighlightStyleRegular;
-		} else {
-			self.selectionHighlightStyle = NSTableViewSelectionHighlightStyleSourceList;
-		}
-	}
-	else
-	{
-		self.selectionHighlightStyle = NSTableViewSelectionHighlightStyleRegular;
-	}
 }
 
 - (void)setNeedsDisplayOnChild
@@ -782,17 +690,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 	[childCell defineConstraints];
 
-	if (self.isGroupItem &&
-		[subview isKindOfClass:[NSButton class]] &&
-		[[subview identifier] isEqual:NSOutlineViewDisclosureButtonKey])
-	{
-		NSButton *disclosureTriangle = (NSButton *)subview;
-
-		childCell.disclosureTriangle = disclosureTriangle;
-
-		[childCell updateDisclosureTriangle];
-	}
-
 	[super didAddSubview:subview];
 }
 
@@ -815,21 +712,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 	return (emphasized &&
 			(window == nil || window.isKeyWindow));
-}
-
-- (nullable NSColor *)fontSmoothingBackgroundColor
-{
-	if (self.disableQuirks) {
-		return nil;
-	}
-
-	TVCServerListAppearance *appearance = self.userInterfaceObjects;
-
-	if (appearance.isDarkAppearance) {
-		return [NSColor grayColor];
-	} else {
-		return [NSColor whiteColor];
-	}
 }
 
 - (__kindof TVCServerListCell * _Nullable)childCell

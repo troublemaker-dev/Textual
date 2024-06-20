@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 			  themeName,
 			  storageLocationLabel,
 			  StringFromBOOL(mainWindow().usingDarkAppearance),
-			  StringFromBOOL([TPCPreferences webKit2Enabled]));
+			  StringFromBOOL([TVCLogView webKit2Enabled]));
 }
 
 + (NSString *)applicationAndSystemUptime
@@ -147,7 +147,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable NSString *)webKitFrameworkMemoryUsage
 {
-	if ([TPCPreferences webKit2Enabled] == NO) {
+	if ([TVCLogView webKit2Enabled] == NO) {
 		return nil;
 	}
 

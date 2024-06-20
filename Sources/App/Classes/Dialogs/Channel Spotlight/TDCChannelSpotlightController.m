@@ -149,12 +149,6 @@ NS_ASSUME_NONNULL_BEGIN
 	NSAppearance *appKitAppearance = appearance.appKitAppearance;
 
 	switch (appearance.appKitAppearanceTarget) {
-		case TXAppKitAppearanceTargetView:
-		{
-			self.visualEffectView.appearance = appKitAppearance;
-
-			break;
-		}
 		case TXAppKitAppearanceTargetWindow:
 		{
 			self.window.appearance = appKitAppearance;

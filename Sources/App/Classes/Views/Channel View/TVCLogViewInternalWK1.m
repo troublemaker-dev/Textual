@@ -166,14 +166,7 @@ static TVCLogPolicy *_sharedWebPolicy = nil;
 
 + (void)emptyCaches
 {
-	[self.class emptyCaches:nil];
-}
-
-+ (void)emptyCaches:(void (^ _Nullable)(void))completionHandler
-{
-	if (completionHandler) {
-		XRPerformBlockAsynchronouslyOnMainQueue(completionHandler);
-	}
+	LogToConsoleDebug("WebKit cache cleared");
 }
 
 - (void)updateBackgroundColor

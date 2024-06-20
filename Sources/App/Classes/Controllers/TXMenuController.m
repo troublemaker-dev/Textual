@@ -290,7 +290,7 @@ NS_ASSUME_NONNULL_BEGIN
 		switch (tag) {
 			case MTMMAppAboutApp: // "About Textual"
 			case MTMMAppPreferences: // "Preferences…"
-			case MTMMAppManageLicense: // "Manage license…"0
+			case MTMMAppManageLicense: // "Manage license…"
 			case MTMMAppCheckForUpdates: // "Check for updates…"
 			case MTMMHelpAdvancedMenuEnableDeveloperMode: // "Enable Developer Mode"
 			case MTMMHelpAdvancedMenuHiddenPreferences: // "Hidden Preferences…"
@@ -306,7 +306,7 @@ NS_ASSUME_NONNULL_BEGIN
 		} // switch
 	} // if
 
-	/* These are the bare minimium of menu items that must be enabled
+	/* These are the bare minimum of menu items that must be enabled
 	 at all times because they are essential to the entire application. */
 	/* This list may look incomplete but it isn't. Many menu items,
 	 such as Undo, Cut, Copy, Quit, etc. are not a target of the menu
@@ -756,7 +756,7 @@ NS_ASSUME_NONNULL_BEGIN
 				return NO;
 			}
 
-			/* Update visiblity depending on whether ignore is available */
+			/* Update visibility depending on whether ignore is available */
 			/* When this logic was first introduced, we kept a reference to
 			 the ignores in the represented object of the menu item.
 			 This was stopped because information about the ignore can
@@ -1005,7 +1005,7 @@ NS_ASSUME_NONNULL_BEGIN
 			menuItem.hidden = (c.isChannel == NO);
 
 			/* "Query Logs" will appear above this menu item,
-			 but if this is neitehr channel or query, then we
+			 but if this is neither channel or query, then we
 			 have to hide the separator above that so it's not
 			 just sitting there with nothing beneath it. */
 			NSMenuItem *queryLogs = [menuItem.menu itemWithTag:MTWKGeneralQueryLogs];

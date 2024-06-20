@@ -1307,8 +1307,8 @@ TEXTUAL_IGNORE_DEPRECATION_END
 + (void)registerWebKit2DynamicDefaults
 {
 	/* The WebKit2 Web Inspector cannot work attached to Textual's main window.
-	 Whoes fault this is isn't clear, but I do not have time to take a deep 
-	 look at it at this time. To fix it temporarily, we always force it as 
+	 Whose fault this is isn't clear, but I do not have time to take a deep
+	 look at it at this time. To fix it temporarily, we always force it as
 	 window. To prevent the user breaking Textual by attaching it, we force
 	 reset the default here, every run. */
 

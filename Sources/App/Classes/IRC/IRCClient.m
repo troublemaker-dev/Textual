@@ -3564,9 +3564,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		}
 		case IRCLocalCommandEmptycaches: // Command: EMPTY_CACHES
 		{
-			XRPerformBlockAsynchronouslyOnGlobalQueue(^{
-				[TVCLogView emptyCaches];
-			});
+			[TVCLogView emptyCaches];
 
 			break;
 		}

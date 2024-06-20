@@ -314,7 +314,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	/* The license API performs validation of the uploaded receipt which
 	 means that the the only thing we need to know at this point is that
-	 the bundlen identifier of the application is a known value and that
+	 the bundle identifier of the application is a known value and that
 	 the receipt file actually does exist in the application. */
 	NSBundle *applicationBundle = [NSBundle bundleWithURL:applicationURL];
 

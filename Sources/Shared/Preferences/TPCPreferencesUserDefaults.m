@@ -41,7 +41,7 @@
 
 /* TPCPreferencesUserDefaults is specifically designed for reading and writing
  from the main app's preferences file, even within an XPC service. */
-/* NSUserDefaults can be used in an XPC service if service speific preferences
+/* NSUserDefaults can be used in an XPC service if service specific preferences
  need to be retained somehow. */
 
 NS_ASSUME_NONNULL_BEGIN

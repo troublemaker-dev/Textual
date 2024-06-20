@@ -396,6 +396,8 @@ NSComparisonResult sortSubviews(TVCMainWindowChannelViewSubview *firstView,
 	}
 
 	[self.backingView removeObserver:self forKeyPath:@"layingOutView"];
+
+	self.isObservingBackingView = NO;
 }
 
 - (void)setupWebView

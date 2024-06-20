@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)prepareForSleep;
 
 - (void)prepareForScreenSleep;
-- (void)wakeFomScreenSleep;
+- (void)wakeFromScreenSleep;
 
 - (void)noteReachabilityChanged:(BOOL)reachable;
 

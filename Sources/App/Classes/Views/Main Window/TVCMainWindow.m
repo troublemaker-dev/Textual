@@ -960,21 +960,15 @@ NSString * const TVCMainWindowSelectionChangedNotification = @"TVCMainWindowSele
 
 	[RZNotificationCenter() postNotificationName:TVCMainWindowWillReloadThemeNotification object:self];
 
-	XRPerformBlockAsynchronouslyOnGlobalQueueWithPriority(^{
-		/* -emptyCaches uses a semaphore to know when the web processes have cleared
-		 their cache. The web processes signal the semaphore on the main thread which
-		 means we empty the caches in the background so that the main thread is left
-		 open for the semaphore to be signaled. */
+	XRPerformBlockAsynchronouslyOnMainQueue(^{
+		if (masterController().applicationIsTerminating) {
+			return;
+		}
+
 		[TVCLogView emptyCaches];
 
-		XRPerformBlockAsynchronouslyOnMainQueue(^{
-			if (masterController().applicationIsTerminating) {
-				return;
-			}
-
-			[self _reloadTheme_performReload];
-		});
-	}, DISPATCH_QUEUE_PRIORITY_HIGH);
+		[self _reloadTheme_performReload];
+	});
 }
 
 - (void)_reloadTheme_performReload
