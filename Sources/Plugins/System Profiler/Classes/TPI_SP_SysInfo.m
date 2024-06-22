@@ -98,8 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
 	return TPILocalizedString(@"BasicLanguage[z37-85]",
 			  themeName,
 			  storageLocationLabel,
-			  StringFromBOOL(mainWindow().usingDarkAppearance),
-			  StringFromBOOL([TVCLogView webKit2Enabled]));
+			  StringFromBOOL(mainWindow().usingDarkAppearance));
 }
 
 + (NSString *)applicationAndSystemUptime
