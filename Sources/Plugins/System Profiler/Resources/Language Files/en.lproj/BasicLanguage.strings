@@ -79,7 +79,7 @@
 "li1-vn" = "Error: Unable to locate any network statistics.";
 
 /* /style/ command. */
-"z37-85" = "\002Current Style:\002 %1$@ – (%2$@) \002•\002 \002Inverted sidebars:\002 %3$@ \002•\002 \002WebKit2\002: %4$@";
+"z37-85" = "\002Current Style:\002 %1$@ (%2$@) \002•\002 \002Inverted sidebars:\002 %3$@ \002•\002 \002WebKit2\002: %4$@";
 
 /* /screens/ command. */
 "vvt-zq" = "\002Display Resolution:\002 #%1$lu: %2$@ at %3$@";
