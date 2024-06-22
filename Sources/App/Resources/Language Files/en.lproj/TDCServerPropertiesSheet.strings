@@ -71,7 +71,12 @@
 "8iw-q8" = "Please enter a properly formatted username.";
 "agy-bp" = "Please enter a properly formatted real name.";
 "tlo-b6" = "Please enter a properly formatted proxy address.";
-"wlz-tb" = "Please enter a list of properly formatted nicknames.\n\nFailed on nickname: “%@“\n\nList of nicknames should be space separated.\nFor example: “Guest1 Guest2 Guest3“";
+"wlz-tb" = "Please enter a list of properly formatted nicknames.
+
+Failed on nickname: “%@“
+
+List of nicknames should be space separated.
+For example: “Guest1 Guest2 Guest3“";
 
 /* Custom client-side certificate selection */
 "6xz-ec" = "No Certificate Selected";

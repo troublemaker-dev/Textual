@@ -35,4 +35,21 @@
  *
  *********************************************************************** */
 
-"q4s-3m" = "/*\n\n!!! WARNING: THIS IS DESIGNED FOR ADVANCED USERS. !!!\n\nStyles are written in HTML which means custom rules should be\nwritten in CSS: https://developer.mozilla.org/en-US/docs/Web/CSS\n\n- Example: \n\n#topicBar {\n	display: none;\n}\n\nTextual does not perform sanitation in any form on your rules\nwhich means you could possibly abuse this feature by escaping\nfrom the style element and inserting JavaScript or other code.\n\n*/";
+"q4s-3m" = "/*
+
+!!! WARNING: THIS IS DESIGNED FOR ADVANCED USERS. !!!
+
+Styles are written in HTML which means custom rules should be
+written in CSS: https://developer.mozilla.org/en-US/docs/Web/CSS
+
+- Example: 
+
+#topicBar {
+	display: none;
+}
+
+Textual does not perform sanitation in any form on your rules
+which means you could possibly abuse this feature by escaping
+from the style element and inserting JavaScript or other code.
+
+*/";
