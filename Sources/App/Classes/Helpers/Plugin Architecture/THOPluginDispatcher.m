@@ -335,6 +335,7 @@ NSString * const THOPluginProtocolCompatibilityMinimumVersion = @"6.0.0";
 
 	messageObject.receivedAt = self.receivedAt;
 
+	messageObject.messageParameters = self.params;
 	messageObject.messageParamaters = self.params;
 	messageObject.messageSequence = self.sequence;
 

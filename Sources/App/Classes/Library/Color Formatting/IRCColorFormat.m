@@ -488,7 +488,7 @@ NSString * const IRCTextFormatterSpoilerAttributeName = @"IRCTextFormatterSpoile
 		 for the formatters, we can start building the result. */
 		/* ///////////////////////////////////////////////////// */
 
-		/* At this point we do not care what the actaul length of this segment is.
+		/* At this point we do not care what the actual length of this segment is.
 		 The math only checks two things: Whether the formatter bytes found above
 		 will fit into this segment as well as at least one unicode character with
 		 a length of two. If neither of those can fit, then this segment is junk
@@ -1064,7 +1064,7 @@ NSString * const IRCTextFormatterSpoilerAttributeName = @"IRCTextFormatterSpoile
 /* minimumIndex is index we can't pass so that we always wrap within our
  own segment and not within another. */
 /* maxDistance is how far back we search backwards from the end.
- While similiar, this value is different compared to minimumIndex.
+ While similar, this value is different compared to minimumIndex.
  maxDistance is a suggestion whereas minimumIndex is a must. */
 - (NSUInteger)wrapIRCTextFormatterResultWith:(NSUInteger)minimumIndex maxDistance:(NSUInteger)maxDistance
 {

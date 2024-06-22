@@ -1116,10 +1116,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 	TPCThemeStorageLocation currentStorageLocation = themeController().storageLocation;
 
-	[themeController() enumerateAvailableThemesWithBlock:^(NSString *themeName, TPCThemeStorageLocation storageLocation, BOOL multipleVaraints, BOOL *stop) {
+	[themeController() enumerateAvailableThemesWithBlock:^(NSString *themeName, TPCThemeStorageLocation storageLocation, BOOL multipleVariants, BOOL *stop) {
 		NSString *displayName = themeName;
 
-		if (multipleVaraints) {
+		if (multipleVariants) {
 			displayName = [NSString stringWithFormat:@"%@ (%@)",
 				themeName, [TPCThemeController descriptionForStorageLocation:storageLocation]];
 		}

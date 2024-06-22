@@ -121,9 +121,9 @@ ClassWithDesignatedInitializerInitMethod
 
 /* TVCListAppearance allows for one appearance to inherit properties
  from another group recursively. */
-/* For eample: 	AppearanceDarkRetina ->
- 				AppearanceDarkBase ->
- 				AppearanceBase */
+/* For example: 	AppearanceDarkRetina ->
+					AppearanceDarkBase ->
+					AppearanceBase */
 /* -_combineAppearance:withOtherAppearances: is the staging ground for
  this logic. The first argument is the properties for the appearance
  that was specified in -init. The second argument is the contents of
@@ -161,7 +161,7 @@ ClassWithDesignatedInitializerInitMethod
 			 lastInheritance = [otherAppearances dictionaryForKey:inheritedName];
 		 }
 
-		 /* No inhertiance */
+		 /* No inheritance */
 		 if (lastInheritance == nil) {
 			 return;
 		 }

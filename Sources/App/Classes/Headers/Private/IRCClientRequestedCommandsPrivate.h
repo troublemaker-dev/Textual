@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
  on who sent the command. IRCClientRequestedCommands is used by
  IRCClient internally to keep track of what commands have been
  requested so that it can determine how to treat the response. */
-/* IRCClientRequestedCommands works in conjuction with IRCClient
+/* IRCClientRequestedCommands works in conjunction with IRCClient
  by balancing all calls to a command. */
 
 @interface IRCClientRequestedCommands : NSObject

@@ -652,7 +652,7 @@ NS_ASSUME_NONNULL_BEGIN
 			return [TPCPreferences logToDiskIsEnabled];
 		}
 
-		case MTMMWindowToggleVisibilityOfServerList: // "Toggle Visiblity of Server List"
+		case MTMMWindowToggleVisibilityOfServerList: // "Toggle Visibility of Server List"
 		case MTMMWindowSortChannelList: // "Sort Channel List"
 		case MTMMWindowCenterWindow: // "Center Window"
 		case MTMMWindowResetWindowToDefaultSize: // "Reset Window to Default Size"
@@ -678,7 +678,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 			return (isMainWindowDisabled == NO);
 		}
-		case MTMMWindowToggleVisibilityOfMemberList: // "Toggle Visiblity of Member List"
+		case MTMMWindowToggleVisibilityOfMemberList: // "Toggle Visibility of Member List"
 		{
 			BOOL isMainWindowMain = mainWindow().mainWindow;
 
@@ -2593,7 +2593,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	NSString *modeSymbol = nil;
 
-	if ([sender tag] == MTMMChannelModesMenuRemvoeModerated) {
+	if ([sender tag] == MTMMChannelModesMenuRemoveModerated) {
 		modeSymbol = @"-m";
 	} else {
 		modeSymbol = @"+m";
@@ -3616,7 +3616,7 @@ NS_ASSUME_NONNULL_BEGIN
 	[windowController() addWindowToWindowList:sheet];
 }
 
-- (void)nicknameColorSheetOnOk:(TDCNicknameColorSheet *)sneder
+- (void)nicknameColorSheetOnOk:(TDCNicknameColorSheet *)sender
 {
 	[mainWindow() reloadTheme];
 }

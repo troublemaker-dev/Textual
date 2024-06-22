@@ -63,7 +63,7 @@ final class ConnectionSocketClassic: ConnectionSocket, ConnectionSocketProtocol,
 
 	fileprivate let readDelimiter = Data([0x0a]) // \n
 
-	// MARK: - Grand Centeral Dispatch
+	// MARK: - Grand Central Dispatch
 
 	fileprivate func destroyDispatchQueues()
 	{
@@ -435,7 +435,7 @@ final class ConnectionSocketClassic: ConnectionSocket, ConnectionSocketProtocol,
 
 		if (proxyType == .automatic)
 		{
-			/* Being unable to read proxy values is considered non-ftal
+			/* Being unable to read proxy values is considered non-fatal
 			 error which why an failure reason is never assigned. */
 			guard let proxySettings = SCDynamicStoreCopyProxies(nil) as? [String : AnyObject] else {
 				return false
@@ -464,7 +464,7 @@ final class ConnectionSocketClassic: ConnectionSocket, ConnectionSocketProtocol,
 			let proxyUsername = proxySettings.string(for: "SOCKSUser")
 
 			if proxyUsername?.isEmpty == false {
-				let queryParamaters:[CFString : CFTypeRef] = [
+				let queryParameters:[CFString : CFTypeRef] = [
 					kSecClass : kSecClassInternetPassword,
 					kSecAttrServer : proxyHost as CFString,
 					kSecAttrProtocol : kSecAttrProtocolSOCKS,
@@ -474,7 +474,7 @@ final class ConnectionSocketClassic: ConnectionSocket, ConnectionSocketProtocol,
 
 				var queryResultRef: CFTypeRef?
 
-				let queryStatus = SecItemCopyMatching(queryParamaters as CFDictionary, &queryResultRef)
+				let queryStatus = SecItemCopyMatching(queryParameters as CFDictionary, &queryResultRef)
 
 				if (queryStatus != noErr) {
 					failureReason = "SOCKS Error: Textual encountered a problem trying to retrieve the SOCKS proxy password from System Preferences"

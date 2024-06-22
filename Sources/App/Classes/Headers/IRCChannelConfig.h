@@ -91,7 +91,7 @@ typedef NS_ENUM(NSUInteger, IRCChannelType) {
 
 /* Deprecated */
 - (NSControlStateValue)growlEnabledForEvent:(TXNotificationType)event TEXTUAL_DEPRECATED("Use -notificationEnabledForEvent: instead. This method will always return NSControlStateValueOff.");
-@property (readonly) BOOL ignoreInlineMedia TEXTUAL_DEPRECATED("Use -inlineMediaEnabled and -inlineMediaDdisabled instead. This property will always return NO.");
+@property (readonly) BOOL ignoreInlineMedia TEXTUAL_DEPRECATED("Use -inlineMediaEnabled and -inlineMediaDisabled instead. This property will always return NO.");
 @end
 
 #pragma mark -
@@ -125,7 +125,7 @@ typedef NS_ENUM(NSUInteger, IRCChannelType) {
 
 /* Deprecated */
 - (void)setGrowlEnabled:(NSControlStateValue)value forEvent:(TXNotificationType)event TEXTUAL_DEPRECATED("Use -setNotificationEnabled:forEvent: instead");
-@property (nonatomic, assign, readwrite) BOOL ignoreInlineMedia TEXTUAL_DEPRECATED("Use -inlineMediaEnabled and -inlineMediaDdisabled instead");
+@property (nonatomic, assign, readwrite) BOOL ignoreInlineMedia TEXTUAL_DEPRECATED("Use -inlineMediaEnabled and -inlineMediaDisabled instead");
 @end
 
 NS_ASSUME_NONNULL_END

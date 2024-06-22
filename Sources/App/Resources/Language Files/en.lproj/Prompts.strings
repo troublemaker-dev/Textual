@@ -70,12 +70,16 @@
 "5zs-h0" = "Only delete server on this device";
 
 "3l6-3z" = "You have clicked a link that will connect you to “%1$@“ and join the channel %2$@";
-"mx1-qz" = "The connection named “%1$@“ is already configured to connect to this server address.\n\nDo you want to add this channel to that connection or would you rather create a new connection?";
+"mx1-qz" = "The connection named “%1$@“ is already configured to connect to this server address.
+
+Do you want to add this channel to that connection or would you rather create a new connection?";
 "sl5-rf" = "Use Existing Connection";
 "xca-5h" = "Create New Connection";
 
 "pnc-ew" = "You have clicked a link that will connect you to “%1$@“ and join the channels: %2$@";
-"a9z-9f" = "The connection named “%1$@“ is already configured to connect to this server address.\n\nDo you want to add these channels to that connection or would you rather create a new connection?";
+"a9z-9f" = "The connection named “%1$@“ is already configured to connect to this server address.
+
+Do you want to add these channels to that connection or would you rather create a new connection?";
 "0hh-sl" = "Use Existing Connection";
 "sv9-8s" = "Create New Connection";
 
@@ -120,7 +124,10 @@
 "502-6h" = "Choose File";
 
 "6hx-ni" = "Save";
-"0bj-ic" = "To install this script, save it inside the folder:\n[home folder] \U279C Library \U279C Application Scripts \U279C %@\n\nCreate this folder if it does not exist.";
+"0bj-ic" = "To install this script, save it inside the folder:
+[home folder] \U279C Library \U279C Application Scripts \U279C %@
+
+Create this folder if it does not exist.";
 
 "m2r-gv" = "A script cannot be saved here";
 "ztu-nv" = "";
@@ -157,7 +164,9 @@
 
 "sfx-xx" = "Textual is using an encrypted connection to “%@“";
 "ihy-mz" = "Encryption with a digital certificate keeps information private as it’s sent to or from the server “%1$@“";
-"iun-45" = "Encryption with a digital certificate keeps information private as it’s sent to or from the server “%1$@“\n\nInformation encrypted using: %2$@";
+"iun-45" = "Encryption with a digital certificate keeps information private as it’s sent to or from the server “%1$@“
+
+Information encrypted using: %2$@";
 
 "2jq-t5" = "%1$@ with the cipher suite: %2$@";
 "8ou-pu" = "%1$@ with the cipher suite: %2$@ (deprecated)";

@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define windowController()				[TXSharedApplication sharedWindowController]
 
-#define sharedNotificationController()			[TXSharedApplication sharedNotificationController]
+#define sharedNotificationController()	[TXSharedApplication sharedNotificationController]
 
 #define sharedPluginManager()			[TXSharedApplication sharedPluginManager]
 #define sharedCloudManager()			[TXSharedApplication sharedCloudSyncManager]

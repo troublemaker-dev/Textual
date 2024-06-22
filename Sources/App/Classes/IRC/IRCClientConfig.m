@@ -676,7 +676,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 
 	config->_objectInitializedAsCopy = YES;
 
-	// Instance variable is copied because self.nicknamePassward can return
+	// Instance variable is copied because self.nicknamePassword can return
 	// the value of the instance variable if present, else it uses keychain.
 	config->_nicknamePassword = self->_nicknamePassword;
 	config->_proxyPassword = self->_proxyPassword;

@@ -51,7 +51,7 @@ var InlineImageLiveResize = (function () {
 	InlineImageLiveResize.previousY = null;
 	InlineImageLiveResize.previousMouseActionWasForResizing = false;
 
-	/* When the mouse down event is triggered on an element we set the target and record X,Y cordinates.
+	/* When the mouse down event is triggered on an element we set the target and record X,Y coordinates.
 	 using preventDefault we halt the default actions taken by the browser, the user can use the shift
 	 key to override InlineImageLiveResize behavior. */
 	InlineImageLiveResize.onMouseDown = function (e) {
@@ -72,7 +72,7 @@ var InlineImageLiveResize = (function () {
 		}
 	};
 
-	/* The browser has given us a frame to our work on, we will compare the new cordinates of the mouse
+	/* The browser has given us a frame to our work on, we will compare the new coordinates of the mouse
 	 the old ones and resize the element accordingly */
 	InlineImageLiveResize.updateImage = function (x, y) {
 		if (InlineImageLiveResize.dragElement === null ||

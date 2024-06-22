@@ -144,7 +144,7 @@ ClassWithDesignatedInitializerInitMethod
 	/* Change to new view */
 	self.currentTreeItem = treeItem.uniqueIdentifier;
 
-	/* Does new seleciton have a history item? */
+	/* Does new selection have a history item? */
 	TLOInputHistoryObject *newObject = [self currentObjectForFocusedTreeView];
 
 	NSAttributedString *lastHistoryItem = newObject.lastHistoryItem;

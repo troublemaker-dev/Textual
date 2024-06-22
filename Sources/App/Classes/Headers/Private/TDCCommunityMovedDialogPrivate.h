@@ -39,7 +39,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-TEXTUAL_EXTERN NSString * const TDCCommunityMovedDialogApppearedDefaultsKey;
+TEXTUAL_EXTERN NSString * const TDCCommunityMovedDialogAppearedDefaultsKey;
 
 @protocol TDCCommunityMovedDialogDelegate;
 

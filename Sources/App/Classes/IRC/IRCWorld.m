@@ -352,9 +352,9 @@ NSString * const IRCWorldWillDestroyChannelNotification = @"IRCWorldWillDestroyC
 {
 	/* Ask for the day, month, and year from the current calendar. */
 	/* We are not asking for time which means that it will default to zero. */
-	NSDateComponents *currentDayComponents = [RZCurrentCalender() components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:[NSDate date]];
+	NSDateComponents *currentDayComponents = [RZCurrentCalendar() components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:[NSDate date]];
 
-	NSDate *lastMidnight = [RZCurrentCalender() dateFromComponents:currentDayComponents];
+	NSDate *lastMidnight = [RZCurrentCalendar() dateFromComponents:currentDayComponents];
 
 	/* Create date components one day in the future. */
 	/* All other values default to zero. */
@@ -364,7 +364,7 @@ NSString * const IRCWorldWillDestroyChannelNotification = @"IRCWorldWillDestroyC
 
 	/* With the current date and future components, calculate
 	 the date on which our midnight timer will land. */
-	NSDate *nextMidnight = [RZCurrentCalender() dateByAddingComponents:futureDayComponents toDate:lastMidnight options:0];
+	NSDate *nextMidnight = [RZCurrentCalendar() dateByAddingComponents:futureDayComponents toDate:lastMidnight options:0];
 
 	/* Create timer for midnight in future. */
 	/* We set the tolerance for the timer to absolute zero so that

@@ -428,7 +428,7 @@ NSStringEncoding const TXDefaultFallbackStringEncoding = NSISOLatin1StringEncodi
 	NSString *m_foregroundColor = nil;
 	NSString *m_backgroundColor = nil;
 
-	BOOL commanEaten = NO;
+	BOOL commaEaten = NO;
 
 	// ========================================== //
 
@@ -462,7 +462,7 @@ NSStringEncoding const TXDefaultFallbackStringEncoding = NSISOLatin1StringEncodi
 	UniChar a = [self characterAtIndex:currentPosition];
 
 	if (a == ',') {
-		commanEaten = YES;
+		commaEaten = YES;
 
 		currentPosition++; // Eat comma
 	} else {
@@ -487,7 +487,7 @@ NSStringEncoding const TXDefaultFallbackStringEncoding = NSISOLatin1StringEncodi
 	// ========================================== //
 
 return_method:
-	if (m_backgroundColor == nil && commanEaten) {
+	if (m_backgroundColor == nil && commaEaten) {
 		currentPosition -= 1;
 	}
 
@@ -510,10 +510,10 @@ return_method:
 
 	NSUInteger currentPosition = rangeStart;
 
-	NSUInteger m_foregoundColor = NSNotFound;
+	NSUInteger m_foregroundColor = NSNotFound;
 	NSUInteger m_backgroundColor = NSNotFound;
 
-	BOOL commanEaten = NO;
+	BOOL commaEaten = NO;
 
 	// ========================================== //
 
@@ -533,7 +533,7 @@ return_method:
 		goto return_method;
 	}
 
-	m_foregoundColor = (a - '0');
+	m_foregroundColor = (a - '0');
 
 	currentPosition++; // Eat first color number
 
@@ -547,7 +547,7 @@ return_method:
 	UniChar b = [self characterAtIndex:currentPosition];
 
 	if (CS_StringIsBase10Numeric(b)) {
-		m_foregoundColor = (m_foregoundColor * 10 + b - '0');
+		m_foregroundColor = (m_foregroundColor * 10 + b - '0');
 
 		currentPosition++; // Eat second color number
 	}
@@ -562,7 +562,7 @@ return_method:
 	UniChar c = [self characterAtIndex:currentPosition];
 
 	if (c == ',') {
-		commanEaten = YES;
+		commaEaten = YES;
 
 		currentPosition++; // Eat comma
 	} else {
@@ -601,20 +601,20 @@ return_method:
 
 	m_backgroundColor = (m_backgroundColor * 10 + e - '0');
 
-	currentPosition++; // Eate second color number
+	currentPosition++; // Eat second color number
 
 	// ========================================== //
 
 return_method:
-	if (m_backgroundColor == NSNotFound && commanEaten) {
+	if (m_backgroundColor == NSNotFound && commaEaten) {
 		currentPosition -= 1;
 	}
 
 	if (  foregroundColor &&
-		m_foregoundColor != NSNotFound &&
-		m_foregoundColor <= IRCTextFormatterEffectColorHighestDigit)
+		m_foregroundColor != NSNotFound &&
+		m_foregroundColor <= IRCTextFormatterEffectColorHighestDigit)
 	{
-		*foregroundColor = @(m_foregoundColor);
+		*foregroundColor = @(m_foregroundColor);
 	}
 
 	if (  backgroundColor &&
@@ -654,9 +654,9 @@ return_method:
 	NSString *substring = [self substringToIndex:maximumLength];
 
 	for (NSInteger i = (substring.length - 1); i >= 0; i--) {
-		UniChar subsringCharacter = [substring characterAtIndex:i];
+		UniChar substringCharacter = [substring characterAtIndex:i];
 
-		if (subsringCharacter == padCharacter) {
+		if (substringCharacter == padCharacter) {
 			continue;
 		}
 

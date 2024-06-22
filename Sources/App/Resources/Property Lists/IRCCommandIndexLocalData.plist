@@ -98,15 +98,6 @@
 		<key>indexValue</key>
 		<integer>5007</integer>
 	</dict>
-	<key>ccbadge</key>
-	<dict>
-		<key>developerModeOnly</key>
-		<true/>
-		<key>indexValue</key>
-		<integer>5008</integer>
-		<key>arguments</key>
-		<string>&lt;channel&gt; &lt;count&gt; [-h]</string>
-	</dict>
 	<key>chatops</key>
 	<dict>
 		<key>developerModeOnly</key>
@@ -232,22 +223,6 @@
 		<key>arguments</key>
 		<string>&lt;message&gt;</string>
 	</dict>
-	<key>empty_caches</key>
-	<dict>
-		<key>developerModeOnly</key>
-		<true/>
-		<key>indexValue</key>
-		<integer>5110</integer>
-	</dict>
-	<key>fakerawdata</key>
-	<dict>
-		<key>developerModeOnly</key>
-		<true/>
-		<key>indexValue</key>
-		<integer>5087</integer>
-		<key>arguments</key>
-		<string>&lt;input&gt;</string>
-	</dict>
 	<key>getscripts</key>
 	<dict>
 		<key>developerModeOnly</key>
@@ -306,15 +281,6 @@
 		<false/>
 		<key>indexValue</key>
 		<integer>5027</integer>
-	</dict>
-	<key>icbadge</key>
-	<dict>
-		<key>developerModeOnly</key>
-		<true/>
-		<key>indexValue</key>
-		<integer>5028</integer>
-		<key>arguments</key>
-		<string>&lt;highlight count&gt; &lt;message count&gt;</string>
 	</dict>
 	<key>ignore</key>
 	<dict>
@@ -655,19 +621,21 @@
 		<key>arguments</key>
 		<string>&lt;input&gt;</string>
 	</dict>
+	<key>recv</key>
+	<dict>
+		<key>developerModeOnly</key>
+		<true/>
+		<key>indexValue</key>
+		<integer>5087</integer>
+		<key>arguments</key>
+		<string>&lt;input&gt;</string>
+	</dict>
 	<key>rejoin</key>
 	<dict>
 		<key>developerModeOnly</key>
 		<false/>
 		<key>indexValue</key>
 		<integer>5060</integer>
-	</dict>
-	<key>reloadicl</key>
-	<dict>
-		<key>developerModeOnly</key>
-		<true/>
-		<key>indexValue</key>
-		<real>5115</real>
 	</dict>
 	<key>remove</key>
 	<dict>

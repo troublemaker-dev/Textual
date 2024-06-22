@@ -223,5 +223,5 @@ window.addEventListener("resize", _TextualScroller._documentResizedCallback, fal
 
 document.addEventListener("visibilitychange", _TextualScroller._documentVisibilityChangedCallback, false);
 
-/* Populate initial visiblity state and maybe create timer */
+/* Populate initial visibility state and maybe create timer */
 _TextualScroller._documentVisibilityChangedCallback();

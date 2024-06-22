@@ -718,9 +718,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 	NSBezierPath *dividerPath = [NSBezierPath bezierPathWithRect:contentViewFrame];
 
-	NSColor *dividierColor = appearance.backgroundViewDividerColor;
+	NSColor *dividerColor = appearance.backgroundViewDividerColor;
 
-	[dividierColor set];
+	[dividerColor set];
 
 	[dividerPath fill];
 }

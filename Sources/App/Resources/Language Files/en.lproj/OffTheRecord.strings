@@ -33,7 +33,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *********************************************************************** */
+ **********************************************************************\* */
 
 "l49-9y" = "Off-the-Record Messaging: Private conversation started with an UNRECOGNIZED user. <a href='#' onclick='appPrivate.encryptionAuthenticateUser(); return false;'>Perform authentication</a>.";
 "r3w-fj" = "Off-the-Record Messaging: Private conversation started with a recognized user.";

@@ -215,7 +215,7 @@ NS_ASSUME_NONNULL_BEGIN
 	NSParameterAssert(hostAddress != nil);
 	NSParameterAssert(filename != nil);
 
-	/* A hard limit exists to prevent a bad person continously sending file transfers 
+	/* A hard limit exists to prevent a bad person continuously sending file transfers 
 	 which appear in the file transfer, exhausting resources. */
 	if ([self receiverCount] > _addReceiverHardLimit) {
 		LogToConsoleError("Max receiver count of %i exceeded.", _addReceiverHardLimit);

@@ -104,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSImage *)imageInGroup:(NSDictionary<NSString *, id> *)group withKey:(NSString *)key forActiveWindow:(BOOL)forActiveWindow;
 @end
 
-/* TVCApplicationAppearance keeps a copy of TXAppearance proeprties.
+/* TVCApplicationAppearance keeps a copy of TXAppearance properties.
  The properties it keeps are those that were set when the object was created.
  To update to the latest properties, create a new instance of the object. */
 @interface TVCApplicationAppearance : TVCAppearance <TXAppearanceProperties>

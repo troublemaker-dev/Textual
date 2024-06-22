@@ -40,7 +40,7 @@
 #import "NSObjectHelperPrivate.h"
 #import "NSStringHelper.h"
 #import "TXGlobalModels.h"
-#import "NSTableVIewHelperPrivate.h"
+#import "NSTableViewHelperPrivate.h"
 #import "TLOLocalization.h"
 #import "IRCClient.h"
 #import "TVCBasicTableView.h"

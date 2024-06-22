@@ -55,9 +55,9 @@ NS_ASSUME_NONNULL_BEGIN
 	[self _repairOldStyleSymbolicLink];
 }
 
-/* Textual 5 would create a symoblic link from the App Store preferences file path
+/* Textual 5 would create a symbolic link from the App Store preferences file path
  to the standalone preferences file path. This was done so if you began using App Store
- verison, the symbolic link would allow the app to access preferences already set.
+ version, the symbolic link would allow the app to access preferences already set.
  This is no longer done but the symbolic link still exists for a lot of users.
  This logic replaces the symbolic link with a copy of the file its linked against. */
 + (void)_repairOldStyleSymbolicLink
@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 		}
 	}
 
-	/* Smbolic link getter */
+	/* Symbolic link getter */
 	NSNumber *isSymbolicLink;
 
 	{

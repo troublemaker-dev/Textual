@@ -109,7 +109,7 @@ ClassWithDesignatedInitializerInitMethod
 		return;
 	}
 
-	LogToConsoleDebug("Invaliating process...");
+	LogToConsoleDebug("Invalidating process...");
 
 	[self.serviceConnection invalidate];
 }
@@ -230,7 +230,7 @@ ClassWithDesignatedInitializerInitMethod
 
 	if (self.isConnecting || self.isConnected) {
 		/* Disconnect caused by calling -close on the service will
-		 cacuse -ircConnectionDidDisconnectWithError: to invoke
+		 cause -ircConnectionDidDisconnectWithError: to invoke
 		 -invalidateProcess for us, so don't call it on this condition. */
 		self.isDisconnecting = YES;
 
@@ -420,7 +420,7 @@ ClassWithDesignatedInitializerInitMethod
 
 	/* PONG replies are extremely important. There is no reason they should be
 	 placed in the flood control queue. This writes them directly to the socket
-	 instead of actuallying waiting for the queue. We only need this check if
+	 instead of actually waiting for the queue. We only need this check if
 	 we actually have flood control enabled. */
 	if ([line hasPrefix:@"PONG"]) {
 		[[self remoteObjectProxy] sendData:dataToSend bypassQueue:YES];

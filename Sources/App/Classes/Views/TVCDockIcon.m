@@ -87,7 +87,7 @@ static NSInteger _cachedMessageCount = (-1);
 
 	NSDateComponents *breakdownInfo = [sysCalendar components:(NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:[NSDate date]];
 
-	/* The first public commit of Textual occured on July, 23, 2010. This is the day
+	/* The first public commit of Textual occurred on July, 23, 2010. This is the day
 	 that we consider the birthday of the application. */
 	if (breakdownInfo.month == 7 && breakdownInfo.day == 23) {
 		return [NSImage imageNamed:@"applicationIconBirthday"];
@@ -195,7 +195,7 @@ static NSInteger _cachedMessageCount = (-1);
 
 	/* If there is no red badge, then the green one is drawn in the same
 	 position of the red at the top right of the icon. The following is the
-	 math required to psotiion it correctly relative to the icon. If the
+	 math required to position it correctly relative to the icon. If the
 	 red icon does exist in this drawing, then we will update these points
 	 of origin later on in the drawing. For now, assume it is at the top. */
 

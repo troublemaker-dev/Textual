@@ -254,7 +254,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		 we use the the address the user has configured. */
 		/* -serverAddress is only nil when the client isn't
 		 connected anywhere. We are parsing messages when
-		 connected somewehre so it's safe to cast it as
+		 connected somewhere so it's safe to cast it as
 		 as non-nil at least here. */
 		NSString * _Nonnull serverAddress = (NSString * _Nonnull)client.serverAddress;
 

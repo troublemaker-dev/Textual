@@ -1434,7 +1434,7 @@ ClassWithDesignatedInitializerInitMethod
 - (void)_sendPluginPayload:(TVCLogScriptEventSinkContext *)context
 {
 	if ([sharedPluginManager() supportsFeature:THOPluginItemSupportedFeatureWebViewJavaScriptPayloads] == NO) {
-		[self.class throwJavaScriptException:@"There are no plugins loaded that support JavaScritp payloads"
+		[self.class throwJavaScriptException:@"There are no plugins loaded that support JavaScript payloads"
 								   forCaller:context.caller
 								   inWebView:context.webView];
 

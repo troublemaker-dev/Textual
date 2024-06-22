@@ -148,7 +148,7 @@ NS_ASSUME_NONNULL_BEGIN
 	[superview addConstraints:constraints];
 }
 
-- (void)addConstraintsToSueprviewToEqualDimensions
+- (void)addConstraintsToSuperviewToEqualDimensions
 {
 	NSView *superview = self.superview;
 
@@ -182,7 +182,7 @@ NS_ASSUME_NONNULL_BEGIN
 	/* Apply constraints. */
 	[withSubview addConstraintsToSuperviewToHugEdges];
 
-	[withSubview addConstraintsToSueprviewToEqualDimensions];
+	[withSubview addConstraintsToSuperviewToEqualDimensions];
 }
 
 @end

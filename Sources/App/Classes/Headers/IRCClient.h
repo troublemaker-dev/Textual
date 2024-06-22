@@ -71,7 +71,7 @@ typedef NS_OPTIONS(NSUInteger, ClientIRCv3SupportedCapability) {
 	ClientIRCv3SupportedCapabilityIsIdentifiedWithSASL	= 1 << 5, // YES if SASL authentication was successful
 	ClientIRCv3SupportedCapabilityIsInSASLNegotiation	= 1 << 6, // YES if in SASL CAP authentication request
 	ClientIRCv3SupportedCapabilityMonitorCommand		= 1 << 7, // YES if the MONITOR command is supported
-	ClientIRCv3SupportedCapabilityMultiPreifx			= 1 << 8, // YES if multi-prefix CAP supported
+	ClientIRCv3SupportedCapabilityMultiPrefix			= 1 << 8, // YES if multi-prefix CAP supported
 	ClientIRCv3SupportedCapabilityPlayback				= 1 << 9, // Special CAP which is subject to change
 	ClientIRCv3SupportedCapabilityServerTime			= 1 << 10, // YES if server-time CAP supported
 	ClientIRCv3SupportedCapabilityUserhostInNames		= 1 << 11, // YES if userhost-in-names CAP supported
@@ -109,7 +109,7 @@ TEXTUAL_EXTERN NSNotificationName const IRCClientUserNicknameChangedNotification
 @property (readonly) BOOL isQuitting;					// YES if socket is disconnecting
 @property (readonly) BOOL isReconnecting;				// YES if reconnect is pending
 @property (readonly) BOOL isSecured;					// YES if socket is connected using SSL/TLS
-@property (readonly) BOOL userIsAway;					// YES if local uesr is away
+@property (readonly) BOOL userIsAway;					// YES if local user is away
 @property (readonly) BOOL userIsIRCop;					// YES if local user is IRCop
 @property (readonly) BOOL userIsIdentifiedWithNickServ; // YES if NickServ identification was successful
 @property (readonly) BOOL isWaitingForNickServ;			// YES if NickServ identification is pending

@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy) NSArray<NSString *> *params;
 @property (readonly, copy) NSDate *receivedAt;
 @property (readonly) BOOL isHistoric; // Whether a custom @time= was supplied during parsing.
-@property (readonly) BOOL isEventOnlyMessage; /* The message should be parsed and special actions performed such as adding/removing user but the result is never passsed to print: */
+@property (readonly) BOOL isEventOnlyMessage; /* The message should be parsed and special actions performed such as adding/removing user but the result is never passed to print: */
 @property (readonly) BOOL isPrintOnlyMessage; /* The message should be parsed and passed to print: but special actions such as adding/removing user from member list should be ignored. (currently unused) */
 @property (readonly, copy, nullable) NSString *batchToken;
 @property (readonly, copy, nullable) NSDictionary<NSString *, NSString *> *messageTags; /* IRCv3 message tags. See ircv3.net for more information regarding extensions in the IRC protocol. */

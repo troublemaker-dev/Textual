@@ -51,6 +51,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #define _maximumProcessCount			8
+#define _maximumViewInstances			50
 
 @interface TVCLogViewInternalWK2 ()
 @property (nonatomic, assign) BOOL t_observingLoadingProperty;
@@ -64,6 +65,7 @@ static WKWebViewConfiguration *_sharedWebViewConfiguration = nil;
 static TVCLogPolicy *_sharedWebPolicy = nil;
 static TVCLogScriptEventSink *_sharedWebViewScriptSink = nil;
 static BOOL _safeToUseWebKit2 = YES;
+static NSUInteger _numberOfViews = 0;
 
 #pragma mark -
 #pragma mark Factory
@@ -180,6 +182,9 @@ create_normal_pool:
 	if ((self = [self initWithFrame:NSZeroRect configuration:_sharedWebViewConfiguration])) {
 		[self constructWebViewWithHostView:hostView];
 
+		// It's not critical that this is thread safe
+		_numberOfViews += 1;
+
 		return self;
 	}
 
@@ -208,6 +213,8 @@ create_normal_pool:
 
 - (void)dealloc
 {
+	_numberOfViews -= 1;
+
 	self.navigationDelegate = nil;
 
 	self.UIDelegate = nil;
@@ -220,6 +227,15 @@ create_normal_pool:
 
 + (BOOL)t_safeToUse
 {
+	/* June 2024: WebKit2 was enabled by default for beta update users.
+	 One user who is in 200+ channels managed to enter WK2 into an endless
+	 termination loop. Probably resource exhaustion. I am still investigating
+	 the underlying cause of that. But given the extremes of the situation,
+	 this temporary fix may just end up being a permanent one. */
+	if (_numberOfViews > _maximumViewInstances) {
+		return NO;
+	}
+
 	return _safeToUseWebKit2;
 }
 
@@ -463,15 +479,6 @@ create_normal_pool:
 
 #pragma mark -
 #pragma mark Web View Delegate
-
-/* Defined in WebKit/Source/WebKit/UIProcess/API/Cocoa/WKNavigationDelegatePrivate.h */
-/* Breaking the law, breaking the law... */
-typedef NS_ENUM(NSInteger, _WKProcessTerminationReason) {
-	_WKProcessTerminationReasonExceededMemoryLimit,
-	_WKProcessTerminationReasonExceededCPULimit,
-	_WKProcessTerminationReasonRequestedByClient,
-	_WKProcessTerminationReasonCrash,
-};
 
 - (void)_webView:(WKWebView *)webView webContentProcessDidTerminateWithReason:(_WKProcessTerminationReason)reason
 {

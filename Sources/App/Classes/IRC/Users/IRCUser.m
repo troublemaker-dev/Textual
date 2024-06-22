@@ -286,7 +286,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 - (void)updateRemoveUserTimerBlockToFire
 {
 	/* If the timer is already active, we reset the block that is scheduled
-	 so that the user that is targetted is always the primary */
+	 so that the user that is targeted is always the primary */
 	dispatch_source_t removeUserTimer = self.persistentStore.removeUserTimer;
 
 	if (removeUserTimer == nil) {
@@ -348,7 +348,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 - (dispatch_block_t)removeUserTimerBlockToFire
 {
 	/* Using weak references means that the object can be deallocated when 
-	 the timer is active. -dealloc will cancel the timer if it is actie. */
+	 the timer is active. -dealloc will cancel the timer if it is active. */
 
 	__weak IRCClient *client = self.client;
 

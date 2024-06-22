@@ -58,6 +58,11 @@
 "0x4-ib" = "Parameter #9";
 
 "m0u-tw" = "Please enter a shorter destination";
-"5kd-jt" = "Please enter a properly formatted destination.\n\nAccepted characters: a-z, A-Z, 0-9, dashes (-), underscores (_), and spaces.";
+"5kd-jt" = "Please enter a properly formatted destination.
 
-"9ri-sd" = "Please enter a properly formatted list of commands.\n\n• Commands must be a comma (,) separated list.\n• Commands must only contain the characters: a-z, A-Z, 0-9\n• Numerics must be whole numbers that are greater than zero (0) and less than or equal to 999.";
+Accepted characters: a-z, A-Z, 0-9, dashes (-), underscores (_), and spaces.";
+
+"9ri-sd" = "Please enter a properly formatted list of commands.
+
+• Commands must be a comma (,) separated list.\n• Commands must only contain the characters: a-z, A-Z, 0-9
+• Numerics must be whole numbers that are greater than zero (0) and less than or equal to 999.";
