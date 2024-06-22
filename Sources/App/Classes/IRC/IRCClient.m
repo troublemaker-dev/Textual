@@ -3197,37 +3197,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 			break;
 		}
-		case IRCLocalCommandCcbadge: // Command: CCBADGE
-		{
-			NSString *channelName = stringIn.tokenAsString;
-			NSString *badgeCount = stringIn.tokenAsString;
-
-			if (channelName.length == 0 || badgeCount.length == 0) {
-				[self printInvalidSyntaxMessageForCommand:command];
-					
-				break;
-			}
-
-			IRCChannel *channel = [self findChannel:channelName];
-
-			if (channel == nil) {
-				[self printDebugInformation:TXTLS(@"IRC[pxa-ox]", channelName)];
-				
-				break;
-			}
-
-			channel.treeUnreadCount = badgeCount.integerValue;
-
-			NSString *isHighlightFlag = stringIn.tokenAsString;
-
-			if ([isHighlightFlag isEqualToString:@"-h"]) {
-				channel.nicknameHighlightCount = 1;
-			}
-
-			[mainWindow() reloadTreeItem:channel];
-
-			break;
-		}
 		case IRCLocalCommandClear: // Command: CLEAR
 		{
 			if (targetChannel) {
@@ -3557,12 +3526,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 			break;
 		}
-		case IRCLocalCommandEmptycaches: // Command: EMPTY_CACHES
-		{
-			[TVCLogView emptyCaches];
-
-			break;
-		}
 		case IRCLocalCommandFakerawdata: // Command: FAKERAWDATA
 		{
 			if (stringIn.length == 0) {
@@ -3623,27 +3586,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 			}
 
 			[mainWindow() select:bestMatch];
-
-			break;
-		}
-		case IRCLocalCommandIcbadge: // Command: ICBADGE
-		{
-			if (stringIn.length == 0) {
-				[self printInvalidSyntaxMessageForCommand:command];
-				
-				break;
-			}
-
-			NSArray *components = [stringIn.string componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-
-			if (components.count != 2) {
-				[self printInvalidSyntaxMessageForCommand:command];
-					
-				break;
-			}
-
-			[TVCDockIcon drawWithHighlightCount:[components unsignedLongAtIndex:0]
-								   messageCount:[components unsignedLongAtIndex:1]];
 
 			break;
 		}
@@ -5066,12 +5008,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 			if (destinationToSelect) {
 				[mainWindow() select:destinationToSelect];
 			}
-
-			break;
-		}
-		case IRCLocalCommandReloadICL: // Command: RELOADICL
-		{
-			[TVCLogControllerInlineMediaSharedInstance() reloadService];
 
 			break;
 		}
