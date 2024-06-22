@@ -464,15 +464,6 @@ create_normal_pool:
 #pragma mark -
 #pragma mark Web View Delegate
 
-/* Defined in WebKit/Source/WebKit/UIProcess/API/Cocoa/WKNavigationDelegatePrivate.h */
-/* Breaking the law, breaking the law... */
-typedef NS_ENUM(NSInteger, _WKProcessTerminationReason) {
-	_WKProcessTerminationReasonExceededMemoryLimit,
-	_WKProcessTerminationReasonExceededCPULimit,
-	_WKProcessTerminationReasonRequestedByClient,
-	_WKProcessTerminationReasonCrash,
-};
-
 - (void)_webView:(WKWebView *)webView webContentProcessDidTerminateWithReason:(_WKProcessTerminationReason)reason
 {
 	NSParameterAssert(webView == self);

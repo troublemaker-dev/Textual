@@ -48,3 +48,12 @@ void WKInspectorShow(WKInspectorRef inspectorRef);
 @interface WKWebViewConfiguration ()
 @property (nonatomic, setter=_setAllowUniversalAccessFromFileURLs:) BOOL _allowUniversalAccessFromFileURLs; // 10.12
 @end
+
+/* Defined in WebKit/Source/WebKit/UIProcess/API/Cocoa/WKNavigationDelegatePrivate.h */
+/* Breaking the law, breaking the law... */
+typedef NS_ENUM(NSInteger, _WKProcessTerminationReason) {
+	_WKProcessTerminationReasonExceededMemoryLimit,
+	_WKProcessTerminationReasonExceededCPULimit,
+	_WKProcessTerminationReasonRequestedByClient,
+	_WKProcessTerminationReasonCrash,
+};
