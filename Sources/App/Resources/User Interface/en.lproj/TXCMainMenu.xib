@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23077.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23077.2"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TXApplication">
@@ -848,15 +848,7 @@ CQ
                                     <action selector="emptyAction:" target="267" id="FJN-O8-gJT"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" tag="715" id="rFI-Dq-HBe">
-                                <connections>
-                                    <binding destination="TlT-Ik-3QP" name="hidden" keyPath="values.System -&gt; Running Mac OS Yosemite Or Newer" id="Wce-5e-22d">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </menuItem>
+                            <menuItem isSeparatorItem="YES" tag="715" id="rFI-Dq-HBe"/>
                             <menuItem title="Search channels…" tag="716" keyEquivalent="d" id="J3M-kj-Pa7">
                                 <connections>
                                     <action selector="showChannelSpotlightWindow:" target="267" id="ttM-ud-1xT"/>
