@@ -16,3 +16,5 @@ Sources/App/Resources/Scripting/Script Files/Textual Extras Installer/Installati
 Sources/App/Resources/Scripting/Script Files/Textual Extras Installer/Packages/MACAPPSTORE/*
 Sources/App/Resources/Scripting/Script Files/Textual Extras Installer/Packages/STANDALONE/*
 !/Configurations/Build
+
+.idea
