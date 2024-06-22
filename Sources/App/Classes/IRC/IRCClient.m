@@ -3463,14 +3463,9 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 			/* Present help */
 			if ([action isEqualToString:@"help"])
 			{
-				[self printDebugInformation:TXTLS(@"IRC[bkk-lo]")];
-				[self printDebugInformation:TXTLS(@"IRC[znw-02]")];
-				[self printDebugInformation:TXTLS(@"IRC[xw4-rr]")];
-				[self printDebugInformation:TXTLS(@"IRC[0g8-7m]")];
-				[self printDebugInformation:TXTLS(@"IRC[wag-2j]")];
-				[self printDebugInformation:TXTLS(@"IRC[hob-ky]")];
-				[self printDebugInformation:TXTLS(@"IRC[8mk-t8]")];
-				[self printDebugInformation:TXTLS(@"IRC[whg-ky]")];
+				NSString *help = TXTLS(@"IRC[bkk-lo]");
+
+				[self printDebugInformationMultiline:help];
 
 				break;
 			}
@@ -4412,78 +4407,31 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 			{
 				NSString *topic = stringIn.tokenAsString;
 
+				[self printDebugInformation:TXTLS(@"IRC[aox-zz]")]; // divider
+
 				if ([topic isEqualToStringIgnoringCase:@"add"])
 				{
-					[self printDebugInformation:TXTLS(@"IRC[aox-zz]")];
-					[self printDebugInformation:TXTLS(@"IRC[6r0-il]")];
-					[self printDebugInformation:TXTLS(@"IRC[ohz-iz]")];
-					[self printDebugInformation:TXTLS(@"IRC[dxi-nz]")];
-					[self printDebugInformation:TXTLS(@"IRC[uah-l1]")];
-					[self printDebugInformation:TXTLS(@"IRC[382-83]")];
-					[self printDebugInformation:TXTLS(@"IRC[9j0-3p]")];
-					[self printDebugInformation:TXTLS(@"IRC[g55-ap]")];
-					[self printDebugInformation:TXTLS(@"IRC[90m-qy]")];
-					[self printDebugInformation:TXTLS(@"IRC[my0-q6]")];
-					[self printDebugInformation:TXTLS(@"IRC[goz-y6]")];
-					[self printDebugInformation:TXTLS(@"IRC[e0a-99]")];
-					[self printDebugInformation:TXTLS(@"IRC[9qu-ho]")];
-					[self printDebugInformation:TXTLS(@"IRC[yds-m4]")];
-					[self printDebugInformation:TXTLS(@"IRC[jik-p7]")];
-					[self printDebugInformation:TXTLS(@"IRC[1p8-a7]")];
-					[self printDebugInformation:TXTLS(@"IRC[h1a-gx]")];
-					[self printDebugInformation:TXTLS(@"IRC[vwi-10]")];
-
+					[self printDebugInformationMultiline:TXTLS(@"IRC[6r0-il]")];
 				}
 				else if ([topic isEqualToStringIgnoringCase:@"remove"])
 				{
-					[self printDebugInformation:TXTLS(@"IRC[aox-zz]")];
-					[self printDebugInformation:TXTLS(@"IRC[i2d-x5]")];
-					[self printDebugInformation:TXTLS(@"IRC[ip5-lz]")];
-					[self printDebugInformation:TXTLS(@"IRC[t5d-hd]")];
-					[self printDebugInformation:TXTLS(@"IRC[mkz-fb]")];
-					[self printDebugInformation:TXTLS(@"IRC[7dp-ew]")];
-					[self printDebugInformation:TXTLS(@"IRC[0m7-9k]")];
-					[self printDebugInformation:TXTLS(@"IRC[qa0-8e]")];
+					[self printDebugInformationMultiline:TXTLS(@"IRC[i2d-x5]")];
 				}
 				else if ([topic isEqualToStringIgnoringCase:@"list"])
 				{
-					[self printDebugInformation:TXTLS(@"IRC[aox-zz]")];
-					[self printDebugInformation:TXTLS(@"IRC[x1n-ve]")];
-					[self printDebugInformation:TXTLS(@"IRC[3ks-34]")];
-					[self printDebugInformation:TXTLS(@"IRC[96w-fo]")];
+					[self printDebugInformationMultiline:TXTLS(@"IRC[x1n-ve]")];
 				}
 				else if ([topic isEqualToStringIgnoringCase:@"stop"])
 				{
-					[self printDebugInformation:TXTLS(@"IRC[aox-zz]")];
-					[self printDebugInformation:TXTLS(@"IRC[bx2-n1]")];
-					[self printDebugInformation:TXTLS(@"IRC[t6t-x2]")];
-					[self printDebugInformation:TXTLS(@"IRC[i3c-vz]")];
-					[self printDebugInformation:TXTLS(@"IRC[8h4-ac]")];
-					[self printDebugInformation:TXTLS(@"IRC[a5z-ot]")];
+					[self printDebugInformationMultiline:TXTLS(@"IRC[bx2-n1]")];
 				}
 				else if ([topic isEqualToStringIgnoringCase:@"restart"])
 				{
-					[self printDebugInformation:TXTLS(@"IRC[aox-zz]")];
-					[self printDebugInformation:TXTLS(@"IRC[r27-tv]")];
-					[self printDebugInformation:TXTLS(@"IRC[zrf-v2]")];
-					[self printDebugInformation:TXTLS(@"IRC[wd8-v9]")];
-					[self printDebugInformation:TXTLS(@"IRC[6xo-al]")];
-					[self printDebugInformation:TXTLS(@"IRC[g69-sc]")];
-					[self printDebugInformation:TXTLS(@"IRC[mjg-bn]")];
-					[self printDebugInformation:TXTLS(@"IRC[xd3-g1]")];
-					[self printDebugInformation:TXTLS(@"IRC[77t-x9]")];
-					[self printDebugInformation:TXTLS(@"IRC[6bp-ft]")];
+					[self printDebugInformationMultiline:TXTLS(@"IRC[r27-tv]")];
 				}
 				else
 				{
-					[self printDebugInformation:TXTLS(@"IRC[aox-zz]")];
-					[self printDebugInformation:TXTLS(@"IRC[xkq-rt]")];
-					[self printDebugInformation:TXTLS(@"IRC[ohr-m0]")];
-					[self printDebugInformation:TXTLS(@"IRC[ham-fp]")];
-					[self printDebugInformation:TXTLS(@"IRC[lbg-dy]")];
-					[self printDebugInformation:TXTLS(@"IRC[lbh-46]")];
-					[self printDebugInformation:TXTLS(@"IRC[9dz-b4]")];
-					[self printDebugInformation:TXTLS(@"IRC[s3r-ve]")];
+					[self printDebugInformationMultiline:TXTLS(@"IRC[xkq-rt]")];
 				}
 
 				break;
@@ -5682,6 +5630,13 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 - (void)printDebugInformation:(NSString *)message
 {
 	[self printDebugInformation:message asCommand:TVCLogLineDefaultCommandValue escapeMessage:YES];
+}
+
+- (void)printDebugInformationMultiline:(NSString *)message
+{
+	[message enumerateSplitOnNewLinesWithBlock:^(NSString *sequence, BOOL *stop) {
+		[self printDebugInformation:sequence];
+	}];
 }
 
 - (void)printDebugInformation:(NSString *)message asCommand:(NSString *)command

@@ -109,14 +109,14 @@
 /* /defaults/ command */
 "1dz-jb" = "Invalid Syntax. Type “/defaults help” for more information.";
 
-"bkk-lo" = "The \002defaults\002 command can be used to toggle very specific, rarely used features.";
-"znw-02" = " ";
-"xw4-rr" = "Usage:";
-"0g8-7m" = "\t“/defaults enable <token>” — Enables the feature defined by \002<token>\002";
-"wag-2j" = "\t“/defaults disable <token>” — Disables the feature defined by \002<token>\002";
-"hob-ky" = "\t“/defaults features” — View list of supported features";
-"8mk-t8" = " ";
-"whg-ky" = "Surround \002<token>\002 with double quotes (\") if it contains a space.";
+"bkk-lo" = "The \002defaults\002 command can be used to toggle very specific, rarely used features.
+
+Usage:
+	“/defaults enable <token>” — Enables the feature defined by \002<token>\002
+	“/defaults disable <token>” — Disables the feature defined by \002<token>\002
+	“/defaults features” — View list of supported features
+
+Surround \002<token>\002 with double quotes (\") if it contains a space.";
 
 "pc4-67" = "Cannot enable the feature “%@” because it is not supported";
 "d7y-pv" = "Cannot disable the feature “%@” because it is not supported";
@@ -196,59 +196,58 @@
 "ww4-sn" = "Stopped";
 "o26-ae" = "No Limit";
 
-"xkq-rt" = "The timer command can be used to perform a command after a specific amount of time and optionally repeat it.";
-"ohr-m0" = " ";
-"ham-fp" = "To learn more, type:";
-"lbg-dy" = " ";
-"lbh-46" = "“/timer help <topic>“";
-"9dz-b4" = " ";
-"s3r-ve" = "Available topics: ADD, REMOVE, LIST, STOP, RESTART";
+"xkq-rt" = "The timer command can be used to perform a command after a specific amount of time and optionally repeat it.
 
-"6r0-il" = "“/timer <seconds> <repeat> <command>“";
-"ohz-iz" = " ";
-"dxi-nz" = "\002<seconds>\002 is the interval of the timer.";
-"uah-l1" = "The interval must be a \002whole number that is greater than zero (0)\002.";
-"382-83" = " ";
-"9j0-3p" = "\002<repeat>\002 is the repeat count for the timer.";
-"g55-ap" = "• To perform the timer only once, use one (1) as the repeat count.";
-"90m-qy" = "• To repeat the timer until manually stopped, use zero (0) as the repeat count.";
-"my0-q6" = "• To repeat the timer X number of times, use that number as the repeat count.";
-"goz-y6" = " ";
-"e0a-99" = "\002<command>\002 is the command to perform when the timer fires.";
-"9qu-ho" = "\002Example:\002 “msg #textual-testing Hey everyone!”";
-"yds-m4" = "\002Scope:\002 The channel or query that is selected when a timer is added is used as the target for commands that do not take a channel name as an argument.";
-"jik-p7" = " ";
-"1p8-a7" = "\002Example #1:\002 “/timer 10 1 <command>” — perform command one time, after ten seconds.";
-"h1a-gx" = "\002Example #2:\002 “/timer 10 20 <command>” — perform command twenty times, once every ten seconds.";
-"vwi-10" = "\002Example #3:\002 “/timer 10 0 <command>” — perform command every ten seconds until the heat death of the universe.";
+To learn more, type:
+	“/timer help <topic>“
 
-"x1n-ve" = "“/timer list“";
-"3ks-34" = " ";
-"96w-fo" = "List timers";
+Available topics: ADD, REMOVE, LIST, STOP, RESTART";
 
-"bx2-n1" = "“/timer stop <identifier>“";
-"t6t-x2" = " ";
-"i3c-vz" = "Stop the timer assigned to \002<identifier>\002.";
-"8h4-ac" = " ";
-"a5z-ot" = "The identifier for a timer can be found using “/timer list”";
+"6r0-il" = "“/timer <seconds> <repeat> <command>“
 
-"r27-tv" = "“/timer restart <identifier>“";
-"zrf-v2" = " ";
-"wd8-v9" = "Restart the timer assigned to \002<identifier>\002.";
-"6xo-al" = " ";
-"g69-sc" = "The identifier for a timer can be found using “/timer list”";
-"mjg-bn" = " ";
-"xd3-g1" = "When restarting a timer, the iteration count is reset";
-"77t-x9" = "which means a timer that is setup to repeat X number";
-"6bp-ft" = "of times will start over from the beginning.";
+\002<seconds>\002 is the interval of the timer.
+The interval must be a \002whole number that is greater than zero (0)\002.
 
-"i2d-x5" = "“/timer remove <identifier>“";
-"ip5-lz" = " ";
-"t5d-hd" = "Remove the timer assigned to \002<identifier>\002.";
-"mkz-fb" = " ";
-"7dp-ew" = "To remove all timers, pass “all” as \002<identifier>\002.";
-"0m7-9k" = " ";
-"qa0-8e" = "The identifier for a timer can be found using “/timer list”";
+\002<repeat>\002 is the repeat count for the timer.
+• To perform the timer only once, use one (1) as the repeat count.
+• To repeat the timer until manually stopped, use zero (0) as the repeat count.
+• To repeat the timer X number of times, use that number as the repeat count.
+
+\002<command>\002 is the command to perform when the timer fires.
+\002Example:\002 “msg #textual-testing Hey everyone!”
+\002Scope:\002 The channel or query that is selected when a timer is added is used as the target for commands that do not take a channel name as an argument.
+
+\002Example #1:\002 “/timer 10 1 <command>” — perform command one time, after ten seconds.
+\002Example #2:\002 “/timer 10 20 <command>” — perform command twenty times, once every ten seconds.
+\002Example #3:\002 “/timer 10 0 <command>” — perform command every ten seconds until the heat death of the universe.";
+
+"x1n-ve" = "“/timer list“
+
+List timers";
+
+"bx2-n1" = "“/timer stop <identifier>“
+
+Stop the timer assigned to \002<identifier>\002.
+
+The identifier for a timer can be found using “/timer list”";
+
+"r27-tv" = "“/timer restart <identifier>“
+
+Restart the timer assigned to \002<identifier>\002.
+
+The identifier for a timer can be found using “/timer list”
+
+When restarting a timer, the iteration count is reset
+which means a timer that is setup to repeat X number
+of times will start over from the beginning.";
+
+"i2d-x5" = "“/timer remove <identifier>“
+
+Remove the timer assigned to \002<identifier>\002.
+
+To remove all timers, pass “all” as \002<identifier>\002.
+
+The identifier for a timer can be found using “/timer list”";
 
 "aox-zz" = "---------------------------------------";
 
