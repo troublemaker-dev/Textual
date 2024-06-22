@@ -147,10 +147,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable NSString *)webKitFrameworkMemoryUsage
 {
-	if ([TVCLogView webKit2Enabled] == NO) {
-		return nil;
-	}
-
 	NSArray *webViewProcesses = [TPI_SP_SysInfo webViewProcessIdentifiers];
 
 	if (webViewProcesses.count == 0) {
