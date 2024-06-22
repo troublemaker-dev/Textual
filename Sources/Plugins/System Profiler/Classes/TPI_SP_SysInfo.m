@@ -77,6 +77,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)formattedDiskSize:(uint64_t)diskSize;
 + (NSString *)formattedCPUFrequency:(double)frequency;
 
++ (NSString *)descriptionForSidebarAppearance;
++ (NSString *)descriptionForThemeAppearance;
++ (NSString *)descriptionForThemeAppearance:(TPCThemeAppearanceType)appearance;
+
 + (uint64_t)memoryUseForProcess:(pid_t)processIdentifier;
 
 + (NSArray<TPI_SP_WebViewProcessInfo *> *)webViewProcessIdentifiers;
@@ -95,10 +99,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 	NSString *storageLocationLabel = [TPCThemeController descriptionForStorageLocation:storageLocation];
 
+	NSString *sidebarAppearance = [TPI_SP_SysInfo descriptionForSidebarAppearance];
+	NSString *themeAppearance = [TPI_SP_SysInfo descriptionForThemeAppearance];
+
+	NSString *appearanceText = nil;
+
+	if ([sidebarAppearance isEqualToString:themeAppearance]) {
+		appearanceText = TPILocalizedString(@"BasicLanguage[614-dj]", sidebarAppearance);
+	} else {
+		appearanceText = TPILocalizedString(@"BasicLanguage[843-z4]", themeAppearance, sidebarAppearance);
+	}
+
 	return TPILocalizedString(@"BasicLanguage[z37-85]",
-			  themeName,
-			  storageLocationLabel,
-			  StringFromBOOL(mainWindow().usingDarkAppearance));
+		   themeName, storageLocationLabel, appearanceText);
 }
 
 + (NSString *)applicationAndSystemUptime
@@ -648,6 +661,41 @@ NS_ASSUME_NONNULL_BEGIN
 	}];
 
 	return [resultString copy];
+}
+
++ (NSString *)descriptionForSidebarAppearance
+{
+	if (mainWindow().usingDarkAppearance) {
+		return TPILocalizedString(@"BasicLanguage[243-yt]"); // Dark
+	}
+
+	return TPILocalizedString(@"BasicLanguage[890-au]"); // Light
+}
+
++ (NSString *)descriptionForThemeAppearance
+{
+	TPCThemeAppearanceType appearance = themeController().theme.appearance;
+
+	return [self descriptionForThemeAppearance:appearance];
+}
+
++ (NSString *)descriptionForThemeAppearance:(TPCThemeAppearanceType)appearance
+{
+	if (appearance == TPCThemeAppearanceTypeDefault) {
+		TXAppearance *appAppearance = [TXSharedApplication sharedAppearance];
+
+		if (appAppearance.properties.isDarkAppearance) {
+			appearance = TPCThemeAppearanceTypeDark;
+		} else {
+			appearance = TPCThemeAppearanceTypeLight;
+		}
+	}
+
+	if (appearance == TPCThemeAppearanceTypeDark) {
+		return TPILocalizedString(@"BasicLanguage[243-yt]"); // Dark
+	}
+
+	return TPILocalizedString(@"BasicLanguage[890-au]"); // Light
 }
 
 #pragma mark -

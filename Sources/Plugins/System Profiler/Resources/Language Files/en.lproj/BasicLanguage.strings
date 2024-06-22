@@ -79,7 +79,11 @@
 "li1-vn" = "Error: Unable to locate any network statistics.";
 
 /* /style/ command. */
-"z37-85" = "\002Current Style:\002 %1$@ (%2$@) \002•\002 \002Inverted sidebars:\002 %3$@";
+"z37-85" = "\002Current Style:\002 %1$@ (%2$@) \002•\002 %3$@";
+"614-dj" = "\002Appearance:\002 %@";
+"843-z4" = "\002Chat Appearance:\002 %1$@ \002•\002 \002Sidebar Appearance:\002 %2$@";
+"890-au" = "Light";
+"243-yt" = "Dark";
 
 /* /screens/ command. */
 "vvt-zq" = "\002Display Resolution:\002 #%1$lu: %2$@ at %3$@";
