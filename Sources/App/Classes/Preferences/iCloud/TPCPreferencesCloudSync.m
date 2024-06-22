@@ -374,7 +374,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 		self.isSyncingLocalKeysUpstream = NO;
 
-		LogToConsoleDebug("iCloud: Completeing sync upstream");
+		LogToConsoleDebug("iCloud: Completing sync upstream");
 	});
 }
 
@@ -401,7 +401,7 @@ NS_ASSUME_NONNULL_BEGIN
 			self.remoteKeysBeingSynced = keysChangedHashed;
 		}
 
-		/* See the code of syncPreferencesToCloud: for an expalantion of how these keys are hashed. */
+		/* See the code of syncPreferencesToCloud: for an explanation of how these keys are hashed. */
 		NSMutableArray<NSDictionary *> *clientsImported = [NSMutableArray array];
 
 		NSMutableArray<NSString *> *keysChanged = [NSMutableArray array];
@@ -499,7 +499,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 		self.remoteKeysBeingSynced = nil;
 
-		LogToConsoleDebug("iCloud: Completeing sync downstream");
+		LogToConsoleDebug("iCloud: Completing sync downstream");
 	});
 }
 

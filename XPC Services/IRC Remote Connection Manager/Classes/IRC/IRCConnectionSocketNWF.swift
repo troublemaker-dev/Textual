@@ -545,7 +545,7 @@ fileprivate extension ConnectionError
 			case kDNSServiceErr_NoMemory:
 				errorReason = "No memory"
 			case kDNSServiceErr_BadParam:
-				errorReason = "Bad paramater"
+				errorReason = "Bad parameter"
 			case kDNSServiceErr_BadReference:
 				errorReason = "Bad reference"
 			case kDNSServiceErr_BadState:

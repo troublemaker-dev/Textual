@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark -
-#pragma mark Keyboard Shorcuts
+#pragma mark Keyboard Shortcuts
 
 - (void)setKeyHandlerTarget:(id)target
 {

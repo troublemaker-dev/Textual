@@ -199,7 +199,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	 or to show it per-channel. That is stupid idea because if someone
 	 has it enabled globally, has it turned off in a channel, turns it
 	 off globally, then it is turned on in that channel. We split it
-	 up into two properties and this logic performs migraiton. */
+	 up into two properties and this logic performs migration. */
 	{
 		/* Do new keys exist in incoming dictionary/ */
 		if (dic[@"inlineMediaEnabled"] != nil &&
@@ -211,18 +211,18 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		NSNumber *ignoreInlineMedia = dic[@"ignoreInlineMedia"]; // old key
 
 		/* If old value is NO, then we do not have to continue
-		 because the defualt value for the new values is NO. */
+		 because the default value for the new values is NO. */
 		if (ignoreInlineMedia == nil || ignoreInlineMedia.boolValue == NO) {
 			return;
 		}
 
-		BOOL inlineEnabledGlboally = [TPCPreferences showInlineMedia];
+		BOOL inlineEnabledGlobally = [TPCPreferences showInlineMedia];
 
 		/* Old property was the inverse of the global */
 		/* Global enabled = local disabled,
 		   Global disabled = local enabled */
-		self->_inlineMediaDisabled = inlineEnabledGlboally;
-		self->_inlineMediaEnabled = !inlineEnabledGlboally;
+		self->_inlineMediaDisabled = inlineEnabledGlobally;
+		self->_inlineMediaEnabled = !inlineEnabledGlobally;
 	}
 }
 

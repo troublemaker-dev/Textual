@@ -231,7 +231,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark -
-#pragma mark cancelAllOperations Substitue
+#pragma mark cancelAllOperations Substitute
 
 - (void)cancelOperationsForViewController:(TVCLogController *)viewController
 {

@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 		s = (shash % 50 + 35);   // 35 - 85
 		l = (lhash % 38 + 20);   // 20 - 58
 
-		// Lower lightness for Yello, Green, Cyan
+		// Lower lightness for Yellow, Green, Cyan
 		if (h > 45 && h <= 195) {
 			l = (lhash % 21 + 20);   // 20 - 41
 

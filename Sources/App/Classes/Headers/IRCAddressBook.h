@@ -50,8 +50,8 @@ typedef NS_ENUM(NSUInteger, IRCAddressBookUserTrackingStatus) {
 	IRCAddressBookUserTrackingStatusUnknown = 0,
 	IRCAddressBookUserTrackingStatusSignedOff,
 	IRCAddressBookUserTrackingStatusSignedOn,
-	IRCAddressBookUserTrackingStatusAvailalbe,
-	IRCAddressBookUserTrackingStatusNotAvailalbe,
+	IRCAddressBookUserTrackingStatusAvailable,
+	IRCAddressBookUserTrackingStatusNotAvailable,
 	IRCAddressBookUserTrackingStatusAway,
 	IRCAddressBookUserTrackingStatusNotAway
 };

@@ -82,7 +82,7 @@ TEXTUAL_EXTERN NSStringEncoding const TXDefaultFallbackStringEncoding;
 @property (getter=isHostmaskAddress, readonly) BOOL hostmaskAddress;
 @property (getter=isHostmaskUsername, readonly) BOOL hostmaskUsername;
 
-/* By handing a client to -isHostmask[*]On:, greater validility
+/* By handing a client to -isHostmask[*]On:, greater validity
  is promised as configuration options from ISUPPORT (005) and
  other contextual information can be accessed. */
 - (BOOL)isHostmaskNicknameOn:(nullable IRCClient *)client;

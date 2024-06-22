@@ -63,7 +63,7 @@ typedef NS_ENUM(NSUInteger, TPCThemeSettingsNicknameColorStyle) {
 	TPCThemeSettingsNicknameColorStyleLight
 };
 
-/* If a theme is modified in such a way after it is initalized
+/* If a theme is modified in such a way after it is initialized
  that it can no longer be used, then this notification is posted.
  A way, amongst many, in which the integrity of a theme can
  be compromised is by deleting the CSS or JavaScript file. */

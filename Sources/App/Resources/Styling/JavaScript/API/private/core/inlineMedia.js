@@ -103,20 +103,20 @@ InlineMediaPrototype.prototype.toggleOnClick = function(mediaId) /* PUBLIC */
 
 InlineMediaPrototype.prototype.show = function(mediaId) /* PUBLIC */
 {
-	this.changeVisiblity(mediaId, "show");
+	this.changeVisibility(mediaId, "show");
 };
 
 InlineMediaPrototype.prototype.hide = function(mediaId) /* PUBLIC */
 {
-	this.changeVisiblity(mediaId, "hide");
+	this.changeVisibility(mediaId, "hide");
 };
 
 InlineMediaPrototype.prototype.toggle = function(mediaId) /* PUBLIC */
 {
-	this.changeVisiblity(mediaId, "toggle");
+	this.changeVisibility(mediaId, "toggle");
 };
 
-InlineMediaPrototype.prototype.changeVisiblity = function(mediaId, display) /* PRIVATE */
+InlineMediaPrototype.prototype.changeVisibility = function(mediaId, display) /* PRIVATE */
 {
 	var mediaElement = document.getInlineMediaById(mediaId);
 
@@ -140,7 +140,7 @@ InlineMediaPrototype.prototype.changeVisiblity = function(mediaId, display) /* P
 	self contained function. This makes it easier to maintain. */
 
 	/* Remove media */
-	var _changeVisiblityByRemoving = (function()
+	var _changeVisibilityByRemoving = (function()
 	{
 		if (this.willRemoveMedia(mediaId, mediaElement) === false) {
 			return;
@@ -152,7 +152,7 @@ InlineMediaPrototype.prototype.changeVisiblity = function(mediaId, display) /* P
 	}).bind(this);
 
 	/* Show media */
-	var _changeVisiblityByDisplaying = (function()
+	var _changeVisibilityByDisplaying = (function()
 	{
 		if (this.willShowMedia(mediaId, mediaElement) === false) {
 			return;
@@ -164,7 +164,7 @@ InlineMediaPrototype.prototype.changeVisiblity = function(mediaId, display) /* P
 	}).bind(this);
 
 	/* Load media */
-	var _changeVisiblityByLoading = (function()
+	var _changeVisibilityByLoading = (function()
 	{
 		var anchor = document.getInlineMediaAnchorById(mediaId);
 
@@ -202,14 +202,14 @@ InlineMediaPrototype.prototype.changeVisiblity = function(mediaId, display) /* P
 		the anchor which means the user can shift click that to load 
 		the media again if they so choose. */
 
-		_changeVisiblityByRemoving();
+		_changeVisibilityByRemoving();
 	}
 	else if (mediaElement)
 	{
 		/* If the media already exists, then we have nothing
 		to do here other than set the display property. */
 
-		_changeVisiblityByDisplaying();
+		_changeVisibilityByDisplaying();
 	}
 	else 
 	{
@@ -217,7 +217,7 @@ InlineMediaPrototype.prototype.changeVisiblity = function(mediaId, display) /* P
 		already exist in the DOM, which means we need to fire
 		off a request to load it. */
 
-		_changeVisiblityByLoading();
+		_changeVisibilityByLoading();
 	}
 };
 

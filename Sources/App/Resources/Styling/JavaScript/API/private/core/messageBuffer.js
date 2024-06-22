@@ -71,7 +71,7 @@ are also removed from the relevant buffer. */
 _MessageBuffer._loadMessagesBatchSize = 200; /* PRIVATE */
 
 /* _MessageBuffer._loadMessages() sets the following properties
-when it performs an action. These proeprties are not used for
+when it performs an action. These properties are not used for
 anything other than state tracking. If false, new messages are
 loaded, else the event is ignored. */
 /* The user can scroll downward while messages are still being
@@ -662,7 +662,7 @@ _MessageBuffer.loadMessagesWithJump = function(lineNumber, callbackFunction) /* 
 		lineNumberContents,
 
 		_MessageBuffer._loadMessagesBatchSize, // load X above
-		_MessageBuffer._loadMessagesBatchSize, // laod X below
+		_MessageBuffer._loadMessagesBatchSize, // load X below
 
 		(function(renderedMessages) {
 			requestPayload.renderedMessages = renderedMessages;

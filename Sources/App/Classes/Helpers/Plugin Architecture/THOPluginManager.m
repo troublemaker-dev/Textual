@@ -168,7 +168,7 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 		if (comparisonResult == NSOrderedAscending) {
 			NSLog(@" ---------------------------- ERROR ---------------------------- ");
 			NSLog(@"                                                                 ");
-			NSLog(@"  Textual has failed to load the bundle at the followig path     ");
+			NSLog(@"  Textual has failed to load the bundle at the following path    ");
 			NSLog(@"  because the specified minimum version is out of range:         ");
 			NSLog(@"                                                                 ");
 			NSLog(@"     Bundle Path: %@", bundle.bundlePath);

@@ -2353,7 +2353,7 @@ NSString * const TVCMainWindowSelectionChangedNotification = @"TVCMainWindowSele
 		return;
 	}
 
-	/* Get previously selected item and canel if its missing */
+	/* Get previously selected item and cancel if its missing */
 	IRCTreeItem *itemPrevious = self.previouslySelectedItem;
 
 	if (itemPrevious == nil) {
@@ -2476,7 +2476,7 @@ NSString * const TVCMainWindowSelectionChangedNotification = @"TVCMainWindowSele
 	if (optionMaintainGrouping &&
 		(itemIndexOld >= 0 && [selectedRows containsIndex:itemIndexOld]) &&
 		(itemIndexNew >= 0 && [selectedRows containsIndex:itemIndexNew]) &&
-		newItem != nil) // This condition is impossible but static analzyer doesn't know that.
+		newItem != nil) // This condition is impossible but static analyzer doesn't know that.
 						// Condition is impossible because itemIndexNew will never return
 						// greater to or equal zero unless item is non-nil.
 	{

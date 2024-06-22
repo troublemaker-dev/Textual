@@ -316,7 +316,7 @@ final class Connection: NSObject, ConnectionSocketDelegate
 		}
 	}
 
-	// MARK: - Sockety Proxy
+	// MARK: - Socket Proxy
 
 	@objc(exportSecureConnectionInformation:error:)
 	final func exportSecureConnectionInformation(to receiver: RCMSecureConnectionInformationCompletionBlock) throws

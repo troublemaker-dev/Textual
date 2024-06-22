@@ -40,7 +40,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString * const TDCCommunityMovedDialogApppearedDefaultsKey = @"TDCCommunityMovedDialogApppeared";
+NSString * const TDCCommunityMovedDialogAppearedDefaultsKey = @"TDCCommunityMovedDialogAppeared";
 
 @implementation TDCCommunityMovedDialog
 
@@ -62,7 +62,7 @@ NSString * const TDCCommunityMovedDialogApppearedDefaultsKey = @"TDCCommunityMov
 
 - (void)windowWillClose:(NSNotification *)note
 {
-	[RZUserDefaults() setBool:YES forKey:TDCCommunityMovedDialogApppearedDefaultsKey];
+	[RZUserDefaults() setBool:YES forKey:TDCCommunityMovedDialogAppearedDefaultsKey];
 
 	if ([self.delegate respondsToSelector:@selector(communityMovedDialogWillClose:)]) {
 		[self.delegate communityMovedDialogWillClose:self];

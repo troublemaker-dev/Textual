@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TVCValidatedTextField ()
 /* Maintain cached value so that the drawing does not call
- the validaton block every time that it is called. */
+ the validation block every time that it is called. */
 @property (nonatomic, assign) BOOL cachedValidValue;
 @property (nonatomic, assign) BOOL validationPerformed;
 @property (nonatomic, copy, nullable, readwrite) NSString *lastValidationErrorDescription;

@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 /* Accessory views are wrapped around an NSToolbarFullScreenWindow object
  when in full screen. That means the view cannot use the helper property
  in NSView named -mainWindow which wraps around -window. Instead, we have
- to be excplicit and use a reference. */
+ to be explicit and use a reference. */
 
 @property (nonatomic, weak) IBOutlet TVCMainWindow *mainWindowRef;
 @end
@@ -166,7 +166,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	NSParameterAssert(appearance != nil);
 
-	/* We get the bounds of the object and tweak it just slighly to match what it
+	/* We get the bounds of the object and tweak it just slightly to match what it
 	 actually is. After that, we draw our color in behind it to fake the background. */
 	NSRect controllerFrame = self.bounds;
 

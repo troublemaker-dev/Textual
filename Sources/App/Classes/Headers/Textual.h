@@ -39,7 +39,7 @@
 	/* Cocoa Extensions imports Cocoa for us */
 	#import <CocoaExtensions/CocoaExtensions.h>
 
-	/* Static Defeinitions */
+	/* Static Definitions */
 	#import "StaticDefinitions.h"
 
 	/* IRC Controllers — Core */

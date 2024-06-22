@@ -108,7 +108,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) IBOutlet NSButton *clientCertificateSHA512FingerprintCopyButton;
 @property (nonatomic, weak) IBOutlet NSButton *connectionIPv4AddressTypeCheck;
 @property (nonatomic, weak) IBOutlet NSButton *connectionIPv6AddressTypeCheck;
-@property (nonatomic, weak) IBOutlet NSButton *connectionDefaultddressTypeCheck;
+@property (nonatomic, weak) IBOutlet NSButton *connectionDefaultAddressTypeCheck;
 @property (nonatomic, weak) IBOutlet NSButton *deleteAddressBookEntryButton;
 @property (nonatomic, weak) IBOutlet NSButton *deleteChannelButton;
 @property (nonatomic, weak) IBOutlet NSButton *deleteHighlightButton;
@@ -728,7 +728,7 @@ NS_ASSUME_NONNULL_BEGIN
 		return NO;
 	}
 
-	/* We want to show the error for the visible viw first so that
+	/* We want to show the error for the visible view first so that
 	 the user isn't jerked around. To accomplish this, we keep an
 	 array of views in which error occurs. Check error in visible
 	 view, remove that from array, then enumerate the rest. */
@@ -923,7 +923,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	self.connectionIPv4AddressTypeCheck.state = (addressType == IRCConnectionAddressTypeIPv4);
 	self.connectionIPv6AddressTypeCheck.state = (addressType == IRCConnectionAddressTypeIPv6);
-	self.connectionDefaultddressTypeCheck.state = (addressType == IRCConnectionAddressTypeDefault);
+	self.connectionDefaultAddressTypeCheck.state = (addressType == IRCConnectionAddressTypeDefault);
 
 	self.pongTimerCheck.state = self.config.performPongTimer;
 	self.performDisconnectOnPongTimerCheck.state = self.config.performDisconnectOnPongTimer;
@@ -1505,7 +1505,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 TEXTUAL_IGNORE_DEPRECATION_BEGIN
 	/* Changing the property triggers a deprecation log to console
-	 which is just unncessary output when each time we change it. */
+	 which is just unnecessary output when each time we change it. */
 	if (self.config.connectionPrefersIPv4) {
 		self.config.connectionPrefersIPv4 = NO;
 	}

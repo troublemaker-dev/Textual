@@ -118,9 +118,9 @@ ClassWithDesignatedInitializerInitMethod
 #pragma mark Grand Central Dispatch
 
 /* All modifications to the member list occur on this serial queue
- to gurantee that there is only ever one person accessing the mutable
+ to guarantee that there is only ever one person accessing the mutable
  store at any given time. */
-+ (dispatch_queue_t)modifyMembmerListSerialQueue
++ (dispatch_queue_t)modifyMemberListSerialQueue
 {
 	static dispatch_queue_t workerQueue = NULL;
 
@@ -128,7 +128,7 @@ ClassWithDesignatedInitializerInitMethod
 
 	dispatch_once(&onceToken, ^{
 		workerQueue =
-		XRCreateDispatchQueueWithPriority("IRCChannel.modifyMembmerListSerialQueue", DISPATCH_QUEUE_SERIAL, QOS_CLASS_DEFAULT);
+		XRCreateDispatchQueueWithPriority("IRCChannel.modifyMemberListSerialQueue", DISPATCH_QUEUE_SERIAL, QOS_CLASS_DEFAULT);
 	});
 
 	return workerQueue;
@@ -136,19 +136,19 @@ ClassWithDesignatedInitializerInitMethod
 
 + (void)resumeMemberListSerialQueues
 {
-	dispatch_resume([self modifyMembmerListSerialQueue]);
+	dispatch_resume([self modifyMemberListSerialQueue]);
 }
 
 + (void)suspendMemberListSerialQueues
 {
-	dispatch_suspend([self modifyMembmerListSerialQueue]);
+	dispatch_suspend([self modifyMemberListSerialQueue]);
 }
 
 + (void)accessMemberListUsingBlock:(dispatch_block_t)block
 {
 	NSCParameterAssert(block != NULL);
 
-	dispatch_queue_t workerQueue = [self modifyMembmerListSerialQueue];
+	dispatch_queue_t workerQueue = [self modifyMemberListSerialQueue];
 
 	static void *IsOnWorkerQueueKey = NULL;
 

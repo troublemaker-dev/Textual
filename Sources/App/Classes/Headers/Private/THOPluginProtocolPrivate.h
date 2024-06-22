@@ -63,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readwrite) NSString *senderHostmask;
 @property (nonatomic, copy, readwrite) NSDate *receivedAt;
 @property (nonatomic, copy, readwrite) NSString *messageSequence;
+@property (nonatomic, copy, readwrite) NSArray<NSString *> *messageParameters;
 @property (nonatomic, copy, readwrite) NSArray<NSString *> *messageParamaters;
 @property (nonatomic, copy, readwrite) NSString *messageCommand;
 @property (nonatomic, assign, readwrite) NSUInteger messageCommandNumeric;

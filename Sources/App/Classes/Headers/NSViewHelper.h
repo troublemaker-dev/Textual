@@ -53,14 +53,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* Superview width and height will = self with 0.0 constant. */
 /* A priority of 550 is used to encourage hugging. */
-- (void)addConstraintsToSueprviewToEqualDimensions;
+- (void)addConstraintsToSuperviewToEqualDimensions;
 
 /* Remove first subview (if one is present) and replaces it with subview. */
 /* The new superview width and height will equal that of subview with a
  priority of 550. The subview top, right, bottom, and left will equal
  that of the superview with 0.0 constant. */
 /* See 	-addConstraintsToSuperviewToHugEdges
-		-addConstraintsToSueprviewToEqualDimensions */
+		-addConstraintsToSuperviewToEqualDimensions */
 - (void)replaceFirstSubview:(NSView *)withView;
 @end
 

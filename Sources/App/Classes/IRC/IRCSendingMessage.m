@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 			//
 			// A colon is supposed to represent a section of an outgoing command
 			// that has a parameter which contains spaces. For example, PRIVMSG
-			// is in the formoat "PRIVMSG #channel :long message" — The message
+			// is in the format "PRIVMSG #channel :long message" — The message
 			// will have spaces part of it, so we inform the server.
 
 			if (colonIndexCount == (arguments.count - 1) && ([argument hasPrefix:@":"] || [argument contains:@" "])) {

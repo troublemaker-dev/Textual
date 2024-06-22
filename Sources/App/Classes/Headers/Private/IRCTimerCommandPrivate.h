@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stop;
 
 /* If the timer has been started before, then
- we already know the vlues to pass to -start:
+ we already know the values to pass to -start:
  In that case, we return YES.
  If we don't know this information yet, then
  we return NO. */

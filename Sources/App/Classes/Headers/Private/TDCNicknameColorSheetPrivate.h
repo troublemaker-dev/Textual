@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol TDCNicknameColorSheetDelegate <NSObject>
 @required
 
-- (void)nicknameColorSheetOnOk:(TDCNicknameColorSheet *)sneder;
+- (void)nicknameColorSheetOnOk:(TDCNicknameColorSheet *)sender;
 - (void)nicknameColorSheetWillClose:(TDCNicknameColorSheet *)sender;
 @end
 

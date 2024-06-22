@@ -278,7 +278,7 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 }
 
 #pragma mark -
-#pragma mark Notification Cetner Delegate
+#pragma mark Notification Center Delegate
 
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center
 	 shouldPresentNotification:(NSUserNotification *)notification
@@ -381,7 +381,7 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 			return;
 		}
 
-		NSString *uniqueIdentifier = context[@"fileTransferUniqeIdentifier"];
+		NSString *uniqueIdentifier = context[@"fileTransferUniqueIdentifier"];
 
 		TDCFileTransferDialogTransferController *fileTransfer = [[TXSharedApplication sharedFileTransferDialog] fileTransferWithUniqueIdentifier:uniqueIdentifier];
 

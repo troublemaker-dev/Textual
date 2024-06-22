@@ -37,7 +37,7 @@
 
 #import "NSColorHelper.h"
 #import "NSStringHelper.h"
-#import "NSTableVIewHelperPrivate.h"
+#import "NSTableViewHelperPrivate.h"
 #import "TXGlobalModels.h"
 #import "TXMasterController.h"
 #import "IRCChannel.h"

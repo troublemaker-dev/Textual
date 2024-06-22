@@ -251,10 +251,10 @@ ClassWithDesignatedInitializerInitMethod
 
 			[client enableCapability:ClientIRCv3SupportedCapabilityMonitorCommand];
 		} else if ([segmentKey isEqualToStringIgnoringCase:@"NAMESX"]) {
-			if ([client isCapabilityEnabled:ClientIRCv3SupportedCapabilityMultiPreifx] == NO) {
+			if ([client isCapabilityEnabled:ClientIRCv3SupportedCapabilityMultiPrefix] == NO) {
 				[client sendLine:@"PROTOCTL NAMESX"];
 
-				[client enableCapability:ClientIRCv3SupportedCapabilityMultiPreifx];
+				[client enableCapability:ClientIRCv3SupportedCapabilityMultiPrefix];
 			}
 		} else if ([segmentKey isEqualToStringIgnoringCase:@"UHNAMES"]) {
 			if ([client isCapabilityEnabled:ClientIRCv3SupportedCapabilityUserhostInNames] == NO) {
@@ -371,7 +371,7 @@ ClassWithDesignatedInitializerInitMethod
 
 	// Format: (qaohv)~&@%+
 
-	/* Perform validaton on placement of parentheses */
+	/* Perform validation on placement of parentheses */
 	NSInteger openingParenthesesPosition = [modeString stringPosition:@"("];
 	NSInteger closingParenthesesPosition = [modeString stringPosition:@")"];
 
@@ -381,7 +381,7 @@ ClassWithDesignatedInitializerInitMethod
 		return;
 	}
 
-	/* Extract relevant information and ensure that they are equal lenght */
+	/* Extract relevant information and ensure that they are equal length */
 	NSString *modeSymbols = [modeString substringWithRange:NSMakeRange(1, (closingParenthesesPosition - 1))];
 
 	NSString *characters = [modeString substringAfterIndex:closingParenthesesPosition];

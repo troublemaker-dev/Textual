@@ -123,12 +123,12 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 
 #if defined(DEBUG)
-	self.ghostModeIsOn = YES; // Do not use autoconnect during debug
+	self.ghostModeIsOn = YES; // Do not use auto connect during debug
 #else
 	if ((keyboardKeys & NSEventModifierFlagShift) == NSEventModifierFlagShift) {
 		self.ghostModeIsOn = YES;
 
-		LogToConsoleInfo("Launching without autoconnecting to the configured servers");
+		LogToConsoleInfo("Launching without auto connecting to the configured servers");
 	}
 #endif
 }

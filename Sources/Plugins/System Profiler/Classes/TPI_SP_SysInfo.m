@@ -248,7 +248,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)systemDisplayInformation
 {
-	NSMutableString *rsultString = [NSMutableString string];
+	NSMutableString *resultString = [NSMutableString string];
 
 	NSArray *screens = [NSScreen screens];
 
@@ -277,14 +277,14 @@ NS_ASSUME_NONNULL_BEGIN
 			refreshRate = @"";
 		}
 
-		[rsultString appendString:
+		[resultString appendString:
 		 TPILocalizedString(localization,
 			screenNumber,
 			screen.screenResolutionString,
 			refreshRate)];
 	}];
 
-	return [rsultString copy];
+	return [resultString copy];
 }
 
 + (NSString *)systemInformation

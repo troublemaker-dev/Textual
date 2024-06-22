@@ -697,12 +697,12 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 	return [list copy];
 }
 
-+ (void)enumerateAvailableThemesWithBlock:(void(NS_NOESCAPE ^)(NSString *fileName, TPCThemeStorageLocation storageLocation, BOOL multipleVaraints, BOOL *stop))enumerationBlock
++ (void)enumerateAvailableThemesWithBlock:(void(NS_NOESCAPE ^)(NSString *fileName, TPCThemeStorageLocation storageLocation, BOOL multipleVariants, BOOL *stop))enumerationBlock
 {
 	TEXTUAL_DEPRECATED_WARNING
 }
 
-- (void)enumerateAvailableThemesWithBlock:(void(NS_NOESCAPE ^)(NSString *fileName, TPCThemeStorageLocation storageLocation, BOOL multipleVaraints, BOOL *stop))enumerationBlock
+- (void)enumerateAvailableThemesWithBlock:(void(NS_NOESCAPE ^)(NSString *fileName, TPCThemeStorageLocation storageLocation, BOOL multipleVariants, BOOL *stop))enumerationBlock
 {
 	NSParameterAssert(enumerationBlock != nil);
 
@@ -747,10 +747,10 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 	for (NSString *themeName in themeNamesSorted) {
 		NSArray *themeLocations = themesMappedByName[themeName];
 
-		BOOL multipleVaraints = (themeLocations.count > 1);
+		BOOL multipleVariants = (themeLocations.count > 1);
 
 		for (NSNumber *themeLocation in themeLocations) {
-			enumerationBlock(themeName, themeLocation.unsignedIntegerValue, multipleVaraints, &stopEnumeration);
+			enumerationBlock(themeName, themeLocation.unsignedIntegerValue, multipleVariants, &stopEnumeration);
 
 			if (stopEnumeration) {
 				break;
@@ -1487,7 +1487,7 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 
 	destinationPath = [destinationPath stringByAppendingPathComponent:self.themeName];
 
-	/* Cast as nonnull to make static analzyer happy */
+	/* Cast as nonnull to make static analyzer happy */
 	self.pathBeingCopiedTo = (NSString * _Nonnull)destinationPath;
 }
 

@@ -1077,7 +1077,7 @@ static inline BOOL _reevaluateFileDuringSetOrUnset(NSURL *fileURL, NSURL * __str
 
 	/* Returns YES if a change is made to property. NO otherwise. */
 
-	/* This method is only called for the root of the varity which
+	/* This method is only called for the root of the variety which
 	 means we only need to perform file name comparison. */
 	NSString *filename = fileURL.lastPathComponent;
 

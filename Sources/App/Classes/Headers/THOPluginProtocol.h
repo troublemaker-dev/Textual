@@ -469,7 +469,8 @@ extern NSString * const THOPluginProtocolCompatibilityMinimumVersion;
 /**
  * @brief The input, split up into sections
  */
-@property (readonly, copy) NSArray<NSString *> *messageParamaters;
+@property (readonly, copy) NSArray<NSString *> *messageParameters;
+@property (readonly, copy) NSArray<NSString *> *messageParamaters TEXTUAL_DEPRECATED("Use -messageParameters instead");
 
 /**
  * @brief The input's command
@@ -485,7 +486,7 @@ extern NSString * const THOPluginProtocolCompatibilityMinimumVersion;
  * @brief The server address of the IRC network
  *
  * @discussion The value of this attribute is the address of the server that 
- *  Textual is currently connected to and may differ from senderNickanme even
+ *  Textual is currently connected to and may differ from senderNickname even
  *  if senderIsServer is `YES`
  */
 @property (readonly, copy, nullable) NSString *networkAddress;

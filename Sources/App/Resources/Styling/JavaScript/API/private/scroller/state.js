@@ -75,7 +75,7 @@ _TextualScroller._documentScrolledCallback = function() /* PRIVATE */
 {
 	var scrolledElement = _TextualScroller._scrolledElement;
 
-	/* Height of scrollabe area */
+	/* Height of scrollable area */
 	var scrollHeightPrevious = TextualScroller.scrollHeightCurrentValue;
 
 	var scrollHeightCurrent = scrolledElement.scrollHeight;
@@ -90,7 +90,7 @@ _TextualScroller._documentScrolledCallback = function() /* PRIVATE */
 	/* If nothing changed, we ignore the event.
 	It is possible to receive a scroll event but nothing changes
 	because we ignore elastic scrolling. User can reach bottom,
-	elsastic scroll, then bounce back. We get notification for
+	elastic scroll, then bounce back. We get notification for
 	both times we reach bottom, but values do not change. */
 	if (scrollHeightPrevious === scrollHeightCurrent &&
 		scrollPositionPrevious === scrollPositionCurrent) 

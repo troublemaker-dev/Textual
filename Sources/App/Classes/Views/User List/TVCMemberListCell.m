@@ -36,7 +36,7 @@
  *********************************************************************** */
 
 #import "NSStringHelper.h"
-#import "NSTableVIewHelperPrivate.h"
+#import "NSTableViewHelperPrivate.h"
 #import "NSViewHelperPrivate.h"
 #import "TLOLocalization.h"
 #import "TPCPreferencesLocal.h"

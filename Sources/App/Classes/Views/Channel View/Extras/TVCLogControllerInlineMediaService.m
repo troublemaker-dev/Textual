@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 		return;
 	}
 
-	LogToConsoleDebug("Invaliating process...");
+	LogToConsoleDebug("Invalidating process...");
 
 	[self.serviceConnection invalidate];
 }
