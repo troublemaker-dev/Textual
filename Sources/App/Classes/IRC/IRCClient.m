@@ -4030,22 +4030,15 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 			NSString *versionShort = [TPCApplicationInfo applicationVersionShort];
 			NSString *buildScheme = [TPCApplicationInfo applicationBuildScheme];
 
-			NSString *downloadSource = nil;
+			NSString *downloadSource = @""; // Assume standalone by default
 
 			if ([buildScheme isEqualToString:@"appstore"]) {
 				downloadSource = TXTLS(@"IRC[9fp-8h]");
-			} else {
-				downloadSource = TXTLS(@"IRC[b8p-44]");
 			}
 
-			NSString *buildType = nil;
+			NSString *buildType = @""; // Assume universal binary by default
 
-#if TEXTUAL_BUILT_AS_UNIVERSAL_BINARY == 1
-			buildType = TXTLS(@"IRC[y2i-pb]");
-#else
-			buildType = TXTLS(@"IRC[458-au]");
-#endif
-
+#if TEXTUAL_BUILT_AS_UNIVERSAL_BINARY == 0
 			NSString *hostType = nil;
 
 #if TARGET_CPU_ARM64
@@ -4054,7 +4047,10 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 			hostType = TXTLS(@"IRC[swz-uj]");
 #endif
 
-			NSString *message = TXTLS(@"IRC[ccb-ur]", applicationName, versionShort, versionLong, downloadSource, buildType, hostType);
+			buildType = TXTLS(@"IRC[b8p-44]", hostType);
+#endif // Universal
+
+			NSString *message = TXTLS(@"IRC[ccb-ur]", applicationName, versionShort, versionLong, downloadSource, buildType);
 
 			if (targetChannel) {
 				message = TXTLS(@"IRC[pqj-1y]", message);
