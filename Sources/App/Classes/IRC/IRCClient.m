@@ -3526,18 +3526,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 			break;
 		}
-		case IRCLocalCommandFakerawdata: // Command: FAKERAWDATA
-		{
-			if (stringIn.length == 0) {
-				[self printInvalidSyntaxMessageForCommand:command];
-				
-				break;
-			}
-
-			[self ircConnection:self.socket didReceiveData:stringIn.string];
-
-			break;
-		}
 		case IRCLocalCommandGetscripts: // Command: GETSCRIPTS
 		{
 			[sharedPluginManager() extrasInstallerLaunchInstaller];
@@ -4227,6 +4215,18 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 			[self createHiddenCommandResponses];
 
 			[self send:@"NAMES", stringIn.string, nil];
+
+			break;
+		}
+		case IRCLocalCommandRecv: // Command: RECV
+		{
+			if (stringIn.length == 0) {
+				[self printInvalidSyntaxMessageForCommand:command];
+
+				break;
+			}
+
+			[self ircConnection:self.socket didReceiveData:stringIn.string];
 
 			break;
 		}

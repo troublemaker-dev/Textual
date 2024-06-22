@@ -223,15 +223,6 @@
 		<key>arguments</key>
 		<string>&lt;message&gt;</string>
 	</dict>
-	<key>fakerawdata</key>
-	<dict>
-		<key>developerModeOnly</key>
-		<true/>
-		<key>indexValue</key>
-		<integer>5087</integer>
-		<key>arguments</key>
-		<string>&lt;input&gt;</string>
-	</dict>
 	<key>getscripts</key>
 	<dict>
 		<key>developerModeOnly</key>
@@ -627,6 +618,15 @@
 		<false/>
 		<key>indexValue</key>
 		<integer>5059</integer>
+		<key>arguments</key>
+		<string>&lt;input&gt;</string>
+	</dict>
+	<key>recv</key>
+	<dict>
+		<key>developerModeOnly</key>
+		<true/>
+		<key>indexValue</key>
+		<integer>5087</integer>
 		<key>arguments</key>
 		<string>&lt;input&gt;</string>
 	</dict>
