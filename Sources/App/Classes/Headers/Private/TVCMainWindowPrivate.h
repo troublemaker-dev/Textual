@@ -75,8 +75,8 @@ typedef NS_OPTIONS(NSUInteger, TVCMainWindowMouseLocation) {
 - (TVCTextViewIRCFormattingMenu *)formattingMenu;
 - (TXMenuControllerMainWindowProxy *)mainMenuProxy;
 
-- (TVCMainWindowMouseLocation)locationOfMouseInWindow NS_AVAILABLE_MAC(10_10);
-- (TVCMainWindowMouseLocation)locationOfMouse:(NSPoint)mouseLocation NS_AVAILABLE_MAC(10_10);
+- (TVCMainWindowMouseLocation)locationOfMouseInWindow;
+- (TVCMainWindowMouseLocation)locationOfMouse:(NSPoint)mouseLocation;
 
 - (BOOL)reloadingTheme;
 
