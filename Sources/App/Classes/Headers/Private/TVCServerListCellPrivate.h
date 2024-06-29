@@ -57,7 +57,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface TVCServerListCellGroupItem : TVCServerListCell
-- (void)updateDisclosureTriangle;
 @end
 
 NS_ASSUME_NONNULL_END
