@@ -291,7 +291,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 	if (propertyList == nil) {
 		if (parseError) {
-			LogToConsoleError("Error Creating Property List: %@", parseError.localizedDescription);
+			LogToConsoleErrorWithSubsystem(THOPluginLoggingSubsystem(),
+				"Error Creating Property List: %@",
+				parseError.localizedDescription);
 		}
 
 		return NO;
@@ -300,7 +302,7 @@ NS_ASSUME_NONNULL_BEGIN
 	BOOL writeResult = [propertyList writeToURL:url atomically:YES];
 
 	if (writeResult == NO) {
-		LogToConsoleError("Write failed");
+		LogToConsoleErrorWithSubsystem(THOPluginLoggingSubsystem(), "Write failed");
 
 		return NO;
 	}
