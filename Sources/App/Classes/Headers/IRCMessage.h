@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCMessage : NSObject <NSCopying, NSMutableCopying>
+@interface IRCMessage : XRPortablePropertyObject
 @property (readonly, copy) IRCPrefix *sender;
 @property (readonly, copy) NSString *command;
 @property (readonly) NSUInteger commandNumeric;
@@ -55,8 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy, nullable) NSString *batchToken;
 @property (readonly, copy, nullable) NSDictionary<NSString *, NSString *> *messageTags; /* IRCv3 message tags. See ircv3.net for more information regarding extensions in the IRC protocol. */
 
-- (nullable instancetype)initWithLine:(NSString *)line NS_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithLine:(NSString *)line onClient:(IRCClient *)client NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithLine:(NSString *)line;
+- (nullable instancetype)initWithLine:(NSString *)line onClient:(nullable IRCClient *)client NS_DESIGNATED_INITIALIZER;
 
 @property (readonly, copy, nullable) NSString *senderNickname;
 @property (readonly, copy, nullable) NSString *senderUsername;

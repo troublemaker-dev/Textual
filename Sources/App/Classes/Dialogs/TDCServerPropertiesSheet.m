@@ -227,7 +227,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithClient:(nullable IRCClient *)client
 {
-	if ((self = [super init])) {
 		if (client) {
 			self.client = client;
 			self.clientId = client.uniqueIdentifier;

@@ -58,13 +58,10 @@ NS_ASSUME_NONNULL_BEGIN
 	NSMutableDictionary *_notificationsMutable;
 
 @private
-	BOOL _objectInitialized;
-	BOOL _objectInitializedAsCopy;
 	NSString *_uniqueIdentifier;
 	NSDictionary *_defaults;
 }
 
-- (BOOL)isMutable;
 @end
 
 NS_ASSUME_NONNULL_END

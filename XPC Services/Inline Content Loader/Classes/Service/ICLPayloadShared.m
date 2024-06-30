@@ -43,46 +43,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation ICLPayload
 
-ClassWithDesignatedInitializerInitMethod
-
-- (instancetype)_initAfterCopy
+- (instancetype)init
 {
-	ObjectIsAlreadyInitializedAssert
-
-	if ((self = [super init])) {
-		self->_objectInitialized = YES;
-
-		return self;
-	}
+	[self doesNotRecognizeSelector:_cmd];
 
 	return nil;
 }
 
-- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initOnMutate
 {
-	NSParameterAssert(aDecoder != nil);
-
-	ObjectIsAlreadyInitializedAssert
-
-	if ((self = [super init])) {
-		[self decodeWithCoder:aDecoder];
-
+	if ((self = [super initOnMutate])) {
 		[self populateDefaultsPostflight];
 
-		self->_objectInitialized = YES;
-
 		return self;
 	}
 
 	return nil;
 }
 
-- (void)decodeWithCoder:(NSCoder *)aDecoder
+- (BOOL)populateWithDecoder:(NSCoder *)aDecoder
 {
-	NSParameterAssert(aDecoder != nil);
-
-	ObjectIsAlreadyInitializedAssert
-
 	self->_contentLength = [aDecoder decodeUnsignedIntegerForKey:@"contentLength"];
 	self->_contentSize = [aDecoder decodeSizeForKey:@"contentSize"];
 
@@ -109,7 +89,7 @@ ClassWithDesignatedInitializerInitMethod
 
 	self->_classAttribute = [aDecoder decodeStringForKey:@"classAttribute"];
 
-	[self initializedClassHealthCheck];
+	return YES;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
@@ -145,9 +125,9 @@ ClassWithDesignatedInitializerInitMethod
 
 - (void)populateDefaultsPostflight
 {
-	ObjectIsAlreadyInitializedAssert
-
-	self->_contentSize = NSZeroSize;
+	if (self.initializedAsCopy == NO) {
+		self->_contentSize = NSZeroSize;
+	}
 
 	SetVariableIfNil(self->_urlToInline, self->_url);
 	SetVariableIfNil(self->_styleResources, @[]);
@@ -158,8 +138,6 @@ ClassWithDesignatedInitializerInitMethod
 
 - (void)initializedClassHealthCheck
 {
-	ObjectIsAlreadyInitializedAssert
-
 	NSParameterAssert(self->_html != nil);
 	NSParameterAssert(self->_url != nil);
 	NSParameterAssert(self->_urlToInline != nil);
@@ -169,17 +147,9 @@ ClassWithDesignatedInitializerInitMethod
 	NSParameterAssert(self->_classAttribute != nil);
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone asMutable:(BOOL)copyAsMutable
+- (id)copyAsMutable:(BOOL)mutableCopy uniquing:(BOOL)uniquing
 {
-	ICLPayload *object = nil;
-
-	if (copyAsMutable) {
-		object = [ICLPayloadMutable allocWithZone:zone];
-	} else {
-		object = [ICLPayload allocWithZone:zone];
-	}
-
-	object->_objectInitializedAsCopy = YES;
+	ICLPayload *object = [self allocForCopyAsMutable:mutableCopy];
 
 	object->_contentLength = self->_contentLength;
 	object->_contentSize = self->_contentSize;
@@ -204,17 +174,12 @@ ClassWithDesignatedInitializerInitMethod
 
 	object->_classAttribute = self->_classAttribute;
 
-	return [object _initAfterCopy];
+	return [object initOnCopy];
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (__kindof XRPortablePropertyObject *)mutableClass
 {
-	return [self copyWithZone:zone asMutable:NO];
-}
-
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
-{
-	return [self copyWithZone:zone asMutable:YES];
+	return [ICLPayloadMutable self];
 }
 
 - (NSDictionary<NSString *, id<NSCopying>> *)entrypointPayload
@@ -292,6 +257,13 @@ ClassWithDesignatedInitializerInitMethod
 	return YES;
 }
 
+DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
+- (instancetype)init
+{
+	return [self initOnMutate];
+}
+DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
+
 - (void)setUrlToInline:(NSURL *)urlToInline
 {
 	NSParameterAssert(urlToInline != nil);
@@ -301,7 +273,6 @@ ClassWithDesignatedInitializerInitMethod
 		self->_urlToInline = urlToInline;
 	}
 }
-
 
 - (void)setContentLength:(unsigned long long)contentLength
 {

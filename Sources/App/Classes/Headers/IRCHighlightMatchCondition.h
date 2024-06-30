@@ -40,17 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCHighlightMatchCondition : NSObject <NSCopying, NSMutableCopying>
+@interface IRCHighlightMatchCondition : XRPortablePropertyDict
 @property (readonly, copy) NSString *uniqueIdentifier;
 @property (readonly, copy) NSString *matchKeyword;
 @property (readonly, copy, nullable) NSString *matchChannelId;
 @property (readonly) BOOL matchIsExcluded;
-
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic NS_DESIGNATED_INITIALIZER;
-- (NSDictionary<NSString *, id> *)dictionaryValue;
-
-- (id)uniqueCopy;
-- (id)uniqueCopyMutable;
 @end
 
 #pragma mark -

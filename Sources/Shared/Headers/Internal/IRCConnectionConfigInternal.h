@@ -61,12 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 	NSStringEncoding _primaryEncoding;
 	NSStringEncoding _fallbackEncoding;
 	RCMCipherSuiteCollection _cipherSuites;
-
-@private
-	BOOL _objectInitialized;
 }
 
-- (BOOL)isMutable;
 @end
 
 NS_ASSUME_NONNULL_END

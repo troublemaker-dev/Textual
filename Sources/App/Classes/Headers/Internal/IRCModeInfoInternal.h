@@ -45,12 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 	BOOL _modeIsSet;
 	NSString *_modeSymbol;
 	NSString *_modeParameter;
-
-@private
-	BOOL _objectInitialized;
 }
 
-- (BOOL)isMutable;
 @end
 
 NS_ASSUME_NONNULL_END

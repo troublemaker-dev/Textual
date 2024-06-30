@@ -49,7 +49,7 @@ typedef NS_ENUM(NSUInteger, IRCChannelType) {
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCChannelConfig : NSObject <NSCopying, NSMutableCopying>
+@interface IRCChannelConfig : XRPortablePropertyDict
 @property (readonly) BOOL autoJoin;
 @property (readonly) BOOL ignoreGeneralEventMessages;
 @property (readonly) BOOL ignoreHighlights;
@@ -67,12 +67,6 @@ typedef NS_ENUM(NSUInteger, IRCChannelType) {
 @property (readonly, copy, nullable) NSString *secretKeyFromKeychain;
 
 + (IRCChannelConfig *)seedWithName:(NSString *)channelName;
-
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic NS_DESIGNATED_INITIALIZER;
-- (NSDictionary<NSString *, id> *)dictionaryValue;
-
-- (id)uniqueCopy;
-- (id)uniqueCopyMutable;
 
 /* Notifications */
 - (nullable NSString *)soundForEvent:(TXNotificationType)event;

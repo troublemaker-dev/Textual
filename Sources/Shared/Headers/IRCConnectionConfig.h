@@ -71,7 +71,7 @@ typedef NS_ENUM(NSUInteger, IRCConnectionAddressType)
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCConnectionConfig : NSObject <NSCopying, NSMutableCopying, NSCoding, NSSecureCoding>
+@interface IRCConnectionConfig : XRPortablePropertyObject
 @property (readonly) BOOL connectionPrefersModernCiphersOnly;
 @property (readonly) BOOL connectionPrefersModernSockets;
 @property (readonly) BOOL connectionPrefersSecuredConnection;

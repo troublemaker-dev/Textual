@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface ICLPayload : NSObject <NSCoding, NSSecureCoding, NSCopying, NSMutableCopying>
+@interface ICLPayload : XRPortablePropertyObject
 /**
  Payload objects are not allowed to be allocated by a plugin.
  Each new instance of ICLContentLoaderModule is given a mutable payload.
@@ -239,6 +239,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable, readwrite) NSString *entrypoint;
 @property (nonatomic, copy, null_resettable, readwrite) NSDictionary<NSString *, id <NSCopying>> *entrypointPayload;
 @property (nonatomic, copy, readwrite) NSString *classAttribute;
+
+- (instancetype)init;
 @end
 
 NS_ASSUME_NONNULL_END

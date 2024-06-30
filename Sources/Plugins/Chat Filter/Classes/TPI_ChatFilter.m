@@ -46,8 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)populateDefaultsPreflight
 {
-	ObjectIsAlreadyInitializedAssert
-
 	self->_defaults = @{
 		@"filterEvents"					: @(TPI_ChatFilterEventTypePlainTextMessage |
 											TPI_ChatFilterEventTypeActionMessage),
@@ -64,8 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)populateDefaultsPostflight
 {
-	ObjectIsAlreadyInitializedAssert
-
 	SetVariableIfNil(self->_filterLimitedToChannelsIDs, @[])
 	SetVariableIfNil(self->_filterLimitedToClientsIDs, @[])
 	SetVariableIfNil(self->_filterEventsNumerics, @[])
@@ -80,30 +76,9 @@ NS_ASSUME_NONNULL_BEGIN
 	SetVariableIfNil(self->_uniqueIdentifier, [NSString stringWithUUID])
 }
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 - (instancetype)init
 {
 	return [self initWithDictionary:@{}];
-}
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
-
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic
-{
-	ObjectIsAlreadyInitializedAssert
-
-	if ((self = [super init])) {
-		[self populateDefaultsPreflight];
-
-		[self populateDictionaryValues:dic];
-
-		[self populateDefaultsPostflight];
-
-		self->_objectInitialized = YES;
-
-		return self;
-	}
-
-	return nil;
 }
 
 - (nullable instancetype)initWithContentsOfPath:(NSString *)path
@@ -131,10 +106,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 - (void)populateDictionaryValues:(NSDictionary<NSString *, id> *)dic
 {
 	NSParameterAssert(dic != nil);
-
-	if ([self isMutable] == NO) {
-		ObjectIsAlreadyInitializedAssert
-	}
 
 	NSMutableDictionary<NSString *, id> *defaultsMutable = [self->_defaults mutableCopy];
 
@@ -293,25 +264,9 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return TPILocalizedString(@"TPI_ChatFilterExtension[dka-bx]", self.filterTitle);
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (__kindof XRPortablePropertyDict *)mutableClass
 {
-	  TPI_ChatFilter *object =
-	[[TPI_ChatFilter allocWithZone:zone] initWithDictionary:self.dictionaryValue];
-
-	return object;
-}
-
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
-{
-	  TPI_ChatFilterMutable *object =
-	[[TPI_ChatFilterMutable allocWithZone:zone] initWithDictionary:self.dictionaryValue];
-
-	return object;
-}
-
-- (BOOL)isMutable
-{
-	return NO;
+	return [TPI_ChatFilterMutable self];
 }
 
 - (BOOL)writeToPath:(NSString *)path

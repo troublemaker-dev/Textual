@@ -348,10 +348,8 @@ ClassWithDesignatedInitializerInitMethod
 			} else {
 				NSString *modeSymbol = [NSString stringWithUniChar:nextCharacter];
 
-				IRCModeInfoMutable *mode = [IRCModeInfoMutable new];
-
-				mode.modeSymbol = modeSymbol;
-				mode.modeIsSet = modeIsSet;
+				IRCModeInfoMutable *mode =
+				[[IRCModeInfoMutable alloc] initWithModeSymbol:modeSymbol modeIsSet:modeIsSet];
 
 				if ([self modeHasParameter:modeSymbol whenModeIsSet:modeIsSet]) {
 					mode.modeParameter = modeStringMutable.token;

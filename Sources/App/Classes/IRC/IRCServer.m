@@ -44,54 +44,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation IRCServer
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 - (instancetype)init
 {
-	return [self initWithDictionary:@{}];
-}
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
-
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic
-{
-	ObjectIsAlreadyInitializedAssert
-
-	if ((self = [super init])) {
-		[self populateDefaultsPreflight];
-
-		[self populateDictionaryValues:dic];
-
-		[self populateDefaultsPostflight];
-
-		/* Health checks are disabled because Server Properties might
-		 write an empty server address to the class then perform a
-		 copy on the object which would throw an exception. */
-		/* TODO: Modify Server Properties to be more friendly. */
-//		[self initializedClassHealthCheck];
-
-		self->_objectInitialized = YES;
-
-		return self;
-	}
-
-	return nil;
+	return [super initWithDictionary:@{}];
 }
 
 - (void)initializedClassHealthCheck
 {
-	ObjectIsAlreadyInitializedAssert
+	/* Health checks are disabled because Server Properties might
+	write an empty server address to the class then perform a
+	copy on the object which would throw an exception. */
+	/* TODO: Modify Server Properties to be more friendly. */
 
-	if ([self isMutable]) {
+#if 0
+	if (self.mutable) {
 		return;
 	}
 
 	NSParameterAssert(self->_serverAddress.length > 0);
 	NSParameterAssert(self->_serverPort > 0 && self->_serverPort <= TXMaximumTCPPort);
+#endif
 }
 
 - (void)populateDefaultsPreflight
 {
-	ObjectIsAlreadyInitializedAssert
-
 	self->_defaults = @{
 		@"serverPort" : @(IRCConnectionDefaultServerPort)
 	};
@@ -99,8 +75,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)populateDefaultsPostflight
 {
-	ObjectIsAlreadyInitializedAssert
-
 	SetVariableIfNil(self->_serverAddress, @"")
 
 	SetVariableIfNil(self->_uniqueIdentifier, [NSString stringWithUUID])
@@ -109,10 +83,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 - (void)populateDictionaryValues:(NSDictionary<NSString *, id> *)dic
 {
 	NSParameterAssert(dic != nil);
-
-	if ([self isMutable] == NO) {
-		ObjectIsAlreadyInitializedAssert
-	}
 
 	NSMutableDictionary<NSString *, id> *defaultsMutable = [self->_defaults mutableCopy];
 
@@ -140,54 +110,18 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return [dic copy];
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (id)uniqueCopyAsMutable:(BOOL)mutableCopy
 {
-	  IRCServer *object =
-	[[IRCServer allocWithZone:zone] initWithDictionary:self.dictionaryValue];
-
-	object->_serverPassword = self->_serverPassword;
-
-	return object;
-}
-
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
-{
-	  IRCServerMutable *object =
-	[[IRCServerMutable allocWithZone:zone] initWithDictionary:self.dictionaryValue];
-
-	((IRCServer *)object)->_serverPassword = self->_serverPassword;
-
-	return object;
-}
-
-- (id)uniqueCopy
-{
-	return [self uniqueCopyAsMutable:NO];
-}
-
-- (id)uniqueCopyMutable
-{
-	return [self uniqueCopyAsMutable:YES];
-}
-
-- (id)uniqueCopyAsMutable:(BOOL)asMutable
-{
-	IRCServer *object = nil;
-
-	if (asMutable == NO) {
-		object = [self copy];
-	} else {
-		object = [self mutableCopy];
-	}
+	IRCServer *object = [super uniqueCopyAsMutable:mutableCopy];
 
 	object->_uniqueIdentifier = [NSString stringWithUUID];
 
 	return object;
 }
 
-- (BOOL)isMutable
+- (__kindof XRPortablePropertyDict *)mutableClass
 {
-	return NO;
+	return [IRCServerMutable self];
 }
 
 - (void)dealloc

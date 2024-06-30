@@ -53,7 +53,7 @@ typedef NS_OPTIONS(NSUInteger, IRCUserRank) {
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCChannelUser : NSObject <NSCopying, NSMutableCopying>
+@interface IRCChannelUser : XRPortablePropertyObject
 @property (readonly, strong) IRCUser *user;
 
 // Custom user modes are becoming more and more popular so it is better
@@ -88,6 +88,8 @@ typedef NS_OPTIONS(NSUInteger, IRCUserRank) {
 
 /* Timestamp instance of IRCChannelUser was created. */
 @property (readonly) NSTimeInterval creationTime;
+
+- (instancetype)init NS_UNAVAILABLE;
 @end
 
 #pragma mark -

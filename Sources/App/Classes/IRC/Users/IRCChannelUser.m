@@ -54,9 +54,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation IRCChannelUser
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
+	return nil;
+}
+
 - (instancetype)initWithUser:(IRCUser *)user
 {
 	NSParameterAssert(user != nil);
@@ -73,7 +77,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 	return nil;
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)prepareInitialState
 {
@@ -365,9 +368,11 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 			 [self.modes isEqualToString:objectCast.modes]));
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (id)copyAsMutable:(BOOL)mutableCopy uniquing:(BOOL)uniquing
 {
-	IRCChannelUser *object = [[IRCChannelUser alloc] initWithUser:self.user];
+	IRCChannelUser *object = [self allocForCopyAsMutable:mutableCopy];
+
+	object->_user = self->_user;
 
 	object->_modes = self->_modes;
 
@@ -375,25 +380,12 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	object->_outgoingWeight = self->_outgoingWeight;
 	object->_lastWeightFade = self->_lastWeightFade;
 
-	return object;
+	return [object initOnCopy];
 }
 
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
+- (__kindof XRPortablePropertyObject *)mutableClass
 {
-	IRCChannelUserMutable *object = [[IRCChannelUserMutable alloc] initWithUser:self.user];
-
-	((IRCChannelUser *)object)->_modes = self->_modes;
-
-	((IRCChannelUser *)object)->_incomingWeight = self->_incomingWeight;
-	((IRCChannelUser *)object)->_outgoingWeight = self->_outgoingWeight;
-	((IRCChannelUser *)object)->_lastWeightFade = self->_lastWeightFade;
-
-	return object;
-}
-
-- (BOOL)isMutable
-{
-	return NO;
+	return [IRCChannelUserMutable self];
 }
 
 @end

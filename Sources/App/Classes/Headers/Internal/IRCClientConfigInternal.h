@@ -99,17 +99,12 @@ NS_ASSUME_NONNULL_BEGIN
 	RCMCipherSuiteCollection _cipherSuites;
 
 @private
-	BOOL _objectInitialized;
-	BOOL _objectInitializedAsCopy;
-	BOOL _objectIsNew;
 	BOOL _migratedServerPasswordPendingDestroy;
 	NSUInteger _dictionaryVersion;
 	NSString *_uniqueIdentifier;
 	NSDictionary *_defaults;
 }
 
-+ (BOOL)isMutable;
-- (BOOL)isMutable;
 @end
 
 NS_ASSUME_NONNULL_END

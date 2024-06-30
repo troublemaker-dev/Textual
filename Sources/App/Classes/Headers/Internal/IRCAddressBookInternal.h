@@ -59,12 +59,10 @@ NS_ASSUME_NONNULL_BEGIN
 	NSArray<IRCAddressBookEntry *> *_parentEntries;
 
 @private
-	BOOL _objectInitialized;
 	NSString *_uniqueIdentifier;
 	NSDictionary *_defaults;
 }
 
-- (BOOL)isMutable;
 @end
 
 NS_ASSUME_NONNULL_END

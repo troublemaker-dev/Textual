@@ -53,8 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 	NSParameterAssert(lineNumber != nil);
 	NSParameterAssert(viewIdentifier != nil);
 
-	ObjectIsAlreadyInitializedAssert
-
 	if ((self = [super init])) {
 		self->_url = [url copy];
 		self->_lineNumber = [lineNumber copy];
@@ -63,8 +61,6 @@ NS_ASSUME_NONNULL_BEGIN
 		self->_viewIdentifier = [viewIdentifier copy];
 
 		[self populateDefaultsPostflight];
-
-		self->_objectInitialized = YES;
 
 		return self;
 	}
@@ -75,8 +71,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDeferredPayload:(ICLPayload *)payload
 {
 	NSParameterAssert(payload != nil);
-
-	ObjectIsAlreadyInitializedAssert
 
 	if ((self = [super init])) {
 		/* All values are immutable which means we
@@ -90,8 +84,6 @@ NS_ASSUME_NONNULL_BEGIN
 		self->_classAttribute = payload.classAttribute;
 
 		[self populateDefaultsPostflight];
-
-		self->_objectInitialized = YES;
 
 		return self;
 	}

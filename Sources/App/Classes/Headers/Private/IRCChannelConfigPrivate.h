@@ -42,8 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IRCChannelConfig ()
 @property (readonly, copy) NSDictionary<NSString *, NSNumber *> *notifications;
 
-- (NSDictionary<NSString *, id> *)dictionaryValueForCloud;
-
 - (void)writeSecretKeyToKeychain;
 
 - (void)destroySecretKeyKeychainItem;

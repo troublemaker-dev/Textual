@@ -59,7 +59,7 @@ typedef NS_ENUM(NSUInteger, IRCAddressBookUserTrackingStatus) {
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCAddressBookEntry : NSObject <NSCopying, NSMutableCopying>
+@interface IRCAddressBookEntry : XRPortablePropertyDict
 @property (readonly) IRCAddressBookEntryType entryType;
 @property (readonly, copy) NSString *uniqueIdentifier;
 @property (readonly, copy) NSString *hostmask;
@@ -85,12 +85,6 @@ typedef NS_ENUM(NSUInteger, IRCAddressBookUserTrackingStatus) {
 + (instancetype)newIgnoreEntryForHostmask:(nullable NSString *)hostmask;
 
 + (instancetype)newUserTrackingEntry;
-
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic NS_DESIGNATED_INITIALIZER;
-- (NSDictionary<NSString *, id> *)dictionaryValue;
-
-- (id)uniqueCopy;
-- (id)uniqueCopyMutable;
 
 - (BOOL)checkMatch:(NSString *)hostmask;
 @end

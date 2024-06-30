@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCUser : NSObject <NSCopying, NSMutableCopying>
+@interface IRCUser : XRPortablePropertyObject
 @property (readonly, copy) NSString *nickname;
 @property (readonly, copy, nullable) NSString *username;
 @property (readonly, copy, nullable) NSString *address;
@@ -71,6 +71,8 @@ NS_ASSUME_NONNULL_BEGIN
  should be presented, NO otherwise. */
 @property (readonly) BOOL presentAwayMessageFor301;
 
+- (instancetype)init NS_UNAVAILABLE;
+
 - (instancetype)initWithNickname:(NSString *)nickname onClient:(IRCClient *)client NS_DESIGNATED_INITIALIZER;
 
 - (void)markAsAway;
@@ -81,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Mutable Object
 
 @interface IRCUserMutable : IRCUser
-@property (nonatomic, copy, readwrite) NSString *nickname;
+@property (nonatomic, copy, readwrite) NSString *nickname; // Defaults to empty string
 @property (nonatomic, copy, readwrite, nullable) NSString *username;
 @property (nonatomic, copy, readwrite, nullable) NSString *address;
 @property (nonatomic, copy, readwrite, nullable) NSString *realName;

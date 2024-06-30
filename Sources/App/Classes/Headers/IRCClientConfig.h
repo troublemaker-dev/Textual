@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCClientConfig : NSObject <NSCopying, NSMutableCopying>
+@interface IRCClientConfig : XRPortablePropertyDict
 @property (readonly) BOOL autoConnect;
 @property (readonly) BOOL autoReconnect;
 @property (readonly) BOOL autoSleepModeDisconnect;
@@ -102,16 +102,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy, nullable) NSString *proxyUsername;
 @property (readonly) RCMCipherSuiteCollection cipherSuites;
 
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic ignorePrivateMessages:(BOOL)ignorePrivateMessages NS_DESIGNATED_INITIALIZER;
-- (NSDictionary<NSString *, id> *)dictionaryValue;
 
 + (instancetype)newConfigByMerging:(IRCClientConfig *)config1 with:(IRCClientConfig *)config2;
 
 + (instancetype)newConfigWithNetwork:(IRCNetwork *)network;
-
-- (id)uniqueCopy;
-- (id)uniqueCopyMutable;
 
 /* Deprecated */
 @property (readonly) BOOL connectionPrefersIPv4 TEXTUAL_DEPRECATED("Use -addressType instead");

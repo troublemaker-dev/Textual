@@ -43,13 +43,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation ICLMediaAssessment
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithURL:(NSURL *)url asType:(ICLMediaType)type
 {
 	NSParameterAssert(url != nil);
-
-	ObjectIsAlreadyInitializedAssert
 
 	if ((self = [super init])) {
 		self->_url = [url copy];
@@ -58,54 +61,14 @@ ClassWithDesignatedInitializerInitMethod
 
 		[self populateDefaultsPostflight];
 
-		self->_objectInitialized = YES;
-
 		return self;
 	}
 
 	return nil;
 }
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
-- (instancetype)_initAfterCopy
+- (BOOL)populateWithDecoder:(NSCoder *)aDecoder
 {
-	ObjectIsAlreadyInitializedAssert
-
-	if ((self = [super init])) {
-		self->_objectInitialized = YES;
-
-		return self;
-	}
-
-	return nil;
-}
-
-- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-	NSParameterAssert(aDecoder != nil);
-
-	ObjectIsAlreadyInitializedAssert
-
-	if ((self = [super init])) {
-		[self decodeWithCoder:aDecoder];
-
-		[self populateDefaultsPostflight];
-
-		self->_objectInitialized = YES;
-
-		return self;
-	}
-
-	return nil;
-}
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
-
-- (void)decodeWithCoder:(NSCoder *)aDecoder
-{
-	NSParameterAssert(aDecoder != nil);
-
-	ObjectIsAlreadyInitializedAssert
-
 	self->_url = [aDecoder decodeObjectOfClass:[NSURL class] forKey:@"url"];
 
 	self->_type = [aDecoder decodeUnsignedIntegerForKey:@"type"];
@@ -113,7 +76,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	self->_contentType = [aDecoder decodeStringForKey:@"contentType"];
 	self->_contentLength = [aDecoder decodeUnsignedIntegerForKey:@"contentLength"];
 
-	[self initializedClassHealthCheck];
+	return YES;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
@@ -133,30 +96,18 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)populateDefaultsPostflight
 {
-	ObjectIsAlreadyInitializedAssert
-
 	SetVariableIfNil(self->_contentType, @"application/binary");
 }
 
 - (void)initializedClassHealthCheck
 {
-	ObjectIsAlreadyInitializedAssert
-
 	NSParameterAssert(self->_url != nil);
 	NSParameterAssert(self->_contentType != nil);
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone asMutable:(BOOL)copyAsMutable
+- (id)copyAsMutable:(BOOL)mutableCopy uniquing:(BOOL)uniquing
 {
-	ICLMediaAssessment *object = nil;
-
-	if (copyAsMutable) {
-		object = [ICLMediaAssessmentMutable allocWithZone:zone];
-	} else {
-		object = [ICLMediaAssessment allocWithZone:zone];
-	}
-
-	object->_objectInitializedAsCopy = YES;
+	ICLMediaAssessment *object = [self allocForCopyAsMutable:mutableCopy];
 
 	object->_url = self->_url;
 
@@ -165,22 +116,12 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	object->_contentType = self->_contentType;
 	object->_contentLength = self->_contentLength;
 
-	return [object _initAfterCopy];
+	return [object initOnCopy];
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (__kindof XRPortablePropertyObject *)mutableClass
 {
-	return [self copyWithZone:zone asMutable:NO];
-}
-
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
-{
-	return [self copyWithZone:zone asMutable:YES];
-}
-
-- (BOOL)isMutable
-{
-	return NO;
+	return [ICLMediaAssessmentMutable self];
 }
 
 @end
@@ -192,6 +133,11 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 @dynamic type;
 @dynamic contentType;
 @dynamic contentLength;
+
+- (BOOL)isMutable
+{
+	return YES;
+}
 
 - (void)setType:(ICLMediaType)type
 {
