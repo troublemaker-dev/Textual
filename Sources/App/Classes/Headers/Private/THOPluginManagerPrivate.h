@@ -49,7 +49,7 @@ TEXTUAL_EXTERN NSNotificationName const THOPluginManagerFinishedLoadingPluginsNo
 
 @property (readonly) BOOL pluginsLoaded;
 
-@property (readonly, copy) NSArray<THOPluginItem *> *loadedPlugins;
+@property (readonly, copy, nullable) NSArray<THOPluginItem *> *loadedPlugins; // nil until load completes
 
 @property (readonly, copy) NSArray<NSString *> *supportedServerInputCommands;
 @property (readonly, copy) NSArray<NSString *> *supportedUserInputCommands;

@@ -211,7 +211,7 @@ extern NSString * const THOPluginProtocolCompatibilityMinimumVersion;
 /**
  * @brief Method invoked prior to a message being converted to its HTML equivalent.
  *
- * @discussion This methods can be used to modify the text that will be  displayed for a 
+ * @discussion This methods can be used to modify the text that will be displayed for a 
  *  certain message by replacing one or more segments of it.
  * 
  * Considerations:

@@ -56,7 +56,8 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 @interface THOPluginManager ()
 @property (nonatomic, assign, readwrite) BOOL pluginsLoaded;
-@property (nonatomic, copy, readwrite) NSArray<THOPluginItem *> *loadedPlugins;
+@property (nonatomic, copy, readwrite, nullable) NSArray<THOPluginItem *> *loadedPlugins;
+@property (nonatomic, copy, nullable) NSArray<NSBundle *> *obsoleteBundles;
 @property (nonatomic, assign) THOPluginItemSupportedFeature supportedFeatures;
 @end
 
@@ -67,15 +68,23 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (void)loadPlugins
 {
-	XRPerformBlockAsynchronouslyOnQueue([THOPluginDispatcher dispatchQueue], ^{
-		[self _loadPlugins];
+	static dispatch_once_t onceToken;
+
+	dispatch_once(&onceToken, ^{
+		XRPerformBlockAsynchronouslyOnQueue([THOPluginDispatcher dispatchQueue], ^{
+			[self _loadPlugins];
+		});
 	});
 }
 
 - (void)unloadPlugins
 {
-	XRPerformBlockAsynchronouslyOnQueue([THOPluginDispatcher dispatchQueue], ^{
-		[self _unloadPlugins];
+	static dispatch_once_t onceToken;
+
+	dispatch_once(&onceToken, ^{
+		XRPerformBlockAsynchronouslyOnQueue([THOPluginDispatcher dispatchQueue], ^{
+			[self _unloadPlugins];
+		});
 	});
 }
 
@@ -84,10 +93,9 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 	NSArray *forbiddenPlugins = self.listOfForbiddenBundles;
 
 	NSMutableArray<THOPluginItem *> *loadedPlugins = [NSMutableArray array];
-
-	NSMutableArray<NSString *> *loadedBundles = [NSMutableArray array];
-
 	NSMutableArray<NSString *> *bundlesToLoad = [NSMutableArray array];
+	NSMutableArray<NSString *> *loadedBundles = [NSMutableArray array];
+	NSMutableArray<NSBundle *> *obsoleteBundles = [NSMutableArray array];
 
 	NSArray *pathsToLoad =
 	[RZFileManager() buildPathArray:
@@ -142,6 +150,8 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 		NSString *comparisonVersion = infoDictionary[@"MinimumTextualVersion"];
 
 		if (comparisonVersion == nil) {
+			[obsoleteBundles addObject:bundle];
+
 			NSLog(@" ---------------------------- ERROR ---------------------------- ");
 			NSLog(@"                                                                 ");
 			NSLog(@"  Textual has failed to load the bundle at the following path    ");
@@ -166,6 +176,8 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 		[comparisonVersion compare:THOPluginProtocolCompatibilityMinimumVersion options:NSNumericSearch];
 
 		if (comparisonResult == NSOrderedAscending) {
+			[obsoleteBundles addObject:bundle];
+
 			NSLog(@" ---------------------------- ERROR ---------------------------- ");
 			NSLog(@"                                                                 ");
 			NSLog(@"  Textual has failed to load the bundle at the following path    ");
@@ -198,6 +210,8 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 	}
 
 	self.loadedPlugins = loadedPlugins;
+
+	self.obsoleteBundles = obsoleteBundles;
 
 	self.pluginsLoaded = YES;
 
@@ -579,6 +593,10 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (NSArray<THOPluginOutputSuppressionRule *> *)pluginOutputSuppressionRules
 {
+	if (self.pluginsLoaded == NO) {
+		return @[];
+	}
+
 	static NSArray<THOPluginOutputSuppressionRule *> *cachedValue = nil;
 
 	static dispatch_once_t onceToken;
@@ -606,6 +624,10 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (NSArray<NSString *> *)supportedUserInputCommands
 {
+	if (self.pluginsLoaded == NO) {
+		return @[];
+	}
+
 	static NSArray<NSString *> *cachedValue = nil;
 
 	static dispatch_once_t onceToken;
@@ -635,6 +657,10 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (NSArray<NSString *> *)supportedServerInputCommands
 {
+	if (self.pluginsLoaded == NO) {
+		return @[];
+	}
+
 	static NSArray<NSString *> *cachedValue = nil;
 
 	static dispatch_once_t onceToken;
@@ -664,6 +690,10 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (NSArray<THOPluginItem *> *)pluginsWithPreferencePanes
 {
+	if (self.pluginsLoaded == NO) {
+		return @[];
+	}
+
 	static NSArray<THOPluginItem *> *cachedValue = nil;
 
 	static dispatch_once_t onceToken;
