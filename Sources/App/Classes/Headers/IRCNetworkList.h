@@ -55,6 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy) NSString *serverAddress;
 @property (readonly) uint16_t serverPort;
 @property (readonly) BOOL prefersSecuredConnection;
+
+- (instancetype)init NS_UNAVAILABLE;
 @end
 
 NS_ASSUME_NONNULL_END

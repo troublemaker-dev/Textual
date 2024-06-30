@@ -57,7 +57,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TVCErrorMessagePopover
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithMessage:(NSString *)message relativeToView:(NSView *)view
 {

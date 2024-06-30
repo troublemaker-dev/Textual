@@ -250,7 +250,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TVCContentNavigationOutlineViewItem
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithLabel:(NSString *)label identifier:(NSUInteger)identifier view:(NSView *)view firstResponder:(nullable NSControl *)firstResponder
 {

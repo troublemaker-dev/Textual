@@ -17,7 +17,7 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2015 - 2020 Codeux Software, LLC. All rights reserved.</string>
 	<key>MinimumTextualVersion</key>
-	<string>6.0.0</string>
+	<string>7.2.4</string>
 	<key>NSPrincipalClass</key>
 	<string>TPI_ChatFilterExtension</string>
 </dict>

@@ -53,18 +53,8 @@ typedef NS_OPTIONS(NSUInteger, IRCUserRank) {
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCChannelUser : NSObject <NSCopying, NSMutableCopying>
+@interface IRCChannelUser : XRPortablePropertyObject
 @property (readonly, strong) IRCUser *user;
-
-// Custom user modes are becoming more and more popular so it is better
-// to move away from hard coded booleans for these modes and instead use
-// -rank and -ranks for Textual to make an educated guess about where the
-// user stands based off what it knows so far.
-@property (readonly) BOOL q TEXTUAL_DEPRECATED("Use -rank or -ranks instead");
-@property (readonly) BOOL a TEXTUAL_DEPRECATED("Use -rank or -ranks instead");
-@property (readonly) BOOL o TEXTUAL_DEPRECATED("Use -rank or -ranks instead");
-@property (readonly) BOOL h TEXTUAL_DEPRECATED("Use -rank or -ranks instead");
-@property (readonly) BOOL v TEXTUAL_DEPRECATED("Use -rank or -ranks instead");
 
 @property (getter=isOp, readonly) BOOL op;
 @property (getter=isHalfOp, readonly) BOOL halfOp;
@@ -88,6 +78,8 @@ typedef NS_OPTIONS(NSUInteger, IRCUserRank) {
 
 /* Timestamp instance of IRCChannelUser was created. */
 @property (readonly) NSTimeInterval creationTime;
+
+- (instancetype)init NS_UNAVAILABLE;
 @end
 
 #pragma mark -

@@ -111,7 +111,12 @@ NSString * const TVCLogControllerViewFinishedLoadingNotification = @"TVCLogContr
 #pragma mark -
 #pragma mark Initialization
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithClient:(IRCClient *)client inWindow:(TVCMainWindow *)window
 {

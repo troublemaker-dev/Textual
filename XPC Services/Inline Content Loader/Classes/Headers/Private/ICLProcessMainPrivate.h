@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ICLInlineContentModule;
 
 @interface ICLProcessMain : NSObject <ICLInlineContentServerProtocol>
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithXPCConnection:(NSXPCConnection *)connection NS_DESIGNATED_INITIALIZER;
 
 - (void)_finalizeModule:(ICLInlineContentModule *)module withError:(nullable NSError *)error;

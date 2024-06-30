@@ -77,7 +77,12 @@ NSString * const _inputHistoryGlobalObjectKey	= @"TLOInputHistoryDefaultObject";
 
 @implementation TLOInputHistory
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithWindow:(TVCMainWindow *)mainWindow
 {

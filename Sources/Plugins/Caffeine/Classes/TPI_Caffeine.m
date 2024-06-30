@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	self.progressObject = [RZProcessInfo() beginActivityWithOptions:NSActivityUserInitiated reason:@"Disable sleep mode"];
 
-	LogToConsole("Disabled sleep mode");
+	LogToConsoleWithSubsystem(THOPluginLoggingSubsystem(), "Disabled sleep mode");
 }
 
 - (void)enableSleepMode
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	self.progressObject = nil;
 
-	LogToConsole("Enabled sleep mode");
+	LogToConsoleWithSubsystem(THOPluginLoggingSubsystem(), "Enabled sleep mode");
 }
 
 - (void)toggleSleepMode
@@ -124,8 +124,9 @@ NS_ASSUME_NONNULL_BEGIN
 				@try {
 					[client removeObserver:self forKeyPath:@"isLoggedIn"];
 				} @catch (NSException *exception) {
-					LogToConsole("Caught exception: %@", [exception reason]);
-					LogStackTrace();
+					LogToConsoleFaultWithSubsystem(THOPluginLoggingSubsystem(), "Caught exception: %@", [exception reason]);
+
+					LogStackTraceWithSubsystem(THOPluginLoggingSubsystem());
 				}
 			}
 		}

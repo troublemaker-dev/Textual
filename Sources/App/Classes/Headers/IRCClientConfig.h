@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCClientConfig : NSObject <NSCopying, NSMutableCopying>
+@interface IRCClientConfig : XRPortablePropertyDict
 @property (readonly) BOOL autoConnect;
 @property (readonly) BOOL autoReconnect;
 @property (readonly) BOOL autoSleepModeDisconnect;
@@ -102,27 +102,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy, nullable) NSString *proxyUsername;
 @property (readonly) RCMCipherSuiteCollection cipherSuites;
 
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic ignorePrivateMessages:(BOOL)ignorePrivateMessages NS_DESIGNATED_INITIALIZER;
-- (NSDictionary<NSString *, id> *)dictionaryValue;
 
 + (instancetype)newConfigByMerging:(IRCClientConfig *)config1 with:(IRCClientConfig *)config2;
 
 + (instancetype)newConfigWithNetwork:(IRCNetwork *)network;
-
-- (id)uniqueCopy;
-- (id)uniqueCopyMutable;
-
-/* Deprecated */
-@property (readonly) BOOL connectionPrefersIPv4 TEXTUAL_DEPRECATED("Use -addressType instead");
-
-/* Accessing one of these properties will return the value from the first server in -serverList */
-@property (readonly) BOOL prefersSecuredConnection TEXTUAL_DEPRECATED("Access property through -serverList");
-@property (readonly) uint16_t serverPort TEXTUAL_DEPRECATED("Access property through -serverList");
-@property (readonly, copy, nullable) NSString *serverAddress TEXTUAL_DEPRECATED("Access property through -serverList");
-@property (readonly, copy, nullable) NSString *serverPassword TEXTUAL_DEPRECATED("Access property through -serverList");
-@property (readonly, copy, nullable) NSString *serverPasswordFromKeychain TEXTUAL_DEPRECATED("Access property through -serverList");
-@property (readonly) BOOL connectionPrefersModernCiphers TEXTUAL_DEPRECATED("Use -cipherSuites instead");
 @end
 
 #pragma mark -
@@ -180,16 +164,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readwrite, nullable) NSString *proxyPassword;
 @property (nonatomic, copy, readwrite, nullable) NSString *proxyUsername;
 @property (nonatomic, assign, readwrite) RCMCipherSuiteCollection cipherSuites;
-
-/* Deprecated */
-@property (nonatomic, assign, readwrite) BOOL connectionPrefersIPv4 TEXTUAL_DEPRECATED("Use -addressType instead");
-
-/* Trying to set one of the following properties will throw an exception. */
-@property (nonatomic, assign, readwrite) BOOL prefersSecuredConnection TEXTUAL_DEPRECATED("Modify property using -serverList instead");
-@property (nonatomic, assign, readwrite) uint16_t serverPort TEXTUAL_DEPRECATED("Modify property using -serverList instead");
-@property (nonatomic, copy, readwrite, nullable) NSString *serverAddress TEXTUAL_DEPRECATED("Modify property using -serverList instead");
-@property (nonatomic, copy, readwrite, nullable) NSString *serverPassword TEXTUAL_DEPRECATED("Modify property using -serverList instead");
-@property (nonatomic, assign, readwrite) BOOL connectionPrefersModernCiphers TEXTUAL_DEPRECATED("Use -cipherSuites instead");
 @end
 
 NS_ASSUME_NONNULL_END

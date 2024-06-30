@@ -57,6 +57,8 @@ TEXTUAL_EXTERN NSString * const TVCLogViewCommonUserAgentString;
 @property (readonly) NSView *webView;
 
 @property (readonly, getter=isLayingOutView) BOOL layingOutView;
+
+- (instancetype)init NS_UNAVAILABLE;
 @end
 
 @interface TVCLogView (TVCLogViewJavaScriptHandler)

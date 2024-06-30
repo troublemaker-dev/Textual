@@ -43,9 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^TLOTimerActionBlock)(TLOTimer *sender);
 
 @interface TLOTimer : NSObject
-@property (nonatomic, weak) id target TEXTUAL_DEPRECATED("Use -actionBlock instead");
-@property (nonatomic, assign, nullable) SEL action TEXTUAL_DEPRECATED("Use -actionBlock instead");
-@property (nonatomic, copy, nullable) TLOTimerActionBlock actionBlock;
+@property (readonly, copy) TLOTimerActionBlock actionBlock;
 @property (nonatomic, strong, nullable) dispatch_queue_t queue; // Defaults to main queue. Changed ignored while active.
 @property (nonatomic, strong, nullable) id context;
 
@@ -61,6 +59,10 @@ typedef void (^TLOTimerActionBlock)(TLOTimer *sender);
 
 + (instancetype)timerWithActionBlock:(TLOTimerActionBlock)actionBlock;
 + (instancetype)timerWithActionBlock:(TLOTimerActionBlock)actionBlock onQueue:(dispatch_queue_t)queue;
+
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithActionBlock:(TLOTimerActionBlock)actionBlock;
+- (instancetype)initWithActionBlock:(TLOTimerActionBlock)actionBlock onQueue:(dispatch_queue_t)queue NS_DESIGNATED_INITIALIZER;
 
 - (void)start:(NSTimeInterval)interval; // repeatTimer = NO
 - (void)start:(NSTimeInterval)timerInterval onRepeat:(BOOL)repeatTimer; // iterations = 0

@@ -420,6 +420,8 @@ create_normal_pool:
 				if (completionHandler) {
 					completionHandler(nil);
 				}
+
+				return;
 			}
 		}
 

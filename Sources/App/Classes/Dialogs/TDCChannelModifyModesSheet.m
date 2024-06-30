@@ -72,13 +72,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TDCChannelModifyModesSheet
 
-ClassWithDesignatedInitializerInitMethod
-
 - (instancetype)initWithChannel:(IRCChannel *)channel
 {
 	NSParameterAssert(channel != nil);
 
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:nil])) {
 		self.client = channel.associatedClient;
 		self.clientId = channel.associatedClient.uniqueIdentifier;
 

@@ -46,14 +46,15 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol TDCChannelPropertiesSheetDelegate;
 
 @interface TDCChannelPropertiesSheet : TDCSheetBase <TDCChannelPrototype>
-- (instancetype)initWithChannel:(IRCChannel *)channel;
+- (instancetype)initWithChannel:(IRCChannel *)channel NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithClient:(IRCClient *)client;
 - (instancetype)initWithClientId:(NSString *)clientId;
 
 - (instancetype)initWithConfig:(nullable IRCChannelConfig *)config;
+- (instancetype)initWithConfig:(nullable IRCChannelConfig *)config onClientWithId:(nullable NSString *)clientId;
+
 - (instancetype)initWithConfig:(nullable IRCChannelConfig *)config onClient:(nullable IRCClient *)client NS_DESIGNATED_INITIALIZER;
-- (instancetype)initWithConfig:(nullable IRCChannelConfig *)config onClientWithId:(nullable NSString *)clientId NS_DESIGNATED_INITIALIZER;
 
 - (void)start;
 @end

@@ -5,7 +5,7 @@
  *                   | |  __/>  <| |_| |_| | (_| | |
  *                   |_|\___/_/\_\\__|\__,_|\__,_|_|
  *
- * Copyright (c) 2010 - 2020 Codeux Software, LLC & respective contributors.
+ *   Copyright (c) 2024 Codeux Software, LLC & respective contributors.
  *       Please see Acknowledgements.pdf for additional information.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,12 +35,23 @@
  *
  *********************************************************************** */
 
-NS_ASSUME_NONNULL_BEGIN
+#import <os/log.h>
 
-@interface TVCMainWindowSidebarSmoothTextField : NSTextField
-@end
+/**
+ * Subsystem that plugin can use for logging using `os_log` and related systems.
+ *
+ * Plugins are loaded directly into Textual and are not executed on a separate
+ * process. As such, the returned subsystem uses the same identifier of Textual.
+ * The category is different. The category is in the format:
+ * `Extension['<BUNDLE NAME>']`
+ *
+ * Accessing the logging subsystem through this function is not optimized 
+ * if aggressive logging is performed. In that case, retain a reference,
+ * or create a subsystem outside of this initializer.
+ *
+ * @return Subsystem that plugin can use for logging.
+ */
+#define THOPluginLoggingSubsystem()		\
+	_THOPluginLoggingSubsystemForBundle([NSBundle bundleForClass:[self class]])
 
-@interface TVCMainWindowSidebarSmoothTextFieldCell : NSTextFieldCell
-@end
-
-NS_ASSUME_NONNULL_END
+TEXTUAL_EXTERN os_log_t _THOPluginLoggingSubsystemForBundle(NSBundle *bundle);

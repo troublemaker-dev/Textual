@@ -958,7 +958,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 	/* Only return a formatted refresh rate if not 60.
 	 Everyone has 60. That's not interesting info. */
-	if (fabs(refreshRate) == 60.0) {
+	/* Edited June 2024: Some displays are actually 59.
+	 It annoyed me having this information displayed.
+	 The values I picked below for excluding this information
+	 were picked arbitrarily and do not reflect any real
+	 world testing. */
+//	if (fabs(refreshRate) == 60.0) {
+	if (refreshRate > 58.5 && refreshRate < 61.5) {
 		return nil;
 	}
 

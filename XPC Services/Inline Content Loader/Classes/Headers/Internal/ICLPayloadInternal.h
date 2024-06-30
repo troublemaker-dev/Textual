@@ -53,8 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 	NSString *_classAttribute;
 
 @private
-	BOOL _objectInitialized;
-	BOOL _objectInitializedAsCopy;
 	NSURL *_url;
 	NSString *_lineNumber;
 	NSString *_uniqueIdentifier;
@@ -62,10 +60,6 @@ NS_ASSUME_NONNULL_BEGIN
 	NSUInteger _index;
 }
 
-- (BOOL)isMutable;
-
-/* Declared here because it is accessed by private category */
-- (void)populateDefaultsPostflight;
 @end
 
 NS_ASSUME_NONNULL_END

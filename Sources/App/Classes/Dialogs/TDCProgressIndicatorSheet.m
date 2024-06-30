@@ -46,15 +46,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TDCProgressIndicatorSheet
 
-ClassWithDesignatedInitializerInitMethod
-
-- (instancetype)initWithWindow:(NSWindow *)window
+- (instancetype)initWithWindow:(nullable NSWindow *)window
 {
 	NSParameterAssert(window != nil);
 
-	if ((self = [super init])) {
-		self.window = window;
-
+	if ((self = [super initWithWindow:window])) {
 		[self prepareInitialState];
 
 		return self;

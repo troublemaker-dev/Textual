@@ -74,7 +74,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TDCServerChannelListDialog
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithClient:(IRCClient *)client
 {

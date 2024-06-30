@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readwrite) BOOL errorOnLastJoinAttempt;
 
 - (instancetype)initWithConfig:(IRCChannelConfig *)config NS_DESIGNATED_INITIALIZER;
-- (instancetype)initWithConfigDictionary:(NSDictionary<NSString *, id> *)dic NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithConfigDictionary:(NSDictionary<NSString *, id> *)dic;
 
 - (void)updateConfig:(IRCChannelConfig *)config;
 - (void)updateConfig:(IRCChannelConfig *)config fireChangedNotification:(BOOL)fireChangedNotification;

@@ -131,36 +131,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 #endif
 
-@interface TPCPathInfo (TPCPathInfoDeprecated)
-+ (NSString *)applicationBundlePath TEXTUAL_DEPRECATED("Use +applicationBundle instead");
-+ (nullable NSString *)applicationCachesFolderPath TEXTUAL_DEPRECATED("Use +applicationCaches instead");
-+ (nullable NSString *)applicationCachesFolderInsideGroupContainerPath TEXTUAL_DEPRECATED("Use +groupContainerApplicationCaches instead");
-+ (nullable NSString *)applicationGroupContainerPath TEXTUAL_DEPRECATED("Use +groupContainer instead");
-+ (nullable NSString *)applicationLogsFolderPath TEXTUAL_DEPRECATED("Use +applicationLogs instead");
-+ (NSString *)applicationResourcesFolderPath TEXTUAL_DEPRECATED("Use +applicationResources instead");
-+ (NSString *)applicationTemporaryFolderPath TEXTUAL_DEPRECATED("Use +applicationTemporary instead");
-
-+ (nullable NSString *)applicationSupportFolderPathInGroupContainer TEXTUAL_DEPRECATED("Use +groupContainerApplicationSupport instead");
-+ (nullable NSString *)applicationSupportFolderPathInLocalContainer TEXTUAL_DEPRECATED("Use +applicationSupport instead");
-
-+ (nullable NSString *)systemApplicationFolderPath TEXTUAL_DEPRECATED("Use +systemApplications instead");
-+ (nullable NSURL *)systemApplicationFolderURL TEXTUAL_DEPRECATED("Use +systemApplicationsURL instead");
-
-+ (NSString *)systemDiagnosticReportsFolderPath TEXTUAL_DEPRECATED("Use +systemDiagnosticReports instead");
-+ (NSString *)userDiagnosticReportsFolderPath TEXTUAL_DEPRECATED("Use +userDiagnosticReports instead");
-
-+ (nullable NSString *)customExtensionFolderPath TEXTUAL_DEPRECATED("Use +customExtensions instead");
-+ (nullable NSString *)customScriptsFolderPath TEXTUAL_DEPRECATED("Use +customScripts instead");
-+ (nullable NSString *)customScriptsFolderPathLeading TEXTUAL_DEPRECATED("Use +userApplicationScripts instead");
-+ (nullable NSString *)customThemeFolderPath TEXTUAL_DEPRECATED("Use +customThemes instead");
-
-+ (NSString *)bundledExtensionFolderPath TEXTUAL_DEPRECATED("Use +bundledExtensions instead");
-+ (NSString *)bundledScriptFolderPath TEXTUAL_DEPRECATED("Use +bundledScripts instead");
-+ (NSString *)bundledThemeFolderPath TEXTUAL_DEPRECATED("Use +bundledThemes instead");
-
-+ (nullable NSString *)userDownloadsFolderPath TEXTUAL_DEPRECATED("Use +userDownloads instead");
-+ (NSString *)userHomeFolderPath TEXTUAL_DEPRECATED("Use +userHome instead");
-+ (nullable NSString *)userPreferencesFolderPath TEXTUAL_DEPRECATED("Use +userPreferences instead");
-@end
-
 NS_ASSUME_NONNULL_END

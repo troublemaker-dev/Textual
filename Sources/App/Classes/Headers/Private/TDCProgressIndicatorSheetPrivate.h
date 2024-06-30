@@ -40,8 +40,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TDCProgressIndicatorSheet : TDCSheetBase
-- (instancetype)initWithWindow:(NSWindow *)window NS_DESIGNATED_INITIALIZER;
-
 - (void)start;
 - (void)stop;
 @end

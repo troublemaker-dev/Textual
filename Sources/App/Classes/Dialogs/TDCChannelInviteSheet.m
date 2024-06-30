@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 	NSParameterAssert(nicknames != nil);
 	NSParameterAssert(client != nil);
 
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:nil])) {
 		self.nicknames = nicknames;
 
 		self.client = client;

@@ -69,7 +69,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)populateDefaultsPreflight
 {
-	ObjectIsAlreadyInitializedAssert
+	if (self.initializedAsCopy) {
+		return;
+	}
 
 	/* Even if a value is NO, include it as a default. */
 	/* This allows NO values to be stripped from output dictionary. */
@@ -79,11 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 	defaults[@"autoConnect"] = @(NO);
 	defaults[@"autoReconnect"] = @(NO);
 	defaults[@"autoSleepModeDisconnect"] = @(YES);
-
-TEXTUAL_IGNORE_DEPRECATION_BEGIN
-	defaults[@"autojoinWaitsForNickServ"] = @([TPCPreferences autojoinWaitsForNickServ]);
-TEXTUAL_IGNORE_DEPRECATION_END
-
+	defaults[@"autojoinWaitsForNickServ"] = @(NO);
 	defaults[@"cachedLastServerTimeCapabilityReceivedAtTimestamp"] = @(0);
 	defaults[@"cipherSuites"] = @(RCMCipherSuiteCollectionDefault);
 	defaults[@"connectionName"] = TXTLS(@"BasicLanguage[vfu-c0]");
@@ -119,7 +117,9 @@ TEXTUAL_IGNORE_DEPRECATION_END
 
 - (void)populateDefaultsPostflight
 {
-	ObjectIsAlreadyInitializedAssert
+	if (self.initializedAsCopy) {
+		return;
+	}
 
 	SetVariableIfNil(self->_uniqueIdentifier, [NSString stringWithUUID])
 
@@ -144,15 +144,11 @@ TEXTUAL_IGNORE_DEPRECATION_END
 {
 	NSParameterAssert(defaultsToAppend != nil);
 
-	ObjectIsAlreadyInitializedAssert
-
 	self->_defaults = [self->_defaults dictionaryByAddingEntries:defaultsToAppend];
 }
 
 - (void)modifyFloodControlDefaults
 {
-	ObjectIsAlreadyInitializedAssert
-
 	if (self.floodControlDelayTimerInterval != IRCConnectionConfigFloodControlDefaultDelayInterval ||
 		self.floodControlMaximumMessages != IRCConnectionConfigFloodControlDefaultMessageCount)
 	{
@@ -190,7 +186,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 #pragma mark -
 #pragma mark Server Configuration
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 - (instancetype)init
 {
 	return [self initWithDictionary:@{}];
@@ -200,31 +195,20 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 {
 	return [self initWithDictionary:dic ignorePrivateMessages:NO];
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic ignorePrivateMessages:(BOOL)ignorePrivateMessages
 {
-	ObjectIsAlreadyInitializedAssert
-
 	if ((self = [super init])) {
-		if (self->_objectInitializedAsCopy == NO) {
-			[self populateDefaultsPreflight];
-		}
-
-		self->_objectIsNew = (dic.count == 0);
+		[self populateDefaultsPreflight];
 
 		[self populateDictionaryValue:dic
 				ignorePrivateMessages:ignorePrivateMessages
 						applyDefaults:YES
 					bypassIsCopyCheck:NO];
 
-		if (self->_objectInitializedAsCopy == NO) {
-			[self populateDefaultsPostflight];
-		}
+		[self populateDefaultsPostflight];
 
 		[self initializedClassHealthCheck];
-
-		self->_objectInitialized = YES;
 
 		return self;
 	}
@@ -234,8 +218,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)initializedClassHealthCheck
 {
-	ObjectIsAlreadyInitializedAssert
-
 	if (self->_proxyPort == 0) {
 		self->_proxyPort = IRCConnectionDefaultProxyPort;
 	}
@@ -279,20 +261,12 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 	configMutable.serverList = @[[server copy]];
 
-	if ([self isMutable]) {
-		return configMutable;
-	} else {
-		return [configMutable copy];
-	}
+	return [configMutable copy];
 }
 
 - (void)populateDictionaryValue:(NSDictionary<NSString *, id> *)dic ignorePrivateMessages:(BOOL)ignorePrivateMessages applyDefaults:(BOOL)applyDefaults bypassIsCopyCheck:(BOOL)bypassIsCopyCheck
 {
 	NSParameterAssert(dic != nil);
-
-	if ([self isMutable] == NO) {
-		ObjectIsAlreadyInitializedAssert
-	}
 
 	NSMutableDictionary<NSString *, id> *defaultsMutable = nil;
 
@@ -370,7 +344,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 	/* If this is a copy operation, then we can just stop here. The rest of the data processed below,
 	 such as other configurations and backwards keys are already taken care of. */
-	if (self->_objectInitializedAsCopy && bypassIsCopyCheck == NO) {
+	if (self.initializedAsCopy && bypassIsCopyCheck == NO) {
 		return;
 	}
 
@@ -660,94 +634,47 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	return self.uniqueIdentifier.hash;
 }
 
-+ (BOOL)isMutable
+- (id)copyAsMutable:(BOOL)mutableCopy uniquing:(BOOL)uniquing
 {
-	return NO;
-}
+	IRCClientConfig *config = [super allocForCopyAsMutable:mutableCopy];
 
-- (BOOL)isMutable
-{
-	return NO;
-}
-
-- (id)copyWithZone:(nullable NSZone *)zone
-{
-	IRCClientConfig *config = [IRCClientConfig allocWithZone:zone];
-
-	config->_objectInitializedAsCopy = YES;
-
-	// Instance variable is copied because self.nicknamePassword can return
-	// the value of the instance variable if present, else it uses keychain.
 	config->_nicknamePassword = self->_nicknamePassword;
 	config->_proxyPassword = self->_proxyPassword;
 
-	config->_channelList = self->_channelList;
-	config->_highlightList = self->_highlightList;
-	config->_ignoreList = self->_ignoreList;
-	config->_serverList = self->_serverList;
-
 	config->_defaults = self->_defaults;
 
-	return [config initWithDictionary:self.dictionaryValueForCopyOperation ignorePrivateMessages:NO];
-}
+	if (uniquing) {
+		NSMutableArray *channelList = [self.channelList mutableCopy];
+		NSMutableArray *highlightList = [self.highlightList mutableCopy];
+		NSMutableArray *ignoreList = [self.ignoreList mutableCopy];
+		NSMutableArray *serverList = [self.serverList mutableCopy];
 
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
-{
-	IRCClientConfigMutable *config = [IRCClientConfigMutable allocWithZone:zone];
+		[channelList performSelectorOnObjectValueAndReplace:@selector(uniqueCopy)];
+		[highlightList performSelectorOnObjectValueAndReplace:@selector(uniqueCopy)];
+		[ignoreList performSelectorOnObjectValueAndReplace:@selector(uniqueCopy)];
+		[serverList performSelectorOnObjectValueAndReplace:@selector(uniqueCopy)];
 
-	((IRCClientConfig *)config)->_objectInitializedAsCopy = YES;
+		config->_channelList = [channelList copy];
+		config->_highlightList = [highlightList copy];
+		config->_ignoreList = [ignoreList copy];
+		config->_serverList = [serverList copy];
 
-	((IRCClientConfig *)config)->_nicknamePassword = self->_nicknamePassword;
-	((IRCClientConfig *)config)->_proxyPassword = self->_proxyPassword;
-
-	((IRCClientConfig *)config)->_channelList = self->_channelList;
-	((IRCClientConfig *)config)->_highlightList = self->_highlightList;
-	((IRCClientConfig *)config)->_ignoreList = self->_ignoreList;
-	((IRCClientConfig *)config)->_serverList = self->_serverList;
-
-	((IRCClientConfig *)config)->_defaults = [self->_defaults copyWithZone:zone];
-
-	return [config initWithDictionary:self.dictionaryValueForCopyOperation ignorePrivateMessages:NO];
-}
-
-- (id)uniqueCopy
-{
-	return [self uniqueCopyAsMutable:NO];
-}
-
-- (id)uniqueCopyMutable
-{
-	return [self uniqueCopyAsMutable:YES];
-}
-
-- (id)uniqueCopyAsMutable:(BOOL)asMutable
-{
-	IRCClientConfig *object = nil;
-
-	if (asMutable == NO) {
-		object = [self copy];
-	} else {
-		object = [self mutableCopy];
+		config->_uniqueIdentifier = [NSString stringWithUUID];
+	} 
+	else // uniquing
+	{
+		config->_channelList = self->_channelList;
+		config->_highlightList = self->_highlightList;
+		config->_ignoreList = self->_ignoreList;
+		config->_serverList = self->_serverList;
 	}
 
-	object->_uniqueIdentifier = [NSString stringWithUUID];
+	return [config initWithDictionary:self.dictionaryValueForCopy ignorePrivateMessages:NO];
+}
 
-	NSMutableArray *channelList = [self.channelList mutableCopy];
-	NSMutableArray *highlightList = [self.highlightList mutableCopy];
-	NSMutableArray *ignoreList = [self.ignoreList mutableCopy];
-	NSMutableArray *serverList = [self.serverList mutableCopy];
-
-	[channelList performSelectorOnObjectValueAndReplace:@selector(uniqueCopy)];
-	[highlightList performSelectorOnObjectValueAndReplace:@selector(uniqueCopy)];
-	[ignoreList performSelectorOnObjectValueAndReplace:@selector(uniqueCopy)];
-	[serverList performSelectorOnObjectValueAndReplace:@selector(uniqueCopy)];
-
-	object->_channelList = [channelList copy];
-	object->_highlightList = [highlightList copy];
-	object->_ignoreList = [ignoreList copy];
-	object->_serverList = [serverList copy];
-
-	return object;
+- (__kindof XRPortablePropertyDict *)mutableClass
+{
+	return [IRCClientConfigMutable self];
 }
 
 - (NSDictionary<NSString *, id> *)dictionaryValue
@@ -760,7 +687,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	return [self _dictionaryValueForCopyOperation:NO isCloudDictionary:YES];
 }
 
-- (NSDictionary<NSString *, id> *)dictionaryValueForCopyOperation
+- (NSDictionary<NSString *, id> *)dictionaryValueForCopy
 {
 	return [self _dictionaryValueForCopyOperation:YES isCloudDictionary:NO];
 }
@@ -832,15 +759,16 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	/* These values are inserted here for backwards compatibility 
 	 with earlier versions of Textual */
 TEXTUAL_IGNORE_DEPRECATION_BEGIN
-	[dic maybeSetObject:self.serverAddress_ forKey:@"serverAddress"];
-
 	[dic setBool:self.connectionPrefersIPv4 forKey:@"connectionPrefersIPv4"];
-	[dic setBool:self.connectionPrefersModernCiphers_ forKey:@"connectionPrefersModernCiphers"];
-
-	[dic setBool:self.prefersSecuredConnection_ forKey:@"prefersSecuredConnection"];
-
-	[dic setUnsignedShort:self.serverPort_ forKey:@"serverPort"];
 TEXTUAL_IGNORE_DEPRECATION_END
+
+	[dic setBool:self.legacyConnectionPrefersModernCiphers forKey:@"connectionPrefersModernCiphers"];
+
+	[dic maybeSetObject:self.legacyServerAddress forKey:@"serverAddress"];
+
+	[dic setBool:self.legacyPrefersSecuredConnection forKey:@"prefersSecuredConnection"];
+
+	[dic setUnsignedShort:self.legacyServerPort forKey:@"serverPort"];
 
 	/* Channel List */
 	/* During a copy operation, it is faster to copy these arrays as a whole.
@@ -897,7 +825,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 		if (serverListOut.count > 0) {
 			dic[@"serverList"] = [serverListOut copy];
 		}
-
 	}
 
 	return [dic dictionaryByRemovingDefaults:self->_defaults allowEmptyValues:YES];
@@ -1025,14 +952,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 #pragma mark -
 #pragma mark Deprecated Properties
 
-- (nullable NSString *)serverAddress
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return self.serverAddress_;
-}
-
-- (nullable NSString *)serverAddress_
+- (nullable NSString *)legacyServerAddress
 {
 	IRCServer *server = self.serverList.firstObject;
 
@@ -1043,14 +963,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	return server.serverAddress;
 }
 
-- (uint16_t)serverPort
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return self.serverPort_;
-}
-
-- (uint16_t)serverPort_
+- (uint16_t)legacyServerPort
 {
 	IRCServer *server = self.serverList.firstObject;
 
@@ -1061,14 +974,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	return server.serverPort;
 }
 
-- (BOOL)prefersSecuredConnection
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return self.prefersSecuredConnection_;
-}
-
-- (BOOL)prefersSecuredConnection_
+- (BOOL)legacyPrefersSecuredConnection
 {
 	IRCServer *server = self.serverList.firstObject;
 
@@ -1079,42 +985,16 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	return server.prefersSecuredConnection;
 }
 
-- (nullable NSString *)serverPassword
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	IRCServer *server = self.serverList.firstObject;
-
-	if (server == nil) {
-		return nil;
-	}
-
-	return server.serverPassword;
-}
-
-- (nullable NSString *)serverPasswordFromKeychain
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	IRCServer *server = self.serverList.firstObject;
-
-	if (server == nil) {
-		return nil;
-	}
-
-	return server.serverPasswordFromKeychain;
-}
-
-- (BOOL)connectionPrefersModernCiphers
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return self.connectionPrefersModernCiphers_;
-}
-
-- (BOOL)connectionPrefersModernCiphers_
+- (BOOL)legacyConnectionPrefersModernCiphers
 {
 	return (self.cipherSuites != RCMCipherSuiteCollectionNone);
+}
+
+- (BOOL)showConnectionPrefersIPv4Warning
+{
+TEXTUAL_IGNORE_DEPRECATION_BEGIN
+	return (self.addressType == IRCConnectionAddressTypeIPv4 && self.connectionPrefersIPv4);
+TEXTUAL_IGNORE_DEPRECATION_END
 }
 
 @end
@@ -1134,7 +1014,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 @dynamic cipherSuites;
 @dynamic connectionName;
 @dynamic connectionPrefersIPv4;
-@dynamic connectionPrefersModernCiphers;
 
 #if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
 @dynamic excludedFromCloudSyncing;
@@ -1156,7 +1035,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 @dynamic performDisconnectOnPongTimer;
 @dynamic performDisconnectOnReachabilityChange;
 @dynamic performPongTimer;
-@dynamic prefersSecuredConnection;
 @dynamic primaryEncoding;
 @dynamic proxyAddress;
 @dynamic proxyPassword;
@@ -1167,10 +1045,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 @dynamic saslAuthenticationDisableExternalMechanism;
 @dynamic sendAuthenticationRequestsToUserServ;
 @dynamic sendWhoCommandRequestsToChannels;
-@dynamic serverAddress;
 @dynamic serverList;
-@dynamic serverPassword;
-@dynamic serverPort;
 @dynamic setInvisibleModeOnConnect;
 @dynamic sidebarItemExpanded;
 @dynamic sleepModeLeavingComment;
@@ -1180,11 +1055,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 @dynamic zncIgnorePlaybackNotifications;
 @dynamic zncIgnoreUserNotifications;
 @dynamic zncOnlyPlaybackLatest;
-
-+ (BOOL)isMutable
-{
-	return YES;
-}
 
 - (BOOL)isMutable
 {
@@ -1275,11 +1145,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	if (self->_performPongTimer != performPongTimer) {
 		self->_performPongTimer = performPongTimer;
 	}
-}
-
-- (void)setPrefersSecuredConnection:(BOOL)prefersSecuredConnection
-{
-	TEXTUAL_DEPRECATED_ASSERT
 }
 
 - (void)setSaslAuthenticationDisableExternalMechanism:(BOOL)saslAuthenticationDisableExternalMechanism
@@ -1498,18 +1363,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	}
 }
 
-- (void)setServerAddress:(nullable NSString *)serverAddress
-{
-	NSParameterAssert(serverAddress != nil);
-
-	TEXTUAL_DEPRECATED_ASSERT
-}
-
-- (void)setServerPassword:(nullable NSString *)serverPassword
-{
-	TEXTUAL_DEPRECATED_ASSERT
-}
-
 - (void)setSleepModeLeavingComment:(NSString *)sleepModeLeavingComment
 {
 	NSParameterAssert(sleepModeLeavingComment != nil);
@@ -1574,11 +1427,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	if (self->_proxyPort != proxyPort) {
 		self->_proxyPort = proxyPort;
 	}
-}
-
-- (void)setServerPort:(uint16_t)serverPort
-{
-	TEXTUAL_DEPRECATED_ASSERT
 }
 
 - (void)setCipherSuites:(RCMCipherSuiteCollection)cipherSuites

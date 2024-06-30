@@ -205,11 +205,6 @@ NSStringEncoding const TXDefaultFallbackStringEncoding = NSISOLatin1StringEncodi
 			[self containsCharacters:@"\x021\x040\x000\x020\x00d\x00a"] == NO);
 }
 
-- (BOOL)isNickname
-{
-	return self.isHostmaskNickname;
-}
-
 - (BOOL)isChannelNameOn:(IRCClient *)client
 {
 	NSParameterAssert(client != nil);

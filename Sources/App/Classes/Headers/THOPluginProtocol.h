@@ -35,6 +35,7 @@
  *
  *********************************************************************** */
 
+#import "THOPluginManager.h"
 #import "IRCCommandIndex.h"
 #import "TVCLogLine.h"
 
@@ -78,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
  * the key named: "MinimumTextualVersion" - Set the value of this entry, as a 
  * String, to the return value of THOPluginProtocolCompatibilityMinimumVersion.
  *
- * @return "6.0.0" as of March 08, 2016
+ * @return "7.2.4" as of June 30, 2024
  */
 extern NSString * const THOPluginProtocolCompatibilityMinimumVersion;
 
@@ -211,7 +212,7 @@ extern NSString * const THOPluginProtocolCompatibilityMinimumVersion;
 /**
  * @brief Method invoked prior to a message being converted to its HTML equivalent.
  *
- * @discussion This methods can be used to modify the text that will be  displayed for a 
+ * @discussion This methods can be used to modify the text that will be displayed for a 
  *  certain message by replacing one or more segments of it.
  * 
  * Considerations:
@@ -350,11 +351,6 @@ extern NSString * const THOPluginProtocolCompatibilityMinimumVersion;
  purposes for the plugins packaged with Textual by default. It is not
  recommended to use it, or try to understand it. */
 @property (nonatomic, readonly, copy) NSArray<THOPluginOutputSuppressionRule *> *pluginOutputSuppressionRules;
-
-#pragma mark -
-#pragma mark Deprecated
-
-- (nullable NSString *)processInlineMediaContentURL:(NSString *)resource TEXTUAL_DEPRECATED("There is currently no alternative to this method. It is no longer called.");
 @end
 
 #pragma mark -
@@ -470,7 +466,6 @@ extern NSString * const THOPluginProtocolCompatibilityMinimumVersion;
  * @brief The input, split up into sections
  */
 @property (readonly, copy) NSArray<NSString *> *messageParameters;
-@property (readonly, copy) NSArray<NSString *> *messageParamaters TEXTUAL_DEPRECATED("Use -messageParameters instead");
 
 /**
  * @brief The input's command

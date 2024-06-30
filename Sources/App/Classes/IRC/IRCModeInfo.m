@@ -45,14 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation IRCModeInfo
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 - (instancetype)init
 {
-	if ((self = [super init])) {
-		[self populateDefaultsPostflight];
-
-		return self;
-	}
+	[self doesNotRecognizeSelector:_cmd];
 
 	return nil;
 }
@@ -61,7 +56,11 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 {
 	return [self initWithModeSymbol:modeSymbol modeIsSet:NO modeParameter:nil];
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
+
+- (instancetype)initWithModeSymbol:(NSString *)modeSymbol modeIsSet:(BOOL)modeIsSet
+{
+	return [self initWithModeSymbol:modeSymbol modeIsSet:modeIsSet modeParameter:nil];
+}
 
 - (instancetype)initWithModeSymbol:(NSString *)modeSymbol modeIsSet:(BOOL)modeIsSet modeParameter:(nullable NSString *)modeParameter
 {
@@ -72,39 +71,24 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		self->_modeIsSet = modeIsSet;
 		self->_modeParameter = [modeParameter copy];
 
-		[self populateDefaultsPostflight];
-
 		return self;
 	}
 
 	return nil;
 }
 
-- (void)populateDefaultsPostflight
+- (void)populateDuringCopy:(__kindof XRPortablePropertyObject *)newObject mutableCopy:(BOOL)mutableCopy
 {
-	SetVariableIfNil(self->_modeSymbol, @"")
-}
+	IRCModeInfo *object = (IRCModeInfo *)newObject;
 
-- (id)copyWithZone:(nullable NSZone *)zone
-{
-	IRCModeInfo *object = [[IRCModeInfo allocWithZone:zone] init];
-
-	object->_modeIsSet = self->_modeIsSet;
 	object->_modeSymbol = self->_modeSymbol;
+	object->_modeIsSet = self->_modeIsSet;
 	object->_modeParameter = self->_modeParameter;
-
-	return object;
 }
 
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
+- (__kindof XRPortablePropertyObject *)mutableClass
 {
-	IRCModeInfoMutable *object = [[IRCModeInfoMutable allocWithZone:zone] init];
-
-	((IRCModeInfo *)object)->_modeIsSet = self->_modeIsSet;
-	((IRCModeInfo *)object)->_modeSymbol = self->_modeSymbol;
-	((IRCModeInfo *)object)->_modeParameter = self->_modeParameter;
-
-	return object;
+	return [IRCModeInfoMutable self];
 }
 
 - (BOOL)isEqual:(id)object
@@ -130,11 +114,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 			((self.modeParameter == nil && objectCast.modeParameter == nil) ||
 			 [self.modeParameter isEqualToString:objectCast.modeParameter]));
-}
-
-- (BOOL)isMutable
-{
-	return NO;
 }
 
 - (BOOL)isModeForChangingMemberModeOn:(IRCClient *)client

@@ -48,12 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 	NSString *_realName;
 	BOOL _isAway;
 	BOOL _isIRCop;
-
-@private
-	BOOL _objectInitialized;
 }
 
-- (BOOL)isMutable;
 @end
 
 NS_ASSUME_NONNULL_END

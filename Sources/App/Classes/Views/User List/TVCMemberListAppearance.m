@@ -216,7 +216,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	NSString *key = [self _keyForRetrievingCachedUserMarkBadgeWithSymbol:modeSymbol rank:rank];
 
-	return [cache removeObjectForKey:key];
+	[cache removeObjectForKey:key];
 }
 
 - (void)invalidateUserMarkBadgeCaches

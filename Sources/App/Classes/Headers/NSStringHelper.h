@@ -76,8 +76,6 @@ TEXTUAL_EXTERN NSStringEncoding const TXDefaultFallbackStringEncoding;
 				   address:(NSString * _Nullable * _Nullable)address
 				  onClient:(nullable IRCClient *)client;
 
-@property (getter=isNickname, readonly) BOOL nickname TEXTUAL_DEPRECATED("Use -isHostmaskNickname instead");
-
 @property (getter=isHostmaskNickname, readonly) BOOL hostmaskNickname;
 @property (getter=isHostmaskAddress, readonly) BOOL hostmaskAddress;
 @property (getter=isHostmaskUsername, readonly) BOOL hostmaskUsername;

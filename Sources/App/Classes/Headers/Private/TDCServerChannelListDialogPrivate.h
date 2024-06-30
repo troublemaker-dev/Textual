@@ -48,7 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TDCServerChannelListDialog : TDCWindowBase <TDCClientPrototype>
 @property (nonatomic, assign) BOOL contentAlreadyReceived;
 
-- (instancetype)initWithClient:(IRCClient *)client;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithClient:(IRCClient *)client NS_DESIGNATED_INITIALIZER;
 
 - (void)clear;
 

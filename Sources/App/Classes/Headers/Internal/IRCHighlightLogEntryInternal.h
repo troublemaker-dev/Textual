@@ -45,12 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 	TVCLogLine *_lineLogged;
 	NSString *_clientId;
 	NSString *_channelId;
-
-@private
-	BOOL _objectInitialized;
 }
 
-- (BOOL)isMutable;
 @end
 
 NS_ASSUME_NONNULL_END

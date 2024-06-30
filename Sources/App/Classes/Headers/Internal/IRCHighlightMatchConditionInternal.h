@@ -47,11 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 	NSString *_matchKeyword;
 
 @private
-	BOOL _objectInitialized;
 	NSString *_uniqueIdentifier;
 }
 
-- (BOOL)isMutable;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -130,6 +130,8 @@ TEXTUAL_EXTERN NSNotificationName const TPCThemeWasModifiedNotification;
 @property (readonly, copy) NSArray<NSString *> *temporaryCSSFilePaths;
 @property (readonly, copy) NSArray<NSString *> *temporaryJSFilePaths;
 
+- (instancetype)init NS_UNAVAILABLE;
+
 /* Templates */
 - (nullable GRMustacheTemplate *)templateWithLineType:(TVCLogLineType)type;
 - (nullable GRMustacheTemplate *)templateWithName:(NSString *)name;
@@ -152,6 +154,8 @@ TEXTUAL_EXTERN NSNotificationName const TPCThemeWasModifiedNotification;
 @property (readonly) double indentationOffset;
 @property (readonly) TPCThemeSettingsNicknameColorStyle nicknameColorStyle;
 @property (readonly) NSUInteger templateEngineVersion;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 - (nullable id)styleSettingsRetrieveValueForKey:(NSString *)key error:(NSString * _Nullable * _Nullable)resultError;
 - (BOOL)styleSettingsSetValue:(nullable id)objectValue forKey:(NSString *)objectKey error:(NSString * _Nullable * _Nullable)resultError;

@@ -79,6 +79,8 @@ TEXTUAL_EXTERN NSNotificationName const IRCChannelConfigurationWasUpdatedNotific
 @property (readonly) BOOL encryptionStateIsEncrypted;
 #endif
 
+- (instancetype)init NS_UNAVAILABLE;
+
 - (void)activate;
 - (void)deactivate;
 @end

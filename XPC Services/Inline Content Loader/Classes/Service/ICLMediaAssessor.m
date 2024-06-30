@@ -72,11 +72,6 @@ NSString * const ICLMediaAssessorErrorDomain = @"ICLMediaAssessorErrorDomain";
 @end
 
 @interface ICLMediaAssessor ()
-{
-@private
-	BOOL _objectInitialized;
-}
-
 @property (nonatomic, strong, nullable) ICLMediaAssessorConfiguration *config;
 @property (nonatomic, strong, nullable) ICLMediaAssessorLimits *limits;
 @property (nonatomic, strong, nullable) ICLMediaAssessorRequest *request;
@@ -88,7 +83,12 @@ NSString * const ICLMediaAssessorErrorDomain = @"ICLMediaAssessorErrorDomain";
 #pragma mark -
 #pragma mark Construction
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 + (instancetype)assessorForAddress:(NSString *)address completionBlock:(ICLMediaAssessorCompletionBlock)completionBlock
 {
@@ -130,12 +130,8 @@ ClassWithDesignatedInitializerInitMethod
 	NSParameterAssert(url.isFileURL == NO);
 	NSParameterAssert(completionBlock != nil);
 
-	ObjectIsAlreadyInitializedAssert
-
 	if ((self = [super init])) {
 		[self prepareToAssessURL:url withType:type completionBlock:completionBlock];
-
-		self->_objectInitialized = YES;
 
 		return self;
 	}
@@ -147,8 +143,6 @@ ClassWithDesignatedInitializerInitMethod
 {
 	NSParameterAssert(url != nil);
 	NSParameterAssert(completionBlock != nil);
-
-	ObjectIsAlreadyInitializedAssert
 
 	/* Prepare configuration */
 	ICLMediaAssessorConfiguration *config = [ICLMediaAssessorConfiguration new];

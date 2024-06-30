@@ -99,13 +99,13 @@ typedef void (^TDCAlertCompletionBlock)(TDCAlertResponse buttonClicked, BOOL sup
 									title:(NSString *)titleText
 							defaultButton:(NSString *)buttonDefault
 						  alternateButton:(nullable NSString *)buttonAlternate
-							  otherButton:(nullable NSString *)otherButton;
+							  otherButton:(nullable NSString *)buttonOther;
 
 + (TDCAlertResponse)modalAlertWithMessage:(NSString *)bodyText
 									title:(NSString *)titleText
 							defaultButton:(NSString *)buttonDefault
 						  alternateButton:(nullable NSString *)buttonAlternate
-							  otherButton:(nullable NSString *)otherButton
+							  otherButton:(nullable NSString *)buttonOther
 						   suppressionKey:(nullable NSString *)suppressKey
 						  suppressionText:(nullable NSString *)suppressText
 							accessoryView:(nullable NSView *)accessoryView
@@ -118,6 +118,12 @@ typedef void (^TDCAlertCompletionBlock)(TDCAlertResponse buttonClicked, BOOL sup
 				   title:(NSString *)titleText
 		   defaultButton:(NSString *)buttonDefault
 		 alternateButton:(nullable NSString *)buttonAlternate;
+
++ (void)alertWithMessage:(NSString *)bodyText
+				   title:(NSString *)titleText
+		   defaultButton:(NSString *)buttonDefault
+		 alternateButton:(nullable NSString *)buttonAlternate
+			 otherButton:(nullable NSString *)buttonOther;
 
 + (void)alertWithMessage:(NSString *)bodyText
 				   title:(NSString *)titleText
@@ -136,6 +142,22 @@ typedef void (^TDCAlertCompletionBlock)(TDCAlertResponse buttonClicked, BOOL sup
 				   title:(NSString *)titleText
 		   defaultButton:(NSString *)buttonDefault
 		 alternateButton:(nullable NSString *)buttonAlternate
+			 otherButton:(nullable NSString *)buttonOther
+		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock;
+
++ (void)alertWithMessage:(NSString *)bodyText
+				   title:(NSString *)titleText
+		   defaultButton:(NSString *)buttonDefault
+		 alternateButton:(nullable NSString *)buttonAlternate
+		  suppressionKey:(nullable NSString *)suppressKey
+		 suppressionText:(nullable NSString *)suppressText
+		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock;
+
++ (void)alertWithMessage:(NSString *)bodyText
+				   title:(NSString *)titleText
+		   defaultButton:(NSString *)buttonDefault
+		 alternateButton:(nullable NSString *)buttonAlternate
+			 otherButton:(nullable NSString *)buttonOther
 		  suppressionKey:(nullable NSString *)suppressKey
 		 suppressionText:(nullable NSString *)suppressText
 		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock;
@@ -149,6 +171,16 @@ typedef void (^TDCAlertCompletionBlock)(TDCAlertResponse buttonClicked, BOOL sup
 		   accessoryView:(nullable NSView *)accessoryView
 		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock;
 
++ (void)alertWithMessage:(NSString *)bodyText
+				   title:(NSString *)titleText
+		   defaultButton:(NSString *)buttonDefault
+		 alternateButton:(nullable NSString *)buttonAlternate
+			 otherButton:(nullable NSString *)buttonOther
+		  suppressionKey:(nullable NSString *)suppressKey
+		 suppressionText:(nullable NSString *)suppressText
+		   accessoryView:(nullable NSView *)accessoryView
+		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock;
+
 #pragma mark -
 #pragma mark Non-blocking Alerts (Sheet)
 
@@ -157,14 +189,14 @@ typedef void (^TDCAlertCompletionBlock)(TDCAlertResponse buttonClicked, BOOL sup
 					   title:(NSString *)titleText
 			   defaultButton:(NSString *)buttonDefault
 			 alternateButton:(nullable NSString *)buttonAlternate
-				 otherButton:(nullable NSString *)otherButton;
+				 otherButton:(nullable NSString *)buttonOther;
 
 + (void)alertSheetWithWindow:(NSWindow *)window
 						body:(NSString *)bodyText
 					   title:(NSString *)titleText
 			   defaultButton:(NSString *)buttonDefault
 			 alternateButton:(nullable NSString *)buttonAlternate
-				 otherButton:(nullable NSString *)otherButton
+				 otherButton:(nullable NSString *)buttonOther
 			 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock;
 
 + (void)alertSheetWithWindow:(NSWindow *)window
@@ -172,7 +204,7 @@ typedef void (^TDCAlertCompletionBlock)(TDCAlertResponse buttonClicked, BOOL sup
 					   title:(NSString *)titleText
 			   defaultButton:(NSString *)buttonDefault
 			 alternateButton:(nullable NSString *)buttonAlternate
-				 otherButton:(nullable NSString *)otherButton
+				 otherButton:(nullable NSString *)buttonOther
 			   accessoryView:(nullable NSView *)accessoryView
 			 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock;
 
@@ -181,7 +213,7 @@ typedef void (^TDCAlertCompletionBlock)(TDCAlertResponse buttonClicked, BOOL sup
 					   title:(NSString *)titleText
 			   defaultButton:(NSString *)buttonDefault
 			 alternateButton:(nullable NSString *)buttonAlternate
-				 otherButton:(nullable NSString *)otherButton
+				 otherButton:(nullable NSString *)buttonOther
 			  suppressionKey:(nullable NSString *)suppressKey
 			 suppressionText:(nullable NSString *)suppressText
 			 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock;
@@ -191,7 +223,7 @@ typedef void (^TDCAlertCompletionBlock)(TDCAlertResponse buttonClicked, BOOL sup
 					   title:(NSString *)titleText
 			   defaultButton:(NSString *)buttonDefault
 			 alternateButton:(nullable NSString *)buttonAlternate
-				 otherButton:(nullable NSString *)otherButton
+				 otherButton:(nullable NSString *)buttonOther
 			  suppressionKey:(nullable NSString *)suppressKey
 			 suppressionText:(nullable NSString *)suppressText
 			   accessoryView:(nullable NSView *)accessoryView

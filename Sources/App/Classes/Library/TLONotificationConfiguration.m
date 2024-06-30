@@ -50,7 +50,12 @@ NSString * const TXNoAlertSoundPreferenceValue = @"None";
 
 @implementation TLONotificationConfiguration
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithEventType:(TXNotificationType)aEventType
 {

@@ -53,12 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 	NSString *_command;
 	NSUInteger _commandNumeric;
 	IRCMessageBatchMessage *_parentBatchMessage;
-
-@private
-	BOOL _objectInitialized;
 }
 
-- (BOOL)isMutable;
 @end
 
 @interface IRCMessage (IRCMessageLineParser)

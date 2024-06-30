@@ -71,7 +71,7 @@ typedef NS_ENUM(NSUInteger, IRCConnectionAddressType)
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCConnectionConfig : NSObject <NSCopying, NSMutableCopying, NSCoding, NSSecureCoding>
+@interface IRCConnectionConfig : XRPortablePropertyObject
 @property (readonly) BOOL connectionPrefersModernCiphersOnly;
 @property (readonly) BOOL connectionPrefersModernSockets;
 @property (readonly) BOOL connectionPrefersSecuredConnection;
@@ -90,10 +90,6 @@ typedef NS_ENUM(NSUInteger, IRCConnectionAddressType)
 @property (readonly) NSStringEncoding primaryEncoding NS_UNAVAILABLE;
 @property (readonly) NSStringEncoding fallbackEncoding NS_UNAVAILABLE;
 @property (readonly) RCMCipherSuiteCollection cipherSuites;
-
-/* Deprecated */
-/* -connectionPrefersIPv4 will always return NO */
-@property (readonly) BOOL connectionPrefersIPv4 TEXTUAL_DEPRECATED("Use -addressType instead");
 @end
 
 #pragma mark -
@@ -118,10 +114,6 @@ typedef NS_ENUM(NSUInteger, IRCConnectionAddressType)
 @property (nonatomic, assign, readwrite) NSStringEncoding primaryEncoding NS_UNAVAILABLE;
 @property (nonatomic, assign, readwrite) NSStringEncoding fallbackEncoding NS_UNAVAILABLE;
 @property (nonatomic, assign, readwrite) RCMCipherSuiteCollection cipherSuites;
-
-/* Deprecated */
-/* Trying to set one of the following properties will throw an exception. */
-@property (nonatomic, assign, readwrite) BOOL connectionPrefersIPv4 TEXTUAL_DEPRECATED("Use -addressType instead");
 @end
 
 NS_ASSUME_NONNULL_END

@@ -39,10 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, TXAppearanceType)
 {
-	TXAppearanceTypeYosemiteLight TEXTUAL_DEPRECATED("Operating system is no longer supported"),
-	TXAppearanceTypeYosemiteDark TEXTUAL_DEPRECATED("Operating system is no longer supported"),
-	TXAppearanceTypeMojaveLight TEXTUAL_DEPRECATED("Operating system is no longer supported"),
-	TXAppearanceTypeMojaveDark TEXTUAL_DEPRECATED("Operating system is no longer supported"),
 	TXAppearanceTypeBigSurLight,
 	TXAppearanceTypeBigSurDark,
 };
@@ -51,9 +47,6 @@ typedef NS_ENUM(NSUInteger, TXAppearanceType)
  object returned by -appKitAppearance should be assigned to. */
 typedef NS_ENUM(NSUInteger, TXAppKitAppearanceTarget)
 {
-	/* The NSAppearance object should be assigned to individual views. */
-	TXAppKitAppearanceTargetView TEXTUAL_DEPRECATED("No alternative available"),
-
 	/* The NSAppearance object should be assigned to the window. */
 	TXAppKitAppearanceTargetWindow,
 

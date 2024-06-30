@@ -49,9 +49,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TDCChannelSpotlightSearchResult
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
+	return nil;
+}
+
 - (instancetype)initWithChannel:(IRCChannel *)channel
 {
 	NSParameterAssert(channel != nil);
@@ -66,7 +70,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 	return nil;
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)prepareInitialState
 {

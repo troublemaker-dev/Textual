@@ -57,29 +57,25 @@ static NSUInteger IRCTimedCommandLastIdentifier = 0;
 
 @implementation IRCTimedCommand
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
+	return nil;
+}
+
 - (instancetype)initWithCommand:(NSString *)command onClient:(IRCClient *)client
 {
 	NSParameterAssert(command != nil);
 	NSParameterAssert(client != nil);
 
-	return [self _initWithCommand:command onClient:client inChannel:nil];
+	return [self initWithCommand:command onClient:client inChannel:nil];
 }
 
-- (instancetype)initWithCommand:(NSString *)command onClient:(IRCClient *)client inChannel:(IRCChannel *)channel
+- (instancetype)initWithCommand:(NSString *)command onClient:(IRCClient *)client inChannel:(nullable IRCChannel *)channel
 {
 	NSParameterAssert(command != nil);
 	NSParameterAssert(client != nil);
-	NSParameterAssert(channel != nil);
-
-	return [self _initWithCommand:command onClient:client inChannel:channel];
-}
-
-- (instancetype)_initWithCommand:(NSString *)command onClient:(IRCClient *)client inChannel:(nullable IRCChannel *)channel
-{
-	NSParameterAssert(command != nil);
 
 	if ((self = [super init])) {
 		self.clientId = client.uniqueIdentifier;
@@ -96,7 +92,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 	return nil;
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)dealloc
 {

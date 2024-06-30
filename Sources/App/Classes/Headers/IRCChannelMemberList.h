@@ -89,6 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Interface
 
 @interface IRCChannelMemberList : NSObject <IRCChannelMemberListPrototype>
+- (instancetype)init NS_UNAVAILABLE;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -44,13 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 	ICLMediaType _type;
 	NSString *_contentType;
 	unsigned long long _contentLength;
-
-@private
-	BOOL _objectInitialized;
-	BOOL _objectInitializedAsCopy;
 }
 
-- (BOOL)isMutable;
 @end
 
 NS_ASSUME_NONNULL_END

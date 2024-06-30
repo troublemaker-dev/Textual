@@ -42,46 +42,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation IRCPrefix
 
-- (instancetype)init
-{
-	if ((self = [super init])) {
-		[self populateDefaultsPostflight];
-
-		return self;
-	}
-
-	return nil;
-}
-
 - (void)populateDefaultsPostflight
 {
-
+	SetVariableIfNil(self->_nickname, @"")
+	SetVariableIfNil(self->_hostmask, @"")
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (void)populateDuringCopy:(__kindof XRPortablePropertyObject *)newObject mutableCopy:(BOOL)mutableCopy
 {
-	IRCPrefix *object = [[IRCPrefix allocWithZone:zone] init];
+	IRCPrefix *object = (IRCPrefix *)newObject;
 
 	object->_isServer = self->_isServer;
+	object->_hostmask = self->_hostmask;
 	object->_nickname = self->_nickname;
 	object->_username = self->_username;
 	object->_address = self->_address;
-	object->_hostmask = self->_hostmask;
-
-	return object;
 }
 
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
+- (__kindof XRPortablePropertyObject *)mutableClass
 {
-	IRCPrefixMutable *object = [[IRCPrefixMutable allocWithZone:zone] init];
-
-	((IRCPrefix *)object)->_isServer = self->_isServer;
-	((IRCPrefix *)object)->_nickname = self->_nickname;
-	((IRCPrefix *)object)->_username = self->_username;
-	((IRCPrefix *)object)->_address = self->_address;
-	((IRCPrefix *)object)->_hostmask = self->_hostmask;
-
-	return object;
+	return [IRCPrefixMutable self];
 }
 
 - (BOOL)isEqual:(id)object
@@ -113,11 +93,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 			((self.hostmask == nil && objectCast.hostmask == nil) ||
 			 [self.hostmask isEqualToString:objectCast.hostmask]));
-}
-
-- (BOOL)isMutable
-{
-	return NO;
 }
 
 @end

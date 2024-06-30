@@ -54,13 +54,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TDCServerChangeNicknameSheet
 
-ClassWithDesignatedInitializerInitMethod
-
 - (instancetype)initWithClient:(IRCClient *)client
 {
 	NSParameterAssert(client != nil);
 
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:nil])) {
 		self.client = client;
 		self.clientId = client.uniqueIdentifier;
 

@@ -70,8 +70,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TDCChannelBanListSheet
 
-ClassWithDesignatedInitializerInitMethod
-
 - (nullable instancetype)initWithEntryType:(TDCChannelBanListSheetEntryType)entryType inChannel:(IRCChannel *)channel
 {
 	NSParameterAssert(channel != nil);
@@ -80,7 +78,7 @@ ClassWithDesignatedInitializerInitMethod
 		return nil;
 	}
 
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:nil])) {
 		self.entryType = entryType;
 
 		self.client = channel.associatedClient;

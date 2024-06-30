@@ -60,7 +60,12 @@ NSString * const ICLInlineContentErrorDomain = @"ICLInlineContentErrorDomain";
 
 @implementation ICLProcessMain
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithXPCConnection:(NSXPCConnection *)connection
 {
@@ -68,6 +73,8 @@ ClassWithDesignatedInitializerInitMethod
 
 	if ((self = [super init])) {
 		self.serviceConnection = connection;
+
+		LogToConsoleSetDefaultSubsystemToMainBundle(@"General");
 
 		return self;
 	}

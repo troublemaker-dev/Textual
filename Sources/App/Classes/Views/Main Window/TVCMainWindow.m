@@ -285,11 +285,6 @@ NSString * const TVCMainWindowSelectionChangedNotification = @"TVCMainWindowSele
 	return self.userInterfaceObjects.isDarkAppearance;
 }
 
-- (BOOL)isUsingVibrantDarkAppearance
-{
-	return self.userInterfaceObjects.isDarkAppearance;
-}
-
 - (void)updateAppearance
 {
 	TVCMainWindowAppearance *appearance = [[TVCMainWindowAppearance alloc] initWithWindow:self];
@@ -943,11 +938,6 @@ NSString * const TVCMainWindowSelectionChangedNotification = @"TVCMainWindowSele
 	} else {
 		[self reloadTree];
 	}
-}
-
-- (void)reloadThemeAndUserInterface
-{
-	[self reloadTheme];
 }
 
 - (void)reloadTheme

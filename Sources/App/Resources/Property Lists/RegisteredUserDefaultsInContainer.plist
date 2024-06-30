@@ -20,8 +20,6 @@
 	<real>0</real>
 	<key>AutojoinMaximumChannelJoinCount</key>
 	<integer>2</integer>
-	<key>AutojoinWaitsForNickservIdentification</key>
-	<false/>
 	<key>AutomaticallyAddScrollbackMarker</key>
 	<true/>
 	<key>AutomaticallyDisconnectForSleepMode</key>

@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 	  @"uniqueIdentifier" : payload.uniqueIdentifier,
 	  @"videoIdentifier" : videoIdentifier
 	};
-
+ 
 	NSError *templateRenderError = nil;
 
 	NSString *html = [self.template renderObject:templateAttributes error:&templateRenderError];

@@ -65,6 +65,8 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 	if ((self = [super init])) {
 		self.serviceConnection = connection;
 
+		LogToConsoleSetDefaultSubsystemToMainBundle(@"General");
+
 		[self prepareInitialState];
 
 		return self;

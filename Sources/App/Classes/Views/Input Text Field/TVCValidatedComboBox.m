@@ -373,15 +373,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma mark -
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-@implementation TVCComboBoxWithValueValidation
-@end
-
-@implementation TVCComboBoxWithValueValidationCell
-@end
-#pragma clang diagnostic pop
-
 NS_ASSUME_NONNULL_END

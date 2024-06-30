@@ -62,13 +62,11 @@ NS_ASSUME_NONNULL_BEGIN
 	NSString *_filterTitle;
 
 @private
-	BOOL _objectInitialized;
 	NSString *_uniqueIdentifier;
 	NSDictionary *_defaults;
 	NSCache *_cachedIsCommandEnabledResponses;
 }
 
-- (BOOL)isMutable;
 @end
 
 NS_ASSUME_NONNULL_END

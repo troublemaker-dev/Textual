@@ -77,7 +77,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TLONicknameCompletionStatus
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithWindow:(TVCMainWindow *)mainWindow
 {

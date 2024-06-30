@@ -37,34 +37,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define DESIGNATED_INITIALIZER_EXCEPTION	\
-	NSAssert(NO, @"-init called in class with a designated initializer");
-
-#define DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN							\
-	_Pragma("clang diagnostic push")										\
-	_Pragma("clang diagnostic ignored \"-Wobjc-designated-initializers\"")
-
-#define DESIGNATED_INITIALIZER_EXCEPTION_BODY_END	\
-	_Pragma("clang diagnostic pop")
-
-#define DESIGNATED_INITIALIZER_EXCEPTION_BODY			\
-	DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN			\
-														\
-	- (instancetype)init								\
-	{													\
-		DESIGNATED_INITIALIZER_EXCEPTION				\
-														\
-		return nil;										\
-	}													\
-														\
-	DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
-
-#define ClassWithDesignatedInitializerInitMethod	DESIGNATED_INITIALIZER_EXCEPTION_BODY
-
-#define ObjectIsAlreadyInitializedAssert			\
-	NSAssert((self->_objectInitialized == NO),		\
-		@"Object is already initialized");
-
 @interface NSObject (TXObjectHelper)
 - (void)applicationDidFinishLaunching;
 

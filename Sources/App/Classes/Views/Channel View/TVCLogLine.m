@@ -68,33 +68,25 @@ NSString * const TVCLogLineDefaultCommandValue = @"-100";
 DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 - (instancetype)init
 {
-	ObjectIsAlreadyInitializedAssert
-
 	if ((self = [super init])) {
-		if (self->_objectInitializedAsCopy == NO && [self isMutable] == NO) {
-			DESIGNATED_INITIALIZER_EXCEPTION
-		}
-
-		if (self->_objectInitializedAsCopy == NO) {
-			[self populateDefaultsPostflight];
-
-			[self populateDefaultUniqueIdentifier];
-			[self populateDefaultSessionIdentifier];
-		}
-
-		self->_objectInitialized = YES;
+		[self populateDefaultsPostflight];
 
 		return self;
 	}
 
 	return nil;
 }
+DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (nullable instancetype)initWithData:(NSData *)data
 {
 	NSParameterAssert(data != nil);
 
-	return [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	if ((self = [super init])) {
+		return [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	}
+
+	return nil;
 }
 
 + (TVCLogLine *)logLineFromXPCObject:(TVCLogLineXPC *)xpcObject
@@ -114,49 +106,18 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 		object->_uniqueIdentifier = [xpcObject.uniqueIdentifier copy];
 	}
 
-	if (object->_uniqueIdentifier == nil) {
-		[object populateDefaultUniqueIdentifier];
-	}
-
-	if (object->_sessionIdentifier == 0) {
-		object->_sessionIdentifier = xpcObject.sessionIdentifier;
-	}
-
 	return [object copy];
 }
 
-- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
+- (BOOL)populateWithDecoder:(NSCoder *)aDecoder
 {
-	NSParameterAssert(aDecoder != nil);
-
-	ObjectIsAlreadyInitializedAssert
-
-	if ((self = [super init])) {
-		[self decodeWithCoder:aDecoder];
-
-		[self populateDefaultsPostflight];
-
-		self->_objectInitialized = YES;
-
-		return self;
-	}
-
-	return nil;
-}
-
-- (void)decodeWithCoder:(NSCoder *)aDecoder
-{
-	NSParameterAssert(aDecoder != nil);
-
-	ObjectIsAlreadyInitializedAssert
-
 	self->_receivedAt = [aDecoder decodeObjectOfClass:[NSDate class] forKey:@"receivedAt"];
 
 	self->_excludeKeywords = [aDecoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [NSString class], nil]
-													   forKey:@"excludeKeywords"];
+												   forKey:@"excludeKeywords"];
 
 	self->_highlightKeywords = [aDecoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [NSString class], nil]
-													   forKey:@"highlightKeywords"];
+													 forKey:@"highlightKeywords"];
 
 	self->_rendererAttributes = [aDecoder decodeDictionaryForKey:@"rendererAttributes"];
 
@@ -174,14 +135,15 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 	self->_sessionIdentifier = [aDecoder decodeIntegerForKey:@"sessionIdentifier"];
 
-	if (self->_objectInitializedAsCopy == NO) {
-		[self computeNicknameColorStyle];
-	}
+	[self computeNicknameColorStyle];
+
+	return YES;
 }
 
 - (void)populateDefaultsPostflight
 {
-	ObjectIsAlreadyInitializedAssert
+	[self populateDefaultUniqueIdentifier];
+	[self populateDefaultSessionIdentifier];
 
 	SetVariableIfNil(self->_command, TVCLogLineDefaultCommandValue)
 	SetVariableIfNil(self->_messageBody, @"")
@@ -200,11 +162,19 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 - (void)populateDefaultUniqueIdentifier
 {
+	if (self->_uniqueIdentifier != nil) {
+		return;
+	}
+
 	self->_uniqueIdentifier = [self.class newUniqueIdentifier];
 }
 
 - (void)populateDefaultSessionIdentifier
 {
+	if (self->_sessionIdentifier != 0) {
+		return;
+	}
+
 	self->_sessionIdentifier = [self.class currentSessionIdentifier];
 }
 
@@ -432,21 +402,9 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 	}
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone asMutable:(BOOL)copyAsMutable
+- (void)populateDuringCopy:(__kindof XRPortablePropertyObject *)newObject mutableCopy:(BOOL)mutableCopy
 {
-	TVCLogLine *object = nil;
-
-	if (copyAsMutable) {
-		object = [TVCLogLineMutable allocWithZone:zone];
-	} else {
-		object = [TVCLogLine allocWithZone:zone];
-	}
-
-	/* All values should be immutable so we are going to reassign 
-	 them instead of copying. I should apply logic to other 
-	 implementations of -copy in Textual, but that's for another
-	 day. TODO: Do that — November 2, 2016 */
-	object->_objectInitializedAsCopy = YES;
+	TVCLogLine *object = (TVCLogLine *)newObject;
 
 	object->_uniqueIdentifier = self->_uniqueIdentifier;
 
@@ -471,23 +429,11 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 	object->_memberType = self->_memberType;
 
 	object->_sessionIdentifier = self->_sessionIdentifier;
-
-	return [object init];
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (__kindof XRPortablePropertyObject *)mutableClass
 {
-	return [self copyWithZone:zone asMutable:NO];
-}
-
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
-{
-	return [self copyWithZone:zone asMutable:YES];
-}
-
-- (BOOL)isMutable
-{
-	return NO;
+	return [TVCLogLineMutable self];
 }
 
 @end
@@ -526,7 +472,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 		self->_isFirstForDay = isFirstForDay;
 	}
 }
-
 
 - (void)setExcludeKeywords:(nullable NSArray<NSString *> *)excludeKeywords
 {

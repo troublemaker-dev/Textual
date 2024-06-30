@@ -51,6 +51,7 @@ TEXTUAL_EXTERN NSString * const TLOFileLoggerNoticeNicknameFormat;
 TEXTUAL_EXTERN NSString * const TLOFileLoggerISOStandardClockFormat;
 
 @interface TLOFileLogger : NSObject
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithClient:(IRCClient *)client NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithChannel:(IRCChannel *)channel NS_DESIGNATED_INITIALIZER;
 

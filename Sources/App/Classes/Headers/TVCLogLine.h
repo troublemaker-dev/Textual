@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, TVCLogLineMemberType) {
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface TVCLogLine : NSObject <NSCopying, NSMutableCopying, NSCoding, NSSecureCoding>
+@interface TVCLogLine : XRPortablePropertyObject
 @property (readonly) BOOL isEncrypted;
 @property (readonly) BOOL isFirstForDay; // // YES if is first line for the day defined by receivedAt
 @property (readonly, copy) NSDate *receivedAt;
@@ -100,7 +100,7 @@ typedef NS_ENUM(NSUInteger, TVCLogLineMemberType) {
 @property (readonly, copy, nullable) NSDictionary<NSString *, id> *rendererAttributes;
 @property (readonly) NSUInteger sessionIdentifier;
 
-- (nullable instancetype)initWithData:(NSData *)data;
+- (nullable instancetype)initWithData:(NSData *)data NS_DESIGNATED_INITIALIZER;
 
 @property (readonly, copy) NSString *formattedTimestamp;
 

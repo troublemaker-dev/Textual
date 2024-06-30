@@ -57,13 +57,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, readonly) NSColor *formatterFuchsiaPinkColor;
 @property (class, readonly) NSColor *formatterNormalGrayColor;
 @property (class, readonly) NSColor *formatterLightGrayColor;
-
-@property (class, readonly) NSColor *outlineViewHeaderTextColor;
-@property (class, readonly) NSColor *outlineViewHeaderDisabledTextColor;
-@end
-
-@interface NSGradient (TXGradientHelper)
-@property (class, readonly) NSGradient *sourceListBackgroundGradientColor;
 @end
 
 NS_ASSUME_NONNULL_END

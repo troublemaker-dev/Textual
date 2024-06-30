@@ -44,11 +44,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TDCSheetBase
 
-- (instancetype)initWithWindow:(NSWindow *)window
+- (instancetype)init
 {
-	NSParameterAssert(window != nil);
+	[self doesNotRecognizeSelector:_cmd];
 
-	if ((self = [self init])) {
+	return nil;
+}
+
+- (instancetype)initWithWindow:(nullable NSWindow *)window
+{
+	if ((self = [super init])) {
 		self.window = window;
 
 		return self;

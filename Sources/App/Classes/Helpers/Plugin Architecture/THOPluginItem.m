@@ -193,17 +193,6 @@ NS_ASSUME_NONNULL_BEGIN
 		supportedFeatures |= THOPluginItemSupportedFeatureDidReceiveCommandEvent;
 	}
 
-	/* Deprecated and removed */
-	if ([primaryClass respondsToSelector:@selector(didPostNewMessageForViewController:messageInfo:isThemeReload:isHistoryReload:)]) {
-		LogToConsoleError("'%@' implements '-[THOPluginProtocol %@]' but that wont be called because it's obsolete.",
-			bundle, @"didPostNewMessageForViewController:messageInfo:isThemeReload:isHistoryReload:");
-	}
-
-	if ([primaryClass respondsToSelector:@selector(didReceiveServerInputOnClient:senderInformation:messageInformation:)]) {
-		LogToConsoleError("'%@' implements '-[THOPluginProtocol %@]' but that wont be called because it's obsolete.",
-			bundle, @"didReceiveServerInputOnClient:senderInformation:messageInformation:");
-	}
-
 	/* Finish up */
 	self.bundle = bundle;
 

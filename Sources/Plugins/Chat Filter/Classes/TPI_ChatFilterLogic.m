@@ -76,7 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 	if (filterLimitedToValue != TPI_ChatFilterLimitToValueNoLimit || filter.filterIgnoreOperators) {
 		if (textDestination == nil && textAuthor.isServer == NO) {
-			LogToConsoleDebug("textDestination == nil — Returning input instead of continuing with filter");
+			LogToConsoleDebugWithSubsystem(THOPluginLoggingSubsystem(),
+				"textDestination == nil — Returning input instead of continuing with filter");
 
 			return NO;
 		}
@@ -515,7 +516,8 @@ NS_ASSUME_NONNULL_BEGIN
 		NSTimeInterval filterLastPerform = [self.filterActionLastPerforms doubleForKey:filterIdentifier];
 
 		if ((now - filterLastPerform) <= floodControlInterval) {
-			LogToConsoleDebug("Not performing action because of flood control: %.2f %.2f",
+			LogToConsoleDebugWithSubsystem(THOPluginLoggingSubsystem(),
+				"Not performing action because of flood control: %.2f %.2f",
 				  now, filterLastPerform);
 
 			return NO;

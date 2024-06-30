@@ -64,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface TLOKeyEventHandler : NSObject <TLOKeyEventHandlerPrototype>
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithTarget:(id)target NS_DESIGNATED_INITIALIZER;
 
 - (BOOL)processKeyEvent:(NSEvent *)event;

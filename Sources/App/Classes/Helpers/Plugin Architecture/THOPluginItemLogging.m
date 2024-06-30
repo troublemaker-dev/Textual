@@ -5,7 +5,7 @@
  *                   | |  __/>  <| |_| |_| | (_| | |
  *                   |_|\___/_/\_\\__|\__,_|\__,_|_|
  *
- * Copyright (c) 2010 - 2020 Codeux Software, LLC & respective contributors.
+ *   Copyright (c) 2024 Codeux Software, LLC & respective contributors.
  *       Please see Acknowledgements.pdf for additional information.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,16 +35,38 @@
  *
  *********************************************************************** */
 
-#import "NSViewHelperPrivate.h"
-#import "TVCMainWindow.h"
-#import "TVCMainWindowSidebarSmoothTextFieldPrivate.h"
+#import "BuildConfig.h"
+#import "THOPluginManager.h"
 
-NS_ASSUME_NONNULL_BEGIN
+os_log_t _THOPluginLoggingSubsystemForBundle(NSBundle *bundle)
+{
+	__block NSMutableDictionary<NSString *, os_log_t> *subsystems = nil;
 
-@implementation TVCMainWindowSidebarSmoothTextField
-@end
+	static dispatch_once_t onceToken;
 
-@implementation TVCMainWindowSidebarSmoothTextFieldCell
-@end
+	dispatch_once(&onceToken, ^{
+		subsystems = [NSMutableDictionary dictionary];
+	});
 
-NS_ASSUME_NONNULL_END
+	@synchronized (subsystems) {
+		NSString *identifier = bundle.bundleIdentifier;
+		
+		os_log_t subsystem = subsystems[identifier];
+		
+		if (subsystem == nil) {
+			NSString *category = [NSString stringWithFormat:@"Extension['%@']", bundle.displayName];
+			
+			/* There was some debate whether to make the bundle identifier
+			 the identifier of the logging system instead of having the
+			 name in the category. Chose not to do that because seeing as
+			 the plugins are loaded as part of Textual and are not running
+			 in a separate process, it just makes more sense to filter. */
+			subsystem = os_log_create(TXBundleBuildProductIdentifierCString, category.UTF8String);
+			
+			subsystems[identifier] = subsystem;
+		}
+		
+		return subsystem;
+	}
+}
+

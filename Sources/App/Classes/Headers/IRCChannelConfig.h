@@ -49,7 +49,7 @@ typedef NS_ENUM(NSUInteger, IRCChannelType) {
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCChannelConfig : NSObject <NSCopying, NSMutableCopying>
+@interface IRCChannelConfig : XRPortablePropertyDict
 @property (readonly) BOOL autoJoin;
 @property (readonly) BOOL ignoreGeneralEventMessages;
 @property (readonly) BOOL ignoreHighlights;
@@ -68,12 +68,6 @@ typedef NS_ENUM(NSUInteger, IRCChannelType) {
 
 + (IRCChannelConfig *)seedWithName:(NSString *)channelName;
 
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic NS_DESIGNATED_INITIALIZER;
-- (NSDictionary<NSString *, id> *)dictionaryValue;
-
-- (id)uniqueCopy;
-- (id)uniqueCopyMutable;
-
 /* Notifications */
 - (nullable NSString *)soundForEvent:(TXNotificationType)event;
 
@@ -88,10 +82,6 @@ typedef NS_ENUM(NSUInteger, IRCChannelType) {
 - (NSControlStateValue)bounceDockIconForEvent:(TXNotificationType)event;
 - (NSControlStateValue)bounceDockIconRepeatedlyForEvent:(TXNotificationType)event;
 - (NSControlStateValue)speakEvent:(TXNotificationType)event;
-
-/* Deprecated */
-- (NSControlStateValue)growlEnabledForEvent:(TXNotificationType)event TEXTUAL_DEPRECATED("Use -notificationEnabledForEvent: instead. This method will always return NSControlStateValueOff.");
-@property (readonly) BOOL ignoreInlineMedia TEXTUAL_DEPRECATED("Use -inlineMediaEnabled and -inlineMediaDisabled instead. This property will always return NO.");
 @end
 
 #pragma mark -
@@ -122,10 +112,6 @@ typedef NS_ENUM(NSUInteger, IRCChannelType) {
 - (void)setBounceDockIcon:(NSControlStateValue)value forEvent:(TXNotificationType)event;
 - (void)setBounceDockIconRepeatedly:(NSControlStateValue)value forEvent:(TXNotificationType)event;
 - (void)setEventIsSpoken:(NSControlStateValue)value forEvent:(TXNotificationType)event;
-
-/* Deprecated */
-- (void)setGrowlEnabled:(NSControlStateValue)value forEvent:(TXNotificationType)event TEXTUAL_DEPRECATED("Use -setNotificationEnabled:forEvent: instead");
-@property (nonatomic, assign, readwrite) BOOL ignoreInlineMedia TEXTUAL_DEPRECATED("Use -inlineMediaEnabled and -inlineMediaDisabled instead");
 @end
 
 NS_ASSUME_NONNULL_END

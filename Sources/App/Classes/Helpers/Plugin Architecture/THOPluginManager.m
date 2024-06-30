@@ -56,7 +56,8 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 @interface THOPluginManager ()
 @property (nonatomic, assign, readwrite) BOOL pluginsLoaded;
-@property (nonatomic, copy, readwrite) NSArray<THOPluginItem *> *loadedPlugins;
+@property (nonatomic, copy, readwrite, nullable) NSArray<THOPluginItem *> *loadedPlugins;
+@property (nonatomic, copy, nullable) NSArray<NSBundle *> *obsoleteBundles;
 @property (nonatomic, assign) THOPluginItemSupportedFeature supportedFeatures;
 @end
 
@@ -67,15 +68,23 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (void)loadPlugins
 {
-	XRPerformBlockAsynchronouslyOnQueue([THOPluginDispatcher dispatchQueue], ^{
-		[self _loadPlugins];
+	static dispatch_once_t onceToken;
+
+	dispatch_once(&onceToken, ^{
+		XRPerformBlockAsynchronouslyOnQueue([THOPluginDispatcher dispatchQueue], ^{
+			[self _loadPlugins];
+		});
 	});
 }
 
 - (void)unloadPlugins
 {
-	XRPerformBlockAsynchronouslyOnQueue([THOPluginDispatcher dispatchQueue], ^{
-		[self _unloadPlugins];
+	static dispatch_once_t onceToken;
+
+	dispatch_once(&onceToken, ^{
+		XRPerformBlockAsynchronouslyOnQueue([THOPluginDispatcher dispatchQueue], ^{
+			[self _unloadPlugins];
+		});
 	});
 }
 
@@ -84,10 +93,9 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 	NSArray *forbiddenPlugins = self.listOfForbiddenBundles;
 
 	NSMutableArray<THOPluginItem *> *loadedPlugins = [NSMutableArray array];
-
-	NSMutableArray<NSString *> *loadedBundles = [NSMutableArray array];
-
 	NSMutableArray<NSString *> *bundlesToLoad = [NSMutableArray array];
+	NSMutableArray<NSString *> *loadedBundles = [NSMutableArray array];
+	NSMutableArray<NSBundle *> *obsoleteBundles = [NSMutableArray array];
 
 	NSArray *pathsToLoad =
 	[RZFileManager() buildPathArray:
@@ -142,6 +150,8 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 		NSString *comparisonVersion = infoDictionary[@"MinimumTextualVersion"];
 
 		if (comparisonVersion == nil) {
+			[obsoleteBundles addObject:bundle];
+
 			NSLog(@" ---------------------------- ERROR ---------------------------- ");
 			NSLog(@"                                                                 ");
 			NSLog(@"  Textual has failed to load the bundle at the following path    ");
@@ -166,6 +176,8 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 		[comparisonVersion compare:THOPluginProtocolCompatibilityMinimumVersion options:NSNumericSearch];
 
 		if (comparisonResult == NSOrderedAscending) {
+			[obsoleteBundles addObject:bundle];
+
 			NSLog(@" ---------------------------- ERROR ---------------------------- ");
 			NSLog(@"                                                                 ");
 			NSLog(@"  Textual has failed to load the bundle at the following path    ");
@@ -199,10 +211,12 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 	self.loadedPlugins = loadedPlugins;
 
+	self.obsoleteBundles = obsoleteBundles;
+
 	self.pluginsLoaded = YES;
 
 	XRPerformBlockAsynchronouslyOnMainQueue(^{
-		[self extrasInstallerCheckForUpdates];
+		[self checkForObsoleteBundlesOrUpdatesAvailable];
 
 		[RZNotificationCenter() postNotificationName:THOPluginManagerFinishedLoadingPluginsNotification object:self];
 	});
@@ -321,6 +335,75 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 #pragma mark -
 #pragma mark Extras Installer
 
+- (void)checkForObsoleteBundlesOrUpdatesAvailable
+{
+	/* This method will perform three actions:
+	 1. It will notify user if they have any 3rd-party obsolete addons.
+		This will prompt them to contact the developer.
+	 2. It will notify user if they have any obsolete extras installer
+		addons that cannot be loaded. This will prompt to open installer.
+	 3. It will notify the user if they have any extras installer addons
+		that have an update available.
+
+	 #3 allows the user to suppress the prompt until a later time.
+	 #2 and #1 are aggressive. The prompt will show each launch until the
+	 addon is updated or deleted.
+
+	 It is possible that multiple prompts will appear on the screen at
+	 once. This will be considered an acceptable behavior for now.
+	 Just make sure non-blocking alerts are used for this purpose. */
+
+	[self checkForObsoleteBundles];
+
+	[self extrasInstallerCheckForUpdates];
+}
+
+- (void)checkForObsoleteBundles
+{
+	NSArray *obsoleteBundles = self.obsoleteBundles;
+
+	if (obsoleteBundles.count == 0) {
+		return;
+	}
+
+	NSMutableArray<NSBundle *> *obsoleteExtras = [NSMutableArray array];
+	NSMutableArray<NSBundle *> *obsoleteThirdParty = [NSMutableArray array];
+
+	NSArray *extrasBundleIdentifiers = self.extrasInstallerBundleIdentifiers;
+
+	for (NSBundle *bundle in self.obsoleteBundles) {
+		NSString *bundleIdentifier = bundle.bundleIdentifier;
+
+		if ([extrasBundleIdentifiers containsObject:bundleIdentifier]) {
+			[obsoleteExtras addObject:bundle];
+		} else {
+			[obsoleteThirdParty addObject:bundle];
+		}
+	}
+
+	if (obsoleteExtras.count > 0) {
+		[self _extrasInstallerInformUserAboutUpdateForBundles:[obsoleteExtras copy] updateOptional:NO];
+	}
+
+	if (obsoleteThirdParty.count == 0) {
+		return;
+	}
+
+	NSArray *thirdPartyBundles = [obsoleteThirdParty copy];
+
+	NSString *bundlesName = [NSBundle formattedDisplayNamesForBundles:thirdPartyBundles];
+
+	[TDCAlert alertWithMessage:TXTLS(@"Prompts[45a-df]", THOPluginProtocolCompatibilityMinimumVersion)
+						 title:TXTLS(@"Prompts[af6-45]", bundlesName)
+				 defaultButton:TXTLS(@"Prompts[324-5d]")
+			   alternateButton:TXTLS(@"Prompts[0ik-o9]")
+			   completionBlock:^(TDCAlertResponse buttonClicked, BOOL suppressed, id underlyingAlert) {
+		if (buttonClicked == TDCAlertResponseAlternate) {
+			[NSBundle openInstallationLocationsForBundles:thirdPartyBundles];
+		}
+	}];
+}
+
 - (void)extrasInstallerCheckForUpdates
 {
 	/* Do not check for updates too often */
@@ -359,13 +442,9 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 - (void)_extrasInstallerCheckForUpdates
 {
 	/* Perform update check */
-	NSDictionary *staticValues =
-	[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
+	NSDictionary *latestVersions = self.extrasInstallerLatestBundleVersions;
 
-	NSDictionary<NSString *, NSString *> *latestVersions =
-	[staticValues dictionaryForKey:@"THOPluginManager Extras Installer Latest Extension Versions"];
-
-	NSMutableArray<NSBundle *> *outdatedBundles = nil;
+	NSMutableArray<NSBundle *> *outdatedBundles = [NSMutableArray array];
 
 	for (THOPluginItem *plugin in self.loadedPlugins) {
 		NSBundle *bundle = plugin.bundle;
@@ -385,50 +464,74 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 		NSComparisonResult comparisonResult = [currentVersion compare:latestVersion options:NSNumericSearch];
 
 		if (comparisonResult == NSOrderedAscending) {
-			if (outdatedBundles == nil) {
-				outdatedBundles = [NSMutableArray array];
-			}
-
 			[outdatedBundles addObject:bundle];
 		}
 	}
 
-	if (outdatedBundles) {
-		[self _extrasInstallerInformUserAboutUpdateForBundles:[outdatedBundles copy]];
+	if (outdatedBundles.count == 0) {
+		return;
 	}
+
+	[self _extrasInstallerInformUserAboutUpdateForBundles:[outdatedBundles copy] updateOptional:YES];
 }
 
-- (void)_extrasInstallerInformUserAboutUpdateForBundles:(NSArray<NSBundle *> *)bundles
+- (void)_extrasInstallerInformUserAboutUpdateForBundles:(NSArray<NSBundle *> *)bundles updateOptional:(BOOL)updateOptional
 {
 	NSParameterAssert(bundles != nil);
 
 	/* Append the current version to the suppression key so that updates 
 	 aren't refused forever. Only until the next version of Textual is out. */
-	NSString *suppressionKey =
-	[@"plugin_manager_extension_update_dialog_"
-	 stringByAppendingString:[TPCApplicationInfo applicationVersionShort]];
+	NSString *suppressionKey = nil;
 
-	NSMutableArray *bundleNames = [NSMutableArray arrayWithCapacity:bundles.count];
-
-	for (NSBundle *bundle in bundles) {
-		[bundleNames addObject:bundle.displayName];
+	if (updateOptional) {
+		suppressionKey =
+		[@"plugin_manager_extension_update_dialog_"
+	  stringByAppendingString:[TPCApplicationInfo applicationVersionShort]];
 	}
 
-	NSString *bundlesName = [bundleNames componentsJoinedByString:@", "];
+	NSString *bundlesName = [NSBundle formattedDisplayNamesForBundles:bundles];
 
-	[TDCAlert alertWithMessage:TXTLS(@"Prompts[x4w-is]")
-						 title:TXTLS(@"Prompts[9mb-o5]", bundlesName)
-				 defaultButton:TXTLS(@"Prompts[ece-dd]")
-			   alternateButton:TXTLS(@"Prompts[ioq-nf]")
+	NSString *promptTitle = ((updateOptional) ? @"Prompts[9mb-o5]" : @"Prompts[ins-op]");
+	NSString *promptMessage = ((updateOptional) ? @"Prompts[x4w-is]" : @"Prompts[34o-pk]");
+	NSString *promptDefaultButton = ((updateOptional) ? @"Prompts[ece-dd]" : @"Prompts[hd0-bf]");
+	NSString *promptAlternateButton = ((updateOptional) ? @"Prompts[ioq-nf]" : @"Prompts[467-5l]");
+	NSString *promptOtherButton = ((updateOptional) ? nil : TXTLS(@"Prompts[0ik-o9]"));
+
+	[TDCAlert alertWithMessage:TXTLS(promptMessage)
+						 title:TXTLS(promptTitle, bundlesName)
+				 defaultButton:TXTLS(promptDefaultButton)
+			   alternateButton:TXTLS(promptAlternateButton)
+				   otherButton:promptOtherButton
 				suppressionKey:suppressionKey
 			   suppressionText:nil
 			   completionBlock:^(TDCAlertResponse buttonClicked, BOOL suppressed, id  _Nullable underlyingAlert) {
-				   if (buttonClicked != TDCAlertResponseAlternate) {
-					   return;
+				   if (buttonClicked == TDCAlertResponseAlternate) {
+					   [self extrasInstallerLaunchInstaller];
+				   } else if (buttonClicked == TDCAlertResponseOther) {
+					   [NSBundle openInstallationLocationsForBundles:bundles];
 				   }
-
-				   [self extrasInstallerLaunchInstaller];
 			   }];
+}
+
+- (NSArray<NSString *> *)extrasInstallerBundleIdentifiers
+{
+	return self.extrasInstallerLatestBundleVersions.allKeys;
+}
+
+- (NSDictionary<NSString *, NSString *> *)extrasInstallerLatestBundleVersions
+{
+	static NSDictionary<NSString *, NSString *> *cachedValue = nil;
+
+	static dispatch_once_t onceToken;
+
+	dispatch_once(&onceToken, ^{
+		NSDictionary *staticValues =
+		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
+
+		cachedValue = [staticValues dictionaryForKey:@"THOPluginManager Extras Installer Latest Extension Versions"];
+	});
+
+	return cachedValue;
 }
 
 - (NSArray<NSString *> *)extrasInstallerReservedCommands
@@ -579,6 +682,10 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (NSArray<THOPluginOutputSuppressionRule *> *)pluginOutputSuppressionRules
 {
+	if (self.pluginsLoaded == NO) {
+		return @[];
+	}
+
 	static NSArray<THOPluginOutputSuppressionRule *> *cachedValue = nil;
 
 	static dispatch_once_t onceToken;
@@ -606,6 +713,10 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (NSArray<NSString *> *)supportedUserInputCommands
 {
+	if (self.pluginsLoaded == NO) {
+		return @[];
+	}
+
 	static NSArray<NSString *> *cachedValue = nil;
 
 	static dispatch_once_t onceToken;
@@ -635,6 +746,10 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (NSArray<NSString *> *)supportedServerInputCommands
 {
+	if (self.pluginsLoaded == NO) {
+		return @[];
+	}
+
 	static NSArray<NSString *> *cachedValue = nil;
 
 	static dispatch_once_t onceToken;
@@ -664,6 +779,10 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (NSArray<THOPluginItem *> *)pluginsWithPreferencePanes
 {
+	if (self.pluginsLoaded == NO) {
+		return @[];
+	}
+
 	static NSArray<THOPluginItem *> *cachedValue = nil;
 
 	static dispatch_once_t onceToken;

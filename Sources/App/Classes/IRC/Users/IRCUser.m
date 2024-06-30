@@ -60,15 +60,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation IRCUser
 
-ClassWithDesignatedInitializerInitMethod
-
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
-- (instancetype)initWithNickname:(NSString *)nickname onClient:(IRCClient *)client
+- (instancetype)init
 {
-	return [self initWithNickname:nickname onClient:client withPersistentStore:nil];
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
 }
 
-- (instancetype)initWithNickname:(NSString *)nickname onClient:(IRCClient *)client withPersistentStore:(nullable IRCUserPersistentStore *)persistentStore
+- (instancetype)initWithNickname:(NSString *)nickname onClient:(IRCClient *)client
 {
 	NSParameterAssert(nickname != nil);
 	NSParameterAssert(client != nil);
@@ -78,16 +77,11 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 		self.client = client;
 
-		if (persistentStore) {
-			self.persistentStore = persistentStore;
-		} else {
-			[self createNewPersistentStoreObject];
-		}
+		[self createNewPersistentStoreObject];
 	}
 
 	return self;
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)createNewPersistentStoreObject
 {
@@ -242,13 +236,13 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 			self.isIRCop == objectCast.isIRCop);
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (id)copyAsMutable:(BOOL)mutableCopy uniquing:(BOOL)uniquing
 {
-	  IRCUser *object =
-	[[IRCUser alloc] initWithNickname:self.nickname
-							 onClient:self.client
-				  withPersistentStore:self.persistentStore];
+	IRCUser *object = [self allocForCopyAsMutable:mutableCopy];
 
+	object->_persistentStore = self->_persistentStore;
+
+	object->_nickname = self->_nickname;
 	object->_username = self->_username;
 	object->_address = self->_address;
 
@@ -257,30 +251,12 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	object->_isAway = self->_isAway;
 	object->_isIRCop = self->_isIRCop;
 
-	return object;
+	return [object initOnCopy];
 }
 
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
+- (__kindof XRPortablePropertyObject *)mutableClass
 {
-	  IRCUserMutable *object =
-	[[IRCUserMutable alloc] initWithNickname:self.nickname
-									onClient:self.client
-						 withPersistentStore:self.persistentStore];
-
-	((IRCUser *)object)->_username = self->_username;
-	((IRCUser *)object)->_address = self->_address;
-
-	((IRCUser *)object)->_realName = self->_realName;
-
-	((IRCUser *)object)->_isAway = self->_isAway;
-	((IRCUser *)object)->_isIRCop = self->_isIRCop;
-
-	return object;
-}
-
-- (BOOL)isMutable
-{
-	return NO;
+	return [IRCUserMutable self];
 }
 
 - (void)updateRemoveUserTimerBlockToFire

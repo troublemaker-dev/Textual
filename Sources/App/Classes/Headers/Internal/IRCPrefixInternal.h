@@ -47,12 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 	NSString *_username;
 	NSString *_address;
 	NSString *_hostmask;
-
-@private
-	BOOL _objectInitialized;
 }
 
-- (BOOL)isMutable;
 @end
 
 NS_ASSUME_NONNULL_END

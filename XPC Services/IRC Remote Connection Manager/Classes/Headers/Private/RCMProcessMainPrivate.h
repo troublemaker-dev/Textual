@@ -38,6 +38,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCMProcessMain : NSObject <RCMConnectionManagerServerProtocol>
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithXPCConnection:(NSXPCConnection *)connection NS_DESIGNATED_INITIALIZER;
 @end
 

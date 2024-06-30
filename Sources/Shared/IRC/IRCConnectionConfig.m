@@ -78,25 +78,8 @@ uint16_t const IRCConnectionDefaultProxyPort = 1080;
 	}
 }
 
-- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
+- (BOOL)populateWithDecoder:(NSCoder *)aDecoder
 {
-	NSParameterAssert(aDecoder != nil);
-
-	if ((self = [super init])) {
-		[self decodeWithCoder:aDecoder];
-
-		[self populateDefaultsPostflight];
-
-		return self;
-	}
-
-	return nil;
-}
-
-- (void)decodeWithCoder:(NSCoder *)aDecoder
-{
-	NSParameterAssert(aDecoder != nil);
-
 	self->_addressType = [aDecoder decodeUnsignedIntegerForKey:@"addressType"];
 	self->_connectionPrefersModernCiphersOnly = [aDecoder decodeBoolForKey:@"connectionPrefersModernCiphersOnly"];
 	self->_connectionPrefersModernSockets = [aDecoder decodeBoolForKey:@"connectionPrefersModernSockets"];
@@ -115,6 +98,8 @@ uint16_t const IRCConnectionDefaultProxyPort = 1080;
 	self->_primaryEncoding = [aDecoder decodeUnsignedIntegerForKey:@"primaryEncoding"];
 	self->_fallbackEncoding = [aDecoder decodeUnsignedIntegerForKey:@"fallbackEncoding"];
 	self->_cipherSuites = [aDecoder decodeUnsignedIntegerForKey:@"cipherSuites"];
+
+	return YES;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
@@ -146,9 +131,9 @@ uint16_t const IRCConnectionDefaultProxyPort = 1080;
 	return YES;
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (id)copyAsMutable:(BOOL)mutableCopy uniquing:(BOOL)uniquing
 {
-	IRCConnectionConfig *object = [[IRCConnectionConfig allocWithZone:zone] init];
+	IRCConnectionConfig *object = [self allocForCopyAsMutable:mutableCopy];
 
 	object->_addressType = self->_addressType;
 	object->_connectionPrefersModernCiphersOnly = self->_connectionPrefersModernCiphersOnly;
@@ -169,38 +154,7 @@ uint16_t const IRCConnectionDefaultProxyPort = 1080;
 	object->_fallbackEncoding = self->_fallbackEncoding;
 	object->_cipherSuites = self->_cipherSuites;
 
-	return object;
-}
-
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
-{
-	IRCConnectionConfigMutable *object = [[IRCConnectionConfigMutable allocWithZone:zone] init];
-
-	((IRCConnectionConfig *)object)->_addressType = self->_addressType;
-	((IRCConnectionConfig *)object)->_connectionPrefersModernCiphersOnly = self->_connectionPrefersModernCiphersOnly;
-	((IRCConnectionConfig *)object)->_connectionPrefersModernSockets = self->_connectionPrefersModernSockets;
-	((IRCConnectionConfig *)object)->_connectionPrefersSecuredConnection = self->_connectionPrefersSecuredConnection;
-	((IRCConnectionConfig *)object)->_connectionShouldValidateCertificateChain = self->_connectionShouldValidateCertificateChain;
-	((IRCConnectionConfig *)object)->_floodControlDelayInterval = self->_floodControlDelayInterval;
-	((IRCConnectionConfig *)object)->_floodControlMaximumMessages = self->_floodControlMaximumMessages;
-	((IRCConnectionConfig *)object)->_identityClientSideCertificate = self->_identityClientSideCertificate;
-	((IRCConnectionConfig *)object)->_proxyAddress = self->_proxyAddress;
-	((IRCConnectionConfig *)object)->_proxyPassword = self->_proxyPassword;
-	((IRCConnectionConfig *)object)->_proxyPort = self->_proxyPort;
-	((IRCConnectionConfig *)object)->_proxyType = self->_proxyType;
-	((IRCConnectionConfig *)object)->_proxyUsername = self->_proxyUsername;
-	((IRCConnectionConfig *)object)->_serverAddress = self->_serverAddress;
-	((IRCConnectionConfig *)object)->_serverPort = self->_serverPort;
-	((IRCConnectionConfig *)object)->_primaryEncoding = self->_primaryEncoding;
-	((IRCConnectionConfig *)object)->_fallbackEncoding = self->_fallbackEncoding;
-	((IRCConnectionConfig *)object)->_cipherSuites = self->_cipherSuites;
-
-	return object;
-}
-
-- (BOOL)isMutable
-{
-	return NO;
+	return [object initOnCopy];
 }
 
 @end
@@ -210,7 +164,6 @@ uint16_t const IRCConnectionDefaultProxyPort = 1080;
 @implementation IRCConnectionConfigMutable
 
 @dynamic addressType;
-@dynamic connectionPrefersIPv4;
 @dynamic connectionPrefersModernCiphersOnly;
 @dynamic connectionPrefersModernSockets;
 @dynamic connectionPrefersSecuredConnection;
@@ -232,11 +185,6 @@ uint16_t const IRCConnectionDefaultProxyPort = 1080;
 - (BOOL)isMutable
 {
 	return YES;
-}
-
-- (void)setConnectionPrefersIPv4:(BOOL)connectionPrefersIPv4
-{
-	TEXTUAL_DEPRECATED_ASSERT
 }
 
 - (void)setConnectionPrefersModernCiphersOnly:(BOOL)connectionPrefersModernCiphersOnly

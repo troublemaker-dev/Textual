@@ -42,7 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface ICLMediaAssessment : NSObject <NSCoding, NSSecureCoding, NSCopying, NSMutableCopying>
+@interface ICLMediaAssessment : XRPortablePropertyObject
+- (instancetype)init NS_UNAVAILABLE;
+
 /**
  Designated initializer
  */
@@ -79,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ICLMediaAssessmentMutable : ICLMediaAssessment
 @property (nonatomic, assign, readwrite) ICLMediaType type;
-@property (nonatomic, copy, readwrite) NSString *contentType;
+@property (nonatomic, copy, readwrite) NSString *contentType; // Defaults to "application/binary"
 @property (nonatomic, assign, readwrite) unsigned long long contentLength;
 @end
 

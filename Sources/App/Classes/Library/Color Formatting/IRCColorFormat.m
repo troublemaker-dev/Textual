@@ -639,13 +639,6 @@ NSString * const IRCTextFormatterSpoilerAttributeName = @"IRCTextFormatterSpoile
 #pragma mark -
 #pragma mark Text Truncation
 
-- (NSString *)attributedStringToASCIIFormatting
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return self.stringFormattedForIRC;
-}
-
 - (NSString *)stringFormattedForIRC
 {
 	NSString *string = self.string;

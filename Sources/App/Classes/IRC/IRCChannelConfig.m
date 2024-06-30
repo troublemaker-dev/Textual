@@ -49,8 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)populateDefaultsPreflight
 {
-	ObjectIsAlreadyInitializedAssert
-
 	self->_defaults = @{
 	  @"autoJoin" : @(YES),
 	  @"channelType" : @(IRCChannelTypeChannel),
@@ -65,8 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)populateDefaultsPostflight
 {
-	ObjectIsAlreadyInitializedAssert
-
 	SetVariableIfNil(self->_channelName, @"")
 
 	SetVariableIfNil(self->_uniqueIdentifier, [NSString stringWithUUID])
@@ -77,8 +73,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)populateDefaultsByAppendingDictionary:(NSDictionary<NSString *, id> *)defaultsToAppend
 {
 	NSParameterAssert(defaultsToAppend != nil);
-
-	ObjectIsAlreadyInitializedAssert
 
 	self->_defaults = [self->_defaults dictionaryByAddingEntries:defaultsToAppend];
 }
@@ -97,43 +91,14 @@ NS_ASSUME_NONNULL_BEGIN
 	return config;
 }
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 - (instancetype)init
 {
-	return [self initWithDictionary:@{}];
-}
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
-
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic
-{
-	ObjectIsAlreadyInitializedAssert
-
-	if ((self = [super init])) {
-		if (self->_objectInitializedAsCopy == NO) {
-			[self populateDefaultsPreflight];
-		}
-
-		[self populateDictionaryValues:dic];
-
-		if (self->_objectInitializedAsCopy == NO) {
-			[self populateDefaultsPostflight];
-		}
-
-		[self initializedClassHealthCheck];
-
-		self->_objectInitialized = YES;
-
-		return self;
-	}
-
-	return nil;
+	return [super initWithDictionary:@{}];
 }
 
 - (void)initializedClassHealthCheck
 {
-	ObjectIsAlreadyInitializedAssert
-
-	if ([self isMutable]) {
+	if (self.mutable) {
 		return;
 	}
 
@@ -143,10 +108,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 - (void)populateDictionaryValues:(NSDictionary<NSString *, id> *)dic
 {
 	NSParameterAssert(dic != nil);
-
-	if ([self isMutable] == NO) {
-		ObjectIsAlreadyInitializedAssert
-	}
 
 	NSMutableDictionary<NSString *, id> *defaultsMutable = [self->_defaults mutableCopy];
 
@@ -183,7 +144,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	}
 
 	/* Load legacy keys (if they exist) */
-	if (self->_objectInitializedAsCopy) {
+	if (self.initializedAsCopy) {
 		return;
 	}
 
@@ -236,7 +197,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return [self _dictionaryValueForCopyOperation:NO isCloudDictionary:YES];
 }
 
-- (NSDictionary<NSString *, id> *)dictionaryValueForCopyOperation
+- (NSDictionary<NSString *, id> *)dictionaryValueForCopy
 {
 	return [self _dictionaryValueForCopyOperation:YES isCloudDictionary:NO];
 }
@@ -294,7 +255,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	NSDictionary *s2 = objectCast.dictionaryValue;
 
 	return ([s1 isEqualToDictionary:s2] &&
-			
 			((self->_secretKey == nil && objectCast->_secretKey == nil) ||
 			 [self->_secretKey isEqualToString:objectCast->_secretKey]));
 }
@@ -304,58 +264,24 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return self.uniqueIdentifier.hash;
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (id)copyAsMutable:(BOOL)mutableCopy uniquing:(BOOL)uniquing
 {
-	IRCChannelConfig *config = [IRCChannelConfig allocWithZone:zone];
+	IRCChannelConfig *config = [super copyAsMutable:mutableCopy uniquing:uniquing];
 
 	config->_defaults = self->_defaults;
 
 	config->_secretKey = self->_secretKey;
 
-	return [config initWithDictionary:self.dictionaryValueForCopyOperation];
-}
-
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
-{
-	IRCChannelConfigMutable *config = [IRCChannelConfigMutable allocWithZone:zone];
-
-	((IRCChannelConfig *)config)->_defaults = self->_defaults;
-
-	((IRCChannelConfig *)config)->_secretKey = self->_secretKey;
-
-	return [config initWithDictionary:self.dictionaryValueForCopyOperation];
-}
-
-- (id)uniqueCopy
-{
-	return [self uniqueCopyAsMutable:NO];
-}
-
-- (id)uniqueCopyMutable
-{
-	return [self uniqueCopyAsMutable:YES];
-}
-
-- (id)uniqueCopyAsMutable:(BOOL)asMutable
-{
-	/* Given self, create a copy and replace unique identifier
-	 with new identifier to make this copy of object unique. */
-	IRCChannelConfig *object = nil;
-
-	if (asMutable == NO) {
-		object = [self copy];
-	} else {
-		object = [self mutableCopy];
+	if (uniquing) {
+		config->_uniqueIdentifier = [NSString stringWithUUID];
 	}
 
-	object->_uniqueIdentifier = [NSString stringWithUUID];
-
-	return object;
+	return config;
 }
 
-- (BOOL)isMutable
+- (__kindof XRPortablePropertyDict *)mutableClass
 {
-	return NO;
+	return [IRCChannelConfigMutable self];
 }
 
 - (NSDictionary<NSString *, NSNumber *> *)notifications
@@ -511,23 +437,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return [self _stateForEventKey:eventKey];
 }
 
-#pragma mark -
-#pragma mark Deprecated
-
-- (NSControlStateValue)growlEnabledForEvent:(TXNotificationType)event
-{
-	TEXTUAL_DEPRECATED_WARNING;
-
-	return NSControlStateValueOff;
-}
-
-- (BOOL)ignoreInlineMedia
-{
-	TEXTUAL_DEPRECATED_WARNING;
-
-	return NO;
-}
-
 @end
 
 #pragma mark -
@@ -542,7 +451,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 @dynamic defaultTopic;
 @dynamic ignoreGeneralEventMessages;
 @dynamic ignoreHighlights;
-@dynamic ignoreInlineMedia;
 @dynamic inlineMediaDisabled;
 @dynamic inlineMediaEnabled;
 @dynamic pushNotifications;
@@ -749,19 +657,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	}
 
 	[self _setState:value forEventKey:eventKey];
-}
-
-#pragma mark -
-#pragma mark Deprecated
-
-- (void)setGrowlEnabled:(NSControlStateValue)value forEvent:(TXNotificationType)event
-{
-	TEXTUAL_DEPRECATED_WARNING;
-}
-
-- (void)setIgnoreInlineMedia:(BOOL)ignoreInlineMedia
-{
-	TEXTUAL_DEPRECATED_WARNING;
 }
 
 @end

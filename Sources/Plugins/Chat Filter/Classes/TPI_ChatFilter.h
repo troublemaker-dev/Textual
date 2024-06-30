@@ -68,7 +68,7 @@ typedef NS_OPTIONS(NSUInteger, TPI_ChatFilterEventType) {
 	TPI_ChatFilterEventTypeChannelModeChanged		= 1 << 12
 };
 
-@interface TPI_ChatFilter : NSObject <NSCopying, NSMutableCopying>
+@interface TPI_ChatFilter : XRPortablePropertyDict
 @property (readonly) BOOL filterIgnoreContent;
 @property (readonly) BOOL filterIgnoreOperators;
 @property (readonly) BOOL filterLogMatch;
@@ -89,9 +89,6 @@ typedef NS_OPTIONS(NSUInteger, TPI_ChatFilterEventType) {
 @property (readonly, copy) NSString *filterSenderMatch;
 @property (readonly, copy) NSString *filterTitle;
 @property (readonly, copy) NSString *uniqueIdentifier;
-
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic NS_DESIGNATED_INITIALIZER;
-- (NSDictionary<NSString *, id> *)dictionaryValue;
 
 - (BOOL)isEventTypeEnabled:(TPI_ChatFilterEventType)eventType;
 - (BOOL)isCommandEnabled:(NSString *)command;

@@ -238,31 +238,6 @@ NS_ASSUME_NONNULL_BEGIN
 	return TXCalibratedRGBColor(0.80, 0.80, 0.80);
 }
 
-#pragma mark -
-#pragma mark Other Colors
-
-+ (NSColor *)outlineViewHeaderTextColor
-{
-	return [self colorWithCalibratedRed:0.439216 green:0.494118 blue:0.54902 alpha:1.0];
-}
-
-+ (NSColor *)outlineViewHeaderDisabledTextColor
-{
-	return [NSColor colorWithCalibratedRed:0.619 green:0.635 blue:0.678 alpha:1.0];
-}
-
-@end
-
-#pragma mark -
-
-@implementation NSGradient (TXGradientHelper)
-
-+ (nullable NSGradient *)sourceListBackgroundGradientColor
-{
-	return [self gradientWithStartingColor:[NSColor colorWithCalibratedRed:0.917 green:0.929 blue:0.949 alpha:1.0]
-							   endingColor:[NSColor colorWithCalibratedRed:0.780 green:0.811 blue:0.847 alpha:1.0]];
-}
-
 @end
 
 NS_ASSUME_NONNULL_END

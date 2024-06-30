@@ -103,6 +103,7 @@ typedef NS_OPTIONS(NSUInteger, _TPCThemeMonitoringResult) {
 @property (nonatomic, copy) NSDictionary<NSString *, id> *settings;
 @property (nonatomic, strong, nullable) GRMustacheTemplateRepository *templateRepository;
 
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithURL:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 
 - (BOOL)_reevaluateFileDuringMonitoringAtURL:(NSURL *)fileURL;
@@ -135,9 +136,13 @@ typedef NS_OPTIONS(NSUInteger, _TPCThemeMonitoringResult) {
 #pragma mark -
 #pragma mark Initialization
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
+	return nil;
+}
+
 - (instancetype)initWithURL:(NSURL *)url inStorageLocation:(TPCThemeStorageLocation)storageLocation
 {
 	NSParameterAssert(url != nil);
@@ -160,7 +165,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 	return nil;
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)dealloc
 {
@@ -983,9 +987,13 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 @implementation TPCThemeVariety
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
+	return nil;
+}
+
 - (instancetype)initWithURL:(NSURL *)url
 {
 	NSParameterAssert(url != nil);
@@ -1000,7 +1008,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 	return nil;
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)_loadVariety
 {
@@ -1126,9 +1133,13 @@ static inline BOOL _reevaluateFileDuringSetOrUnset(NSURL *fileURL, NSURL * __str
 
 @implementation TPCThemeSettings
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
+	return nil;
+}
+
 - (instancetype)initWithTheme:(TPCTheme *)theme
 {
 	NSParameterAssert(theme != nil);
@@ -1141,7 +1152,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 	return nil;
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)_loadSettingsForTheme:(TPCTheme *)theme
 {

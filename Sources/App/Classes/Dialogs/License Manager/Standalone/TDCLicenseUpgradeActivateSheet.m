@@ -62,13 +62,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Dialog Foundation
 
-ClassWithDesignatedInitializerInitMethod
-
 - (instancetype)initWithLicenseKey:(NSString *)licenseKey eligibility:(TLOLicenseUpgradeEligibility)eligibility
 {
 	NSParameterAssert(licenseKey != nil);
 
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:nil])) {
 		self.licenseKey = licenseKey;
 
 		self.eligibility = eligibility;

@@ -40,7 +40,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IRCClientConfig ()
-- (NSDictionary<NSString *, id> *)dictionaryValueForCloud;
+/* To provide user with similar behavior, when migrating -connectionPrefersIPv4
+ in IRCClientConfig, we set the address type to IRCConnectionAddressTypeIPv4.
+ We check if both values are set to offer the user a warning that the preference
+ they had has changed in a way they may not want. When user changes the address
+ type in Server Properties, we unset -connectionPrefersIPv4 so that the warning
+ does not appear again, ever. */
+@property (readonly) BOOL showConnectionPrefersIPv4Warning;
+@property (readonly) BOOL connectionPrefersIPv4 TEXTUAL_DEPRECATED("Use -addressType instead");
 
 - (void)writeNicknamePasswordToKeychain;
 - (void)writeProxyPasswordToKeychain;
@@ -49,6 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)destroyProxyPasswordKeychainItem;
 
 - (void)destroyServerPasswordKeychainItemAfterMigration;
+@end
+
+@interface IRCClientConfigMutable ()
+@property (nonatomic, assign, readwrite) BOOL connectionPrefersIPv4 TEXTUAL_DEPRECATED("Use -addressType instead");
 @end
 
 NS_ASSUME_NONNULL_END

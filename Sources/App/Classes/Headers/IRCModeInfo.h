@@ -43,12 +43,14 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCModeInfo : NSObject <NSCopying, NSMutableCopying>
+@interface IRCModeInfo : XRPortablePropertyObject
 @property (readonly) BOOL modeIsSet;
 @property (readonly, copy) NSString *modeSymbol;
 @property (readonly, copy, nullable) NSString *modeParameter;
 
-- (instancetype)initWithModeSymbol:(NSString *)modeSymbol NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithModeSymbol:(NSString *)modeSymbol;
+- (instancetype)initWithModeSymbol:(NSString *)modeSymbol modeIsSet:(BOOL)modeIsSet;
 - (instancetype)initWithModeSymbol:(NSString *)modeSymbol modeIsSet:(BOOL)modeIsSet modeParameter:(nullable NSString *)modeParameter NS_DESIGNATED_INITIALIZER;
 
 - (BOOL)isModeForChangingMemberModeOn:(IRCClient *)client;

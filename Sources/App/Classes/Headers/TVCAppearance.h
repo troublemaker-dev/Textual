@@ -40,6 +40,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TVCAppearance : NSObject
+- (instancetype)init NS_UNAVAILABLE;
+
 /* Top level group */
 /* Nonnull until -flushAppearanceProperties is called. */
 @property (readonly, copy, nullable) NSDictionary<NSString *, id> *appearanceProperties;

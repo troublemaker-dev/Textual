@@ -44,11 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 #define _requestTimeoutInterval			30.0
 
 @interface TLOInternetAddressLookup ()
-{
-@private
-	BOOL _objectInitialized;
-}
-
 @property (nonatomic, weak) id requestDelegate;
 @property (nonatomic, strong) NSURLConnection *connection;
 @property (nonatomic, strong) NSURLResponse *connectionResponse;
@@ -61,21 +56,22 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Public API
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithDelegate:(id <TLOInternetAddressLookupDelegate>)delegate
 {
 	NSParameterAssert(delegate != nil);
-
-	ObjectIsAlreadyInitializedAssert
 
 	if ((self = [super init])) {
 		self.IPv4AddressIsValid = YES;
 		self.IPv6AddressIsValid = YES;
 
 		self.requestDelegate = delegate;
-
-		self->_objectInitialized = YES;
 
 		return self;
 	}

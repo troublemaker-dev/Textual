@@ -51,7 +51,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TLOKeyEventHandler
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithTarget:(id)target
 {

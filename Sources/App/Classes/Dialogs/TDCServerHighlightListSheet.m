@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	NSParameterAssert(client != nil);
 
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:nil])) {
 		self.client = client;
 		self.clientId = client.uniqueIdentifier;
 

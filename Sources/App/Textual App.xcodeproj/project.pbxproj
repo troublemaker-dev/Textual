@@ -797,7 +797,6 @@
 		4C06E53420EC551D0055D09A /* TLOLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E29220EC4F570055D09A /* TLOLocalization.m */; };
 		4C06E53520EC551D0055D09A /* TLONicknameCompletionStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515C20EB673E00448776 /* TLONicknameCompletionStatus.m */; };
 		4C06E53620EC551D0055D09A /* TLONotificationConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515D20EB673E00448776 /* TLONotificationConfiguration.m */; };
-		4C06E53720EC551D0055D09A /* TLOPopupPrompts.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31514A20EB673E00448776 /* TLOPopupPrompts.m */; };
 		4C06E53820EC551D0055D09A /* TLOSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515820EB673E00448776 /* TLOSoundPlayer.m */; };
 		4C06E53920EC551D0055D09A /* TLOSpeechSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515720EB673E00448776 /* TLOSpeechSynthesizer.m */; };
 		4C06E53A20EC551D0055D09A /* TLOSpokenNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515A20EB673E00448776 /* TLOSpokenNotification.m */; };
@@ -852,7 +851,6 @@
 		4C06E56B20EC551D0055D09A /* TVCMainWindowChannelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D820EB673E00448776 /* TVCMainWindowChannelView.m */; };
 		4C06E56C20EC551D0055D09A /* TVCMainWindowLoadingScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D220EB673E00448776 /* TVCMainWindowLoadingScreen.m */; };
 		4C06E56D20EC551D0055D09A /* TVCMainWindowSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D420EB673E00448776 /* TVCMainWindowSegmentedControl.m */; };
-		4C06E56E20EC551D0055D09A /* TVCMainWindowSidebarSmoothTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D020EB673E00448776 /* TVCMainWindowSidebarSmoothTextField.m */; };
 		4C06E56F20EC551D0055D09A /* TVCMainWindowSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D320EB673E00448776 /* TVCMainWindowSplitView.m */; };
 		4C06E57020EC551D0055D09A /* TVCMainWindowTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D620EB673E00448776 /* TVCMainWindowTextView.m */; };
 		4C06E57120EC551D0055D09A /* TVCMainWindowTextViewAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152CF20EB673E00448776 /* TVCMainWindowTextViewAppearance.m */; };
@@ -972,7 +970,6 @@
 		4C06E5ED20EC553A0055D09A /* TLOLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E29220EC4F570055D09A /* TLOLocalization.m */; };
 		4C06E5EE20EC553A0055D09A /* TLONicknameCompletionStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515C20EB673E00448776 /* TLONicknameCompletionStatus.m */; };
 		4C06E5EF20EC553A0055D09A /* TLONotificationConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515D20EB673E00448776 /* TLONotificationConfiguration.m */; };
-		4C06E5F020EC553A0055D09A /* TLOPopupPrompts.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31514A20EB673E00448776 /* TLOPopupPrompts.m */; };
 		4C06E5F120EC553A0055D09A /* TLOSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515820EB673E00448776 /* TLOSoundPlayer.m */; };
 		4C06E5F220EC553A0055D09A /* TLOSpeechSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515720EB673E00448776 /* TLOSpeechSynthesizer.m */; };
 		4C06E5F320EC553A0055D09A /* TLOSpokenNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515A20EB673E00448776 /* TLOSpokenNotification.m */; };
@@ -1025,7 +1022,6 @@
 		4C06E62420EC553A0055D09A /* TVCMainWindowChannelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D820EB673E00448776 /* TVCMainWindowChannelView.m */; };
 		4C06E62520EC553A0055D09A /* TVCMainWindowLoadingScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D220EB673E00448776 /* TVCMainWindowLoadingScreen.m */; };
 		4C06E62620EC553A0055D09A /* TVCMainWindowSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D420EB673E00448776 /* TVCMainWindowSegmentedControl.m */; };
-		4C06E62720EC553A0055D09A /* TVCMainWindowSidebarSmoothTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D020EB673E00448776 /* TVCMainWindowSidebarSmoothTextField.m */; };
 		4C06E62820EC553A0055D09A /* TVCMainWindowSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D320EB673E00448776 /* TVCMainWindowSplitView.m */; };
 		4C06E62920EC553A0055D09A /* TVCMainWindowTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D620EB673E00448776 /* TVCMainWindowTextView.m */; };
 		4C06E62A20EC553A0055D09A /* TVCMainWindowTextViewAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152CF20EB673E00448776 /* TVCMainWindowTextViewAppearance.m */; };
@@ -1145,7 +1141,6 @@
 		4C06E6A620EC55B90055D09A /* TLOLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E29220EC4F570055D09A /* TLOLocalization.m */; };
 		4C06E6A720EC55B90055D09A /* TLONicknameCompletionStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515C20EB673E00448776 /* TLONicknameCompletionStatus.m */; };
 		4C06E6A820EC55B90055D09A /* TLONotificationConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515D20EB673E00448776 /* TLONotificationConfiguration.m */; };
-		4C06E6A920EC55B90055D09A /* TLOPopupPrompts.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31514A20EB673E00448776 /* TLOPopupPrompts.m */; };
 		4C06E6AA20EC55B90055D09A /* TLOSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515820EB673E00448776 /* TLOSoundPlayer.m */; };
 		4C06E6AB20EC55B90055D09A /* TLOSpeechSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515720EB673E00448776 /* TLOSpeechSynthesizer.m */; };
 		4C06E6AC20EC55B90055D09A /* TLOSpokenNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515A20EB673E00448776 /* TLOSpokenNotification.m */; };
@@ -1198,7 +1193,6 @@
 		4C06E6DD20EC55B90055D09A /* TVCMainWindowChannelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D820EB673E00448776 /* TVCMainWindowChannelView.m */; };
 		4C06E6DE20EC55B90055D09A /* TVCMainWindowLoadingScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D220EB673E00448776 /* TVCMainWindowLoadingScreen.m */; };
 		4C06E6DF20EC55B90055D09A /* TVCMainWindowSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D420EB673E00448776 /* TVCMainWindowSegmentedControl.m */; };
-		4C06E6E020EC55B90055D09A /* TVCMainWindowSidebarSmoothTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D020EB673E00448776 /* TVCMainWindowSidebarSmoothTextField.m */; };
 		4C06E6E120EC55B90055D09A /* TVCMainWindowSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D320EB673E00448776 /* TVCMainWindowSplitView.m */; };
 		4C06E6E220EC55B90055D09A /* TVCMainWindowTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D620EB673E00448776 /* TVCMainWindowTextView.m */; };
 		4C06E6E320EC55B90055D09A /* TVCMainWindowTextViewAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152CF20EB673E00448776 /* TVCMainWindowTextViewAppearance.m */; };
@@ -1318,7 +1312,6 @@
 		4C06E75F20EC55DB0055D09A /* TLOLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E29220EC4F570055D09A /* TLOLocalization.m */; };
 		4C06E76020EC55DB0055D09A /* TLONicknameCompletionStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515C20EB673E00448776 /* TLONicknameCompletionStatus.m */; };
 		4C06E76120EC55DB0055D09A /* TLONotificationConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515D20EB673E00448776 /* TLONotificationConfiguration.m */; };
-		4C06E76220EC55DB0055D09A /* TLOPopupPrompts.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31514A20EB673E00448776 /* TLOPopupPrompts.m */; };
 		4C06E76320EC55DB0055D09A /* TLOSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515820EB673E00448776 /* TLOSoundPlayer.m */; };
 		4C06E76420EC55DB0055D09A /* TLOSpeechSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515720EB673E00448776 /* TLOSpeechSynthesizer.m */; };
 		4C06E76520EC55DB0055D09A /* TLOSpokenNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31515A20EB673E00448776 /* TLOSpokenNotification.m */; };
@@ -1371,7 +1364,6 @@
 		4C06E79620EC55DB0055D09A /* TVCMainWindowChannelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D820EB673E00448776 /* TVCMainWindowChannelView.m */; };
 		4C06E79720EC55DB0055D09A /* TVCMainWindowLoadingScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D220EB673E00448776 /* TVCMainWindowLoadingScreen.m */; };
 		4C06E79820EC55DB0055D09A /* TVCMainWindowSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D420EB673E00448776 /* TVCMainWindowSegmentedControl.m */; };
-		4C06E79920EC55DB0055D09A /* TVCMainWindowSidebarSmoothTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D020EB673E00448776 /* TVCMainWindowSidebarSmoothTextField.m */; };
 		4C06E79A20EC55DB0055D09A /* TVCMainWindowSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D320EB673E00448776 /* TVCMainWindowSplitView.m */; };
 		4C06E79B20EC55DB0055D09A /* TVCMainWindowTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152D620EB673E00448776 /* TVCMainWindowTextView.m */; };
 		4C06E79C20EC55DB0055D09A /* TVCMainWindowTextViewAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152CF20EB673E00448776 /* TVCMainWindowTextViewAppearance.m */; };
@@ -1457,7 +1449,6 @@
 		4C31551D20EB6CB300448776 /* TLOKeyEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151A820EB673E00448776 /* TLOKeyEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31551E20EB6CB300448776 /* TLOLinkParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31519D20EB673E00448776 /* TLOLinkParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31551F20EB6CB300448776 /* TLOpenLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31517B20EB673E00448776 /* TLOpenLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C31552020EB6CB300448776 /* TLOPopupPrompts.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151A920EB673E00448776 /* TLOPopupPrompts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31552120EB6CB300448776 /* TLOSoundPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31516420EB673E00448776 /* TLOSoundPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31552220EB6CB300448776 /* TPCApplicationInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31524020EB673E00448776 /* TPCApplicationInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31552320EB6CB300448776 /* TPCPathInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31517D20EB673E00448776 /* TPCPathInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1544,7 +1535,6 @@
 		4C31557420EB6CB300448776 /* TLOKeyEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151A820EB673E00448776 /* TLOKeyEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31557520EB6CB300448776 /* TLOLinkParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31519D20EB673E00448776 /* TLOLinkParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31557620EB6CB300448776 /* TLOpenLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31517B20EB673E00448776 /* TLOpenLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C31557720EB6CB300448776 /* TLOPopupPrompts.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151A920EB673E00448776 /* TLOPopupPrompts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31557820EB6CB300448776 /* TLOSoundPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31516420EB673E00448776 /* TLOSoundPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31557920EB6CB300448776 /* TPCApplicationInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31524020EB673E00448776 /* TPCApplicationInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31557A20EB6CB300448776 /* TPCPathInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31517D20EB673E00448776 /* TPCPathInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1631,7 +1621,6 @@
 		4C3155CB20EB6CB400448776 /* TLOKeyEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151A820EB673E00448776 /* TLOKeyEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C3155CC20EB6CB400448776 /* TLOLinkParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31519D20EB673E00448776 /* TLOLinkParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C3155CD20EB6CB400448776 /* TLOpenLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31517B20EB673E00448776 /* TLOpenLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C3155CE20EB6CB400448776 /* TLOPopupPrompts.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151A920EB673E00448776 /* TLOPopupPrompts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C3155CF20EB6CB400448776 /* TLOSoundPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31516420EB673E00448776 /* TLOSoundPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C3155D020EB6CB400448776 /* TPCApplicationInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31524020EB673E00448776 /* TPCApplicationInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C3155D120EB6CB400448776 /* TPCPathInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31517D20EB673E00448776 /* TPCPathInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1718,7 +1707,6 @@
 		4C31562220EB6CB400448776 /* TLOKeyEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151A820EB673E00448776 /* TLOKeyEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31562320EB6CB400448776 /* TLOLinkParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31519D20EB673E00448776 /* TLOLinkParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31562420EB6CB400448776 /* TLOpenLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31517B20EB673E00448776 /* TLOpenLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C31562520EB6CB400448776 /* TLOPopupPrompts.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151A920EB673E00448776 /* TLOPopupPrompts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31562620EB6CB400448776 /* TLOSoundPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31516420EB673E00448776 /* TLOSoundPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31562720EB6CB400448776 /* TPCApplicationInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31524020EB673E00448776 /* TPCApplicationInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31562820EB6CB400448776 /* TPCPathInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31517D20EB673E00448776 /* TPCPathInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1871,7 +1859,6 @@
 		4C3156C920EB6D0500448776 /* TVCMainWindowLoadingScreenPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151F420EB673E00448776 /* TVCMainWindowLoadingScreenPrivate.h */; };
 		4C3156CA20EB6D0500448776 /* TVCMainWindowPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31523820EB673E00448776 /* TVCMainWindowPrivate.h */; };
 		4C3156CB20EB6D0500448776 /* TVCMainWindowSegmentedControlPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31522D20EB673E00448776 /* TVCMainWindowSegmentedControlPrivate.h */; };
-		4C3156CC20EB6D0500448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151D020EB673E00448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h */; };
 		4C3156CD20EB6D0500448776 /* TVCMainWindowSplitViewPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151CE20EB673E00448776 /* TVCMainWindowSplitViewPrivate.h */; };
 		4C3156CE20EB6D0500448776 /* TVCMainWindowTextViewAppearancePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151F320EB673E00448776 /* TVCMainWindowTextViewAppearancePrivate.h */; };
 		4C3156CF20EB6D0500448776 /* TVCMainWindowTextViewPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151BB20EB673E00448776 /* TVCMainWindowTextViewPrivate.h */; };
@@ -2004,7 +1991,6 @@
 		4C31575C20EB6D0500448776 /* TVCMainWindowLoadingScreenPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151F420EB673E00448776 /* TVCMainWindowLoadingScreenPrivate.h */; };
 		4C31575D20EB6D0500448776 /* TVCMainWindowPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31523820EB673E00448776 /* TVCMainWindowPrivate.h */; };
 		4C31575E20EB6D0500448776 /* TVCMainWindowSegmentedControlPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31522D20EB673E00448776 /* TVCMainWindowSegmentedControlPrivate.h */; };
-		4C31575F20EB6D0500448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151D020EB673E00448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h */; };
 		4C31576020EB6D0500448776 /* TVCMainWindowSplitViewPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151CE20EB673E00448776 /* TVCMainWindowSplitViewPrivate.h */; };
 		4C31576120EB6D0500448776 /* TVCMainWindowTextViewAppearancePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151F320EB673E00448776 /* TVCMainWindowTextViewAppearancePrivate.h */; };
 		4C31576220EB6D0500448776 /* TVCMainWindowTextViewPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151BB20EB673E00448776 /* TVCMainWindowTextViewPrivate.h */; };
@@ -2137,7 +2123,6 @@
 		4C3157EF20EB6D0600448776 /* TVCMainWindowLoadingScreenPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151F420EB673E00448776 /* TVCMainWindowLoadingScreenPrivate.h */; };
 		4C3157F020EB6D0600448776 /* TVCMainWindowPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31523820EB673E00448776 /* TVCMainWindowPrivate.h */; };
 		4C3157F120EB6D0600448776 /* TVCMainWindowSegmentedControlPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31522D20EB673E00448776 /* TVCMainWindowSegmentedControlPrivate.h */; };
-		4C3157F220EB6D0600448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151D020EB673E00448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h */; };
 		4C3157F320EB6D0600448776 /* TVCMainWindowSplitViewPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151CE20EB673E00448776 /* TVCMainWindowSplitViewPrivate.h */; };
 		4C3157F420EB6D0600448776 /* TVCMainWindowTextViewAppearancePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151F320EB673E00448776 /* TVCMainWindowTextViewAppearancePrivate.h */; };
 		4C3157F520EB6D0600448776 /* TVCMainWindowTextViewPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151BB20EB673E00448776 /* TVCMainWindowTextViewPrivate.h */; };
@@ -2263,7 +2248,6 @@
 		4C31588220EB6D0700448776 /* TVCMainWindowLoadingScreenPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151F420EB673E00448776 /* TVCMainWindowLoadingScreenPrivate.h */; };
 		4C31588320EB6D0700448776 /* TVCMainWindowPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31523820EB673E00448776 /* TVCMainWindowPrivate.h */; };
 		4C31588420EB6D0700448776 /* TVCMainWindowSegmentedControlPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31522D20EB673E00448776 /* TVCMainWindowSegmentedControlPrivate.h */; };
-		4C31588520EB6D0700448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151D020EB673E00448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h */; };
 		4C31588620EB6D0700448776 /* TVCMainWindowSplitViewPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151CE20EB673E00448776 /* TVCMainWindowSplitViewPrivate.h */; };
 		4C31588720EB6D0700448776 /* TVCMainWindowTextViewAppearancePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151F320EB673E00448776 /* TVCMainWindowTextViewAppearancePrivate.h */; };
 		4C31588820EB6D0700448776 /* TVCMainWindowTextViewPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151BB20EB673E00448776 /* TVCMainWindowTextViewPrivate.h */; };
@@ -2403,10 +2387,6 @@
 		4C58B572186011B900834882 /* Acknowledgements.pdf in Copy Acknowledgements */ = {isa = PBXBuildFile; fileRef = 4C58B570186011AC00834882 /* Acknowledgements.pdf */; };
 		4C58B573186011BE00834882 /* Acknowledgements.pdf in Copy Acknowledgements */ = {isa = PBXBuildFile; fileRef = 4C58B570186011AC00834882 /* Acknowledgements.pdf */; };
 		4C5BA3CB16F1302F00A96CA2 /* Style Default Templates in Resources */ = {isa = PBXBuildFile; fileRef = 4C52379215C18F6700414852 /* Style Default Templates */; };
-		4C7961C8267D288300D37F07 /* FeatureFlags.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C7961C7267D288300D37F07 /* FeatureFlags.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C7961C9267D288300D37F07 /* FeatureFlags.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C7961C7267D288300D37F07 /* FeatureFlags.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C7961CA267D288300D37F07 /* FeatureFlags.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C7961C7267D288300D37F07 /* FeatureFlags.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C7961CB267D288300D37F07 /* FeatureFlags.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C7961C7267D288300D37F07 /* FeatureFlags.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C7B04FF1D1210EC00295E82 /* BuildConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CC70202171E1CB400BDFAE0 /* BuildConfig.h */; };
 		4C7B05001D1210F300295E82 /* BuildConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CC70202171E1CB400BDFAE0 /* BuildConfig.h */; };
 		4C7B05011D12110500295E82 /* BuildConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CC70202171E1CB400BDFAE0 /* BuildConfig.h */; };
@@ -2424,6 +2404,14 @@
 		4C7D616E267DF466006AA911 /* TDCCommunityMovedDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7D6169267DF466006AA911 /* TDCCommunityMovedDialog.xib */; };
 		4C83B9111BA9BECC00BD7718 /* Chat Filters.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C83B9101BA9BEB800BD7718 /* Chat Filters.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4C83B9121BA9BED500BD7718 /* Chat Filters.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C83B9101BA9BEB800BD7718 /* Chat Filters.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4C8F3FD72C31AF7700118AAF /* THOPluginManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C8F3FD82C31AF7700118AAF /* THOPluginManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C8F3FD92C31AF7700118AAF /* THOPluginManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C8F3FDA2C31AF7700118AAF /* THOPluginManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C8F3FDC2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */; };
+		4C8F3FDD2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */; };
+		4C8F3FDE2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */; };
+		4C8F3FDF2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */; };
 		4C95689F194A894D003D97FD /* Smiley Converter.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C956893194A8862003D97FD /* Smiley Converter.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4C9A1D9C1836E6D300C14835 /* User Insights.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C9A1D921836E6A100C14835 /* User Insights.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4C9A1D9D1836E6D500C14835 /* System Info.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C9A1D931836E6A100C14835 /* System Info.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -2876,7 +2864,6 @@
 		4C31514420EB673E00448776 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4C31514820EB673E00448776 /* OELReachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OELReachability.m; sourceTree = "<group>"; };
 		4C31514920EB673E00448776 /* TLONotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TLONotificationController.m; sourceTree = "<group>"; };
-		4C31514A20EB673E00448776 /* TLOPopupPrompts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TLOPopupPrompts.m; sourceTree = "<group>"; };
 		4C31514B20EB673E00448776 /* TLOKeyEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TLOKeyEventHandler.m; sourceTree = "<group>"; };
 		4C31514E20EB673E00448776 /* TLOLicenseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TLOLicenseManager.m; sourceTree = "<group>"; };
 		4C31514F20EB673E00448776 /* TLOLicenseManagerLastGen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TLOLicenseManagerLastGen.m; sourceTree = "<group>"; };
@@ -2962,7 +2949,6 @@
 		4C3151A620EB673E00448776 /* THOUnicodeHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THOUnicodeHelper.h; sourceTree = "<group>"; };
 		4C3151A720EB673E00448776 /* IRCAddressBook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IRCAddressBook.h; sourceTree = "<group>"; };
 		4C3151A820EB673E00448776 /* TLOKeyEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLOKeyEventHandler.h; sourceTree = "<group>"; };
-		4C3151A920EB673E00448776 /* TLOPopupPrompts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLOPopupPrompts.h; sourceTree = "<group>"; };
 		4C3151AA20EB673E00448776 /* TLONotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLONotificationController.h; sourceTree = "<group>"; };
 		4C3151AD20EB673E00448776 /* WebScriptObjectHelperPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebScriptObjectHelperPrivate.h; sourceTree = "<group>"; };
 		4C3151AE20EB673E00448776 /* IRCCommandIndexPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IRCCommandIndexPrivate.h; sourceTree = "<group>"; };
@@ -2996,7 +2982,6 @@
 		4C3151CD20EB673E00448776 /* TVCWK1AutoScrollerPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVCWK1AutoScrollerPrivate.h; sourceTree = "<group>"; };
 		4C3151CE20EB673E00448776 /* TVCMainWindowSplitViewPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVCMainWindowSplitViewPrivate.h; sourceTree = "<group>"; };
 		4C3151CF20EB673E00448776 /* THOPluginManagerPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THOPluginManagerPrivate.h; sourceTree = "<group>"; };
-		4C3151D020EB673E00448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVCMainWindowSidebarSmoothTextFieldPrivate.h; sourceTree = "<group>"; };
 		4C3151D120EB673E00448776 /* TDCChannelSpotlightControlsPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDCChannelSpotlightControlsPrivate.h; sourceTree = "<group>"; };
 		4C3151D220EB673E00448776 /* TPCPathInfoPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TPCPathInfoPrivate.h; sourceTree = "<group>"; };
 		4C3151D320EB673E00448776 /* TDCLicenseUpgradeCommonActionsPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDCLicenseUpgradeCommonActionsPrivate.h; sourceTree = "<group>"; };
@@ -3216,7 +3201,6 @@
 		4C3152CC20EB673E00448776 /* TVCServerList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVCServerList.m; sourceTree = "<group>"; };
 		4C3152CD20EB673E00448776 /* TVCServerListAppearance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVCServerListAppearance.m; sourceTree = "<group>"; };
 		4C3152CF20EB673E00448776 /* TVCMainWindowTextViewAppearance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVCMainWindowTextViewAppearance.m; sourceTree = "<group>"; };
-		4C3152D020EB673E00448776 /* TVCMainWindowSidebarSmoothTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVCMainWindowSidebarSmoothTextField.m; sourceTree = "<group>"; };
 		4C3152D120EB673E00448776 /* TVCMainWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVCMainWindow.m; sourceTree = "<group>"; };
 		4C3152D220EB673E00448776 /* TVCMainWindowLoadingScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVCMainWindowLoadingScreen.m; sourceTree = "<group>"; };
 		4C3152D320EB673E00448776 /* TVCMainWindowSplitView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVCMainWindowSplitView.m; sourceTree = "<group>"; };
@@ -3372,12 +3356,13 @@
 		4C5BA4E616F1302F00A96CA2 /* Textual.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Textual.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C761BAE1E155CB100A505B7 /* BuildServices.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = BuildServices.sh; path = "Build Scripts/BuildServices.sh"; sourceTree = "<group>"; };
 		4C7961C6267D25B400D37F07 /* UpdateFeatureFlags.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = UpdateFeatureFlags.sh; path = "Build Scripts/UpdateFeatureFlags.sh"; sourceTree = "<group>"; };
-		4C7961C7267D288300D37F07 /* FeatureFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeatureFlags.h; path = "../../.tmp/Build Headers/FeatureFlags.h"; sourceTree = SOURCE_ROOT; };
 		4C7D615F267DF428006AA911 /* TDCCommunityMovedDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDCCommunityMovedDialog.m; sourceTree = "<group>"; };
 		4C7D6164267DF44C006AA911 /* TDCCommunityMovedDialogPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCCommunityMovedDialogPrivate.h; sourceTree = "<group>"; };
 		4C7D616A267DF466006AA911 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TDCCommunityMovedDialog.xib; sourceTree = "<group>"; };
 		4C83B9101BA9BEB800BD7718 /* Chat Filters.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "Chat Filters.bundle"; path = "../../.tmp/SharedBuildProducts-Extensions/Chat Filters.bundle"; sourceTree = SOURCE_ROOT; };
 		4C8F2F5D1AAE6467007821CC /* EncryptionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EncryptionKit.framework; path = "../../.tmp/SharedBuildProducts-Frameworks/EncryptionKit.framework"; sourceTree = SOURCE_ROOT; };
+		4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THOPluginManager.h; sourceTree = "<group>"; };
+		4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THOPluginItemLogging.m; sourceTree = "<group>"; };
 		4C956893194A8862003D97FD /* Smiley Converter.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "Smiley Converter.bundle"; path = "../../.tmp/SharedBuildProducts-Extensions/Smiley Converter.bundle"; sourceTree = SOURCE_ROOT; };
 		4C9A1D921836E6A100C14835 /* User Insights.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "User Insights.bundle"; path = "../../.tmp/SharedBuildProducts-Extensions/User Insights.bundle"; sourceTree = SOURCE_ROOT; };
 		4C9A1D931836E6A100C14835 /* System Info.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "System Info.bundle"; path = "../../.tmp/SharedBuildProducts-Extensions/System Info.bundle"; sourceTree = SOURCE_ROOT; };
@@ -3878,7 +3863,6 @@
 				4C31515D20EB673E00448776 /* TLONotificationConfiguration.m */,
 				4C31514920EB673E00448776 /* TLONotificationController.m */,
 				4C31515920EB673E00448776 /* TLOpenLink.swift */,
-				4C31514A20EB673E00448776 /* TLOPopupPrompts.m */,
 				4C31515820EB673E00448776 /* TLOSoundPlayer.m */,
 				4C31515720EB673E00448776 /* TLOSpeechSynthesizer.m */,
 				4C31515A20EB673E00448776 /* TLOSpokenNotification.m */,
@@ -3935,7 +3919,6 @@
 				4C31516120EB673E00448776 /* External Libraries */,
 				4C31518420EB673E00448776 /* Internal */,
 				4C3151AB20EB673E00448776 /* Private */,
-				4C7961C7267D288300D37F07 /* FeatureFlags.h */,
 				4C31524120EB673E00448776 /* IRC.h */,
 				4C3151A720EB673E00448776 /* IRCAddressBook.h */,
 				4C31517620EB673E00448776 /* IRCAddressBookUserTracking.h */,
@@ -3975,6 +3958,7 @@
 				4C31525C20EB673E00448776 /* TDCWindowBase.h */,
 				4C31525F20EB673E00448776 /* Textual.h */,
 				4C31517720EB673E00448776 /* TextualApplication.h */,
+				4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */,
 				4C31517820EB673E00448776 /* THOPluginProtocol.h */,
 				4C3151A620EB673E00448776 /* THOUnicodeHelper.h */,
 				4C31524520EB673E00448776 /* TLOEncryptionManager.h */,
@@ -3984,7 +3968,6 @@
 				4C06E27720EC4E860055D09A /* TLOLocalization.h */,
 				4C3151AA20EB673E00448776 /* TLONotificationController.h */,
 				4C31517B20EB673E00448776 /* TLOpenLink.h */,
-				4C3151A920EB673E00448776 /* TLOPopupPrompts.h */,
 				4C31516420EB673E00448776 /* TLOSoundPlayer.h */,
 				4C06E27420EC4E850055D09A /* TLOTimer.h */,
 				4C31524020EB673E00448776 /* TPCApplicationInfo.h */,
@@ -4190,7 +4173,6 @@
 				4C3151F420EB673E00448776 /* TVCMainWindowLoadingScreenPrivate.h */,
 				4C31523820EB673E00448776 /* TVCMainWindowPrivate.h */,
 				4C31522D20EB673E00448776 /* TVCMainWindowSegmentedControlPrivate.h */,
-				4C3151D020EB673E00448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h */,
 				4C3151CE20EB673E00448776 /* TVCMainWindowSplitViewPrivate.h */,
 				4C3151F320EB673E00448776 /* TVCMainWindowTextViewAppearancePrivate.h */,
 				4C3151BB20EB673E00448776 /* TVCMainWindowTextViewPrivate.h */,
@@ -4444,7 +4426,6 @@
 				4C3152D820EB673E00448776 /* TVCMainWindowChannelView.m */,
 				4C3152D220EB673E00448776 /* TVCMainWindowLoadingScreen.m */,
 				4C3152D420EB673E00448776 /* TVCMainWindowSegmentedControl.m */,
-				4C3152D020EB673E00448776 /* TVCMainWindowSidebarSmoothTextField.m */,
 				4C3152D320EB673E00448776 /* TVCMainWindowSplitView.m */,
 				4C3152D620EB673E00448776 /* TVCMainWindowTextView.m */,
 				4C3152CF20EB673E00448776 /* TVCMainWindowTextViewAppearance.m */,
@@ -4494,6 +4475,7 @@
 			children = (
 				4C3152E120EB673E00448776 /* THOPluginDispatcher.m */,
 				4C3152E320EB673E00448776 /* THOPluginItem.m */,
+				4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */,
 				4C3152E220EB673E00448776 /* THOPluginManager.m */,
 			);
 			path = "Plugin Architecture";
@@ -4993,7 +4975,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C7961C8267D288300D37F07 /* FeatureFlags.h in Headers */,
 				4C31585220EB6D0700448776 /* TDCServerPropertiesSheetPrivate.h in Headers */,
 				4C31583B20EB6D0700448776 /* TDCFileTransferDialogTableCellPrivate.h in Headers */,
 				4CAB275E2537F71B009B1F07 /* IRCChannelMemberList.h in Headers */,
@@ -5117,7 +5098,6 @@
 				4C31552620EB6CB300448776 /* TPCPreferencesImportExport.h in Headers */,
 				4C31550920EB6CB300448776 /* IRCSendingMessage.h in Headers */,
 				4C31552320EB6CB300448776 /* TPCPathInfo.h in Headers */,
-				4C31588520EB6D0700448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h in Headers */,
 				4C31586920EB6D0700448776 /* TPCPreferencesCloudSyncPrivate.h in Headers */,
 				4C3154F820EB6CB300448776 /* IRCChannel.h in Headers */,
 				4C31551D20EB6CB300448776 /* TLOKeyEventHandler.h in Headers */,
@@ -5224,7 +5204,6 @@
 				4CEFEDAD22B4AF43002CEE19 /* TDCPreferencesUserStyleSheetPrivate.h in Headers */,
 				4C31550220EB6CB300448776 /* IRCHighlightMatchCondition.h in Headers */,
 				4C31552F20EB6CB300448776 /* TVCAutoExpandingTextField.h in Headers */,
-				4C31552020EB6CB300448776 /* TLOPopupPrompts.h in Headers */,
 				4C31554220EB6CB300448776 /* TVCServerListAppearance.h in Headers */,
 				4C31588B20EB6D0700448776 /* TVCMemberListCellPrivate.h in Headers */,
 				4C31582320EB6D0700448776 /* IRCUserRelationsPrivate.h in Headers */,
@@ -5235,6 +5214,7 @@
 				4C31551920EB6CB300448776 /* THOUnicodeHelper.h in Headers */,
 				4C31553720EB6CB300448776 /* TVCLogRenderer.h in Headers */,
 				4C31554520EB6CB300448776 /* TVCValidatedTextField.h in Headers */,
+				4C8F3FDA2C31AF7700118AAF /* THOPluginManager.h in Headers */,
 				4C31551A20EB6CB300448776 /* TLOEncryptionManager.h in Headers */,
 				4C31554920EB6CB300448776 /* TXMasterController.h in Headers */,
 				4C31582F20EB6D0700448776 /* TDCChannelBanListSheetPrivate.h in Headers */,
@@ -5261,7 +5241,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C7961CB267D288300D37F07 /* FeatureFlags.h in Headers */,
 				4C31569920EB6D0500448776 /* TDCServerPropertiesSheetPrivate.h in Headers */,
 				4C31568220EB6D0400448776 /* TDCFileTransferDialogTableCellPrivate.h in Headers */,
 				4CAB27612537F71B009B1F07 /* IRCChannelMemberList.h in Headers */,
@@ -5392,7 +5371,6 @@
 				4C31562B20EB6CB400448776 /* TPCPreferencesImportExport.h in Headers */,
 				4C31560E20EB6CB400448776 /* IRCSendingMessage.h in Headers */,
 				4C31562820EB6CB400448776 /* TPCPathInfo.h in Headers */,
-				4C3156CC20EB6D0500448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h in Headers */,
 				4C3155FD20EB6CB400448776 /* IRCChannel.h in Headers */,
 				4C31562220EB6CB400448776 /* TLOKeyEventHandler.h in Headers */,
 				4C3158E220EB6D1600448776 /* OELReachability.h in Headers */,
@@ -5437,6 +5415,7 @@
 				4C3156CF20EB6D0500448776 /* TVCMainWindowTextViewPrivate.h in Headers */,
 				4C31569320EB6D0500448776 /* TDCProgressIndicatorSheetPrivate.h in Headers */,
 				4C06E3D720EC51380055D09A /* ICLPayload.h in Headers */,
+				4C8F3FD72C31AF7700118AAF /* THOPluginManager.h in Headers */,
 				4C3156BE20EB6D0500448776 /* TVCLogControllerInlineMediaServicePrivate.h in Headers */,
 				4C31569020EB6D0500448776 /* TDCNicknameColorSheetPrivate.h in Headers */,
 				4C31566020EB6D0400448776 /* IRCHighlightLogEntryPrivate.h in Headers */,
@@ -5498,7 +5477,6 @@
 				4C31561420EB6CB400448776 /* NSColorHelper.h in Headers */,
 				4C31560720EB6CB400448776 /* IRCHighlightMatchCondition.h in Headers */,
 				4C31563420EB6CB400448776 /* TVCAutoExpandingTextField.h in Headers */,
-				4C31562520EB6CB400448776 /* TLOPopupPrompts.h in Headers */,
 				4C31564720EB6CB400448776 /* TVCServerListAppearance.h in Headers */,
 				4C3156D220EB6D0500448776 /* TVCMemberListCellPrivate.h in Headers */,
 				4C31566A20EB6D0400448776 /* IRCUserRelationsPrivate.h in Headers */,
@@ -5535,7 +5513,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C7961C9267D288300D37F07 /* FeatureFlags.h in Headers */,
 				4C3157BF20EB6D0600448776 /* TDCServerPropertiesSheetPrivate.h in Headers */,
 				4C3157A820EB6D0600448776 /* TDCFileTransferDialogTableCellPrivate.h in Headers */,
 				4CAB275F2537F71B009B1F07 /* IRCChannelMemberList.h in Headers */,
@@ -5666,7 +5643,6 @@
 				4C31557D20EB6CB300448776 /* TPCPreferencesImportExport.h in Headers */,
 				4C31556020EB6CB300448776 /* IRCSendingMessage.h in Headers */,
 				4C31557A20EB6CB300448776 /* TPCPathInfo.h in Headers */,
-				4C3157F220EB6D0600448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h in Headers */,
 				4C31554F20EB6CB300448776 /* IRCChannel.h in Headers */,
 				4C31557420EB6CB300448776 /* TLOKeyEventHandler.h in Headers */,
 				4C3158E620EB6D1600448776 /* OELReachability.h in Headers */,
@@ -5711,6 +5687,7 @@
 				4C3157F520EB6D0600448776 /* TVCMainWindowTextViewPrivate.h in Headers */,
 				4C3157B920EB6D0600448776 /* TDCProgressIndicatorSheetPrivate.h in Headers */,
 				4C06E3D520EC51380055D09A /* ICLPayload.h in Headers */,
+				4C8F3FD92C31AF7700118AAF /* THOPluginManager.h in Headers */,
 				4C3157E420EB6D0600448776 /* TVCLogControllerInlineMediaServicePrivate.h in Headers */,
 				4C3157B620EB6D0600448776 /* TDCNicknameColorSheetPrivate.h in Headers */,
 				4C31578620EB6D0600448776 /* IRCHighlightLogEntryPrivate.h in Headers */,
@@ -5772,7 +5749,6 @@
 				4C31556620EB6CB300448776 /* NSColorHelper.h in Headers */,
 				4C31555920EB6CB300448776 /* IRCHighlightMatchCondition.h in Headers */,
 				4C31558620EB6CB300448776 /* TVCAutoExpandingTextField.h in Headers */,
-				4C31557720EB6CB300448776 /* TLOPopupPrompts.h in Headers */,
 				4C31559920EB6CB300448776 /* TVCServerListAppearance.h in Headers */,
 				4C3157F820EB6D0600448776 /* TVCMemberListCellPrivate.h in Headers */,
 				4C31579020EB6D0600448776 /* IRCUserRelationsPrivate.h in Headers */,
@@ -5809,7 +5785,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C7961CA267D288300D37F07 /* FeatureFlags.h in Headers */,
 				4C31572C20EB6D0500448776 /* TDCServerPropertiesSheetPrivate.h in Headers */,
 				4CAB27602537F71B009B1F07 /* IRCChannelMemberList.h in Headers */,
 				4C31571520EB6D0500448776 /* TDCFileTransferDialogTableCellPrivate.h in Headers */,
@@ -5940,7 +5915,6 @@
 				4C3155D420EB6CB400448776 /* TPCPreferencesImportExport.h in Headers */,
 				4C3155B720EB6CB400448776 /* IRCSendingMessage.h in Headers */,
 				4C3155D120EB6CB400448776 /* TPCPathInfo.h in Headers */,
-				4C31575F20EB6D0500448776 /* TVCMainWindowSidebarSmoothTextFieldPrivate.h in Headers */,
 				4C3155A620EB6CB400448776 /* IRCChannel.h in Headers */,
 				4C3155CB20EB6CB400448776 /* TLOKeyEventHandler.h in Headers */,
 				4C3158E420EB6D1600448776 /* OELReachability.h in Headers */,
@@ -5985,6 +5959,7 @@
 				4C31576220EB6D0500448776 /* TVCMainWindowTextViewPrivate.h in Headers */,
 				4C31572620EB6D0500448776 /* TDCProgressIndicatorSheetPrivate.h in Headers */,
 				4C06E3D620EC51380055D09A /* ICLPayload.h in Headers */,
+				4C8F3FD82C31AF7700118AAF /* THOPluginManager.h in Headers */,
 				4C31575120EB6D0500448776 /* TVCLogControllerInlineMediaServicePrivate.h in Headers */,
 				4C31572320EB6D0500448776 /* TDCNicknameColorSheetPrivate.h in Headers */,
 				4C3156F320EB6D0500448776 /* IRCHighlightLogEntryPrivate.h in Headers */,
@@ -6046,7 +6021,6 @@
 				4C3155BD20EB6CB400448776 /* NSColorHelper.h in Headers */,
 				4C3155B020EB6CB400448776 /* IRCHighlightMatchCondition.h in Headers */,
 				4C3155DD20EB6CB400448776 /* TVCAutoExpandingTextField.h in Headers */,
-				4C3155CE20EB6CB400448776 /* TLOPopupPrompts.h in Headers */,
 				4C3155F020EB6CB400448776 /* TVCServerListAppearance.h in Headers */,
 				4C31576520EB6D0500448776 /* TVCMemberListCellPrivate.h in Headers */,
 				4C3156FD20EB6D0500448776 /* IRCUserRelationsPrivate.h in Headers */,
@@ -7187,7 +7161,6 @@
 				4C06E5ED20EC553A0055D09A /* TLOLocalization.m in Sources */,
 				4C06E5EE20EC553A0055D09A /* TLONicknameCompletionStatus.m in Sources */,
 				4C06E5EF20EC553A0055D09A /* TLONotificationConfiguration.m in Sources */,
-				4C06E5F020EC553A0055D09A /* TLOPopupPrompts.m in Sources */,
 				4C06E5F120EC553A0055D09A /* TLOSoundPlayer.m in Sources */,
 				4C06E5F220EC553A0055D09A /* TLOSpeechSynthesizer.m in Sources */,
 				4C06E5F320EC553A0055D09A /* TLOSpokenNotification.m in Sources */,
@@ -7214,6 +7187,7 @@
 				4C06E60920EC553A0055D09A /* ICLPayload.m in Sources */,
 				4C06E60A20EC553A0055D09A /* TVCLogLineXPC.m in Sources */,
 				4C06E60B20EC553A0055D09A /* TVCChannelSelectionOutlineCellView.m in Sources */,
+				4C8F3FDD2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */,
 				4C7D6161267DF428006AA911 /* TDCCommunityMovedDialog.m in Sources */,
 				4C06E60C20EC553A0055D09A /* TVCChannelSelectionViewController.m in Sources */,
 				4C06E60D20EC553A0055D09A /* TVCLogControllerHistoricLogFile.m in Sources */,
@@ -7242,7 +7216,6 @@
 				4C06E62420EC553A0055D09A /* TVCMainWindowChannelView.m in Sources */,
 				4C06E62520EC553A0055D09A /* TVCMainWindowLoadingScreen.m in Sources */,
 				4C06E62620EC553A0055D09A /* TVCMainWindowSegmentedControl.m in Sources */,
-				4C06E62720EC553A0055D09A /* TVCMainWindowSidebarSmoothTextField.m in Sources */,
 				4C06E62820EC553A0055D09A /* TVCMainWindowSplitView.m in Sources */,
 				4C06E62920EC553A0055D09A /* TVCMainWindowTextView.m in Sources */,
 				4C06E62A20EC553A0055D09A /* TVCMainWindowTextViewAppearance.m in Sources */,
@@ -7368,7 +7341,6 @@
 				4C06E53420EC551D0055D09A /* TLOLocalization.m in Sources */,
 				4C06E53520EC551D0055D09A /* TLONicknameCompletionStatus.m in Sources */,
 				4C06E53620EC551D0055D09A /* TLONotificationConfiguration.m in Sources */,
-				4C06E53720EC551D0055D09A /* TLOPopupPrompts.m in Sources */,
 				4C06E53820EC551D0055D09A /* TLOSoundPlayer.m in Sources */,
 				4C06E53920EC551D0055D09A /* TLOSpeechSynthesizer.m in Sources */,
 				4C469E3920EC5BDA00094EA4 /* TLOLinkParser.swift in Sources */,
@@ -7408,6 +7380,7 @@
 				4C06E55B20EC551D0055D09A /* TVCLogScriptEventSink.m in Sources */,
 				4C06E55C20EC551D0055D09A /* TVCLogView.m in Sources */,
 				4C06E55D20EC551D0055D09A /* TVCLogViewInternalWK1.m in Sources */,
+				4C8F3FDF2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */,
 				4C06E55E20EC551D0055D09A /* TVCLogViewInternalWK2.m in Sources */,
 				4C06E55F20EC551D0055D09A /* TVCWK1AutoScroller.m in Sources */,
 				4C06E56020EC551D0055D09A /* TVCAlert.m in Sources */,
@@ -7425,7 +7398,6 @@
 				4C06E56B20EC551D0055D09A /* TVCMainWindowChannelView.m in Sources */,
 				4C06E56C20EC551D0055D09A /* TVCMainWindowLoadingScreen.m in Sources */,
 				4C06E56D20EC551D0055D09A /* TVCMainWindowSegmentedControl.m in Sources */,
-				4C06E56E20EC551D0055D09A /* TVCMainWindowSidebarSmoothTextField.m in Sources */,
 				4C06E56F20EC551D0055D09A /* TVCMainWindowSplitView.m in Sources */,
 				4C06E57020EC551D0055D09A /* TVCMainWindowTextView.m in Sources */,
 				4C06E57120EC551D0055D09A /* TVCMainWindowTextViewAppearance.m in Sources */,
@@ -7557,7 +7529,6 @@
 				4C06E6A620EC55B90055D09A /* TLOLocalization.m in Sources */,
 				4C06E6A720EC55B90055D09A /* TLONicknameCompletionStatus.m in Sources */,
 				4C06E6A820EC55B90055D09A /* TLONotificationConfiguration.m in Sources */,
-				4C06E6A920EC55B90055D09A /* TLOPopupPrompts.m in Sources */,
 				4C06E6AA20EC55B90055D09A /* TLOSoundPlayer.m in Sources */,
 				4C06E6AB20EC55B90055D09A /* TLOSpeechSynthesizer.m in Sources */,
 				4C06E6AC20EC55B90055D09A /* TLOSpokenNotification.m in Sources */,
@@ -7584,6 +7555,7 @@
 				4C06E6C220EC55B90055D09A /* ICLPayload.m in Sources */,
 				4C06E6C320EC55B90055D09A /* TVCLogLineXPC.m in Sources */,
 				4C06E6C420EC55B90055D09A /* TVCChannelSelectionOutlineCellView.m in Sources */,
+				4C8F3FDC2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */,
 				4C7D6162267DF428006AA911 /* TDCCommunityMovedDialog.m in Sources */,
 				4C06E6C520EC55B90055D09A /* TVCChannelSelectionViewController.m in Sources */,
 				4C06E6C620EC55B90055D09A /* TVCLogControllerHistoricLogFile.m in Sources */,
@@ -7612,7 +7584,6 @@
 				4C06E6DD20EC55B90055D09A /* TVCMainWindowChannelView.m in Sources */,
 				4C06E6DE20EC55B90055D09A /* TVCMainWindowLoadingScreen.m in Sources */,
 				4C06E6DF20EC55B90055D09A /* TVCMainWindowSegmentedControl.m in Sources */,
-				4C06E6E020EC55B90055D09A /* TVCMainWindowSidebarSmoothTextField.m in Sources */,
 				4C06E6E120EC55B90055D09A /* TVCMainWindowSplitView.m in Sources */,
 				4C06E6E220EC55B90055D09A /* TVCMainWindowTextView.m in Sources */,
 				4C06E6E320EC55B90055D09A /* TVCMainWindowTextViewAppearance.m in Sources */,
@@ -7745,7 +7716,6 @@
 				4C06E75F20EC55DB0055D09A /* TLOLocalization.m in Sources */,
 				4C06E76020EC55DB0055D09A /* TLONicknameCompletionStatus.m in Sources */,
 				4C06E76120EC55DB0055D09A /* TLONotificationConfiguration.m in Sources */,
-				4C06E76220EC55DB0055D09A /* TLOPopupPrompts.m in Sources */,
 				4C06E76320EC55DB0055D09A /* TLOSoundPlayer.m in Sources */,
 				4C06E76420EC55DB0055D09A /* TLOSpeechSynthesizer.m in Sources */,
 				4C06E76520EC55DB0055D09A /* TLOSpokenNotification.m in Sources */,
@@ -7772,6 +7742,7 @@
 				4C06E77B20EC55DB0055D09A /* ICLPayload.m in Sources */,
 				4C06E77C20EC55DB0055D09A /* TVCLogLineXPC.m in Sources */,
 				4C06E77D20EC55DB0055D09A /* TVCChannelSelectionOutlineCellView.m in Sources */,
+				4C8F3FDE2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */,
 				4C7D6163267DF428006AA911 /* TDCCommunityMovedDialog.m in Sources */,
 				4C06E77E20EC55DB0055D09A /* TVCChannelSelectionViewController.m in Sources */,
 				4C06E77F20EC55DB0055D09A /* TVCLogControllerHistoricLogFile.m in Sources */,
@@ -7800,7 +7771,6 @@
 				4C06E79620EC55DB0055D09A /* TVCMainWindowChannelView.m in Sources */,
 				4C06E79720EC55DB0055D09A /* TVCMainWindowLoadingScreen.m in Sources */,
 				4C06E79820EC55DB0055D09A /* TVCMainWindowSegmentedControl.m in Sources */,
-				4C06E79920EC55DB0055D09A /* TVCMainWindowSidebarSmoothTextField.m in Sources */,
 				4C06E79A20EC55DB0055D09A /* TVCMainWindowSplitView.m in Sources */,
 				4C06E79B20EC55DB0055D09A /* TVCMainWindowTextView.m in Sources */,
 				4C06E79C20EC55DB0055D09A /* TVCMainWindowTextViewAppearance.m in Sources */,

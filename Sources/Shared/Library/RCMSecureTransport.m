@@ -486,8 +486,6 @@ static const char * _Nonnull kMacNames[] = {
 				 @(TLS_DHE_DSS_WITH_AES_256_CBC_SHA),				// DHE-DSS-AES256-SHA
 				 @(TLS_DHE_RSA_WITH_AES_256_CBC_SHA),				// DHE-RSA-AES256-SHA
 			 ];
-
-			break;
 		}
 		case RCMCipherSuiteCollectionDefault:
 		case RCMCipherSuiteCollectionMozilla2017:
@@ -521,8 +519,6 @@ static const char * _Nonnull kMacNames[] = {
 				 @(TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256), 	// ECDHE-ECDSA-AES128-SHA256
 				 @(TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256), 		// ECDHE-RSA-AES128-SHA256
 			 ];
-
-			break;
 		}
 	}
 

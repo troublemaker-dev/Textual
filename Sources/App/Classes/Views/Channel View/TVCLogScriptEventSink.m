@@ -80,7 +80,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TVCLogScriptEventSink
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	return [self initWithWebView:nil];
+}
 
 - (instancetype)initWithWebView:(nullable TVCLogView *)webView
 {

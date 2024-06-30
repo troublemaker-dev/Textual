@@ -40,19 +40,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Immutable Object
 
-@interface IRCServer : NSObject <NSCopying, NSMutableCopying>
+@interface IRCServer : XRPortablePropertyDict
 @property (readonly, copy) NSString *uniqueIdentifier;
 @property (readonly, copy) NSString *serverAddress;
 @property (readonly, copy, nullable) NSString *serverPassword;
 @property (readonly, copy, nullable) NSString *serverPasswordFromKeychain;
 @property (readonly) uint16_t serverPort;
 @property (readonly) BOOL prefersSecuredConnection;
-
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic NS_DESIGNATED_INITIALIZER;
-- (NSDictionary<NSString *, id> *)dictionaryValue;
-
-- (id)uniqueCopy;
-- (id)uniqueCopyMutable;
 @end
 
 #pragma mark -
