@@ -74,6 +74,8 @@ NSString * const ICLInlineContentErrorDomain = @"ICLInlineContentErrorDomain";
 	if ((self = [super init])) {
 		self.serviceConnection = connection;
 
+		LogToConsoleSetDefaultSubsystemToMainBundle(@"General");
+
 		return self;
 	}
 

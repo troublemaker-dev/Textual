@@ -58,6 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
 	if ((self = [super init])) {
 		self.serviceConnection = connection;
 
+		LogToConsoleSetDefaultSubsystemToMainBundle(@"General");
+
 		return self;
 	}
 
