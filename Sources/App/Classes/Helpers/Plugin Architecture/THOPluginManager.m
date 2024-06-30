@@ -393,7 +393,7 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 	NSString *bundlesName = [NSBundle formattedDisplayNamesForBundles:thirdPartyBundles];
 
-	[TDCAlert alertWithMessage:TXTLS(@"Prompts[45a-df]")
+	[TDCAlert alertWithMessage:TXTLS(@"Prompts[45a-df]", THOPluginProtocolCompatibilityMinimumVersion)
 						 title:TXTLS(@"Prompts[af6-45]", bundlesName)
 				 defaultButton:TXTLS(@"Prompts[324-5d]")
 			   alternateButton:TXTLS(@"Prompts[0ik-o9]")

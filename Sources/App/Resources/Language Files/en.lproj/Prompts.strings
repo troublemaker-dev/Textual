@@ -101,7 +101,9 @@ Would you like to open the “Textual Extras” installer to perform an update?"
 "h78-9e" = "Open Installation Location";
 
 "af6-45" = "The version of Textual that you are using is no longer compatible with these addons: %@";
-"45a-df" = "Please contact the developer of each addon to receive information on updating.";
+"45a-df" = "Please contact the developer of each addon to receive information on updating.
+
+If you are the developer of one of these addons: In the Info.plist file of your project, set the value of the property “MinimumTextualVersion” to “%@“, then rebuild to check for any errors.";
 "324-5d" = "Remind Me Next Launch";
 "0ik-o9" = "Open Installation Location";
 
