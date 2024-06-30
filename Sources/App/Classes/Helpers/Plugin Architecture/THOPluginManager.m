@@ -495,13 +495,13 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 	NSString *promptMessage = ((updateOptional) ? @"Prompts[9mb-o5]" : @"Prompts[34o-pk]");
 	NSString *promptDefaultButton = ((updateOptional) ? @"Prompts[ece-dd]" : @"Prompts[hd0-bf]");
 	NSString *promptAlternateButton = ((updateOptional) ? @"Prompts[ioq-nf]" : @"Prompts[467-5l]");
-	NSString *promptOtherButton = ((updateOptional) ? nil : @"Prompts[0ik-o9]");
+	NSString *promptOtherButton = ((updateOptional) ? nil : TXTLS(@"Prompts[0ik-o9]"));
 
 	[TDCAlert alertWithMessage:TXTLS(promptMessage)
 						 title:TXTLS(promptTitle, bundlesName)
 				 defaultButton:TXTLS(promptDefaultButton)
 			   alternateButton:TXTLS(promptAlternateButton)
-				   otherButton:TXTLS(promptOtherButton)
+				   otherButton:promptOtherButton
 				suppressionKey:suppressionKey
 			   suppressionText:nil
 			   completionBlock:^(TDCAlertResponse buttonClicked, BOOL suppressed, id  _Nullable underlyingAlert) {
