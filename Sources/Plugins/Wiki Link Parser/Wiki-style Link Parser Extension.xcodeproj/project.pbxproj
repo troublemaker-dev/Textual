@@ -37,7 +37,7 @@
 		4C46A13B20EC6E3C00094EA4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C46A14520EC6E4D00094EA4 /* TPIWikiStyleLinkParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPIWikiStyleLinkParser.m; sourceTree = "<group>"; };
 		4C46A14620EC6E4D00094EA4 /* TPIWikiStyleLinkParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPIWikiStyleLinkParser.h; sourceTree = "<group>"; };
-		4CBE7B471A9146E2008FB230 /* CocoaExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaExtensions.framework; path = "../../../.tmp/SharedBuildResults-Frameworks/CocoaExtensions.framework"; sourceTree = "<group>"; };
+		4CBE7B471A9146E2008FB230 /* CocoaExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaExtensions.framework; path = "../../../.tmp/SharedBuildProducts-Frameworks/CocoaExtensions.framework"; sourceTree = "<group>"; };
 		8D576316048677EA00EA77CD /* WikiStyleLinkParser.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikiStyleLinkParser.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
