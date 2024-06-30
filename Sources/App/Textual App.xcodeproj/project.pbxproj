@@ -2404,6 +2404,14 @@
 		4C7D616E267DF466006AA911 /* TDCCommunityMovedDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7D6169267DF466006AA911 /* TDCCommunityMovedDialog.xib */; };
 		4C83B9111BA9BECC00BD7718 /* Chat Filters.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C83B9101BA9BEB800BD7718 /* Chat Filters.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4C83B9121BA9BED500BD7718 /* Chat Filters.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C83B9101BA9BEB800BD7718 /* Chat Filters.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4C8F3FD72C31AF7700118AAF /* THOPluginManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C8F3FD82C31AF7700118AAF /* THOPluginManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C8F3FD92C31AF7700118AAF /* THOPluginManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C8F3FDA2C31AF7700118AAF /* THOPluginManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C8F3FDC2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */; };
+		4C8F3FDD2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */; };
+		4C8F3FDE2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */; };
+		4C8F3FDF2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */; };
 		4C95689F194A894D003D97FD /* Smiley Converter.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C956893194A8862003D97FD /* Smiley Converter.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4C9A1D9C1836E6D300C14835 /* User Insights.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C9A1D921836E6A100C14835 /* User Insights.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4C9A1D9D1836E6D500C14835 /* System Info.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C9A1D931836E6A100C14835 /* System Info.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -3353,6 +3361,8 @@
 		4C7D616A267DF466006AA911 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TDCCommunityMovedDialog.xib; sourceTree = "<group>"; };
 		4C83B9101BA9BEB800BD7718 /* Chat Filters.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "Chat Filters.bundle"; path = "../../.tmp/SharedBuildProducts-Extensions/Chat Filters.bundle"; sourceTree = SOURCE_ROOT; };
 		4C8F2F5D1AAE6467007821CC /* EncryptionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EncryptionKit.framework; path = "../../.tmp/SharedBuildProducts-Frameworks/EncryptionKit.framework"; sourceTree = SOURCE_ROOT; };
+		4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THOPluginManager.h; sourceTree = "<group>"; };
+		4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THOPluginItemLogging.m; sourceTree = "<group>"; };
 		4C956893194A8862003D97FD /* Smiley Converter.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "Smiley Converter.bundle"; path = "../../.tmp/SharedBuildProducts-Extensions/Smiley Converter.bundle"; sourceTree = SOURCE_ROOT; };
 		4C9A1D921836E6A100C14835 /* User Insights.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "User Insights.bundle"; path = "../../.tmp/SharedBuildProducts-Extensions/User Insights.bundle"; sourceTree = SOURCE_ROOT; };
 		4C9A1D931836E6A100C14835 /* System Info.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "System Info.bundle"; path = "../../.tmp/SharedBuildProducts-Extensions/System Info.bundle"; sourceTree = SOURCE_ROOT; };
@@ -3948,6 +3958,7 @@
 				4C31525C20EB673E00448776 /* TDCWindowBase.h */,
 				4C31525F20EB673E00448776 /* Textual.h */,
 				4C31517720EB673E00448776 /* TextualApplication.h */,
+				4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */,
 				4C31517820EB673E00448776 /* THOPluginProtocol.h */,
 				4C3151A620EB673E00448776 /* THOUnicodeHelper.h */,
 				4C31524520EB673E00448776 /* TLOEncryptionManager.h */,
@@ -4464,6 +4475,7 @@
 			children = (
 				4C3152E120EB673E00448776 /* THOPluginDispatcher.m */,
 				4C3152E320EB673E00448776 /* THOPluginItem.m */,
+				4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */,
 				4C3152E220EB673E00448776 /* THOPluginManager.m */,
 			);
 			path = "Plugin Architecture";
@@ -5202,6 +5214,7 @@
 				4C31551920EB6CB300448776 /* THOUnicodeHelper.h in Headers */,
 				4C31553720EB6CB300448776 /* TVCLogRenderer.h in Headers */,
 				4C31554520EB6CB300448776 /* TVCValidatedTextField.h in Headers */,
+				4C8F3FDA2C31AF7700118AAF /* THOPluginManager.h in Headers */,
 				4C31551A20EB6CB300448776 /* TLOEncryptionManager.h in Headers */,
 				4C31554920EB6CB300448776 /* TXMasterController.h in Headers */,
 				4C31582F20EB6D0700448776 /* TDCChannelBanListSheetPrivate.h in Headers */,
@@ -5402,6 +5415,7 @@
 				4C3156CF20EB6D0500448776 /* TVCMainWindowTextViewPrivate.h in Headers */,
 				4C31569320EB6D0500448776 /* TDCProgressIndicatorSheetPrivate.h in Headers */,
 				4C06E3D720EC51380055D09A /* ICLPayload.h in Headers */,
+				4C8F3FD72C31AF7700118AAF /* THOPluginManager.h in Headers */,
 				4C3156BE20EB6D0500448776 /* TVCLogControllerInlineMediaServicePrivate.h in Headers */,
 				4C31569020EB6D0500448776 /* TDCNicknameColorSheetPrivate.h in Headers */,
 				4C31566020EB6D0400448776 /* IRCHighlightLogEntryPrivate.h in Headers */,
@@ -5673,6 +5687,7 @@
 				4C3157F520EB6D0600448776 /* TVCMainWindowTextViewPrivate.h in Headers */,
 				4C3157B920EB6D0600448776 /* TDCProgressIndicatorSheetPrivate.h in Headers */,
 				4C06E3D520EC51380055D09A /* ICLPayload.h in Headers */,
+				4C8F3FD92C31AF7700118AAF /* THOPluginManager.h in Headers */,
 				4C3157E420EB6D0600448776 /* TVCLogControllerInlineMediaServicePrivate.h in Headers */,
 				4C3157B620EB6D0600448776 /* TDCNicknameColorSheetPrivate.h in Headers */,
 				4C31578620EB6D0600448776 /* IRCHighlightLogEntryPrivate.h in Headers */,
@@ -5944,6 +5959,7 @@
 				4C31576220EB6D0500448776 /* TVCMainWindowTextViewPrivate.h in Headers */,
 				4C31572620EB6D0500448776 /* TDCProgressIndicatorSheetPrivate.h in Headers */,
 				4C06E3D620EC51380055D09A /* ICLPayload.h in Headers */,
+				4C8F3FD82C31AF7700118AAF /* THOPluginManager.h in Headers */,
 				4C31575120EB6D0500448776 /* TVCLogControllerInlineMediaServicePrivate.h in Headers */,
 				4C31572320EB6D0500448776 /* TDCNicknameColorSheetPrivate.h in Headers */,
 				4C3156F320EB6D0500448776 /* IRCHighlightLogEntryPrivate.h in Headers */,
@@ -7171,6 +7187,7 @@
 				4C06E60920EC553A0055D09A /* ICLPayload.m in Sources */,
 				4C06E60A20EC553A0055D09A /* TVCLogLineXPC.m in Sources */,
 				4C06E60B20EC553A0055D09A /* TVCChannelSelectionOutlineCellView.m in Sources */,
+				4C8F3FDD2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */,
 				4C7D6161267DF428006AA911 /* TDCCommunityMovedDialog.m in Sources */,
 				4C06E60C20EC553A0055D09A /* TVCChannelSelectionViewController.m in Sources */,
 				4C06E60D20EC553A0055D09A /* TVCLogControllerHistoricLogFile.m in Sources */,
@@ -7363,6 +7380,7 @@
 				4C06E55B20EC551D0055D09A /* TVCLogScriptEventSink.m in Sources */,
 				4C06E55C20EC551D0055D09A /* TVCLogView.m in Sources */,
 				4C06E55D20EC551D0055D09A /* TVCLogViewInternalWK1.m in Sources */,
+				4C8F3FDF2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */,
 				4C06E55E20EC551D0055D09A /* TVCLogViewInternalWK2.m in Sources */,
 				4C06E55F20EC551D0055D09A /* TVCWK1AutoScroller.m in Sources */,
 				4C06E56020EC551D0055D09A /* TVCAlert.m in Sources */,
@@ -7537,6 +7555,7 @@
 				4C06E6C220EC55B90055D09A /* ICLPayload.m in Sources */,
 				4C06E6C320EC55B90055D09A /* TVCLogLineXPC.m in Sources */,
 				4C06E6C420EC55B90055D09A /* TVCChannelSelectionOutlineCellView.m in Sources */,
+				4C8F3FDC2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */,
 				4C7D6162267DF428006AA911 /* TDCCommunityMovedDialog.m in Sources */,
 				4C06E6C520EC55B90055D09A /* TVCChannelSelectionViewController.m in Sources */,
 				4C06E6C620EC55B90055D09A /* TVCLogControllerHistoricLogFile.m in Sources */,
@@ -7723,6 +7742,7 @@
 				4C06E77B20EC55DB0055D09A /* ICLPayload.m in Sources */,
 				4C06E77C20EC55DB0055D09A /* TVCLogLineXPC.m in Sources */,
 				4C06E77D20EC55DB0055D09A /* TVCChannelSelectionOutlineCellView.m in Sources */,
+				4C8F3FDE2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */,
 				4C7D6163267DF428006AA911 /* TDCCommunityMovedDialog.m in Sources */,
 				4C06E77E20EC55DB0055D09A /* TVCChannelSelectionViewController.m in Sources */,
 				4C06E77F20EC55DB0055D09A /* TVCLogControllerHistoricLogFile.m in Sources */,

@@ -35,6 +35,7 @@
  *
  *********************************************************************** */
 
+#import "THOPluginManager.h"
 #import "IRCCommandIndex.h"
 #import "TVCLogLine.h"
 
