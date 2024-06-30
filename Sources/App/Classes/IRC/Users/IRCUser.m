@@ -240,6 +240,8 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	IRCUser *object = [self allocForCopyAsMutable:mutableCopy];
 
+	object->_client = self->_client;
+
 	object->_persistentStore = self->_persistentStore;
 
 	object->_nickname = self->_nickname;
