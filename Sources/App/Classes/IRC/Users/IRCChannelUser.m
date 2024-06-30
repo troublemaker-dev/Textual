@@ -401,7 +401,7 @@ NS_ASSUME_NONNULL_BEGIN
 	NSParameterAssert(modes != nil);
 
 	if (self->_modes != modes) {
-		self->_modes = modes;
+		self->_modes = [modes copy];
 	}
 }
 

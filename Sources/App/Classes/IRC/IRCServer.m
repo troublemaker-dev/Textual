@@ -212,14 +212,14 @@ NS_ASSUME_NONNULL_BEGIN
 	NSParameterAssert(serverAddress != nil);
 
 	if (self->_serverAddress != serverAddress) {
-		self->_serverAddress = serverAddress;
+		self->_serverAddress = [serverAddress copy];
 	}
 }
 
 - (void)setServerPassword:(nullable NSString *)serverPassword
 {
 	if (self->_serverPassword != serverPassword) {
-		self->_serverPassword = serverPassword;
+		self->_serverPassword = [serverPassword copy];
 	}
 }
 

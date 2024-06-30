@@ -270,7 +270,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	NSParameterAssert(urlToInline.isFileURL == NO);
 
 	if (self->_urlToInline != urlToInline) {
-		self->_urlToInline = urlToInline;
+		self->_urlToInline = [urlToInline copy];
 	}
 }
 
@@ -291,7 +291,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	NSParameterAssert(styleResources != nil);
 
 	if (self->_styleResources != styleResources) {
-		self->_styleResources = styleResources;
+		self->_styleResources = [styleResources copy];
 	}
 }
 
@@ -300,7 +300,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	NSParameterAssert(scriptResources != nil);
 
 	if (self->_scriptResources != scriptResources) {
-		self->_scriptResources = scriptResources;
+		self->_scriptResources = [scriptResources copy];
 	}
 }
 
@@ -309,21 +309,21 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	NSParameterAssert(html != nil);
 
 	if (self->_html != html) {
-		self->_html = html;
+		self->_html = [html copy];
 	}
 }
 
 - (void)setEntrypoint:(nullable NSString *)entrypoint
 {
 	if (self->_entrypoint != entrypoint) {
-		self->_entrypoint = entrypoint;
+		self->_entrypoint = [entrypoint copy];
 	}
 }
 
 - (void)setEntrypointPayload:(nullable NSDictionary<NSString *, id<NSCopying>> *)entrypointPayload
 {
 	if (self->_entrypointPayload != entrypointPayload) {
-		self->_entrypointPayload = entrypointPayload;
+		self->_entrypointPayload = [entrypointPayload copy];
 
 		[self entrypointPayloadSetContext];
 	}
@@ -334,7 +334,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	NSParameterAssert(classAttribute != nil);
 
 	if (self->_classAttribute != classAttribute) {
-		self->_classAttribute = classAttribute;
+		self->_classAttribute = [classAttribute copy];
 	}
 }
 
