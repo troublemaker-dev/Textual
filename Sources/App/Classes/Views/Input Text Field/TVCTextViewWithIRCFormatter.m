@@ -359,11 +359,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 	NSUInteger numberOfGlyphs = layoutManager.numberOfGlyphs;
 
-	NSUInteger numberOfLines = 0;
-
 	NSUInteger totalLineHeight = valuePadding;
 
-	for (NSUInteger i = 0; i < numberOfGlyphs; numberOfLines++) {
+	for (NSUInteger i = 0; i < numberOfGlyphs; i++) {
 		NSRange lineRange;
 
 		NSRect rect = [layoutManager lineFragmentRectForGlyphAtIndex:i effectiveRange:&lineRange];
