@@ -351,6 +351,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 	object->_modes = self->_modes;
 
+	object->_creationTime = self->_creationTime;
+
 	object->_incomingWeight = self->_incomingWeight;
 	object->_outgoingWeight = self->_outgoingWeight;
 	object->_lastWeightFade = self->_lastWeightFade;
