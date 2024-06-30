@@ -112,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)prepareInitialState
 {
-	LogToConsoleSetDefaultSubsystem(os_log_create(TXBundleBuildProductIdentifierCString, "General"));
+	LogToConsoleSetDefaultSubsystemToMainBundle(@"General");
 
 	NSUInteger keyboardKeys = ([NSEvent modifierFlags] & NSEventModifierFlagDeviceIndependentFlagsMask);
 
