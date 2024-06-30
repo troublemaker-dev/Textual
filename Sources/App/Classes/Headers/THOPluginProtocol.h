@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
  * the key named: "MinimumTextualVersion" - Set the value of this entry, as a 
  * String, to the return value of THOPluginProtocolCompatibilityMinimumVersion.
  *
- * @return "6.0.0" as of March 08, 2016
+ * @return "7.2.4" as of June 30, 2024
  */
 extern NSString * const THOPluginProtocolCompatibilityMinimumVersion;
 
