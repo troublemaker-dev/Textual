@@ -70,7 +70,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation IRCISupportInfo
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithClient:(IRCClient *)client
 {
@@ -526,13 +531,6 @@ ClassWithDesignatedInitializerInitMethod
 - (NSString *)extractStatusMessagePrefixFromChannelNamed:(NSString *)channel
 {
 	NSArray *characters = self.statusMessageModeSymbols;
-
-	return [self _extractCharacters:characters fromChannelNamed:channel];
-}
-
-- (NSString *)extractUserPrefixFromChannelNamed:(NSString *)channel
-{
-	NSArray *characters = self.userModeSymbols[@"characters"];
 
 	return [self _extractCharacters:characters fromChannelNamed:channel];
 }

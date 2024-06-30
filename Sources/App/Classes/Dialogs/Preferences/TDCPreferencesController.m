@@ -1251,11 +1251,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)onModifyUserStyleSheetRules:(id)sender
 {
-	TDCPreferencesUserStyleSheet *sheet = [TDCPreferencesUserStyleSheet new];
+	TDCPreferencesUserStyleSheet *sheet = [[TDCPreferencesUserStyleSheet alloc] initWithWindow:self.window];
 
 	sheet.delegate = (id)self;
-
-	sheet.window = self.window;
 
 	[sheet start];
 

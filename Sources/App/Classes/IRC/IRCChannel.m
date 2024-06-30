@@ -84,9 +84,13 @@ NSString * const IRCChannelConfigurationWasUpdatedNotification = @"IRCChannelCon
 
 @synthesize associatedClient = _associatedClient;
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
+	return nil;
+}
+
 - (instancetype)initWithConfigDictionary:(NSDictionary<NSString *, id> *)dic
 {
 	NSParameterAssert(dic != nil);
@@ -95,7 +99,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 	return [self initWithConfig:config];
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (instancetype)initWithConfig:(IRCChannelConfig *)config
 {

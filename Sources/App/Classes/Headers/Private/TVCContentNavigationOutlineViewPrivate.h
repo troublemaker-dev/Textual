@@ -58,6 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy, nullable) NSArray<TVCContentNavigationOutlineViewItem *> *children;
 @property (readonly) BOOL isGroupItem;
 
+- (instancetype)init NS_UNAVAILABLE;
+
 - (instancetype)initWithLabel:(NSString *)label
 				   identifier:(NSUInteger)identifier
 						 view:(NSView *)view

@@ -130,6 +130,8 @@ TEXTUAL_EXTERN NSNotificationName const IRCClientUserNicknameChangedNotification
 @property (readonly, copy, nullable) NSData *zncBouncerCertificateChainData;
 @property (readonly) NSUInteger logFileSessionCount; // Number of lines sent to server console log file for session (from connect to disconnect)
 
+- (instancetype)init NS_UNAVAILABLE;
+
 - (void)connect;
 - (void)connect:(IRCClientConnectMode)connectMode;
 - (void)connect:(IRCClientConnectMode)connectMode bypassProxy:(BOOL)bypassProxy;
@@ -285,12 +287,6 @@ TEXTUAL_EXTERN NSNotificationName const IRCClientUserNicknameChangedNotification
 - (void)sendAction:(NSString *)message toChannel:(IRCChannel *)channel;
 - (void)sendNotice:(NSString *)message toChannel:(IRCChannel *)channel;
 
-/* When using -sendPrivmsgToSelectedChannel:, if the actual selected channel in the main
- window is not owned by this client, then the message will be sent to the server console. */
-/* The method obviously does not work as expected so it has been marked as deprecated.
- However, it will remain functional for plugin authors who wish to use it. */
-- (void)sendPrivmsgToSelectedChannel:(NSString *)message TEXTUAL_DEPRECATED("Use sendPrivmsg:toChannel: instead");
-
 #pragma mark -
 
 #if TEXTUAL_BUILT_WITH_ADVANCED_ENCRYPTION == 1
@@ -348,20 +344,6 @@ TEXTUAL_EXTERN NSNotificationName const IRCClientUserNicknameChangedNotification
  * configuration periodically. This method will force it to perform
  * a save if you need to rely on most recent version. */
 - (void)updateStoredConfiguration;
-@end
-
-#pragma mark -
-
-@interface IRCClient (Deprecated)
-- (void)connect:(IRCClientConnectMode)connectMode preferIPv4:(BOOL)preferIPv4 bypassProxy:(BOOL)bypassProxy TEXTUAL_DEPRECATED("No alternative available. preferIPv4 is ignored.");
-
-@property (readonly) BOOL inUserInvokedIsonRequest TEXTUAL_DEPRECATED("No alternative available. Will always return NO.");
-@property (readonly) BOOL inUserInvokedJoinRequest TEXTUAL_DEPRECATED("No alternative available. Will always return NO.");
-@property (readonly) BOOL inUserInvokedModeRequest TEXTUAL_DEPRECATED("No alternative available. Will always return NO.");
-@property (readonly) BOOL inUserInvokedNamesRequest TEXTUAL_DEPRECATED("No alternative available. Will always return NO.");
-@property (readonly) BOOL inUserInvokedWatchRequest TEXTUAL_DEPRECATED("No alternative available. Will always return NO.");
-@property (readonly) BOOL inUserInvokedWhoRequest TEXTUAL_DEPRECATED("No alternative available. Will always return NO.");
-@property (readonly) BOOL inUserInvokedWhowasRequest TEXTUAL_DEPRECATED("No alternative available. Will always return NO.");
 @end
 
 NS_ASSUME_NONNULL_END

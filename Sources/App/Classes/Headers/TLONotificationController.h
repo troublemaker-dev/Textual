@@ -77,10 +77,4 @@ typedef NS_ENUM(NSUInteger, TXNotificationType) {
 - (BOOL)bounceDockIconRepeatedlyForEvent:(TXNotificationType)event inChannel:(nullable IRCChannel *)channel;
 @end
 
-TEXTUAL_DEPRECATED("Use TLONotificationController instead")
-@interface TLOGrowlController : TLONotificationController
-/* This method will always return NO. */
-- (BOOL)growlEnabledForEvent:(TXNotificationType)event inChannel:(nullable IRCChannel *)channel;
-@end
-
 NS_ASSUME_NONNULL_END

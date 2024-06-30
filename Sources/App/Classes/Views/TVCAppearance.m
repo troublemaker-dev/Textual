@@ -59,7 +59,12 @@ typedef NS_ENUM(NSUInteger, TVCListAppearanceImageType)
 
 @implementation TVCAppearance
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (nullable instancetype)initWithAppearanceNamed:(NSString *)appearanceName atURL:(NSURL *)appearanceLocation forRetinaDisplay:(BOOL)forRetinaDisplay
 {

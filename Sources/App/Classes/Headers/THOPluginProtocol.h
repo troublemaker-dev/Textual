@@ -350,11 +350,6 @@ extern NSString * const THOPluginProtocolCompatibilityMinimumVersion;
  purposes for the plugins packaged with Textual by default. It is not
  recommended to use it, or try to understand it. */
 @property (nonatomic, readonly, copy) NSArray<THOPluginOutputSuppressionRule *> *pluginOutputSuppressionRules;
-
-#pragma mark -
-#pragma mark Deprecated
-
-- (nullable NSString *)processInlineMediaContentURL:(NSString *)resource TEXTUAL_DEPRECATED("There is currently no alternative to this method. It is no longer called.");
 @end
 
 #pragma mark -
@@ -470,7 +465,6 @@ extern NSString * const THOPluginProtocolCompatibilityMinimumVersion;
  * @brief The input, split up into sections
  */
 @property (readonly, copy) NSArray<NSString *> *messageParameters;
-@property (readonly, copy) NSArray<NSString *> *messageParamaters TEXTUAL_DEPRECATED("Use -messageParameters instead");
 
 /**
  * @brief The input's command

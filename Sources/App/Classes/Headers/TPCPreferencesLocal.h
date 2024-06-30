@@ -193,7 +193,6 @@ typedef NS_ENUM(NSUInteger, TXPreferredAppearance) {
 
 + (BOOL)autoAddScrollbackMark;
 + (BOOL)showDateChanges;
-+ (BOOL)showInlineImages TEXTUAL_DEPRECATED("Use -showInlineMedia instead");
 + (BOOL)showInlineMedia;
 + (BOOL)showJoinLeave;
 + (BOOL)displayServerMOTD;
@@ -202,7 +201,6 @@ typedef NS_ENUM(NSUInteger, TXPreferredAppearance) {
 
 + (NSUInteger)trackUserAwayStatusMaximumChannelSize;
 
-+ (BOOL)invertSidebarColors TEXTUAL_DEPRECATED("Use -appearance instead");
 + (TXPreferredAppearance)appearance;
 
 + (BOOL)disableSidebarTranslucency;
@@ -218,7 +216,6 @@ typedef NS_ENUM(NSUInteger, TXPreferredAppearance) {
 + (BOOL)rejoinOnKick;
 + (BOOL)copyOnSelect;
 + (BOOL)replyToCTCPRequests;
-+ (BOOL)autojoinWaitsForNickServ TEXTUAL_DEPRECATED("This option is now server specific. It is maintained here to read any previous, user-configured value to use a default");
 
 + (BOOL)inputHistoryIsChannelSpecific;
 
@@ -289,8 +286,6 @@ typedef NS_ENUM(NSUInteger, TXPreferredAppearance) {
 + (BOOL)disabledWhileAwayForEvent:(TXNotificationType)event;
 + (BOOL)bounceDockIconForEvent:(TXNotificationType)event;
 + (BOOL)bounceDockIconRepeatedlyForEvent:(TXNotificationType)event;
-
-+ (BOOL)growlEnabledForEvent:(TXNotificationType)event TEXTUAL_DEPRECATED("Use -notificationEnabledForEvent: instead. This method will always return NSControlStateValueOff.");
 
 + (TXTabKeyAction)tabKeyAction;
 

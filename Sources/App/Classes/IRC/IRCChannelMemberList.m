@@ -61,7 +61,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation IRCChannelMemberList
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithChannel:(IRCChannel *)channel
 {

@@ -42,7 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IRCConnectionConfig ()
 {
 @protected
-	BOOL _connectionPrefersIPv4;
 	BOOL _connectionPrefersModernCiphersOnly;
 	BOOL _connectionPrefersModernSockets;
 	BOOL _connectionPrefersSecuredConnection;

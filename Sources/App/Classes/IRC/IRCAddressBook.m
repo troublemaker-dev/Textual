@@ -35,7 +35,6 @@
  *
  *********************************************************************** */
 
-#import "NSObjectHelperPrivate.h"
 #import "NSStringHelper.h"
 #import "IRCAddressBookInternal.h"
 
@@ -45,8 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)populateDefaultsPreflight
 {
-	ObjectIsAlreadyInitializedAssert
-
 	self->_defaults = @{
 	  @"entryType" : @(IRCAddressBookEntryTypeIgnore),
 	  @"ignoreClientToClientProtocol" : @(NO),
@@ -64,12 +61,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)populateDefaultsPostflight
 {
-	ObjectIsAlreadyInitializedAssert
-
 	SetVariableIfNil(self->_hostmask, @"")
 	SetVariableIfNil(self->_hostmaskRegularExpression, @"")
 
 	SetVariableIfNil(self->_uniqueIdentifier, [NSString stringWithUUID])
+}
+
+- (void)initializedClassHealthCheck
+{
+	[self rebuildCache];
 }
 
 + (instancetype)newIgnoreEntry
@@ -114,55 +114,9 @@ NS_ASSUME_NONNULL_BEGIN
 	return object;
 }
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
-- (instancetype)init
-{
-	ObjectIsAlreadyInitializedAssert
-
-	if ((self = [super init])) {
-		[self populateDefaultsPreflight];
-
-		[self populateDefaultsPostflight];
-
-		[self rebuildCache];
-
-		self->_objectInitialized = YES;
-
-		return self;
-	}
-
-	return nil;
-}
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
-
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic
-{
-	ObjectIsAlreadyInitializedAssert
-
-	if ((self = [super init])) {
-		[self populateDefaultsPreflight];
-
-		[self populateDictionaryValues:dic];
-
-		[self populateDefaultsPostflight];
-
-		[self rebuildCache];
-
-		self->_objectInitialized = YES;
-
-		return self;
-	}
-
-	return nil;
-}
-
 - (void)populateDictionaryValues:(NSDictionary<NSString *, id> *)dic
 {
 	NSParameterAssert(dic != nil);
-
-	if ([self isMutable] == NO) {
-		ObjectIsAlreadyInitializedAssert
-	}
 
 	NSMutableDictionary<NSString *, id> *defaultsMutable = [self->_defaults mutableCopy];
 
@@ -301,54 +255,18 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return [dic dictionaryByRemovingDefaults:self->_defaults];
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (id)uniqueCopyAsMutable:(BOOL)mutableCopy
 {
-	  IRCAddressBookEntry *object =
-	[[IRCAddressBookEntry alloc] initWithDictionary:[self dictionaryValue]];
-	
-	object->_parentEntries = self->_parentEntries;
-
-	return object;
-}
-
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
-{
-	  IRCAddressBookEntryMutable *object =
-	[[IRCAddressBookEntryMutable alloc] initWithDictionary:[self dictionaryValue]];
-	
-	((IRCAddressBookEntry *)object)->_parentEntries = self->_parentEntries;
-
-	return object;
-}
-
-- (id)uniqueCopy
-{
-	return [self uniqueCopyAsMutable:NO];
-}
-
-- (id)uniqueCopyMutable
-{
-	return [self uniqueCopyAsMutable:YES];
-}
-
-- (id)uniqueCopyAsMutable:(BOOL)asMutable
-{
-	IRCAddressBookEntry *object = nil;
-
-	if (asMutable == NO) {
-		object = [self copy];
-	} else {
-		object = [self mutableCopy];
-	}
+	IRCAddressBookEntry *object = [super uniqueCopyAsMutable:mutableCopy];
 
 	object->_uniqueIdentifier = [NSString stringWithUUID];
 
 	return object;
 }
 
-- (BOOL)isMutable
+- (__kindof XRPortablePropertyDict *)mutableClass
 {
-	return NO;
+	return [IRCAddressBookEntryMutable self];
 }
 
 @end

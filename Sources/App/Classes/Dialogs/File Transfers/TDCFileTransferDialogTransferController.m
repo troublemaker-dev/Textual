@@ -184,7 +184,12 @@ NS_ASSUME_NONNULL_BEGIN
 	return controller;
 }
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithClient:(IRCClient *)client
 {

@@ -120,7 +120,6 @@ TEXTUAL_EXTERN NSString * const TVCServerListDragType;
 - (void)selectPreviousActiveChannel:(NSEvent *)e;
 
 @property (getter=isUsingDarkAppearance, readonly) BOOL usingDarkAppearance;
-@property (getter=isUsingVibrantDarkAppearance, readonly) BOOL usingVibrantDarkAppearance TEXTUAL_DEPRECATED("Use -usingDarkAppearance instead");
 
 @property (readonly) double textSizeMultiplier;
 
@@ -130,7 +129,6 @@ TEXTUAL_EXTERN NSString * const TVCServerListDragType;
 - (void)markAllAsReadInGroup:(nullable IRCTreeItem *)item;
 
 - (void)reloadTheme; // reloaded asynchronously
-- (void)reloadThemeAndUserInterface TEXTUAL_DEPRECATED("Use -reloadTheme instead");
 
 - (void)clearContentsOfClient:(IRCClient *)client;
 - (void)clearContentsOfChannel:(IRCChannel *)channel;
@@ -141,8 +139,6 @@ TEXTUAL_EXTERN NSString * const TVCServerListDragType;
 
 @property (getter=isMemberListVisible, readonly) BOOL memberListVisible;
 @property (getter=isServerListVisible, readonly) BOOL serverListVisible;
-
-@property (getter=isChannelSpotlightPanelAttached, readonly) BOOL channelSpotlightPanelAttached TEXTUAL_DEPRECATED("No alternative available. Will always return NO.");
 
 - (NSRect)defaultWindowFrame;
 @end

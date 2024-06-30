@@ -134,7 +134,7 @@ typedef NS_ENUM(NSUInteger, TPI_ChatFilterEditFilterSheetSelection)
 
 - (instancetype)initWithFilter:(nullable TPI_ChatFilter *)filter
 {
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:nil])) {
 		if (filter == nil) {
 			self.filter = [TPI_ChatFilterMutable new];
 		} else {

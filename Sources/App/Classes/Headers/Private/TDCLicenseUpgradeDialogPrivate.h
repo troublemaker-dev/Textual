@@ -48,7 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy) NSString *licenseKey;
 @property (readonly) TLOLicenseUpgradeEligibility eligibility;
 
-- (instancetype)initWithLicenseKey:(NSString *)licenseKey;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithLicenseKey:(NSString *)licenseKey NS_DESIGNATED_INITIALIZER;
 @end
 
 @protocol TDCLicenseUpgradeDialogDelegate <NSObject>

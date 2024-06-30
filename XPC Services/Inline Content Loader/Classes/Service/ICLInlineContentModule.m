@@ -44,7 +44,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation ICLInlineContentModule
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithPayload:(ICLPayloadMutable *)payload inProcess:(ICLProcessMain *)process
 {

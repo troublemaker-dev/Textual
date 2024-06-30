@@ -47,7 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy) NSString *nickname; // Defaults to empty string
 @property (readonly, copy, nullable) NSString *username;
 @property (readonly, copy, nullable) NSString *address;
-@property (readonly, copy) NSString *hostmask;
 @end
 
 #pragma mark -

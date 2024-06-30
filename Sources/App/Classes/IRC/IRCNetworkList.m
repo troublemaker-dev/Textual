@@ -119,7 +119,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation IRCNetwork
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithNetworkNamed:(NSString *)networkName networkConfiguration:(NSDictionary<NSString *, id> *)networkConfiguration
 {

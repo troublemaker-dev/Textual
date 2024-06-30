@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL IPv4AddressIsValid; // Defaults to YES
 @property (nonatomic, assign) BOOL IPv6AddressIsValid; // ^
 
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDelegate:(id <TLOInternetAddressLookupDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 - (void)performLookup;

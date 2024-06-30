@@ -51,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy) NSString *stringWithMaskedPassword;
 
 - (NSString *)getChangeCommand:(IRCChannelModeContainer *)modes;
+
+- (instancetype)init NS_UNAVAILABLE;
 @end
 
 #pragma mark -

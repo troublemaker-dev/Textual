@@ -50,8 +50,6 @@ NS_ASSUME_NONNULL_BEGIN
 DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 - (instancetype)init
 {
-	ObjectIsAlreadyInitializedAssert
-
 	if ((self = [super init])) {
 		[self populateDefaultsPostflight];
 
@@ -60,17 +58,15 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 	return nil;
 }
+DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (nullable instancetype)initWithLine:(NSString *)line
 {
 	return [self initWithLine:line onClient:nil];
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
-- (nullable instancetype)initWithLine:(NSString *)line onClient:(IRCClient *)client
+- (nullable instancetype)initWithLine:(NSString *)line onClient:(nullable IRCClient *)client
 {
-	ObjectIsAlreadyInitializedAssert
-
 	if ((self = [super init])) {
 		BOOL parseResult = [self parseLine:line forClient:client];
 
@@ -169,9 +165,9 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return self.sender.isServer;
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (void)populateDuringCopy:(__kindof XRPortablePropertyObject *)newObject mutableCopy:(BOOL)mutableCopy
 {
-	IRCMessage *object = [[IRCMessage allocWithZone:zone] init];
+	IRCMessage *object = (IRCMessage *)newObject;
 
 	object->_batchToken = self->_batchToken;
 	object->_command = self->_command;
@@ -183,31 +179,11 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	object->_params = self->_params;
 	object->_receivedAt = self->_receivedAt;
 	object->_sender = self->_sender;
-
-	return object;
 }
 
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
+- (__kindof XRPortablePropertyObject *)mutableClass
 {
-	IRCMessageMutable *object = [[IRCMessageMutable allocWithZone:zone] init];
-
-	((IRCMessage *)object)->_batchToken = self->_batchToken;
-	((IRCMessage *)object)->_command = self->_command;
-	((IRCMessage *)object)->_commandNumeric = self->_commandNumeric;
-	((IRCMessage *)object)->_isHistoric = self->_isHistoric;
-	((IRCMessage *)object)->_isEventOnlyMessage = self->_isEventOnlyMessage;
-	((IRCMessage *)object)->_isPrintOnlyMessage = self->_isPrintOnlyMessage;
-	((IRCMessage *)object)->_messageTags = self->_messageTags;
-	((IRCMessage *)object)->_params = self->_params;
-	((IRCMessage *)object)->_receivedAt = self->_receivedAt;
-	((IRCMessage *)object)->_sender = self->_sender;
-
-	return object;
-}
-
-- (BOOL)isMutable
-{
-	return NO;
+	return [IRCMessageMutable self];
 }
 
 @end
@@ -219,8 +195,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 - (BOOL)parseLine:(NSString *)line forClient:(nullable IRCClient *)client
 {
 	NSParameterAssert(line != nil);
-
-	ObjectIsAlreadyInitializedAssert
 
 	NSMutableString *lineMutable = [line mutableCopy];
 
@@ -316,8 +290,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 {
 	NSParameterAssert(extensionInfo != nil);
 
-	ObjectIsAlreadyInitializedAssert
-
 	/* Chop the tags up using ; as a divider as defined by the syntax
 	 located at: <http://ircv3.net/specs/core/message-tags-3.2.html> */
 	/* An example grouping would look like the following:
@@ -377,8 +349,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 - (void)parseSender:(NSString *)senderInfo forClient:(nullable IRCClient *)client
 {
 	NSParameterAssert(senderInfo != nil);
-
-	ObjectIsAlreadyInitializedAssert
 
 	IRCPrefixMutable *sender = [IRCPrefixMutable new];
 

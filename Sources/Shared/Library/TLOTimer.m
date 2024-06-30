@@ -41,6 +41,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TLOTimer ()
+@property (nonatomic, copy, readwrite) TLOTimerActionBlock actionBlock;
 @property (nonatomic, assign, readwrite) NSTimeInterval startTime;
 @property (nonatomic, assign, readwrite) NSTimeInterval interval;
 @property (nonatomic, assign, readwrite) BOOL repeatTimer;
@@ -55,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	NSParameterAssert(actionBlock != NULL);
 
-	return [self _timerWithActionBlock:actionBlock onQueue:NULL];
+	return [[self alloc] initWithActionBlock:actionBlock onQueue:nil];
 }
 
 + (instancetype)timerWithActionBlock:(TLOTimerActionBlock)actionBlock onQueue:(dispatch_queue_t)queue
@@ -63,20 +64,34 @@ NS_ASSUME_NONNULL_BEGIN
 	NSParameterAssert(actionBlock != NULL);
 	NSParameterAssert(queue != NULL);
 
-	return [self _timerWithActionBlock:actionBlock onQueue:queue];
+	return [[self alloc] initWithActionBlock:actionBlock onQueue:queue];
 }
 
-+ (instancetype)_timerWithActionBlock:(TLOTimerActionBlock)actionBlock onQueue:(nullable dispatch_queue_t)queue
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
+
+- (instancetype)initWithActionBlock:(TLOTimerActionBlock)actionBlock
+{
+	return [self initWithActionBlock:actionBlock onQueue:nil];
+}
+
+- (instancetype)initWithActionBlock:(TLOTimerActionBlock)actionBlock onQueue:(dispatch_queue_t)queue
 {
 	NSParameterAssert(actionBlock != NULL);
 
-	TLOTimer *timer = [TLOTimer new];
+	if ((self = [super init])) {
+		self.actionBlock = actionBlock;
 
-	timer.actionBlock = actionBlock;
+		self.queue = queue;
 
-	timer.queue = queue;
+		return self;
+	}
 
-	return timer;
+	return nil;
 }
 
 - (void)dealloc
@@ -167,33 +182,9 @@ NS_ASSUME_NONNULL_BEGIN
 	/* Perform block */
 	TLOTimerActionBlock actionBlock = self.actionBlock;
 
-	if (actionBlock) {
-		[self stopIfNeeded];
-
-		actionBlock(self);
-
-		return;
-	}
-
-	/* Perform action */
-TEXTUAL_IGNORE_DEPRECATION_BEGIN
-
-	id target = self.target;
-
-	SEL action = self.action;
-
-	if (target == nil || action == NULL) {
-		return;
-	}
-
 	[self stopIfNeeded];
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-	[self.target performSelector:self.action withObject:self];
-#pragma clang diagnostic pop
-
-TEXTUAL_IGNORE_DEPRECATION_END
+	actionBlock(self);
 }
 
 @end

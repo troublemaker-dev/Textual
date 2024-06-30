@@ -81,11 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 	defaults[@"autoConnect"] = @(NO);
 	defaults[@"autoReconnect"] = @(NO);
 	defaults[@"autoSleepModeDisconnect"] = @(YES);
-
-TEXTUAL_IGNORE_DEPRECATION_BEGIN
-	defaults[@"autojoinWaitsForNickServ"] = @([TPCPreferences autojoinWaitsForNickServ]);
-TEXTUAL_IGNORE_DEPRECATION_END
-
+	defaults[@"autojoinWaitsForNickServ"] = @(NO);
 	defaults[@"cachedLastServerTimeCapabilityReceivedAtTimestamp"] = @(0);
 	defaults[@"cipherSuites"] = @(RCMCipherSuiteCollectionDefault);
 	defaults[@"connectionName"] = TXTLS(@"BasicLanguage[vfu-c0]");
@@ -763,15 +759,16 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	/* These values are inserted here for backwards compatibility 
 	 with earlier versions of Textual */
 TEXTUAL_IGNORE_DEPRECATION_BEGIN
-	[dic maybeSetObject:self.serverAddress_ forKey:@"serverAddress"];
-
 	[dic setBool:self.connectionPrefersIPv4 forKey:@"connectionPrefersIPv4"];
-	[dic setBool:self.connectionPrefersModernCiphers_ forKey:@"connectionPrefersModernCiphers"];
-
-	[dic setBool:self.prefersSecuredConnection_ forKey:@"prefersSecuredConnection"];
-
-	[dic setUnsignedShort:self.serverPort_ forKey:@"serverPort"];
 TEXTUAL_IGNORE_DEPRECATION_END
+
+	[dic setBool:self.legacyConnectionPrefersModernCiphers forKey:@"connectionPrefersModernCiphers"];
+
+	[dic maybeSetObject:self.legacyServerAddress forKey:@"serverAddress"];
+
+	[dic setBool:self.legacyPrefersSecuredConnection forKey:@"prefersSecuredConnection"];
+
+	[dic setUnsignedShort:self.legacyServerPort forKey:@"serverPort"];
 
 	/* Channel List */
 	/* During a copy operation, it is faster to copy these arrays as a whole.
@@ -955,14 +952,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 #pragma mark -
 #pragma mark Deprecated Properties
 
-- (nullable NSString *)serverAddress
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return self.serverAddress_;
-}
-
-- (nullable NSString *)serverAddress_
+- (nullable NSString *)legacyServerAddress
 {
 	IRCServer *server = self.serverList.firstObject;
 
@@ -973,14 +963,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	return server.serverAddress;
 }
 
-- (uint16_t)serverPort
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return self.serverPort_;
-}
-
-- (uint16_t)serverPort_
+- (uint16_t)legacyServerPort
 {
 	IRCServer *server = self.serverList.firstObject;
 
@@ -991,14 +974,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	return server.serverPort;
 }
 
-- (BOOL)prefersSecuredConnection
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return self.prefersSecuredConnection_;
-}
-
-- (BOOL)prefersSecuredConnection_
+- (BOOL)legacyPrefersSecuredConnection
 {
 	IRCServer *server = self.serverList.firstObject;
 
@@ -1009,42 +985,16 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	return server.prefersSecuredConnection;
 }
 
-- (nullable NSString *)serverPassword
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	IRCServer *server = self.serverList.firstObject;
-
-	if (server == nil) {
-		return nil;
-	}
-
-	return server.serverPassword;
-}
-
-- (nullable NSString *)serverPasswordFromKeychain
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	IRCServer *server = self.serverList.firstObject;
-
-	if (server == nil) {
-		return nil;
-	}
-
-	return server.serverPasswordFromKeychain;
-}
-
-- (BOOL)connectionPrefersModernCiphers
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return self.connectionPrefersModernCiphers_;
-}
-
-- (BOOL)connectionPrefersModernCiphers_
+- (BOOL)legacyConnectionPrefersModernCiphers
 {
 	return (self.cipherSuites != RCMCipherSuiteCollectionNone);
+}
+
+- (BOOL)showConnectionPrefersIPv4Warning
+{
+TEXTUAL_IGNORE_DEPRECATION_BEGIN
+	return (self.addressType == IRCConnectionAddressTypeIPv4 && self.connectionPrefersIPv4);
+TEXTUAL_IGNORE_DEPRECATION_END
 }
 
 @end
@@ -1064,7 +1014,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 @dynamic cipherSuites;
 @dynamic connectionName;
 @dynamic connectionPrefersIPv4;
-@dynamic connectionPrefersModernCiphers;
 
 #if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
 @dynamic excludedFromCloudSyncing;
@@ -1086,7 +1035,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 @dynamic performDisconnectOnPongTimer;
 @dynamic performDisconnectOnReachabilityChange;
 @dynamic performPongTimer;
-@dynamic prefersSecuredConnection;
 @dynamic primaryEncoding;
 @dynamic proxyAddress;
 @dynamic proxyPassword;
@@ -1097,10 +1045,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 @dynamic saslAuthenticationDisableExternalMechanism;
 @dynamic sendAuthenticationRequestsToUserServ;
 @dynamic sendWhoCommandRequestsToChannels;
-@dynamic serverAddress;
 @dynamic serverList;
-@dynamic serverPassword;
-@dynamic serverPort;
 @dynamic setInvisibleModeOnConnect;
 @dynamic sidebarItemExpanded;
 @dynamic sleepModeLeavingComment;
@@ -1200,11 +1145,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	if (self->_performPongTimer != performPongTimer) {
 		self->_performPongTimer = performPongTimer;
 	}
-}
-
-- (void)setPrefersSecuredConnection:(BOOL)prefersSecuredConnection
-{
-	TEXTUAL_DEPRECATED_ASSERT
 }
 
 - (void)setSaslAuthenticationDisableExternalMechanism:(BOOL)saslAuthenticationDisableExternalMechanism
@@ -1423,18 +1363,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	}
 }
 
-- (void)setServerAddress:(nullable NSString *)serverAddress
-{
-	NSParameterAssert(serverAddress != nil);
-
-	TEXTUAL_DEPRECATED_ASSERT
-}
-
-- (void)setServerPassword:(nullable NSString *)serverPassword
-{
-	TEXTUAL_DEPRECATED_ASSERT
-}
-
 - (void)setSleepModeLeavingComment:(NSString *)sleepModeLeavingComment
 {
 	NSParameterAssert(sleepModeLeavingComment != nil);
@@ -1499,11 +1427,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	if (self->_proxyPort != proxyPort) {
 		self->_proxyPort = proxyPort;
 	}
-}
-
-- (void)setServerPort:(uint16_t)serverPort
-{
-	TEXTUAL_DEPRECATED_ASSERT
 }
 
 - (void)setCipherSuites:(RCMCipherSuiteCollection)cipherSuites

@@ -39,7 +39,7 @@
 #import <SecurityInterface/SFChooseIdentityPanel.h>
 
 #import "NSStringHelper.h"
-#import "IRCClientConfig.h"
+#import "IRCClientConfigPrivate.h"
 #import "IRCClient.h"
 #import "IRCChannel.h"
 #import "IRCHighlightMatchCondition.h"
@@ -227,6 +227,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithClient:(nullable IRCClient *)client
 {
+	if ((self = [super initWithWindow:nil])) {
 		if (client) {
 			self.client = client;
 			self.clientId = client.uniqueIdentifier;
@@ -1756,11 +1757,9 @@ TEXTUAL_IGNORE_DEPRECATION_END
 
 - (void)editSeverEndpoints:(id)sender
 {
-	TDCServerEndpointListSheet *sheet = [TDCServerEndpointListSheet new];
+	TDCServerEndpointListSheet *sheet = [[TDCServerEndpointListSheet alloc] initWithWindow:self.sheet];
 
 	sheet.delegate = self;
-
-	sheet.window = self.sheet;
 
 	[sheet startWithServerList:self.serverList];
 
@@ -1931,11 +1930,9 @@ TEXTUAL_IGNORE_DEPRECATION_END
 - (void)addChannel:(id)sender
 {
 	TDCChannelPropertiesSheet *sheet =
-	[TDCChannelPropertiesSheet new];
+	[[TDCChannelPropertiesSheet alloc] initWithWindow:self.sheet];
 
 	sheet.delegate = self;
-
-	sheet.window = self.sheet;
 
 	[sheet start];
 

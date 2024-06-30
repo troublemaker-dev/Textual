@@ -267,9 +267,13 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 #pragma mark -
 #pragma mark Initialization
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
+	return nil;
+}
+
 - (instancetype)initWithConfigDictionary:(NSDictionary<NSString *, id> *)dic
 {
 	NSParameterAssert(dic != nil);
@@ -278,7 +282,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 	return [self initWithConfig:config];
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (instancetype)initWithConfig:(IRCClientConfig *)config
 {
@@ -11372,14 +11375,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	[self connect:connectMode bypassProxy:NO];
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-- (void)connect:(IRCClientConnectMode)connectMode preferIPv4:(BOOL)preferIPv4 bypassProxy:(BOOL)bypassProxy
-{
-	[self connect:connectMode bypassProxy:bypassProxy];
-}
-#pragma clang diagnostic pop
-
 - (void)connect:(IRCClientConnectMode)connectMode bypassProxy:(BOOL)bypassProxy
 {
 	/* Do not allow a connect to occur until the current 
@@ -11484,10 +11479,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	 does not appear again, ever. */
 	IRCConnectionAddressType addressType = self.config.addressType;
 
-TEXTUAL_IGNORE_DEPRECATION_BEGIN
-	if (addressType == IRCConnectionAddressTypeIPv4 && self.config.connectionPrefersIPv4) {
-TEXTUAL_IGNORE_DEPRECATION_END
-
+	if (self.config.showConnectionPrefersIPv4Warning) {
 		[self printDebugInformation:TXTLS(@"IRC[w05-ph]")];
 	}
 

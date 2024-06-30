@@ -62,7 +62,12 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Dialog Foundation
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithLicenseKey:(NSString *)licenseKey
 {

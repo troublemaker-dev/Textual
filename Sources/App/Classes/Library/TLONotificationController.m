@@ -531,20 +531,4 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 
 @end
 
-#pragma mark -
-#pragma mark Deprecated Growl Controller
-
-TEXTUAL_IGNORE_DEPRECATION_BEGIN
-@implementation TLOGrowlController
-
-- (BOOL)growlEnabledForEvent:(TXNotificationType)event inChannel:(nullable IRCChannel *)channel
-{
-	TEXTUAL_DEPRECATED_WARNING;
-
-	return NO;
-}
-
-@end
-TEXTUAL_IGNORE_DEPRECATION_END
-
 NS_ASSUME_NONNULL_END

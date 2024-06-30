@@ -437,23 +437,6 @@ NS_ASSUME_NONNULL_BEGIN
 	return [self _stateForEventKey:eventKey];
 }
 
-#pragma mark -
-#pragma mark Deprecated
-
-- (NSControlStateValue)growlEnabledForEvent:(TXNotificationType)event
-{
-	TEXTUAL_DEPRECATED_WARNING;
-
-	return NSControlStateValueOff;
-}
-
-- (BOOL)ignoreInlineMedia
-{
-	TEXTUAL_DEPRECATED_WARNING;
-
-	return NO;
-}
-
 @end
 
 #pragma mark -
@@ -468,7 +451,6 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic defaultTopic;
 @dynamic ignoreGeneralEventMessages;
 @dynamic ignoreHighlights;
-@dynamic ignoreInlineMedia;
 @dynamic inlineMediaDisabled;
 @dynamic inlineMediaEnabled;
 @dynamic pushNotifications;
@@ -675,19 +657,6 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 
 	[self _setState:value forEventKey:eventKey];
-}
-
-#pragma mark -
-#pragma mark Deprecated
-
-- (void)setGrowlEnabled:(NSControlStateValue)value forEvent:(TXNotificationType)event
-{
-	TEXTUAL_DEPRECATED_WARNING;
-}
-
-- (void)setIgnoreInlineMedia:(BOOL)ignoreInlineMedia
-{
-	TEXTUAL_DEPRECATED_WARNING;
 }
 
 @end

@@ -95,12 +95,6 @@ typedef NS_ENUM(NSUInteger, TDCChannelPropertiesSheetSelection)
 
 @implementation TDCChannelPropertiesSheet
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
-- (instancetype)init
-{
-	return [self initWithConfig:nil onClientWithId:nil];
-}
-
 - (instancetype)initWithClient:(IRCClient *)client
 {
 	return [self initWithConfig:nil onClient:client];
@@ -115,7 +109,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 {
 	NSParameterAssert(channel != nil);
 
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:nil])) {
 		self.client = channel.associatedClient;
 		self.clientId = channel.associatedClient.uniqueIdentifier;
 
@@ -145,7 +139,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 - (instancetype)initWithConfig:(nullable IRCChannelConfig *)config onClient:(nullable IRCClient *)client
 {
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:nil])) {
 		self.client = client;
 		self.clientId = client.uniqueIdentifier;
 
@@ -167,7 +161,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 - (instancetype)initWithConfig:(nullable IRCChannelConfig *)config onClientWithId:(nullable NSString *)clientId
 {
-	if ((self = [super init])) {
+	if ((self = [self initWithWindow:nil])) {
 		self.clientId = clientId;
 
 		if (config) {
@@ -185,7 +179,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 
 	return nil;
 }
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)prepareInitialState
 {

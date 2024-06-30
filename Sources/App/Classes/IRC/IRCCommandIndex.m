@@ -121,24 +121,6 @@ static NSDictionary *IRCCommandIndexRemoteData = nil;
 	return _cachedLocalCommandList;
 }
 
-NSString * _Nullable IRCPrivateCommandIndex(const char *indexKey)
-{
-	NSCParameterAssert(indexKey != NULL);
-	
-	TEXTUAL_DEPRECATED_WARNING;
-	
-	return [@(indexKey) uppercaseString];
-}
-
-NSString * _Nullable IRCPublicCommandIndex(const char *indexKey)
-{
-	NSCParameterAssert(indexKey != NULL);
-
-	TEXTUAL_DEPRECATED_WARNING;
-	
-	return [@(indexKey) uppercaseString];
-}
-
 + (NSUInteger)indexOfLocalCommand:(NSString *)command
 {
 	return [self indexOfCommand:command isLocal:YES];

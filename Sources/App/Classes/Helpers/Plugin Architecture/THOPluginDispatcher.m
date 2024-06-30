@@ -44,7 +44,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString * const THOPluginProtocolCompatibilityMinimumVersion = @"6.0.0";
+NSString * const THOPluginProtocolCompatibilityMinimumVersion = @"7.2.4";
 
 @interface IRCMessage (IRCMessagePluginExtension)
 - (THOPluginDidReceiveServerInputConcreteObject *)didReceiveServerInputConcreteObject;

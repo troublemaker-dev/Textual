@@ -42,37 +42,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation IRCHighlightMatchCondition
 
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
 - (instancetype)init
 {
-	return [self initWithDictionary:@{}];
-}
-DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
-
-- (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dic
-{
-	ObjectIsAlreadyInitializedAssert
-
-	if ((self = [super init])) {
-		[self populateDictionaryValues:dic];
-
-		[self populateDefaultsPostflight];
-
-		[self initializedClassHealthCheck];
-
-		self->_objectInitialized = YES;
-
-		return self;
-	}
-
-	return nil;
+	return [super initWithDictionary:@{}];
 }
 
 - (void)initializedClassHealthCheck
 {
-	ObjectIsAlreadyInitializedAssert
-
-	if ([self isMutable]) {
+	if (self.mutable) {
 		return;
 	}
 
@@ -83,10 +60,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 {
 	NSParameterAssert(dic != nil);
 
-	if ([self isMutable] == NO) {
-		ObjectIsAlreadyInitializedAssert
-	}
-
 	[dic assignBoolTo:&self->_matchIsExcluded forKey:@"matchIsExcluded"];
 
 	[dic assignStringTo:&self->_matchChannelId forKey:@"matchChannelID"];
@@ -96,8 +69,6 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 
 - (void)populateDefaultsPostflight
 {
-	ObjectIsAlreadyInitializedAssert
-
 	SetVariableIfNil(self->_matchKeyword, @"")
 
 	SetVariableIfNil(self->_uniqueIdentifier, [NSString stringWithUUID])
@@ -116,50 +87,18 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return [dic copy];
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (id)uniqueCopyAsMutable:(BOOL)mutableCopy
 {
-	  IRCHighlightMatchCondition *object =
-	[[IRCHighlightMatchCondition allocWithZone:zone] initWithDictionary:self.dictionaryValue];
-
-	return object;
-}
-
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
-{
-	  IRCHighlightMatchConditionMutable *object =
-	[[IRCHighlightMatchConditionMutable allocWithZone:zone] initWithDictionary:self.dictionaryValue];
-
-	return object;
-}
-
-- (id)uniqueCopy
-{
-	return [self uniqueCopyAsMutable:NO];
-}
-
-- (id)uniqueCopyMutable
-{
-	return [self uniqueCopyAsMutable:YES];
-}
-
-- (id)uniqueCopyAsMutable:(BOOL)asMutable
-{
-	IRCHighlightMatchCondition *object = nil;
-
-	if (asMutable == NO) {
-		object = [self copy];
-	} else {
-		object = [self mutableCopy];
-	}
+	IRCHighlightMatchCondition *object = [super uniqueCopyAsMutable:mutableCopy];
 
 	object->_uniqueIdentifier = [NSString stringWithUUID];
 
 	return object;
 }
 
-- (BOOL)isMutable
+- (__kindof XRPortablePropertyDict *)mutableClass
 {
-	return NO;
+	return [IRCHighlightMatchConditionMutable self];
 }
 
 @end

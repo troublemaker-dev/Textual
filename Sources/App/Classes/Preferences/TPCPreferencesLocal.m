@@ -174,11 +174,6 @@ NSUInteger const TPCPreferencesDictionaryVersion = 602;
 	return [RZUserDefaults() boolForKey:@"DisableMainWindowSegmentedController"];
 }
 
-+ (BOOL)autojoinWaitsForNickServ
-{
-	return [RZUserDefaults() boolForKey:@"AutojoinWaitsForNickservIdentification"];
-}
-
 + (BOOL)logHighlights
 {
 	return [RZUserDefaults() boolForKey:@"LogHighlights"];
@@ -392,11 +387,6 @@ NSUInteger const TPCPreferencesDictionaryVersion = 602;
 + (BOOL)showDateChanges
 {
 	return [RZUserDefaults() boolForKey:@"DisplayEventInLogView -> Date Changes"];
-}
-
-+ (BOOL)showInlineImages
-{
-	return [self showInlineMedia];
 }
 
 + (BOOL)showInlineMedia
@@ -914,13 +904,6 @@ NSUInteger const TPCPreferencesDictionaryVersion = 602;
 	[RZUserDefaults() setObject:value forKey:eventKey];
 }
 
-+ (BOOL)growlEnabledForEvent:(TXNotificationType)event
-{
-	TEXTUAL_DEPRECATED_WARNING;
-
-	return NO;
-}
-
 + (BOOL)notificationEnabledForEvent:(TXNotificationType)event
 {
 	NSString *eventKey = [self keyForEvent:event category:@"Enabled"];
@@ -1266,9 +1249,7 @@ static NSArray<NSString *> *_matchKeywords = nil;
 		return;
 	}
 
-TEXTUAL_IGNORE_DEPRECATION_BEGIN
 	BOOL invertSidebarColors = [self invertSidebarColors];
-TEXTUAL_IGNORE_DEPRECATION_END
 
 	if (invertSidebarColors) {
 		[self setAppearance:TXPreferredAppearanceDark];

@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy) NSString *clientId;
 @property (readonly, copy) NSNumber *distance;
 
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithChannel:(IRCChannel *)channel NS_DESIGNATED_INITIALIZER;
 
 - (void)recalculateDistanceWith:(NSString *)searchString;

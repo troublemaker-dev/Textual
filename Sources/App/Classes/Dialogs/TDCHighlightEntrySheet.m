@@ -54,11 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TDCHighlightEntrySheet
 
-ClassWithDesignatedInitializerInitMethod
-
 - (instancetype)initWithConfig:(nullable IRCHighlightMatchCondition *)config
 {
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:nil])) {
 		if (config) {
 			self.config = [config mutableCopy];
 		} else {

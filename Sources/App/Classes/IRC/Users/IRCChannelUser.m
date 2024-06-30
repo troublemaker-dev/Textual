@@ -152,31 +152,6 @@ NS_ASSUME_NONNULL_BEGIN
 	return [self.modes containsCharacters:@"qOaoh"];
 }
 
-- (BOOL)q
-{
-	return ((self.ranks & IRCUserRankChannelOwner) == IRCUserRankChannelOwner);
-}
-
-- (BOOL)a
-{
-	return ((self.ranks & IRCUserRankSuperOperator) == IRCUserRankSuperOperator);
-}
-
-- (BOOL)o
-{
-	return ((self.ranks & IRCUserRankNormalOperator) == IRCUserRankNormalOperator);
-}
-
-- (BOOL)h
-{
-	return ((self.ranks & IRCUserRankHalfOperator) == IRCUserRankHalfOperator);
-}
-
-- (BOOL)v
-{
-	return ((self.ranks & IRCUserRankVoiced) == IRCUserRankVoiced);
-}
-
 - (IRCUserRank)rank
 {
 	NSString *mode = self.highestRankedUserMode;

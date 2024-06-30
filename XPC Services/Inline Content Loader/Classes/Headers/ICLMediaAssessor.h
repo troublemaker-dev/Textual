@@ -55,6 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^ICLMediaAssessorCompletionBlock)(ICLMediaAssessment * _Nullable assessment, NSError * _Nullable error);
 
 @interface ICLMediaAssessor : NSObject
+- (instancetype)init NS_UNAVAILABLE;
+
 /* Use the following two methods to determine what type of media a URL is. */
 + (instancetype)assessorForURL:(NSURL *)url completionBlock:(ICLMediaAssessorCompletionBlock)completionBlock;
 + (instancetype)assessorForAddress:(NSString *)address completionBlock:(ICLMediaAssessorCompletionBlock)completionBlock;

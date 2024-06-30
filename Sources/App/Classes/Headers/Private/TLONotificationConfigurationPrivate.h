@@ -59,6 +59,7 @@ TEXTUAL_EXTERN TLONotificationAlertSound const TXNoAlertSoundPreferenceValue;
 
 + (instancetype)configurationWithEventType:(TXNotificationType)eventType;
 
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithEventType:(TXNotificationType)aEventType NS_DESIGNATED_INITIALIZER;
 @end
 

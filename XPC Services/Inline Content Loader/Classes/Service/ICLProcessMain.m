@@ -60,7 +60,12 @@ NSString * const ICLInlineContentErrorDomain = @"ICLInlineContentErrorDomain";
 
 @implementation ICLProcessMain
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithXPCConnection:(NSXPCConnection *)connection
 {

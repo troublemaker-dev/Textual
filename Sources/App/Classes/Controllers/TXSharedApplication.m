@@ -98,22 +98,6 @@ _defineSharedInstance(sharedLicenseManagerDialog, TDCLicenseManagerDialog, new)
 
 _defineSharedInstance(sharedFileTransferDialog, TDCFileTransferDialog, new)
 
-/* Deprecated */
-TEXTUAL_IGNORE_DEPRECATION_BEGIN
-/* The odds of -sharedGrowlController being used by a plugin is so
- incredibly small that it is likely zero. Given those odds, effort
- will not be placed with shim. It will return a new instance each
- time it is invoked rather than a proper singleton. */
-+ (TLOGrowlController *)sharedGrowlController
-{
-	TEXTUAL_DEPRECATED_WARNING;
-
-	return [TLOGrowlController new];
-}
-TEXTUAL_IGNORE_DEPRECATION_END
-
-@end
-
 os_log_t ApplicationTerminationLogSubsystem(void)
 {
 	static os_log_t cachedValue = NULL;
@@ -126,6 +110,8 @@ os_log_t ApplicationTerminationLogSubsystem(void)
 
 	return cachedValue;
 }
+
+@end
 
 #pragma mark -
 
@@ -146,34 +132,6 @@ __weak static TXMasterController *TXGlobalMasterControllerClassReference;
 + (TXMasterController *)masterController
 {
 	return TXGlobalMasterControllerClassReference;
-}
-
-- (IRCWorld *)worldController
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return TXGlobalMasterControllerClassReference.world;
-}
-
-+ (IRCWorld *)worldController
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return TXGlobalMasterControllerClassReference.world;
-}
-
-- (TXMenuController *)menuController
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return TXGlobalMasterControllerClassReference.menuController;
-}
-
-+ (TXMenuController *)menuController
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return TXGlobalMasterControllerClassReference.menuController;
 }
 
 @end

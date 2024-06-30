@@ -57,6 +57,8 @@ TEXTUAL_EXTERN NSNotificationName const TVCLogControllerViewFinishedLoadingNotif
 @property (readonly, copy, nullable) NSString *oldestLineNumber;
 @property (readonly, copy, nullable) NSString *newestLineNumber;
 
+- (instancetype)init NS_UNAVAILABLE;
+
 - (void)nextHighlight;
 - (void)previousHighlight;
 

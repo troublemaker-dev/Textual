@@ -44,7 +44,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation RCMProcessMain
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithXPCConnection:(NSXPCConnection *)connection
 {

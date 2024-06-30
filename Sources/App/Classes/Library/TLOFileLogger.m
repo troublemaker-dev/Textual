@@ -87,7 +87,12 @@ static NSUInteger _numberOfOpenFileHandles = 0;
 
 @implementation TLOFileLogger
 
-ClassWithDesignatedInitializerInitMethod
+- (instancetype)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+
+	return nil;
+}
 
 - (instancetype)initWithClient:(IRCClient *)client
 {

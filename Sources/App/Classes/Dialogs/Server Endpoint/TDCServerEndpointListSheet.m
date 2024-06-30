@@ -53,9 +53,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TDCServerEndpointListSheet
 
-- (instancetype)init
+- (instancetype)initWithWindow:(nullable NSWindow *)window
 {
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:window])) {
 		[self prepareInitialState];
 
 		return self;

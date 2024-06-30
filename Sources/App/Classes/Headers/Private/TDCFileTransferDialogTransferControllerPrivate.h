@@ -79,6 +79,8 @@ NS_ASSUME_NONNULL_BEGIN
 								nickname:(NSString *)nickname
 									path:(NSString *)path;
 
+- (instancetype)init NS_UNAVAILABLE;
+
 - (void)open;
 - (void)openWithPath:(nullable NSString *)path; // Only changes path if self.path == nil
 

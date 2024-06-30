@@ -93,7 +93,6 @@
 	#import "TLOKeyEventHandler.h"
 	#import "TLOLinkParser.h"
 	#import "TLOLocalization.h"
-	#import "TLOPopupPrompts.h"
 	#import "TLOSoundPlayer.h"
 	#import "TLOTimer.h"
 	#import "TLOpenLink.h"

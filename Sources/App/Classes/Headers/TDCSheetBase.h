@@ -47,7 +47,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) IBOutlet NSButton *okButton;
 @property (nonatomic, weak) IBOutlet NSButton *cancelButton;
 
-- (instancetype)initWithWindow:(NSWindow *)window;
+- (instancetype)init NS_UNAVAILABLE;
+
+/* Window is allowed to be set after init */
+- (instancetype)initWithWindow:(nullable NSWindow *)window; // NS_DESIGNATED_INITIALIZER
 
 - (void)startSheet;
 - (void)endSheet;

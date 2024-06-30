@@ -65,9 +65,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Contact Address Sheet
 
-- (instancetype)init
+- (instancetype)initWithWindow:(nullable NSWindow *)window
 {
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:window])) {
 		[self prepareInitialState];
 
 		return self;

@@ -71,7 +71,8 @@ typedef NS_ENUM(NSUInteger, IRCISupportInfoListType)
 @property (readonly, copy, nullable) NSString *serverAddress;
 @property (readonly, copy, nullable) NSString *networkName;
 @property (readonly, copy, nullable) NSString *networkNameFormatted;
-@property (readonly, copy, nullable) NSString *privateMessageNicknamePrefix TEXTUAL_DEPRECATED("This feature was never merged into ZNC. It is considered abandoned. Value will always return nil. Reference: https://github.com/znc/znc/pull/660");
+
+- (instancetype)init NS_UNAVAILABLE;
 
 - (nullable NSString *)modeSymbolForUserPrefix:(NSString *)character;
 - (nullable NSString *)userPrefixForModeSymbol:(NSString *)modeSymbol;
@@ -83,8 +84,6 @@ typedef NS_ENUM(NSUInteger, IRCISupportInfoListType)
 - (NSString *)extractStatusMessagePrefixFromChannelNamed:(NSString *)channel;
 
 - (NSUInteger)rankForUserPrefixWithMode:(NSString *)modeSymbol; // Starts at 100; 100 = highest rank
-
-- (NSString *)extractUserPrefixFromChannelNamed:(NSString *)channel TEXTUAL_DEPRECATED("Use -extractStatusMessagePrefixFromChannelNamed: instead");
 
 - (IRCModeInfo *)createModeWithSymbol:(NSString *)modeSymbol;
 - (IRCModeInfo *)createModeWithSymbol:(NSString *)modeSymbol modeIsSet:(BOOL)modeIsSet modeParameter:(nullable NSString *)modeParameter;

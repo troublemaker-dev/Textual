@@ -66,14 +66,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation TDCAddressBookSheet
 
-ClassWithDesignatedInitializerInitMethod
-
 - (instancetype)initWithEntryType:(IRCAddressBookEntryType)entryType
 {
 	NSParameterAssert(entryType == IRCAddressBookEntryTypeIgnore ||
 					  entryType == IRCAddressBookEntryTypeUserTracking);
 
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:nil])) {
 		if (entryType == IRCAddressBookEntryTypeIgnore) {
 			self.config = [IRCAddressBookEntryMutable newIgnoreEntry];
 		} else if (entryType == IRCAddressBookEntryTypeUserTracking) {
@@ -98,7 +96,7 @@ ClassWithDesignatedInitializerInitMethod
 	NSParameterAssert(config.entryType == IRCAddressBookEntryTypeIgnore ||
 					  config.entryType == IRCAddressBookEntryTypeUserTracking);
 
-	if ((self = [super init])) {
+	if ((self = [super initWithWindow:nil])) {
 		self.config = [config mutableCopy];
 
 		self.entryType = config.entryType;

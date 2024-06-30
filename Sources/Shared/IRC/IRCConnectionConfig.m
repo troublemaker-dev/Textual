@@ -164,7 +164,6 @@ uint16_t const IRCConnectionDefaultProxyPort = 1080;
 @implementation IRCConnectionConfigMutable
 
 @dynamic addressType;
-@dynamic connectionPrefersIPv4;
 @dynamic connectionPrefersModernCiphersOnly;
 @dynamic connectionPrefersModernSockets;
 @dynamic connectionPrefersSecuredConnection;
@@ -186,11 +185,6 @@ uint16_t const IRCConnectionDefaultProxyPort = 1080;
 - (BOOL)isMutable
 {
 	return YES;
-}
-
-- (void)setConnectionPrefersIPv4:(BOOL)connectionPrefersIPv4
-{
-	TEXTUAL_DEPRECATED_ASSERT
 }
 
 - (void)setConnectionPrefersModernCiphersOnly:(BOOL)connectionPrefersModernCiphersOnly

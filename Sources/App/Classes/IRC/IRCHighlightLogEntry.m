@@ -134,31 +134,29 @@ NS_ASSUME_NONNULL_BEGIN
 	return logLine.receivedAt;
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (void)initializedClassHealthCheck
 {
-	IRCHighlightLogEntry *object = [[IRCHighlightLogEntry allocWithZone:zone] init];
+	if (self.mutable) {
+		return;
+	}
+
+	NSParameterAssert(self->_lineLogged != nil);
+	NSParameterAssert(self->_clientId.length > 0);
+	NSParameterAssert(self->_channelId.length > 0);
+}
+
+- (void)populateDuringCopy:(__kindof XRPortablePropertyObject *)newObject mutableCopy:(BOOL)mutableCopy
+{
+	IRCHighlightLogEntry *object = (IRCHighlightLogEntry *)newObject;
 
 	object->_lineLogged = self->_lineLogged;
 	object->_clientId = self->_clientId;
 	object->_channelId = self->_channelId;
-
-	return object;
 }
 
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
+- (__kindof XRPortablePropertyObject *)mutableClass
 {
-	IRCHighlightLogEntryMutable *object = [[IRCHighlightLogEntryMutable allocWithZone:zone] init];
-
-	((IRCHighlightLogEntry *)object)->_lineLogged = self->_lineLogged;
-	((IRCHighlightLogEntry *)object)->_clientId = self->_clientId;
-	((IRCHighlightLogEntry *)object)->_channelId = self->_channelId;
-
-	return object;
-}
-
-- (BOOL)isMutable
-{
-	return NO;
+	return [IRCHighlightLogEntryMutable self];
 }
 
 @end

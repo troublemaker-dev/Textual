@@ -53,6 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nullable) NSString *connectedAddress; // nil if connected to a proxy
 @property (readonly, copy) NSString *uniqueIdentifier;
 
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithConfig:(IRCConnectionConfig *)config onClient:(IRCClient *)client NS_DESIGNATED_INITIALIZER;
 
 - (void)open;

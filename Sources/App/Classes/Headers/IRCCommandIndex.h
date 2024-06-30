@@ -191,10 +191,6 @@ typedef NS_ENUM(NSUInteger, IRCRemoteCommand) {
 	IRCRemoteCommandZline = 1049
 };
 
-/* Command index */
-TEXTUAL_EXTERN NSString * _Nullable IRCPrivateCommandIndex(const char *indexKey) TEXTUAL_SYMBOL_USED TEXTUAL_DEPRECATED("Use strings instead");
-TEXTUAL_EXTERN NSString * _Nullable IRCPublicCommandIndex(const char *indexKey) TEXTUAL_SYMBOL_USED TEXTUAL_DEPRECATED("Use strings instead");
-
 /* Controlling class */
 @interface IRCCommandIndex : NSObject
 + (NSArray<NSString *> *)localCommandList;

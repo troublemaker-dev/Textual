@@ -167,20 +167,6 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 	[self removeTemporaryCopyOfTheme];
 }
 
-- (NSURL *)baseURL
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return self.originalURL;
-}
-
-- (NSString *)path
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return self.originalURL.path;
-}
-
 - (NSURL *)originalURL
 {
 	return self.theme.originalURL;
@@ -211,23 +197,9 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 	return self.theme.storageLocation;
 }
 
-- (BOOL)usesTemporaryPath
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return YES;
-}
-
 - (NSString *)name
 {
 	return self.theme.name;
-}
-
-+ (BOOL)themeExists:(NSString *)themeName
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return NO;
 }
 
 - (void)metadata:(void (^ NS_NOESCAPE)(NSString *fileName, TPCThemeStorageLocation storageLocation))metadataBlock ofThemeNamed:(NSString *)themeName
@@ -695,11 +667,6 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 	}
 
 	return [list copy];
-}
-
-+ (void)enumerateAvailableThemesWithBlock:(void(NS_NOESCAPE ^)(NSString *fileName, TPCThemeStorageLocation storageLocation, BOOL multipleVariants, BOOL *stop))enumerationBlock
-{
-	TEXTUAL_DEPRECATED_WARNING
 }
 
 - (void)enumerateAvailableThemesWithBlock:(void(NS_NOESCAPE ^)(NSString *fileName, TPCThemeStorageLocation storageLocation, BOOL multipleVariants, BOOL *stop))enumerationBlock
@@ -1305,13 +1272,6 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 	}
 
 	return TPCThemeStorageLocationUnknown;
-}
-
-+ (TPCThemeStorageLocation)expectedStorageLocationOfThemeWithName:(NSString *)themeName
-{
-	TEXTUAL_DEPRECATED_WARNING
-
-	return [self storageLocationOfThemeWithName:themeName];
 }
 
 - (void)copyActiveThemeToDestinationLocation:(TPCThemeStorageLocation)destinationLocation reloadOnCopy:(BOOL)reloadOnCopy openOnCopy:(BOOL)openOnCopy

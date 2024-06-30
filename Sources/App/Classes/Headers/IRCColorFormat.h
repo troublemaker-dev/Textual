@@ -122,9 +122,6 @@ TEXTUAL_EXTERN IRCTextFormatterAttributeName const IRCTextFormatterSpoilerAttrib
 
 /* Returns an NSString with appropriate formatting characters. */
 @property (readonly, copy) NSString *stringFormattedForIRC;
-
-/* Deprecated */
-@property (readonly, copy) NSString *attributedStringToASCIIFormatting TEXTUAL_DEPRECATED("Use -stringFormattedForIRC instead");
 @end
 
 #pragma mark -
