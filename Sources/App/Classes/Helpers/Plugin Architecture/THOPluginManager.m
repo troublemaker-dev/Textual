@@ -491,8 +491,8 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 	NSString *bundlesName = [NSBundle formattedDisplayNamesForBundles:bundles];
 
-	NSString *promptTitle = ((updateOptional) ? @"Prompts[x4w-is]" : @"Prompts[ins-op]");
-	NSString *promptMessage = ((updateOptional) ? @"Prompts[9mb-o5]" : @"Prompts[34o-pk]");
+	NSString *promptTitle = ((updateOptional) ? @"Prompts[9mb-o5]" : @"Prompts[ins-op]");
+	NSString *promptMessage = ((updateOptional) ? @"Prompts[x4w-is]" : @"Prompts[34o-pk]");
 	NSString *promptDefaultButton = ((updateOptional) ? @"Prompts[ece-dd]" : @"Prompts[hd0-bf]");
 	NSString *promptAlternateButton = ((updateOptional) ? @"Prompts[ioq-nf]" : @"Prompts[467-5l]");
 	NSString *promptOtherButton = ((updateOptional) ? nil : TXTLS(@"Prompts[0ik-o9]"));
