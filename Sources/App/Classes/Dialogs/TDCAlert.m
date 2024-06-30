@@ -152,14 +152,14 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 									title:(NSString *)titleText
 							defaultButton:(NSString *)buttonDefault
 						  alternateButton:(nullable NSString *)buttonAlternate
-							  otherButton:(nullable NSString *)otherButton
+							  otherButton:(nullable NSString *)buttonOther
 {
 	return
 	[self modalAlertWithMessage:bodyText
 						  title:titleText
 				  defaultButton:buttonDefault
 				alternateButton:buttonAlternate
-					otherButton:otherButton
+					otherButton:buttonOther
 				 suppressionKey:nil
 				suppressionText:nil
 				  accessoryView:nil
@@ -170,7 +170,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 									title:(NSString *)titleText
 							defaultButton:(NSString *)buttonDefault
 						  alternateButton:(nullable NSString *)buttonAlternate
-							  otherButton:(nullable NSString *)otherButton
+							  otherButton:(nullable NSString *)buttonOther
 						   suppressionKey:(nullable NSString *)suppressKey
 						  suppressionText:(nullable NSString *)suppressText
 							accessoryView:(nullable NSView *)accessoryView
@@ -190,7 +190,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 								  title:titleText
 						  defaultButton:buttonDefault
 						alternateButton:buttonAlternate
-							otherButton:otherButton
+							otherButton:buttonOther
 						 suppressionKey:suppressKey
 						suppressionText:suppressText
 						  accessoryView:accessoryView
@@ -226,8 +226,8 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		[alert addButtonWithTitle:buttonAlternate];
 	}
 
-	if (otherButton) {
-		[alert addButtonWithTitle:otherButton];
+	if (buttonOther) {
+		[alert addButtonWithTitle:buttonOther];
 	}
 
 	if (suppressKey || suppressText) {
@@ -266,6 +266,24 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 					 title:titleText
 			 defaultButton:buttonDefault
 		   alternateButton:buttonAlternate
+			   otherButton:nil
+			suppressionKey:nil
+		   suppressionText:nil
+			 accessoryView:nil
+		   completionBlock:nil];
+}
+
++ (void)alertWithMessage:(NSString *)bodyText
+				   title:(NSString *)titleText
+		   defaultButton:(NSString *)buttonDefault
+		 alternateButton:(nullable NSString *)buttonAlternate
+			 otherButton:(nullable NSString *)buttonOther
+{
+	[self alertWithMessage:bodyText
+					 title:titleText
+			 defaultButton:buttonDefault
+		   alternateButton:buttonAlternate
+			   otherButton:buttonOther
 			suppressionKey:nil
 		   suppressionText:nil
 			 accessoryView:nil
@@ -283,6 +301,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 					 title:titleText
 			 defaultButton:buttonDefault
 		   alternateButton:buttonAlternate
+			   otherButton:nil
 			suppressionKey:suppressKey
 		   suppressionText:suppressText
 			 accessoryView:nil
@@ -299,6 +318,25 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 					 title:titleText
 			 defaultButton:buttonDefault
 		   alternateButton:buttonAlternate
+			   otherButton:nil
+			suppressionKey:nil
+		   suppressionText:nil
+			 accessoryView:nil
+		   completionBlock:completionBlock];
+}
+
++ (void)alertWithMessage:(NSString *)bodyText
+				   title:(NSString *)titleText
+		   defaultButton:(NSString *)buttonDefault
+		 alternateButton:(nullable NSString *)buttonAlternate
+			 otherButton:(nullable NSString *)buttonOther
+		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock
+{
+	[self alertWithMessage:bodyText
+					 title:titleText
+			 defaultButton:buttonDefault
+		   alternateButton:buttonAlternate
+			   otherButton:buttonOther
 			suppressionKey:nil
 		   suppressionText:nil
 			 accessoryView:nil
@@ -317,6 +355,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 					 title:titleText
 			 defaultButton:buttonDefault
 		   alternateButton:buttonAlternate
+			   otherButton:nil
 			suppressionKey:suppressKey
 		   suppressionText:suppressText
 			 accessoryView:nil
@@ -327,6 +366,47 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 				   title:(NSString *)titleText
 		   defaultButton:(NSString *)buttonDefault
 		 alternateButton:(nullable NSString *)buttonAlternate
+			 otherButton:(nullable NSString *)buttonOther
+		  suppressionKey:(nullable NSString *)suppressKey
+		 suppressionText:(nullable NSString *)suppressText
+		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock
+{
+	[self alertWithMessage:bodyText
+					 title:titleText
+			 defaultButton:buttonDefault
+		   alternateButton:buttonAlternate
+			   otherButton:buttonOther
+			suppressionKey:suppressKey
+		   suppressionText:suppressText
+			 accessoryView:nil
+		   completionBlock:completionBlock];
+}
+
++ (void)alertWithMessage:(NSString *)bodyText
+				   title:(NSString *)titleText
+		   defaultButton:(NSString *)buttonDefault
+		 alternateButton:(nullable NSString *)buttonAlternate
+		  suppressionKey:(nullable NSString *)suppressKey
+		 suppressionText:(nullable NSString *)suppressText
+		   accessoryView:(nullable NSView *)accessoryView
+		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock
+{
+	[self alertWithMessage:bodyText
+					 title:titleText
+			 defaultButton:buttonDefault
+		   alternateButton:buttonAlternate
+			   otherButton:nil
+			suppressionKey:suppressKey
+		   suppressionText:suppressText
+			 accessoryView:accessoryView
+		   completionBlock:completionBlock];
+}
+
++ (void)alertWithMessage:(NSString *)bodyText
+				   title:(NSString *)titleText
+		   defaultButton:(NSString *)buttonDefault
+		 alternateButton:(nullable NSString *)buttonAlternate
+			 otherButton:(nullable NSString *)buttonOther
 		  suppressionKey:(nullable NSString *)suppressKey
 		 suppressionText:(nullable NSString *)suppressText
 		   accessoryView:(nullable NSView *)accessoryView
@@ -382,6 +462,10 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		[alert addButtonWithTitle:buttonAlternate];
 	}
 
+	if (buttonOther) {
+		[alert addButtonWithTitle:buttonOther];
+	}
+
 	if (suppressKey || suppressText) {
 		alert.showsSuppressionButton = YES;
 
@@ -411,14 +495,14 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 					   title:(NSString *)titleText
 			   defaultButton:(NSString *)buttonDefault
 			 alternateButton:(nullable NSString *)buttonAlternate
-				 otherButton:(nullable NSString *)otherButton
+				 otherButton:(nullable NSString *)buttonOther
 {
 	[self alertSheetWithWindow:window
 						  body:bodyText
 						 title:titleText
 				 defaultButton:buttonDefault
 			   alternateButton:buttonAlternate
-				   otherButton:otherButton
+				   otherButton:buttonOther
 				suppressionKey:nil
 			   suppressionText:nil
 				 accessoryView:nil
@@ -430,7 +514,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 					   title:(NSString *)titleText
 			   defaultButton:(NSString *)buttonDefault
 			 alternateButton:(nullable NSString *)buttonAlternate
-				 otherButton:(nullable NSString *)otherButton
+				 otherButton:(nullable NSString *)buttonOther
 			 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock
 {
 	[self alertSheetWithWindow:window
@@ -438,7 +522,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 						 title:titleText
 				 defaultButton:buttonDefault
 			   alternateButton:buttonAlternate
-				   otherButton:otherButton
+				   otherButton:buttonOther
 				suppressionKey:nil
 			   suppressionText:nil
 				 accessoryView:nil
@@ -450,7 +534,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 					   title:(NSString *)titleText
 			   defaultButton:(NSString *)buttonDefault
 			 alternateButton:(nullable NSString *)buttonAlternate
-				 otherButton:(nullable NSString *)otherButton
+				 otherButton:(nullable NSString *)buttonOther
 			   accessoryView:(nullable NSView *)accessoryView
 			 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock
 {
@@ -459,7 +543,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 						 title:titleText
 				 defaultButton:buttonDefault
 			   alternateButton:buttonAlternate
-				   otherButton:otherButton
+				   otherButton:buttonOther
 				suppressionKey:nil
 			   suppressionText:nil
 				 accessoryView:accessoryView
@@ -471,7 +555,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 					   title:(NSString *)titleText
 			   defaultButton:(NSString *)buttonDefault
 			 alternateButton:(nullable NSString *)buttonAlternate
-				 otherButton:(nullable NSString *)otherButton
+				 otherButton:(nullable NSString *)buttonOther
 			  suppressionKey:(nullable NSString *)suppressKey
 			 suppressionText:(nullable NSString *)suppressText
 			 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock
@@ -481,7 +565,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 						 title:titleText
 				 defaultButton:buttonDefault
 			   alternateButton:buttonAlternate
-				   otherButton:otherButton
+				   otherButton:buttonOther
 				suppressionKey:suppressKey
 			   suppressionText:suppressText
 				 accessoryView:nil
@@ -493,7 +577,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 					   title:(NSString *)titleText
 			   defaultButton:(NSString *)buttonDefault
 			 alternateButton:(nullable NSString *)buttonAlternate
-				 otherButton:(nullable NSString *)otherButton
+				 otherButton:(nullable NSString *)buttonOther
 			  suppressionKey:(nullable NSString *)suppressKey
 			 suppressionText:(nullable NSString *)suppressText
 			   accessoryView:(nullable NSView *)accessoryView
@@ -512,7 +596,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 								 title:titleText
 						 defaultButton:buttonDefault
 					   alternateButton:buttonAlternate
-						   otherButton:otherButton
+						   otherButton:buttonOther
 						suppressionKey:suppressKey
 					   suppressionText:suppressText
 						 accessoryView:accessoryView
@@ -554,8 +638,8 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		[alert addButtonWithTitle:buttonAlternate];
 	}
 
-	if (otherButton) {
-		[alert addButtonWithTitle:otherButton];
+	if (buttonOther) {
+		[alert addButtonWithTitle:buttonOther];
 	}
 
 	if (suppressKey || suppressText) {
