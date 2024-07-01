@@ -39,10 +39,6 @@
 "f7o-x4" = "User Ignore";
 "b0g-0x" = "User Tracking";
 
-/* Server properties iCloud options */
-"x08-ko" = "Do you want to remove this server from devices it has been shared with?";
-"sqc-nw" = "";
-
 /* Server specific highlight entry things */
 "61f-6b" = "All Channels";
 "qcc-b4" = "Exclude";

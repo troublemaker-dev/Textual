@@ -38,7 +38,6 @@
 #import "IRCClientConfig.h"
 #import "IRCClientPrivate.h"
 #import "IRCWorldPrivate.h"
-#import "IRCWorldPrivateCloudExtension.h"
 #import "TXMasterController.h"
 #import "TDCAlert.h"
 #import "TLOLocalization.h"
@@ -194,7 +193,7 @@ NS_ASSUME_NONNULL_BEGIN
 		}
 
 		[object enumerateObjectsUsingBlock:^(id object, NSUInteger index, BOOL *stop) {
-			[self importClientConfiguration:object isImportedFromCloud:NO];
+			[self importClientConfiguration:object];
 		}];
 	}
 	else if ([key isEqualToString:@"World Controller"])
@@ -209,22 +208,13 @@ NS_ASSUME_NONNULL_BEGIN
 			[self import:clientList withKey:IRCWorldClientListDefaultsKey];
 		}
 	}
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	else if ([key hasPrefix:IRCWorldControllerCloudClientItemDefaultsKeyPrefix] ||
-			 [key hasPrefix:IRCWorldControllerCloudListOfDeletedClientsDefaultsKey])
-	{
-		; // Ignore key...
-	}
-#endif
-
 	else
 	{
 		[RZUserDefaults() setObject:object forKey:key];
 	}
 }
 
-+ (void)importClientConfiguration:(NSDictionary<NSString *, id> *)config isImportedFromCloud:(BOOL)isImportedFromCloud
++ (void)importClientConfiguration:(NSDictionary<NSString *, id> *)config
 {
 	NSParameterAssert(config != nil);
 
@@ -232,20 +222,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 	IRCClient *client = [worldController() findClientWithId:clientConfig.uniqueIdentifier];
 
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	if (isImportedFromCloud) {
-		if (client && client.config.excludedFromCloudSyncing) {
-			return;
-		}
-	}
-#endif
-
 	if (client) {
-		if (isImportedFromCloud) {
-			[client updateConfigFromTheCloud:clientConfig];
-		} else {
-			[client updateConfig:clientConfig];
-		}
+		[client updateConfig:clientConfig];
 	} else {
 		[worldController() createClientWithConfig:clientConfig reload:YES];
 	}
@@ -269,11 +247,6 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	return ([TPCPreferencesUserDefaults keyIsExcludedFromBeingExported:key] ||
 			[TPCPreferencesUserDefaults keyIsObsolete:key]);
-}
-
-+ (NSDictionary<NSString *, id> *)exportedPreferencesDictionaryForCloud
-{
-	return [self exportedPreferencesDictionary:YES filterDefaults:NO];
 }
 
 + (NSDictionary<NSString *, id> *)exportedPreferencesDictionary

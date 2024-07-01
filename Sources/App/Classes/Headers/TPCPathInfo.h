@@ -117,18 +117,4 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, class, copy, nullable) NSURL *userPreferencesURL;
 @end
 
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-@interface TPCPathInfo (TPCPathInfoCloudExtension)
-@property (readonly, class, copy, nullable) NSString *applicationUbiquitousContainer;
-@property (readonly, class, copy, nullable) NSURL *applicationUbiquitousContainerURL;
-
-+ (void)openApplicationUbiquitousContainer;
-
-@property (readonly, class, copy, nullable) NSString *cloudCustomThemes;
-@property (readonly, class, copy, nullable) NSURL *cloudCustomThemesURL;
-
-+ (void)openCloudCustomThemes;
-@end
-#endif
-
 NS_ASSUME_NONNULL_END

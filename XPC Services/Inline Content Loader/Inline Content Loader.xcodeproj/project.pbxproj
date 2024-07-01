@@ -160,10 +160,6 @@
 		4CE1448920EC02A3000E01C9 /* XPC Service - ICL.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "XPC Service - ICL.xcconfig"; sourceTree = "<group>"; };
 		4CE1448A20EC02A3000E01C9 /* XPC Services.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "XPC Services.xcconfig"; sourceTree = "<group>"; };
 		4CE1448C20EC02A3000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
-		4CE1449020EC02A3000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
-		4CE1449220EC02A3000E01C9 /* XPC Service - ICL.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "XPC Service - ICL.xcconfig"; sourceTree = "<group>"; };
-		4CE1449320EC02A3000E01C9 /* XPC Services.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "XPC Services.xcconfig"; sourceTree = "<group>"; };
-		4CE1449520EC02A3000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
 		4CE1449A20EC02A3000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE1449B20EC02A3000E01C9 /* Preserve Symbols.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Preserve Symbols.xcconfig"; sourceTree = "<group>"; };
 		4CE1449D20EC02A3000E01C9 /* XPC Service - ICL.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "XPC Service - ICL.xcconfig"; sourceTree = "<group>"; };
@@ -178,7 +174,6 @@
 		4CE144B120EC02A3000E01C9 /* XPC Service - ICL.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "XPC Service - ICL.xcconfig"; sourceTree = "<group>"; };
 		4CE144B220EC02A3000E01C9 /* XPC Services.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "XPC Services.xcconfig"; sourceTree = "<group>"; };
 		4CE144B420EC02A3000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
-		4CE144E320EC02BD000E01C9 /* App Store.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "App Store.entitlements"; sourceTree = "<group>"; };
 		4CE144E420EC02BD000E01C9 /* Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Release.entitlements; sourceTree = "<group>"; };
 		4CE144E520EC0381000E01C9 /* ICLInlineContentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICLInlineContentProtocol.h; path = Classes/Headers/Private/ICLInlineContentProtocol.h; sourceTree = SOURCE_ROOT; };
 		4CE58BA91F8A5F8500493E7C /* GRMustache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GRMustache.framework; path = "../../Frameworks/Static Libraries/Libraries/GRMustache.framework"; sourceTree = SOURCE_ROOT; };
@@ -454,7 +449,6 @@
 		4CE1448320EC02A3000E01C9 /* Build */ = {
 			isa = PBXGroup;
 			children = (
-				4CE1448D20EC02A3000E01C9 /* App Store Release */,
 				4CE1449720EC02A3000E01C9 /* Common */,
 				4CE144AC20EC02A3000E01C9 /* Debug */,
 				4CE1448420EC02A3000E01C9 /* Standard Release */,
@@ -472,17 +466,6 @@
 				4CE1448A20EC02A3000E01C9 /* XPC Services.xcconfig */,
 			);
 			path = "Standard Release";
-			sourceTree = "<group>";
-		};
-		4CE1448D20EC02A3000E01C9 /* App Store Release */ = {
-			isa = PBXGroup;
-			children = (
-				4CE1449520EC02A3000E01C9 /* Enabled Features.xcconfig */,
-				4CE1449020EC02A3000E01C9 /* Textual.xcconfig */,
-				4CE1449220EC02A3000E01C9 /* XPC Service - ICL.xcconfig */,
-				4CE1449320EC02A3000E01C9 /* XPC Services.xcconfig */,
-			);
-			path = "App Store Release";
 			sourceTree = "<group>";
 		};
 		4CE1449720EC02A3000E01C9 /* Common */ = {
@@ -523,7 +506,6 @@
 		4CE144B520EC02A3000E01C9 /* Sandbox */ = {
 			isa = PBXGroup;
 			children = (
-				4CE144E320EC02BD000E01C9 /* App Store.entitlements */,
 				4CE144E420EC02BD000E01C9 /* Release.entitlements */,
 			);
 			name = Sandbox;
@@ -714,24 +696,6 @@
 			};
 			name = Release;
 		};
-		4C1406641F11965A00C73D53 /* Release (App Store) */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4CE1449220EC02A3000E01C9 /* XPC Service - ICL.xcconfig */;
-			buildSettings = {
-			};
-			name = "Release (App Store)";
-		};
-		4C1406651F11965A00C73D53 /* Release (App Store) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "${PROJECT_DIR}/Configurations/Sandbox/App Store.entitlements";
-				GCC_PREFIX_HEADER = "${PROJECT_DIR}/Classes/Headers/Private/ICLProcessPCHPrivate.h";
-				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-utilities.Textual-InlineContentLoader";
-				PRODUCT_NAME = "Inline Content Loader";
-			};
-			name = "Release (App Store)";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -740,7 +704,6 @@
 			buildConfigurations = (
 				4C14064C1F11942B00C73D53 /* Debug */,
 				4C14064D1F11942B00C73D53 /* Release */,
-				4C1406641F11965A00C73D53 /* Release (App Store) */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -750,7 +713,6 @@
 			buildConfigurations = (
 				4C14064F1F11942B00C73D53 /* Debug */,
 				4C1406501F11942B00C73D53 /* Release */,
-				4C1406651F11965A00C73D53 /* Release (App Store) */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

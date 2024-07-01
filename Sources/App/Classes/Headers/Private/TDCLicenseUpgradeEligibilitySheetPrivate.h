@@ -65,7 +65,6 @@ typedef NS_ENUM(NSUInteger, TLOLicenseUpgradeEligibility) {
 - (void)upgradeEligibilitySheetContactSupport:(TDCLicenseUpgradeEligibilitySheet *)sender;
 - (void)upgradeEligibilitySheetActivateLicense:(TDCLicenseUpgradeEligibilitySheet *)sender;
 - (void)upgradeEligibilitySheetPurchaseUpgrade:(TDCLicenseUpgradeEligibilitySheet *)sender;
-- (void)upgradeEligibilitySheetPurchaseMacAppStore:(TDCLicenseUpgradeEligibilitySheet *)sender;
 - (void)upgradeEligibilitySheetPurchaseStandalone:(TDCLicenseUpgradeEligibilitySheet *)sender;
 - (void)upgradeEligibilitySheetChanged:(TDCLicenseUpgradeEligibilitySheet *)sender;
 - (void)upgradeEligibilitySheetWillClose:(TDCLicenseUpgradeEligibilitySheet *)sender;

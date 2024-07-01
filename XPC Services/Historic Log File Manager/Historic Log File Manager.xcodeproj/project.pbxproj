@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -43,9 +43,6 @@
 		4CE145EB20EC0F7F000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE145EE20EC0F7F000E01C9 /* XPC Services.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "XPC Services.xcconfig"; sourceTree = "<group>"; };
 		4CE145F020EC0F7F000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
-		4CE145F420EC0F7F000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
-		4CE145F720EC0F7F000E01C9 /* XPC Services.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "XPC Services.xcconfig"; sourceTree = "<group>"; };
-		4CE145F920EC0F7F000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
 		4CE145FE20EC0F7F000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE145FF20EC0F7F000E01C9 /* Preserve Symbols.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Preserve Symbols.xcconfig"; sourceTree = "<group>"; };
 		4CE1460220EC0F7F000E01C9 /* Foundation.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Foundation.xcconfig; sourceTree = "<group>"; };
@@ -57,7 +54,6 @@
 		4CE1461320EC0F7F000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE1461620EC0F7F000E01C9 /* XPC Services.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "XPC Services.xcconfig"; sourceTree = "<group>"; };
 		4CE1461820EC0F7F000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
-		4CE1461B20EC0FAF000E01C9 /* App Store.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "App Store.entitlements"; sourceTree = "<group>"; };
 		4CE1461C20EC0FAF000E01C9 /* Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Release.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -250,7 +246,6 @@
 		4CE145E720EC0F7F000E01C9 /* Build */ = {
 			isa = PBXGroup;
 			children = (
-				4CE145F120EC0F7F000E01C9 /* App Store Release */,
 				4CE145FB20EC0F7F000E01C9 /* Common */,
 				4CE1461020EC0F7F000E01C9 /* Debug */,
 				4CE145E820EC0F7F000E01C9 /* Standard Release */,
@@ -267,16 +262,6 @@
 				4CE145EE20EC0F7F000E01C9 /* XPC Services.xcconfig */,
 			);
 			path = "Standard Release";
-			sourceTree = "<group>";
-		};
-		4CE145F120EC0F7F000E01C9 /* App Store Release */ = {
-			isa = PBXGroup;
-			children = (
-				4CE145F920EC0F7F000E01C9 /* Enabled Features.xcconfig */,
-				4CE145F420EC0F7F000E01C9 /* Textual.xcconfig */,
-				4CE145F720EC0F7F000E01C9 /* XPC Services.xcconfig */,
-			);
-			path = "App Store Release";
 			sourceTree = "<group>";
 		};
 		4CE145FB20EC0F7F000E01C9 /* Common */ = {
@@ -314,7 +299,6 @@
 		4CE1461920EC0F7F000E01C9 /* Sandbox */ = {
 			isa = PBXGroup;
 			children = (
-				4CE1461B20EC0FAF000E01C9 /* App Store.entitlements */,
 				4CE1461C20EC0FAF000E01C9 /* Release.entitlements */,
 			);
 			name = Sandbox;
@@ -441,24 +425,6 @@
 			};
 			name = Release;
 		};
-		4C761BED1E15751C00A505B7 /* Release (App Store) */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4CE145F720EC0F7F000E01C9 /* XPC Services.xcconfig */;
-			buildSettings = {
-			};
-			name = "Release (App Store)";
-		};
-		4C761BEE1E15751C00A505B7 /* Release (App Store) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "${PROJECT_DIR}/Configurations/Sandbox/App Store.entitlements";
-				GCC_PREFIX_HEADER = "${SRCROOT}/Classes/Headers/Private/HSLHistoricLogPCHPrivate.h";
-				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-utilities.Textual-ScrollbackHistoryManager";
-				PRODUCT_NAME = "Scrollback History Manager";
-			};
-			name = "Release (App Store)";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -467,7 +433,6 @@
 			buildConfigurations = (
 				4C442C921E13B3D200B187F4 /* Debug */,
 				4C442C931E13B3D200B187F4 /* Release */,
-				4C761BED1E15751C00A505B7 /* Release (App Store) */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -477,7 +442,6 @@
 			buildConfigurations = (
 				4C442C951E13B3D200B187F4 /* Debug */,
 				4C442C961E13B3D200B187F4 /* Release */,
-				4C761BEE1E15751C00A505B7 /* Release (App Store) */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

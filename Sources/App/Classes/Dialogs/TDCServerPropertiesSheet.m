@@ -116,7 +116,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) IBOutlet NSButton *editAddressBookEntryButton;
 @property (nonatomic, weak) IBOutlet NSButton *editChannelButton;
 @property (nonatomic, weak) IBOutlet NSButton *editHighlightButton;
-@property (nonatomic, weak) IBOutlet NSButton *excludedFromCloudSyncingCheck;
 @property (nonatomic, weak) IBOutlet NSButton *hideAutojoinDelayedWarningsCheck;
 @property (nonatomic, weak) IBOutlet NSButton *performDisconnectOnPongTimerCheck;
 @property (nonatomic, weak) IBOutlet NSButton *pongTimerCheck;
@@ -175,16 +174,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *lastServerAddressValue;
 @property (nonatomic, copy, nullable) IRCServer *previousPrimaryServer;
 
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-@property (nonatomic, assign) BOOL requestRemovalFromCloudOnClose;
-#endif
-
 - (IBAction)proxyTypeChanged:(id)sender;
 - (IBAction)toggleAdvancedEncodings:(id)sender;
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-- (IBAction)toggleCloudSyncExclusion:(id)sender;
-#endif
 
 - (IBAction)addChannel:(id)sender;
 - (IBAction)editChannel:(id)sender;
@@ -709,14 +700,6 @@ NS_ASSUME_NONNULL_BEGIN
 		[self.delegate serverPropertiesSheet:self onOk:[self.config copy]];
 	}
 
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	if (self.requestRemovalFromCloudOnClose) {
-		if ([self.delegate respondsToSelector:@selector(serverPropertiesSheet:removeClientFromCloud:)]) {
-			[self.delegate serverPropertiesSheet:self removeClientFromCloud:self.clientId];
-		}
-	}
-#endif
-
 	[super ok:nil];
 }
 
@@ -909,10 +892,6 @@ NS_ASSUME_NONNULL_BEGIN
 	self.autoReconnectCheck.state = self.config.autoReconnect;
 	self.autoDisconnectOnSleepCheck.state = self.config.autoSleepModeDisconnect;
 
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	self.excludedFromCloudSyncingCheck.state = self.config.excludedFromCloudSyncing;
-#endif
-
 	/* ZNC Bouncer */
 	self.zncIgnoreConfiguredAutojoinCheck.state = self.config.zncIgnoreConfiguredAutojoin;
 	self.zncIgnorePlaybackNotificationsCheck.state = self.config.zncIgnorePlaybackNotifications;
@@ -1072,10 +1051,6 @@ NS_ASSUME_NONNULL_BEGIN
 	self.config.autoConnect	= (self.autoConnectCheck.state == NSControlStateValueOn);
 	self.config.autoReconnect = (self.autoReconnectCheck.state == NSControlStateValueOn);
 	self.config.autoSleepModeDisconnect = (self.autoDisconnectOnSleepCheck.state == NSControlStateValueOn);
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	self.config.excludedFromCloudSyncing = (self.excludedFromCloudSyncingCheck.state == NSControlStateValueOn);
-#endif
 
 	/* ZNC Bouncer */
 	self.config.zncIgnoreConfiguredAutojoin = (self.zncIgnoreConfiguredAutojoinCheck.state == NSControlStateValueOn);
@@ -1468,38 +1443,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 	[self.fallbackEncodingButton selectItemWithTitle:fallbackEncoding];
 }
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-- (void)toggleCloudSyncExclusion:(id)sender
-{
-	if (self.clientId == nil) {
-		return;
-	}
-
-	if (self.excludedFromCloudSyncingCheck.state == NSControlStateValueOn)
-	{
-		NSWindow *window = self.sheet;
-
-		[TDCAlert alertSheetWithWindow:window
-								  body:TXTLS(@"TDCServerPropertiesSheet[sqc-nw]")
-								 title:TXTLS(@"TDCServerPropertiesSheet[x08-ko]")
-						 defaultButton:TXTLS(@"Prompts[mvh-ms]")
-					   alternateButton:TXTLS(@"Prompts[99q-gg]")
-						   otherButton:nil
-					   completionBlock:^(TDCAlertResponse buttonClicked, BOOL suppressed, id underlyingAlert) {
-						   if (buttonClicked == TDCAlertResponseAlternate) {
-							   self.requestRemovalFromCloudOnClose = NO;
-						   } else {
-							   self.requestRemovalFromCloudOnClose = YES;
-						   }
-					   }];
-	}
-	else // state == NSControlStateValueOn
-	{
-		self.requestRemovalFromCloudOnClose = NO;
-	}
-}
-#endif
 
 - (void)preferredInternetProtocolChanged:(id)sender
 {

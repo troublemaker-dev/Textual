@@ -58,7 +58,6 @@
 #import "IRCWorldPrivate.h"
 #import "TPCApplicationInfoPrivate.h"
 #import "TPCPreferencesLocalPrivate.h"
-#import "TPCPreferencesCloudSyncPrivate.h"
 #import "TPCPreferencesUserDefaults.h"
 #import "TPCResourceManagerPrivate.h"
 #import "TPCThemeControllerPrivate.h"
@@ -158,12 +157,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)applicationWakeStepOne
 {
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	/* Cloud files are synced regardless of user preference
-	 so we still have to initialize it at some point. */
-	[sharedCloudManager() prepareInitialState];
-#endif
-
 	self.world = [IRCWorld new];
 }
 
@@ -410,19 +403,12 @@ NS_ASSUME_NONNULL_BEGIN
 	BOOL condition2 = (TVCLogControllerHistoricLogSharedInstance().isSaving == NO &&
 							self.terminateHistoricLogSaveFinished);
 
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	/* iCloud is syncing */
-	BOOL condition3 = sharedCloudManager().isTerminated;
-#else
-	BOOL condition3 = YES;
-#endif
 
 	LogToConsoleTerminationProgress("Conditions: %@ %@ %@",
 					  StringFromBOOL(condition1),
-					  StringFromBOOL(condition2),
-					  StringFromBOOL(condition3));
+					  StringFromBOOL(condition2));
 
-	return (condition1 && condition2 && condition3);
+	return (condition1 && condition2);
 }
 
 - (void)performApplicationTerminationStepOne
@@ -461,10 +447,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 	[TVCLogControllerInlineMediaSharedInstance() prepareForApplicationTermination];
 
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	[sharedCloudManager() prepareForApplicationTermination];
-#endif
-
 #if TEXTUAL_BUILT_WITH_ADVANCED_ENCRYPTION == 1
 	[sharedEncryptionManager() prepareForApplicationTermination];
 #endif
@@ -494,8 +476,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	/* We want certain things to 100% happen before the app completely closes.
 	 This block that is performed below loops until all these actions are completed.
-	 Notable actions: gracefully leaving IRC, saving historic logs, and closing
-	 down iCloud syncing (if applicable). */
+	 Notable actions: gracefully leaving IRC, saving historic logs, etc. */
 	XRPerformBlockAsynchronouslyOnGlobalQueueWithPriority(^{
 		do {
 			/* We wait until this value reaches zero so that

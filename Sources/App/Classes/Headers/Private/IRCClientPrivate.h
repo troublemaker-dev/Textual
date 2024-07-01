@@ -67,10 +67,7 @@ enum {
 - (void)updateConfig:(IRCClientConfig *)config;
 - (void)updateConfig:(IRCClientConfig *)config updateSelection:(BOOL)updateSelection;
 
-- (void)updateConfigFromTheCloud:(IRCClientConfig *)config;
-
 - (NSDictionary<NSString *, id> *)configurationDictionary;
-- (NSDictionary<NSString *, id> *)configurationDictionaryForCloud;
 
 - (void)addChannel:(IRCChannel *)channel;
 - (void)addChannel:(IRCChannel *)channel atPosition:(NSUInteger)position;

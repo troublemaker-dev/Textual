@@ -1008,13 +1008,6 @@ CQ
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" tag="9050001" id="VTu-dA-PTE"/>
-                                        <menuItem title="Using iCloud with Textual" tag="9050002" id="aO8-3y-WHh">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="openHelpMenuItem:" target="267" id="woi-33-SkS"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" tag="9050003" id="Lpo-5n-kp3"/>
                                         <menuItem title="Chat Encryption" tag="9050004" id="w1H-u0-OYW">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>

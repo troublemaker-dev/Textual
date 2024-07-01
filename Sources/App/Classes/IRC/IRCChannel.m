@@ -158,11 +158,6 @@ NSString * const IRCChannelConfigurationWasUpdatedNotification = @"IRCChannelCon
 	return [self.config dictionaryValue];
 }
 
-- (NSDictionary<NSString *, id> *)configurationDictionaryForCloud
-{
-	return [self.config dictionaryValueForCloud];
-}
-
 - (id)copyWithZone:(nullable NSZone *)zone
 {
 	/* Implement this method to allow channel to be 

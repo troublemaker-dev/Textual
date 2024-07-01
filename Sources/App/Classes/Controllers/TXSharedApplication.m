@@ -42,7 +42,6 @@
 #import "TXMasterController.h"
 #import "TXMenuController.h"
 #import "TXWindowControllerPrivate.h"
-#import "TPCPreferencesCloudSync.h"
 #import "TPCThemeController.h"
 #import "THOPluginManagerPrivate.h"
 #import "IRCWorld.h"
@@ -75,10 +74,6 @@ NSString * const TXErrorDomain = @"TextualErrorDomain";
 @implementation TXSharedApplication
 
 _defineSharedInstance(sharedAppearance, TXAppearance, new)
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-_defineSharedInstance(sharedCloudSyncManager, TPCPreferencesCloudSync, new)
-#endif
 
 #if TEXTUAL_BUILT_WITH_ADVANCED_ENCRYPTION == 1
 _defineSharedInstance(sharedEncryptionManager, TLOEncryptionManager, new)

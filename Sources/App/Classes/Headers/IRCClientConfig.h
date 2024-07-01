@@ -51,11 +51,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) BOOL autoReconnect;
 @property (readonly) BOOL autoSleepModeDisconnect;
 @property (readonly) BOOL autojoinWaitsForNickServ;
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-@property (readonly) BOOL excludedFromCloudSyncing;
-#endif
-
 @property (readonly) BOOL hideAutojoinDelayedWarnings;
 @property (readonly) BOOL hideNetworkUnavailabilityNotices;
 @property (readonly) BOOL performDisconnectOnPongTimer;
@@ -117,11 +112,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readwrite) BOOL autoReconnect;
 @property (nonatomic, assign, readwrite) BOOL autoSleepModeDisconnect;
 @property (nonatomic, assign, readwrite) BOOL autojoinWaitsForNickServ;
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-@property (nonatomic, assign, readwrite) BOOL excludedFromCloudSyncing;
-#endif
-
 @property (nonatomic, assign, readwrite) BOOL hideAutojoinDelayedWarnings;
 @property (nonatomic, assign, readwrite) BOOL hideNetworkUnavailabilityNotices;
 @property (nonatomic, assign, readwrite) BOOL performDisconnectOnPongTimer;

@@ -58,7 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateConfig:(IRCChannelConfig *)config fireChangedNotification:(BOOL)fireChangedNotification updateStoredChannelList:(BOOL)updateStoredChannelList;
 
 - (NSDictionary<NSString *, id> *)configurationDictionary;
-- (NSDictionary<NSString *, id> *)configurationDictionaryForCloud;
 
 #if TEXTUAL_BUILT_WITH_ADVANCED_ENCRYPTION == 1
 - (void)noteEncryptionStateDidChange;

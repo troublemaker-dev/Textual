@@ -40,7 +40,6 @@
 #import "TDCAlert.h"
 #import "TLOLocalization.h"
 #import "TPCPreferencesLocal.h"
-#import "TPCPreferencesCloudSyncPrivate.h"
 #import "TPCPreferencesUserDefaults.h"
 #import "TPCPathInfoPrivate.h"
 
@@ -557,83 +556,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
-
-#pragma mark -
-#pragma mark iCloud
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-@implementation TPCPathInfo (TPCPathInfoCloudExtension)
-
-+ (nullable NSString *)applicationUbiquitousContainer
-{
-	return sharedCloudManager().ubiquitousContainerPath;
-}
-
-+ (nullable NSURL *)applicationUbiquitousContainerURL
-{
-	return sharedCloudManager().ubiquitousContainerURL;
-}
-
-+ (nullable NSString *)cloudCustomThemes
-{
-	NSURL *sourceURL = self.cloudCustomThemesURL;
-
-	if (sourceURL == nil) {
-		return nil;
-	}
-
-	return sourceURL.path;
-}
-
-+ (nullable NSURL *)cloudCustomThemesURL
-{
-	NSURL *sourceURL = self.applicationUbiquitousContainerURL;
-
-	if (sourceURL == nil) {
-		return nil;
-	}
-
-	NSURL *baseURL = [sourceURL URLByAppendingPathComponent:@"/Documents/Styles/"];
-
-	[self _createDirectoryAtURL:baseURL];
-
-	return baseURL;
-}
-
-+ (void)_openCloudPathOrErrorIfUnavailable:(NSString *)path
-{
-	NSParameterAssert(path != nil);
-
-	if (sharedCloudManager().ubiquitousContainerIsAvailable == NO) {
-		[TDCAlert alertSheetWithWindow:[NSApp keyWindow]
-								  body:TXTLS(@"Prompts[wjn-f1]")
-								 title:TXTLS(@"Prompts[rn7-08]")
-						 defaultButton:TXTLS(@"Prompts[68u-z9]")
-					   alternateButton:nil
-						   otherButton:nil];
-
-		return;
-	}
-
-	[RZWorkspace() openFile:path];
-}
-
-+ (void)openApplicationUbiquitousContainer
-{
-	NSString *sourcePath = self.applicationUbiquitousContainer;
-
-	[self _openCloudPathOrErrorIfUnavailable:sourcePath];
-}
-
-+ (void)openCloudCustomThemes
-{
-	NSString *sourcePath = self.cloudCustomThemes;
-
-	[self _openCloudPathOrErrorIfUnavailable:sourcePath];
-}
-
-@end
-#endif
 
 #pragma mark -
 #pragma mark Transcript URL
