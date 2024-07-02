@@ -1043,6 +1043,11 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCClientConfig self];
+}
+
 - (void)setAutoConnect:(BOOL)autoConnect
 {
 	if (self->_autoConnect != autoConnect) {

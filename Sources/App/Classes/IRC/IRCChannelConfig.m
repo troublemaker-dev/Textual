@@ -462,6 +462,11 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCChannelConfig self];
+}
+
 - (void)setType:(IRCChannelType)type
 {
 	if (self->_type != type) {

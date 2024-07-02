@@ -231,11 +231,6 @@ NS_ASSUME_NONNULL_BEGIN
 	return self->_urlToInline.absoluteString;
 }
 
-- (BOOL)isMutable
-{
-	return NO;
-}
-
 @end
 
 #pragma mark -
@@ -255,6 +250,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isMutable
 {
 	return YES;
+}
+
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [ICLPayload self];
 }
 
 DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
