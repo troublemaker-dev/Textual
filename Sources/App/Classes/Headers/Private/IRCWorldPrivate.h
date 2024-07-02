@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IRCChannel *)createPrivateMessage:(NSString *)nickname onClient:(IRCClient *)client asType:(IRCChannelType)type;
 
-- (void)destroyClient:(IRCClient *)client skipCloud:(BOOL)skipCloud;
+- (void)destroyClient:(IRCClient *)client;
 
 - (void)destroyChannel:(IRCChannel *)channel reload:(BOOL)reload;
 - (void)destroyChannel:(IRCChannel *)channel reload:(BOOL)reload part:(BOOL)partChannel;

@@ -459,6 +459,11 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [TVCLogLine self];
+}
+
 - (void)setIsEncrypted:(BOOL)isEncrypted
 {
 	if (self->_isEncrypted != isEncrypted) {

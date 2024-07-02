@@ -143,11 +143,6 @@ NS_ASSUME_NONNULL_BEGIN
 	[TDCLicenseUpgradeCommonActions purchaseUpgradeForLicense:sender.licenseKey];
 }
 
-- (void)upgradeEligibilitySheetPurchaseMacAppStore:(TDCLicenseUpgradeEligibilitySheet *)sender
-{
-	[TDCLicenseUpgradeCommonActions openMacAppStore];
-}
-
 - (void)upgradeEligibilitySheetPurchaseStandalone:(TDCLicenseUpgradeEligibilitySheet *)sender
 {
 	[TDCLicenseUpgradeCommonActions openStandaloneStore];

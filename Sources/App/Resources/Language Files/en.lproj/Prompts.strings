@@ -67,7 +67,6 @@
 
 "0kz-wd" = "Do you want to delete the selection?";
 "etl-ss" = "There is no undo and all data related to this server, except for logs, will be erased.";
-"5zs-h0" = "Only delete server on this device";
 
 "3l6-3z" = "You have clicked a link that will connect you to “%1$@“ and join the channel %2$@";
 "mx1-qz" = "The connection named “%1$@“ is already configured to connect to this server address.
@@ -185,9 +184,6 @@ Information encrypted using: %2$@";
 
 "2jq-t5" = "%1$@ with the cipher suite: %2$@";
 "8ou-pu" = "%1$@ with the cipher suite: %2$@ (deprecated)";
-
-"rn7-08" = "Unable to access iCloud";
-"wjn-f1" = "Make sure you're logged in and that “iCloud Drive” or “Documents & Data” is enabled.";
 
 "ujw-64" = "The “Inspect Element” feature of WebKit2 cannot be accessed on this version of macOS.";
 "kig-m1" = "Disable WebKit2 or upgrade to a newer version of macOS.";

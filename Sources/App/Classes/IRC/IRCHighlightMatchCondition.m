@@ -116,6 +116,11 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCHighlightMatchCondition self];
+}
+
 - (void)setMatchIsExcluded:(BOOL)matchIsExcluded
 {
 	if (self->_matchIsExcluded != matchIsExcluded) {

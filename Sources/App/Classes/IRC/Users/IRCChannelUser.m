@@ -398,6 +398,11 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCChannelUser self];
+}
+
 - (void)setModes:(NSString *)modes
 {
 	NSParameterAssert(modes != nil);

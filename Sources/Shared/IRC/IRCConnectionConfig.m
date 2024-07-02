@@ -157,6 +157,11 @@ uint16_t const IRCConnectionDefaultProxyPort = 1080;
 	return [object initOnCopy];
 }
 
+- (__kindof XRPortablePropertyObject *)mutableClass
+{
+	return [IRCConnectionConfigMutable self];
+}
+
 @end
 
 #pragma mark -
@@ -185,6 +190,11 @@ uint16_t const IRCConnectionDefaultProxyPort = 1080;
 - (BOOL)isMutable
 {
 	return YES;
+}
+
+- (__kindof XRPortablePropertyObject *)immutableClass
+{
+	return [IRCConnectionConfig self];
 }
 
 - (void)setConnectionPrefersModernCiphersOnly:(BOOL)connectionPrefersModernCiphersOnly

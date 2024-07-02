@@ -44,7 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 #define sharedNotificationController()	[TXSharedApplication sharedNotificationController]
 
 #define sharedPluginManager()			[TXSharedApplication sharedPluginManager]
-#define sharedCloudManager()			[TXSharedApplication sharedCloudSyncManager]
 
 @class OELReachability;
 @class THOPluginManager;
@@ -52,10 +51,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class TLONotificationController, TLOSpeechSynthesizer;
 @class TVCLogControllerPrintingOperationQueue;
 @class TXWindowController;
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-@class TPCPreferencesCloudSync;
-#endif
 
 #if TEXTUAL_BUILT_WITH_ADVANCED_ENCRYPTION == 1
 @class TLOEncryptionManager;
@@ -66,10 +61,6 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 
 @interface TXSharedApplication ()
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-+ (TPCPreferencesCloudSync *)sharedCloudSyncManager;
-#endif
-
 #if TEXTUAL_BUILT_WITH_ADVANCED_ENCRYPTION == 1
 + (TLOEncryptionManager *)sharedEncryptionManager;
 #endif

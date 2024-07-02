@@ -23,9 +23,6 @@
 		4C1D108820EBF3C000E72D80 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4C1D108920EBF3C000E72D80 /* Textual Extensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Textual Extensions.xcconfig"; sourceTree = "<group>"; };
 		4C1D108D20EBF3C000E72D80 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
-		4C1D109120EBF3C000E72D80 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
-		4C1D109220EBF3C000E72D80 /* Textual Extensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Textual Extensions.xcconfig"; sourceTree = "<group>"; };
-		4C1D109620EBF3C000E72D80 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
 		4C1D109B20EBF3C000E72D80 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4C1D109C20EBF3C000E72D80 /* Preserve Symbols.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Preserve Symbols.xcconfig"; sourceTree = "<group>"; };
 		4C1D109D20EBF3C000E72D80 /* Textual Extensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Textual Extensions.xcconfig"; sourceTree = "<group>"; };
@@ -108,7 +105,6 @@
 		4C1D108420EBF3C000E72D80 /* Build */ = {
 			isa = PBXGroup;
 			children = (
-				4C1D108E20EBF3C000E72D80 /* App Store Release */,
 				4C1D109820EBF3C000E72D80 /* Common */,
 				4C1D10AD20EBF3C000E72D80 /* Debug */,
 				4C1D108520EBF3C000E72D80 /* Standard Release */,
@@ -125,16 +121,6 @@
 				4C1D108820EBF3C000E72D80 /* Textual.xcconfig */,
 			);
 			path = "Standard Release";
-			sourceTree = "<group>";
-		};
-		4C1D108E20EBF3C000E72D80 /* App Store Release */ = {
-			isa = PBXGroup;
-			children = (
-				4C1D109620EBF3C000E72D80 /* Enabled Features.xcconfig */,
-				4C1D109220EBF3C000E72D80 /* Textual Extensions.xcconfig */,
-				4C1D109120EBF3C000E72D80 /* Textual.xcconfig */,
-			);
-			path = "App Store Release";
 			sourceTree = "<group>";
 		};
 		4C1D109820EBF3C000E72D80 /* Common */ = {
@@ -251,7 +237,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					8D57630D048677EA00EA77CD = {
 						DevelopmentTeam = 8482Q6EPL6;
@@ -384,7 +370,6 @@
 		};
 		4CCD21EE1FA41E390056F5FE /* Release (App Store) */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C1D109220EBF3C000E72D80 /* Textual Extensions.xcconfig */;
 			buildSettings = {
 			};
 			name = "Release (App Store)";

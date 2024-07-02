@@ -8,11 +8,7 @@ cd "${TEXTUAL_WORKSPACE_TEMP_DIR}/"
 # This will be the Info.plist file manipulated with the version
 # information that is generated below.
 
-if [ "${TEXTUAL_BUILD_SCHEME_TOKEN}" == "appstore" ]; then
-	infoPlistSource="${PROJECT_DIR}/Resources/Property Lists/Application Properties/InfoAppStore.plist"
-else
-	infoPlistSource="${PROJECT_DIR}/Resources/Property Lists/Application Properties/Info.plist"
-fi
+infoPlistSource="${PROJECT_DIR}/Resources/Property Lists/Application Properties/Info.plist"
 
 infoPlistTarget="${TEXTUAL_WORKSPACE_TEMP_DIR}/Info.plist"
 

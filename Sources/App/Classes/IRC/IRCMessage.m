@@ -394,6 +394,11 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCMessage self];
+}
+
 - (void)setBatchToken:(nullable NSString *)batchToken
 {
 	if (self->_batchToken != batchToken) {

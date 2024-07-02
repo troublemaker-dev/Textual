@@ -66,15 +66,12 @@ NS_ASSUME_NONNULL_BEGIN
 	acknowledgements					— Open acknowledgements file
 	activate-license					— Activate a license key
 	application-support-folder			— Open the Application Support folder
-	appstore-page						— Open our Mac App Store page
 	contributors						— Open contributors file
 	custom-scripts-folder				– Open the custom scripts storage location folder
 	custom-style-folder					— Open the custom style storage location folder
 	custom-styles-folder				— Open the custom style storage location folder
 	diagnostic-reports-folder			— System diagnostic reports folder
 	goto 								— Navigate to an item
-	icloud-style-folder					— Open the custom style storage location folder on iCloud
-	icloud-styles-folder				— Open the custom style storage location folder on iCloud
 	knowledge-base						— Open the homepage of our knowledge base
 	newsletter							— Open the subscription page for the newsletter
 	support-channel						— Connect to the #textual channel
@@ -97,10 +94,6 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 #endif
 
-	else if ([action isEqualToString:@"appstore-page"])
-	{
-		[menuController() openMacAppStoreWebpage:nil];
-	}
 	else if ([action isEqualToString:@"application-support-folder"])
 	{
 		[RZWorkspace() openURL:[TPCPathInfo groupContainerApplicationSupportURL]];
@@ -130,13 +123,6 @@ NS_ASSUME_NONNULL_BEGIN
 		NSURL *url = [NSURL URLWithString:sourceLocation];
 
 		[menuController() navigateToTreeItemAtURL:url];
-	}
-	else if ([action isEqualToString:@"icloud-style-folder"] ||
-			 [action isEqualToString:@"icloud-styles-folder"])
-	{
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-		[TPCPathInfo openCloudCustomThemes];
-#endif
 	}
 	else if ([action isEqualToString:@"knowledge-base"])
 	{

@@ -100,8 +100,6 @@
 	/* Preferences */
 	#import "TPCApplicationInfo.h"
 	#import "TPCPathInfo.h"
-	#import "TPCPreferencesCloudSync.h"
-	#import "TPCPreferencesCloudSyncExtension.h"
 	#import "TPCPreferencesImportExport.h"
 	#import "TPCPreferencesLocal.h"
 	#import "TPCPreferencesReload.h"

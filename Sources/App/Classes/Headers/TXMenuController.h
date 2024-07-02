@@ -221,8 +221,6 @@ enum
 	MTMMHelpKnowledgeBaseMenu = 905, // "Knowledge Base"
 	MTMMHelpKBMenuKnowledgeBaseHome = 9050000, // "Knowledge Base Home"
 	MTMMHelpKBMenuKnowledgeBaseHomeSeparator = 9050001, // "-"
-	MTMMHelpKBMenuUsingICloudWithApp = 9050002, // "Using iCloud with Textual"
-	MTMMHelpKBMenuUsingICloudWithAppSeparator = 9050003, // "-"
 	MTMMHelpKBMenuChatEncryption = 9050004, // "Chat Encryption"
 	MTMMHelpKBMenuCommandReference = 9050005, // "Command Reference"
 	MTMMHelpKBMenuFeatureRequests = 9050006, // "Feature Requests"
@@ -447,8 +445,7 @@ enum
 - (IBAction)onNextHighlight:(id)sender;
 - (IBAction)onPreviousHighlight:(id)sender;
 
-- (IBAction)openStandaloneStoreWebpage:(id)sender;
-- (IBAction)openMacAppStoreWebpage:(id)sender;
+- (IBAction)openStandaloneStoreWebpage:(id)sender;;
 
 - (IBAction)openChannelLogs:(id)sender;
 - (IBAction)openLogLocation:(id)sender;

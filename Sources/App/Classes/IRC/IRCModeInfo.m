@@ -142,6 +142,11 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCModeInfo self];
+}
+
 - (void)setModeIsSet:(BOOL)modeIsSet
 {
 	if (self->_modeIsSet != modeIsSet) {

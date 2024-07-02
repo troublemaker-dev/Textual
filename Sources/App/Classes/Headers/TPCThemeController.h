@@ -40,9 +40,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-TEXTUAL_EXTERN NSString * const TPCThemeControllerCloudThemeNameBasicPrefix;
-TEXTUAL_EXTERN NSString * const TPCThemeControllerCloudThemeNameCompletePrefix;
-
 TEXTUAL_EXTERN NSString * const TPCThemeControllerCustomThemeNameBasicPrefix;
 TEXTUAL_EXTERN NSString * const TPCThemeControllerCustomThemeNameCompletePrefix;
 

@@ -78,11 +78,6 @@ NS_ASSUME_NONNULL_BEGIN
 	[menuController() openStandaloneStoreWebpage:nil];
 }
 
-+ (void)openMacAppStore
-{
-	[menuController() openMacAppStoreWebpage:nil];
-}
-
 @end
 #endif
 

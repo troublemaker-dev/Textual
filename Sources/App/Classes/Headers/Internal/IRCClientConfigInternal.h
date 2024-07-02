@@ -47,11 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 	BOOL _autoSleepModeDisconnect;
 	BOOL _autojoinWaitsForNickServ;
 	BOOL _connectionPrefersIPv4;
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	BOOL _excludedFromCloudSyncing;
-#endif
-
 	BOOL _hideAutojoinDelayedWarnings;
 	BOOL _hideNetworkUnavailabilityNotices;
 	BOOL _performDisconnectOnPongTimer;

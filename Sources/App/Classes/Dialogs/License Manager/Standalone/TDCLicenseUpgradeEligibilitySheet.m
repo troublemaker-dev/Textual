@@ -62,7 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)actionActivateLicense:(id)sender;
 - (IBAction)actionPurchaseUpgrade:(id)sender;
 - (IBAction)actionPurchaseStandalone:(id)sender;
-- (IBAction)actionPurchaseMacAppStore:(id)sender;
 - (IBAction)actionClose:(id)sender;
 @end
 
@@ -319,11 +318,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)actionPurchaseUpgrade:(id)sender
 {
 	[self.delegate upgradeEligibilitySheetPurchaseUpgrade:self];
-}
-
-- (void)actionPurchaseMacAppStore:(id)sender
-{
-	[self.delegate upgradeEligibilitySheetPurchaseMacAppStore:self];
 }
 
 - (void)actionPurchaseStandalone:(id)sender

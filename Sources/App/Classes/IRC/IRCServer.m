@@ -200,6 +200,11 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCServer self];
+}
+
 - (void)setPrefersSecuredConnection:(BOOL)prefersSecuredConnection
 {
 	if (self->_prefersSecuredConnection != prefersSecuredConnection) {
