@@ -174,6 +174,11 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCHighlightLogEntry self];
+}
+
 - (void)setLineLogged:(TVCLogLine *)lineLogged
 {
 	NSParameterAssert(lineLogged != nil);

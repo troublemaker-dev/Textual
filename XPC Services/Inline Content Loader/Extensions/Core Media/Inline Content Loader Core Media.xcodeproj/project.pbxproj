@@ -75,9 +75,6 @@
 		4CE145B220EC0D5A000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE145B620EC0D5A000E01C9 /* XPC Service - ICL Extensions.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "XPC Service - ICL Extensions.xcconfig"; sourceTree = "<group>"; };
 		4CE145B720EC0D5A000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
-		4CE145BB20EC0D5A000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
-		4CE145BF20EC0D5A000E01C9 /* XPC Service - ICL Extensions.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "XPC Service - ICL Extensions.xcconfig"; sourceTree = "<group>"; };
-		4CE145C020EC0D5A000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
 		4CE145C520EC0D5A000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE145C620EC0D5A000E01C9 /* Preserve Symbols.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Preserve Symbols.xcconfig"; sourceTree = "<group>"; };
 		4CE145C920EC0D5A000E01C9 /* Foundation.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Foundation.xcconfig; sourceTree = "<group>"; };
@@ -435,7 +432,6 @@
 		4CE145AE20EC0D5A000E01C9 /* Build */ = {
 			isa = PBXGroup;
 			children = (
-				4CE145B820EC0D5A000E01C9 /* App Store Release */,
 				4CE145C220EC0D5A000E01C9 /* Common */,
 				4CE145D720EC0D5A000E01C9 /* Debug */,
 				4CE145AF20EC0D5A000E01C9 /* Standard Release */,
@@ -452,16 +448,6 @@
 				4CE145B620EC0D5A000E01C9 /* XPC Service - ICL Extensions.xcconfig */,
 			);
 			path = "Standard Release";
-			sourceTree = "<group>";
-		};
-		4CE145B820EC0D5A000E01C9 /* App Store Release */ = {
-			isa = PBXGroup;
-			children = (
-				4CE145C020EC0D5A000E01C9 /* Enabled Features.xcconfig */,
-				4CE145BB20EC0D5A000E01C9 /* Textual.xcconfig */,
-				4CE145BF20EC0D5A000E01C9 /* XPC Service - ICL Extensions.xcconfig */,
-			);
-			path = "App Store Release";
 			sourceTree = "<group>";
 		};
 		4CE145C220EC0D5A000E01C9 /* Common */ = {
@@ -524,7 +510,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = ICP;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1600;
 				ORGANIZATIONNAME = "Codeux Software, LLC";
 				TargetAttributes = {
 					4CA1FE571FA606890095901F = {

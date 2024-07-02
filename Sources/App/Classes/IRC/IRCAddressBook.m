@@ -294,6 +294,11 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCAddressBookEntry self];
+}
+
 - (void)setEntryType:(IRCAddressBookEntryType)entryType
 {
 	if (self->_entryType != entryType) {

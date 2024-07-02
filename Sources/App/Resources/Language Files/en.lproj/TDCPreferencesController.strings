@@ -35,9 +35,6 @@
  *
  *********************************************************************** */
 
-"r62-4k" = "Are you sure you want to delete everything uploaded to iCloud by Textual?";
-"t8v-w8" = "This action will not effect the configuration of this device or others.";
-
 "70s-c6" = "No Log Location Selected";
 "721-ie" = "No Location Selected";
 
@@ -55,6 +52,3 @@ Click “Edit Style” to add your own style sheet rules. This feature can also 
 "77t-de" = "• Nickname Format";
 "ddh-hr" = "• Timestamp Format";
 "we8-i8" = "• Channel View Font";
-
-"x3n-to" = "Please choose a location other than iCloud Drive to save data to";
-"gz8-dt" = "";

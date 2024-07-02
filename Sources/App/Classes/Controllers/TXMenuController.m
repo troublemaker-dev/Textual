@@ -46,7 +46,6 @@
 #import "IRCISupportInfo.h"
 #import "IRCUser.h"
 #import "IRCWorldPrivate.h"
-#import "IRCWorldPrivateCloudExtension.h"
 #import "TVCBasicTableView.h"
 #import "TVCLogController.h"
 #import "TVCLogViewPrivate.h"
@@ -77,7 +76,6 @@
 #import "TDCServerPropertiesSheetPrivate.h"
 #import "TDCWelcomeSheetPrivate.h"
 #import "TPCPathInfoPrivate.h"
-#import "TPCPreferencesCloudSyncExtension.h"
 #import "TPCPreferencesImportExport.h"
 #import "TPCPreferencesLocalPrivate.h"
 #import "TPCPreferencesReload.h"
@@ -1597,45 +1595,16 @@ NS_ASSUME_NONNULL_BEGIN
 		return;
 	}
 
-	NSString *suppressionText = nil;
-
-	BOOL suppressionResult = NO;
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	BOOL deleteFromCloudCheckboxShown = NO;
-
-	if ([TPCPreferences syncPreferencesToTheCloud]) {
-		if (u.config.excludedFromCloudSyncing == NO) {
-			deleteFromCloudCheckboxShown = YES;
-
-			suppressionText = TXTLS(@"Prompts[5zs-h0]");
-		}
-	}
-#endif
-
 	BOOL result = [TDCAlert modalAlertWithMessage:TXTLS(@"Prompts[etl-ss]")
 											title:TXTLS(@"Prompts[0kz-wd]")
 									defaultButton:TXTLS(@"Prompts[mvh-ms]")
-								  alternateButton:TXTLS(@"Prompts[99q-gg]")
-								   suppressionKey:nil
-								  suppressionText:suppressionText
-							  suppressionResponse:&suppressionResult];
+								  alternateButton:TXTLS(@"Prompts[99q-gg]")];
 
 	if (result == NO) {
 		return;
 	}
 
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	if (deleteFromCloudCheckboxShown && suppressionResult == NO) {
-		[worldController() destroyClient:u skipCloud:NO];
-	} else {
-#endif
-
-		[worldController() destroyClient:u skipCloud:YES];
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	}
-#endif
+	[worldController() destroyClient:u];
 
 	[worldController() save];
 }
@@ -2478,7 +2447,6 @@ NS_ASSUME_NONNULL_BEGIN
 	   @(MTMMHelpPrivacyPolicy) 					: @"https://help.codeux.com/textual/Privacy-Policy.kb",
 	   @(MTMMHelpFrequentlyAskedQuestions) 			: @"https://help.codeux.com/textual/Frequently-Asked-Questions.kb",
 	   @(MTMMHelpKBMenuKnowledgeBaseHome) 			: @"https://help.codeux.com/textual/home.kb",
-	   @(MTMMHelpKBMenuUsingICloudWithApp) 			: @"https://help.codeux.com/textual/iCloud-Syncing.kb",
 	   @(MTMMHelpKBMenuChatEncryption) 				: @"https://help.codeux.com/textual/Off-the-Record-Messaging.kb",
 	   @(MTMMHelpKBMenuCommandReference) 			: @"https://help.codeux.com/textual/Command-Reference.kb",
 	   @(MTMMHelpKBMenuFeatureRequests) 			: @"https://help.codeux.com/textual/Support.kb",
@@ -2494,11 +2462,6 @@ NS_ASSUME_NONNULL_BEGIN
 	NSString *link = _helpMenuLinks[@([sender tag])];
 
 	[TLOpenLink openWithString:link inBackground:NO];
-}
-
-- (void)openMacAppStoreWebpage:(id)sender
-{
-	[TLOpenLink openWithString:@"https://www.textualapp.com/mac-app-store" inBackground:NO];
 }
 
 - (void)openStandaloneStoreWebpage:(id)sender
@@ -3547,13 +3510,6 @@ NS_ASSUME_NONNULL_BEGIN
 	[worldController() save];
 }
 
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-- (void)serverPropertiesSheet:(TDCServerPropertiesSheet *)sender removeClientFromCloud:(NSString *)clientId
-{
-	[worldController() cloud_addClientToListOfDeletedClients:clientId];
-}
-#endif
-
 - (void)serverPropertiesSheetWillClose:(TDCServerPropertiesSheet *)sender
 {
 	[windowController() removeWindowFromWindowList:sender];
@@ -3841,11 +3797,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)openStandaloneStoreWebpage:(id)sender
 {
 	[menuController() openStandaloneStoreWebpage:sender];
-}
-
-- (void)openMacAppStoreWebpage:(id)sender
-{
-	[menuController() openMacAppStoreWebpage:sender];
 }
 
 - (void)manageLicense:(id)sender

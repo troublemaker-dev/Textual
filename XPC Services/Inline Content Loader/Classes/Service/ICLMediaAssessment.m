@@ -139,6 +139,11 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [ICLMediaAssessment self];
+}
+
 - (void)setType:(ICLMediaType)type
 {
 	if (self->_type != type) {

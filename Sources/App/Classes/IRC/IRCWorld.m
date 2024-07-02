@@ -52,7 +52,6 @@
 #import "IRCServer.h"
 #import "IRCTreeItemPrivate.h"
 #import "IRCWorldPrivate.h"
-#import "IRCWorldPrivateCloudExtension.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -660,11 +659,6 @@ NSString * const IRCWorldWillDestroyChannelNotification = @"IRCWorldWillDestroyC
 
 - (void)destroyClient:(IRCClient *)client
 {
-	[self destroyClient:client skipCloud:NO];
-}
-
-- (void)destroyClient:(IRCClient *)client skipCloud:(BOOL)skipCloud
-{
 	NSParameterAssert(client != nil);
 
 	/* It is not safe to destroy the client while connected. */
@@ -674,7 +668,7 @@ NSString * const IRCWorldWillDestroyChannelNotification = @"IRCWorldWillDestroyC
 		__weak IRCClient *weakClient = client;
 
 		client.disconnectCallback = ^{
-			[weakSelf destroyClient:weakClient skipCloud:skipCloud];
+			[weakSelf destroyClient:weakClient];
 		};
 
 		[client quit];
@@ -687,12 +681,6 @@ NSString * const IRCWorldWillDestroyChannelNotification = @"IRCWorldWillDestroyC
 	[self selectOtherBeforeDestroy:client];
 
 	[client prepareForPermanentDestruction];
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	if (skipCloud == NO) {
-		[self cloud_destroyClient:client];
-	}
-#endif
 
 	@try {
 		[mainWindowServerList() removeItemFromList:client];

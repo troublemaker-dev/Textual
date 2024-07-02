@@ -112,6 +112,11 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCPrefix self];
+}
+
 - (void)setIsServer:(BOOL)isServer
 {
 	if (self->_isServer != isServer) {

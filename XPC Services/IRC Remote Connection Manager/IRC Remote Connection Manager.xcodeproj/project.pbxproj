@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -78,9 +78,6 @@
 		4CE143F920EBF5DB000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE143FC20EBF5DB000E01C9 /* XPC Services.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "XPC Services.xcconfig"; sourceTree = "<group>"; };
 		4CE143FE20EBF5DB000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
-		4CE1440220EBF5DB000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
-		4CE1440520EBF5DB000E01C9 /* XPC Services.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "XPC Services.xcconfig"; sourceTree = "<group>"; };
-		4CE1440720EBF5DB000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
 		4CE1440C20EBF5DB000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE1440D20EBF5DB000E01C9 /* Preserve Symbols.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Preserve Symbols.xcconfig"; sourceTree = "<group>"; };
 		4CE1441020EBF5DB000E01C9 /* Foundation.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Foundation.xcconfig; sourceTree = "<group>"; };
@@ -94,7 +91,6 @@
 		4CE1442620EBF5DB000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
 		4CE1445520EBF641000E01C9 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		4CE1448120EC0209000E01C9 /* Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Release.entitlements; sourceTree = "<group>"; };
-		4CE1448220EC020A000E01C9 /* App Store.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "App Store.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -384,7 +380,6 @@
 		4CE143F520EBF5DB000E01C9 /* Build */ = {
 			isa = PBXGroup;
 			children = (
-				4CE143FF20EBF5DB000E01C9 /* App Store Release */,
 				4CE1440920EBF5DB000E01C9 /* Common */,
 				4CE1441E20EBF5DB000E01C9 /* Debug */,
 				4CE143F620EBF5DB000E01C9 /* Standard Release */,
@@ -401,16 +396,6 @@
 				4CE143FC20EBF5DB000E01C9 /* XPC Services.xcconfig */,
 			);
 			path = "Standard Release";
-			sourceTree = "<group>";
-		};
-		4CE143FF20EBF5DB000E01C9 /* App Store Release */ = {
-			isa = PBXGroup;
-			children = (
-				4CE1440720EBF5DB000E01C9 /* Enabled Features.xcconfig */,
-				4CE1440220EBF5DB000E01C9 /* Textual.xcconfig */,
-				4CE1440520EBF5DB000E01C9 /* XPC Services.xcconfig */,
-			);
-			path = "App Store Release";
 			sourceTree = "<group>";
 		};
 		4CE1440920EBF5DB000E01C9 /* Common */ = {
@@ -448,7 +433,6 @@
 		4CE1442720EBF5DB000E01C9 /* Sandbox */ = {
 			isa = PBXGroup;
 			children = (
-				4CE1448220EC020A000E01C9 /* App Store.entitlements */,
 				4CE1448120EC0209000E01C9 /* Release.entitlements */,
 			);
 			name = Sandbox;
@@ -482,7 +466,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1600;
 				ORGANIZATIONNAME = "Codeux Software, LLC";
 				TargetAttributes = {
 					4C1406411F11942B00C73D53 = {
@@ -611,27 +595,6 @@
 			};
 			name = Release;
 		};
-		4C1406641F11965A00C73D53 /* Release (App Store) */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4CE1440520EBF5DB000E01C9 /* XPC Services.xcconfig */;
-			buildSettings = {
-				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/Classes/Headers/Private/SwiftBridgingHeaderPrivate.h";
-			};
-			name = "Release (App Store)";
-		};
-		4C1406651F11965A00C73D53 /* Release (App Store) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_ENTITLEMENTS = "${PROJECT_DIR}/Configurations/Sandbox/App Store.entitlements";
-				DEVELOPMENT_TEAM = "";
-				GCC_PREFIX_HEADER = "${PROJECT_DIR}/Classes/Headers/Private/RCMProcessPCHPrivate.h";
-				INFOPLIST_FILE = "Resources/Property Lists/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.codeux.app-utilities.Textual-IRCConnectionHost";
-				PRODUCT_NAME = "IRC Connection Host";
-			};
-			name = "Release (App Store)";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -640,7 +603,6 @@
 			buildConfigurations = (
 				4C14064C1F11942B00C73D53 /* Debug */,
 				4C14064D1F11942B00C73D53 /* Release */,
-				4C1406641F11965A00C73D53 /* Release (App Store) */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -650,7 +612,6 @@
 			buildConfigurations = (
 				4C14064F1F11942B00C73D53 /* Debug */,
 				4C1406501F11942B00C73D53 /* Release */,
-				4C1406651F11965A00C73D53 /* Release (App Store) */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

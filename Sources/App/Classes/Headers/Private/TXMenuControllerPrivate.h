@@ -88,7 +88,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)manageLicense:(id)sender;
 
 - (IBAction)openStandaloneStoreWebpage:(id)sender;
-- (IBAction)openMacAppStoreWebpage:(id)sender;
 @end
 
 NS_ASSUME_NONNULL_END

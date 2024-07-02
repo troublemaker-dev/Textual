@@ -189,20 +189,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDictionary<NSString *, id> *)dictionaryValue
 {
-	return [self _dictionaryValueForCopyOperation:NO isCloudDictionary:NO];
+	return [self _dictionaryValueForCopyOperation:NO];
 }
 
 - (NSDictionary<NSString *, id> *)dictionaryValueForCloud
 {
-	return [self _dictionaryValueForCopyOperation:NO isCloudDictionary:YES];
+	return [self _dictionaryValueForCopyOperation:NO];
 }
 
 - (NSDictionary<NSString *, id> *)dictionaryValueForCopy
 {
-	return [self _dictionaryValueForCopyOperation:YES isCloudDictionary:NO];
+	return [self _dictionaryValueForCopyOperation:YES];
 }
 
-- (NSDictionary<NSString *, id> *)_dictionaryValueForCopyOperation:(BOOL)isCopyOperation isCloudDictionary:(BOOL)isCloudDictionary
+- (NSDictionary<NSString *, id> *)_dictionaryValueForCopyOperation:(BOOL)isCopyOperation
 {
 	NSMutableDictionary<NSString *, id> *dic = [NSMutableDictionary dictionary];
 
@@ -460,6 +460,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isMutable
 {
 	return YES;
+}
+
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCChannelConfig self];
 }
 
 - (void)setType:(IRCChannelType)type

@@ -415,6 +415,11 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCUser self];
+}
+
 - (void)setNickname:(NSString *)nickname
 {
 	NSParameterAssert(nickname != nil);

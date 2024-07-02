@@ -53,8 +53,7 @@ typedef NS_ENUM(NSUInteger, TPCThemeAppearanceType) {
 typedef NS_ENUM(NSUInteger, TPCThemeStorageLocation) {
 	TPCThemeStorageLocationUnknown = 0,
 	TPCThemeStorageLocationBundle,
-	TPCThemeStorageLocationCustom,
-	TPCThemeStorageLocationCloud
+	TPCThemeStorageLocationCustom
 };
 
 typedef NS_ENUM(NSUInteger, TPCThemeSettingsNicknameColorStyle) {

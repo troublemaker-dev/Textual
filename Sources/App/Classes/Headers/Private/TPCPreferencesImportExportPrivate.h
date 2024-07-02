@@ -43,9 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)import:(id)object withKey:(NSString *)key;
 
 + (void)importContentsOfDictionary:(NSDictionary<NSString *, id> *)aDict;
-+ (void)importClientConfiguration:(NSDictionary<NSString *, id> *)config isImportedFromCloud:(BOOL)isImportedFromCloud;
-
-+ (NSDictionary<NSString *, id> *)exportedPreferencesDictionaryForCloud;
++ (void)importClientConfiguration:(NSDictionary<NSString *, id> *)config;
 @end
 
 NS_ASSUME_NONNULL_END

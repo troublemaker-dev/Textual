@@ -340,6 +340,11 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [TPI_ChatFilter self];
+}
+
 - (void)setFilterIgnoreContent:(BOOL)filterIgnoreContent
 {
 	if (self->_filterIgnoreContent != filterIgnoreContent) {

@@ -77,10 +77,6 @@ typedef NS_ENUM(NSUInteger, TDCServerPropertiesSheetSelection) {
 
 - (void)serverPropertiesSheet:(TDCServerPropertiesSheet *)sender onOk:(IRCClientConfig *)config;
 - (void)serverPropertiesSheetWillClose:(TDCServerPropertiesSheet *)sender;
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-- (void)serverPropertiesSheet:(TDCServerPropertiesSheet *)sender removeClientFromCloud:(NSString *)clientId;
-#endif
 @end
 
 NS_ASSUME_NONNULL_END

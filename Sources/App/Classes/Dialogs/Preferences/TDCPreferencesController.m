@@ -36,16 +36,10 @@
  *
  *********************************************************************** */
 
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-#warning TODO: Radio groups that are manually set need to be updated when iCloud syncs.
-#endif
-
 #import "NSViewHelper.h"
 #import "TXMasterController.h"
 #import "TXMenuController.h"
 #import "TPCPathInfoPrivate.h"
-#import "TPCPreferencesCloudSyncPrivate.h"
-#import "TPCPreferencesCloudSyncExtensionPrivate.h"
 #import "TPCPreferencesLocalPrivate.h"
 #import "TPCPreferencesReload.h"
 #import "TPCPreferencesUserDefaults.h"
@@ -149,9 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) IBOutlet NSView *contentViewOffRecordMessaging;
 #endif
 
-@property (nonatomic, strong) IBOutlet NSView *contentViewICloud;
 @property (nonatomic, strong) IBOutlet NSView *contentViewHiddenPreferences;
-
 @property (nonatomic, weak) IBOutlet NSButton *checkForUpdatesDontCheck;
 @property (nonatomic, weak) IBOutlet NSButton *checkForUpdatesAutomaticallyCheck;
 @property (nonatomic, weak) IBOutlet NSButton *checkForUpdatesAutomaticallyDownload;
@@ -175,8 +167,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)onChangedCheckForUpdates:(id)sender;
 - (IBAction)onChangedCheckForBetaUpdates:(id)sender;
 - (IBAction)onChangedChannelViewArrangement:(id)sender;
-- (IBAction)onChangedCloudSyncingServices:(id)sender;
-- (IBAction)onChangedCloudSyncingServicesServersOnly:(id)sender;
 - (IBAction)onChangedDisableNicknameColorHashing:(id)sender;
 - (IBAction)onChangedForwardNoticeTo:(id)sender;
 - (IBAction)onChangedHighlightLogging:(id)sender;
@@ -196,13 +186,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)onChangedUserListModeSortOrder:(id)sender;
 - (IBAction)onFileTransferDownloadDestinationFolderChanged:(id)sender;
 - (IBAction)onFileTransferIPAddressDetectionMethodChanged:(id)sender;
-- (IBAction)onManageICloudButtonClicked:(id)sender; // changed
 - (IBAction)onModifyUserStyleSheetRules:(id)sender;
-- (IBAction)onOpenPathToCloudFolder:(id)sender;
 - (IBAction)onOpenPathToScripts:(id)sender;
 - (IBAction)onOpenPathToTheme:(id)sender; // changed
 - (IBAction)onPrefPaneSelected:(id)sender;
-- (IBAction)onPurgeOfCloudDataRequested:(id)sender;
 - (IBAction)onResetServerListUnreadBadgeColorsToDefault:(id)sender;
 - (IBAction)onResetUserListModeColorsToDefaults:(id)sender;
 - (IBAction)onSelectNewFont:(id)sender;
@@ -288,16 +275,9 @@ NS_ASSUME_NONNULL_BEGIN
 	];
 
 	[RZNotificationCenter() addObserver:self
-							   selector:@selector(onCloudSyncControllerDidChangeThemeName:)
+							   selector:@selector(onThemeListDidChange:)
 								   name:TPCThemeControllerThemeListDidChangeNotification
 								 object:nil];
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	[RZNotificationCenter() addObserver:self
-							   selector:@selector(onCloudSyncControllerDidChangeThemeName:)
-								   name:TPCPreferencesCloudSyncDidChangeThemeNameNotification
-								 object:nil];
-#endif
 
 	[RZNotificationCenter() addObserver:self
 							   selector:@selector(onThemeWillReload:)
@@ -308,12 +288,6 @@ NS_ASSUME_NONNULL_BEGIN
 							   selector:@selector(onThemeReloadComplete:)
 								   name:TVCMainWindowDidReloadThemeNotification
 								 object:nil];
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 0
-	/* Hide "Share data between devices" when iCloud support is not enabled. */
-	[self.contentViewGeneralStackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible
-													forView:self.contentViewGeneralShareDataView];
-#endif
 
 #if TEXTUAL_BUILT_WITH_SPARKLE_ENABLED == 0
 	/* Hide preferences for updates when support is not enabled. */
@@ -806,22 +780,6 @@ NS_ASSUME_NONNULL_BEGIN
 	[TPCPreferences setLogToDisk:logTranscript];
 }
 
-- (BOOL)syncPreferencesToTheCloud
-{
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	return [TPCPreferences syncPreferencesToTheCloud];
-#else
-	return NO;
-#endif
-}
-
-- (void)setSyncPreferencesToTheCloud:(BOOL)syncPreferencesToTheCloud
-{
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	[TPCPreferences setSyncPreferencesToTheCloud:syncPreferencesToTheCloud];
-#endif
-}
-
 - (BOOL)inlineMediaLimitToBasics
 {
 	return [TPCPreferences inlineMediaLimitToBasics];
@@ -924,29 +882,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark File Transfer Destination Folder Popup
 
-- (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError **)outError
-{
-	NSString *cloudPath = [[TPCPathInfo userHome] stringByAppendingPathComponent:@"/Library/Mobile Documents/"];
-
-	if ([url.path hasPrefix:cloudPath]) {
-		if (outError) {
-			NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-
-			userInfo[NSURLErrorKey] = url;
-
-			userInfo[NSLocalizedDescriptionKey] = TXTLS(@"TDCPreferencesController[x3n-to]");
-
-			userInfo[NSLocalizedRecoverySuggestionErrorKey] = TXTLS(@"TDCPreferencesController[gz8-dt]");
-
-			*outError = [NSError errorWithDomain:TXErrorDomain code:27984 userInfo:userInfo];
-		}
-
-		return NO;
-	}
-
-	return YES;
-}
-
 - (void)updateFileTransferDownloadDestinationFolder
 {
 	TDCFileTransferDialog *transferController = [TXSharedApplication sharedFileTransferDialog];
@@ -976,8 +911,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 	if (self.fileTransferDownloadDestinationButton.selectedTag == 2) {
 		NSOpenPanel *d = [NSOpenPanel openPanel];
-
-		d.delegate = (id)self;
 
 		d.allowsMultipleSelection = NO;
 		d.canChooseDirectories = YES;
@@ -1051,8 +984,6 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	if (self.transcriptFolderButton.selectedTag == 2) {
 		NSOpenPanel *d = [NSOpenPanel openPanel];
-
-		d.delegate = (id)self;
 
 		d.allowsMultipleSelection = NO;
 		d.canChooseDirectories = YES;
@@ -1469,16 +1400,6 @@ NS_ASSUME_NONNULL_BEGIN
 	[RZUserDefaults() setObject:nil forKey:@"User List Mode Badge Colors -> +v"];
 	[RZUserDefaults() setObject:nil forKey:@"User List Mode Badge Colors -> no mode"];
 
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	[sharedCloudManager() removeObjectForKeyNextUpstreamSync:@"User List Mode Badge Colors -> +y"];
-	[sharedCloudManager() removeObjectForKeyNextUpstreamSync:@"User List Mode Badge Colors -> +q"];
-	[sharedCloudManager() removeObjectForKeyNextUpstreamSync:@"User List Mode Badge Colors -> +a"];
-	[sharedCloudManager() removeObjectForKeyNextUpstreamSync:@"User List Mode Badge Colors -> +o"];
-	[sharedCloudManager() removeObjectForKeyNextUpstreamSync:@"User List Mode Badge Colors -> +h"];
-	[sharedCloudManager() removeObjectForKeyNextUpstreamSync:@"User List Mode Badge Colors -> +v"];
-	[sharedCloudManager() removeObjectForKeyNextUpstreamSync:@"User List Mode Badge Colors -> no mode"];
-#endif
-
 	[self onChangedUserListModeColor:nil];
 }
 
@@ -1489,10 +1410,6 @@ NS_ASSUME_NONNULL_BEGIN
 	[RZUserDefaults() setObject:nil forKey:@"Server List Unread Message Count Badge Colors -> Highlight"];
 
 	[self didChangeValueForKey:@"serverListUnreadCountBadgeHighlightColor"];
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	[sharedCloudManager() removeObjectForKeyNextUpstreamSync:@"Server List Unread Message Count Badge Colors -> Highlight"];
-#endif
 
 	[self onChangedServerListUnreadBadgeColor:sender];
 }
@@ -1603,88 +1520,9 @@ NS_ASSUME_NONNULL_BEGIN
 	[TPCPreferences performReloadAction:TPCPreferencesReloadActionScrollbackVisibleLimit];
 }
 
-- (void)onOpenPathToCloudFolder:(id)sender
-{
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	[TPCPathInfo openApplicationUbiquitousContainer];
-#endif
-}
-
 - (void)onOpenPathToScripts:(id)sender
 {
 	[RZWorkspace() openURL:[TPCPathInfo groupContainerApplicationSupportURL]];
-}
-
-- (void)onManageICloudButtonClicked:(id)sender
-{
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	[self firstPane:self.contentViewICloud selectedItem:_toolbarItemIndexAdvanced];
-#endif
-}
-
-- (void)onChangedCloudSyncingServices:(id)sender
-{
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	if ([TPCPreferences syncPreferencesToTheCloud] == NO) {
-		[sharedCloudManager() resetDataToSync];
-	} else {
-		[RZUbiquitousKeyValueStore() synchronize];
-
-		[sharedCloudManager() syncEverythingNextSync];
-
-		[sharedCloudManager() synchronizeFromCloud];
-	}
-#endif
-}
-
-- (void)onChangedCloudSyncingServicesServersOnly:(id)sender
-{
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	if ([TPCPreferences syncPreferencesToTheCloud] == NO) {
-		return;
-	}
-
-	if ([TPCPreferences syncPreferencesToTheCloudLimitedToServers]) {
-		return;
-	}
-
-	[RZUbiquitousKeyValueStore() synchronize];
-
-	[sharedCloudManager() synchronizeFromCloud];
-#endif
-}
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-- (void)onPurgeOfCloudDataRequestedCallback:(TDCAlertResponse)returnCode
-{
-	if (returnCode != TDCAlertResponseDefault) {
-		return;
-	}
-
-	[sharedCloudManager() purgeDataStoredWithCloud];
-
-	NSError *deleteThemesError = nil;
-
-	if ([RZFileManager() removeItemAtPath:[TPCPathInfo cloudCustomThemes] error:&deleteThemesError] == NO) {
-		LogToConsoleError("Delete Error: %@",
-			  deleteThemesError.localizedDescription);
-	}
-}
-#endif
-
-- (void)onPurgeOfCloudDataRequested:(id)sender
-{
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	[TDCAlert alertSheetWithWindow:[NSApp keyWindow]
-							  body:TXTLS(@"TDCPreferencesController[t8v-w8]")
-							 title:TXTLS(@"TDCPreferencesController[r62-4k]")
-					 defaultButton:TXTLS(@"Prompts[mvh-ms]")
-				   alternateButton:TXTLS(@"Prompts[99q-gg]")
-					   otherButton:nil
-				   completionBlock:^(TDCAlertResponse buttonClicked, BOOL suppressed, id underlyingAlert) {
-					   [self onPurgeOfCloudDataRequestedCallback:buttonClicked];
-				   }];
-#endif
 }
 
 - (void)openPathToThemesCallback:(TDCAlertResponse)returnCode withOriginalAlert:(NSAlert *)originalAlert
@@ -1702,19 +1540,7 @@ NS_ASSUME_NONNULL_BEGIN
 	if (returnCode == TDCAlertResponseOther) {
 		[originalAlert.window orderOut:nil];
 
-		BOOL copyingToCloud = NO;
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-		if (sharedCloudManager().ubiquitousContainerIsAvailable) {
-			copyingToCloud = YES;
-		}
-#endif
-
-		if (copyingToCloud) {
-			[themeController() copyActiveThemeToDestinationLocation:TPCThemeStorageLocationCloud reloadOnCopy:YES openOnCopy:YES];
-		} else {
-			[themeController() copyActiveThemeToDestinationLocation:TPCThemeStorageLocationCustom reloadOnCopy:YES openOnCopy:YES];
-		}
+		[themeController() copyActiveThemeToDestinationLocation:TPCThemeStorageLocationCustom reloadOnCopy:YES openOnCopy:YES];
 	}
 }
 
@@ -1744,10 +1570,7 @@ NS_ASSUME_NONNULL_BEGIN
 	[RZWorkspace() openURL:fileURL];
 }
 
-#pragma mark -
-#pragma mark Cloud Work
-
-- (void)onCloudSyncControllerDidChangeThemeName:(NSNotification *)aNote
+- (void)onThemeListDidChange:(NSNotification *)aNote
 {
 	[self updateThemeSelection];
 }

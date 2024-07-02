@@ -85,7 +85,6 @@ NS_ASSUME_NONNULL_BEGIN
 	defaults[@"cachedLastServerTimeCapabilityReceivedAtTimestamp"] = @(0);
 	defaults[@"cipherSuites"] = @(RCMCipherSuiteCollectionDefault);
 	defaults[@"connectionName"] = TXTLS(@"BasicLanguage[vfu-c0]");
-	defaults[@"excludedFromCloudSyncing"] = @(NO);
 	defaults[@"fallbackEncoding"] = @(TXDefaultFallbackStringEncoding);
 	defaults[@"floodControlDelayTimerInterval"] = @(IRCConnectionConfigFloodControlDefaultDelayInterval);
 	defaults[@"floodControlMaximumMessages"] = @(IRCConnectionConfigFloodControlDefaultMessageCount);
@@ -288,11 +287,6 @@ NS_ASSUME_NONNULL_BEGIN
 	[defaultsMutable assignBoolTo:&self->_autoReconnect forKey:@"autoReconnect"];
 	[defaultsMutable assignBoolTo:&self->_autoSleepModeDisconnect forKey:@"autoSleepModeDisconnect"];
 	[defaultsMutable assignBoolTo:&self->_autojoinWaitsForNickServ forKey:@"autojoinWaitsForNickServ"];
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	[defaultsMutable assignBoolTo:&self->_excludedFromCloudSyncing forKey:@"excludedFromCloudSyncing"];
-#endif
-
 	[defaultsMutable assignBoolTo:&self->_hideAutojoinDelayedWarnings forKey:@"hideAutojoinDelayedWarnings"];
 	[defaultsMutable assignBoolTo:&self->_hideNetworkUnavailabilityNotices forKey:@"hideNetworkUnavailabilityNotices"];
 	[defaultsMutable assignBoolTo:&self->_performDisconnectOnPongTimer forKey:@"performDisconnectOnPongTimer"];
@@ -679,20 +673,20 @@ TEXTUAL_IGNORE_DEPRECATION_END
 
 - (NSDictionary<NSString *, id> *)dictionaryValue
 {
-	return [self _dictionaryValueForCopyOperation:NO isCloudDictionary:NO];
+	return [self _dictionaryValueForCopyOperation:NO];
 }
 
 - (NSDictionary<NSString *, id> *)dictionaryValueForCloud
 {
-	return [self _dictionaryValueForCopyOperation:NO isCloudDictionary:YES];
+	return [self _dictionaryValueForCopyOperation:NO];
 }
 
 - (NSDictionary<NSString *, id> *)dictionaryValueForCopy
 {
-	return [self _dictionaryValueForCopyOperation:YES isCloudDictionary:NO];
+	return [self _dictionaryValueForCopyOperation:YES];
 }
 
-- (NSDictionary<NSString *, id> *)_dictionaryValueForCopyOperation:(BOOL)isCopyOperation isCloudDictionary:(BOOL)isCloudDictionary
+- (NSDictionary<NSString *, id> *)_dictionaryValueForCopyOperation:(BOOL)isCopyOperation
 {
 	NSMutableDictionary<NSString *, id> *dic = [NSMutableDictionary dictionary];
 
@@ -715,11 +709,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	[dic setBool:self.autoReconnect forKey:@"autoReconnect"];
 	[dic setBool:self.autoSleepModeDisconnect forKey:@"autoSleepModeDisconnect"];
 	[dic setBool:self.autojoinWaitsForNickServ forKey:@"autojoinWaitsForNickServ"];
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	[dic setBool:self.excludedFromCloudSyncing forKey:@"excludedFromCloudSyncing"];
-#endif
-
 	[dic setBool:self.hideAutojoinDelayedWarnings forKey:@"hideAutojoinDelayedWarnings"];
 	[dic setBool:self.hideNetworkUnavailabilityNotices forKey:@"hideNetworkUnavailabilityNotices"];
 	[dic setBool:self.performDisconnectOnPongTimer forKey:@"performDisconnectOnPongTimer"];
@@ -747,13 +736,11 @@ TEXTUAL_IGNORE_DEPRECATION_END
 
 	/* These are items that cannot be synced over iCloud because they access data specific to 
 	 this device or only contain state information which is not useful to other devices. */
-	if (isCloudDictionary == NO) {
-		[dic maybeSetObject:self.identityClientSideCertificate forKey:@"identityClientSideCertificate"];
+	[dic maybeSetObject:self.identityClientSideCertificate forKey:@"identityClientSideCertificate"];
 
-		[dic setBool:self.sidebarItemExpanded forKey:@"sidebarItemExpanded"];
+	[dic setBool:self.sidebarItemExpanded forKey:@"sidebarItemExpanded"];
 
-		[dic setDouble:self.lastMessageServerTime forKey:@"cachedLastServerTimeCapabilityReceivedAtTimestamp"];
-	}
+	[dic setDouble:self.lastMessageServerTime forKey:@"cachedLastServerTimeCapabilityReceivedAtTimestamp"];
 
 	/* Deprecated */
 	/* These values are inserted here for backwards compatibility 
@@ -1014,11 +1001,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 @dynamic cipherSuites;
 @dynamic connectionName;
 @dynamic connectionPrefersIPv4;
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-@dynamic excludedFromCloudSyncing;
-#endif
-
 @dynamic fallbackEncoding;
 @dynamic floodControlDelayTimerInterval;
 @dynamic floodControlMaximumMessages;
@@ -1059,6 +1041,11 @@ TEXTUAL_IGNORE_DEPRECATION_END
 - (BOOL)isMutable
 {
 	return YES;
+}
+
+- (__kindof XRPortablePropertyDict *)immutableClass
+{
+	return [IRCClientConfig self];
 }
 
 - (void)setAutoConnect:(BOOL)autoConnect
@@ -1102,15 +1089,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 {
 	TEXTUAL_DEPRECATED_WARNING
 }
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-- (void)setExcludedFromCloudSyncing:(BOOL)excludedFromCloudSyncing
-{
-	if (self->_excludedFromCloudSyncing != excludedFromCloudSyncing) {
-		self->_excludedFromCloudSyncing = excludedFromCloudSyncing;
-	}
-}
-#endif
 
 - (void)setHideAutojoinDelayedWarnings:(BOOL)hideAutojoinDelayedWarnings
 {

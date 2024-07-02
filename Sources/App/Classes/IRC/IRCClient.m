@@ -85,7 +85,6 @@
 #import "GCDAsyncSocketExtensions.h"
 #import "TPCApplicationInfo.h"
 #import "TPCPathInfo.h"
-#import "TPCPreferencesCloudSyncExtension.h"
 #import "TPCPreferencesLocalPrivate.h"
 #import "TPCPreferencesUserDefaults.h"
 #import "TPCResourceManager.h"
@@ -153,7 +152,6 @@
 #import "IRCUserPrivate.h"
 #import "IRCUserRelationsPrivate.h"
 #import "IRCWorldPrivate.h"
-#import "IRCWorldPrivateCloudExtension.h"
 #import "IRCClientPrivate.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -410,40 +408,12 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 	[self cancelPerformRequests];
 }
 
-- (void)updateConfigFromTheCloud:(IRCClientConfig *)config
-{
-	NSParameterAssert(config != nil);
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	IRCClientConfig *currentConfig = self.config;
-#endif
-
-	[self updateConfig:config updateSelection:YES importingFromCloud:YES];
-
-#if TEXTUAL_BUILT_WITH_ICLOUD_SUPPORT == 1
-	if ([TPCPreferences syncPreferencesToTheCloud] == NO) {
-		return;
-	}
-
-	if (self.config.excludedFromCloudSyncing != currentConfig.excludedFromCloudSyncing &&
-		self.config.excludedFromCloudSyncing == NO)
-	{
-		[worldController() cloud_removeClientFromListOfDeletedClients:self.uniqueIdentifier];
-	}
-#endif
-}
-
 - (void)updateConfig:(IRCClientConfig *)config
 {
 	[self updateConfig:config updateSelection:YES];
 }
 
 - (void)updateConfig:(IRCClientConfig *)config updateSelection:(BOOL)updateSelection
-{
-	[self updateConfig:config updateSelection:updateSelection importingFromCloud:NO];
-}
-
-- (void)updateConfig:(IRCClientConfig *)config updateSelection:(BOOL)updateSelection importingFromCloud:(BOOL)importingFromCloud
 {
 	NSParameterAssert(config != nil);
 
@@ -463,16 +433,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 		return;
 	}
 
-	/* Populate new configuration */
-	/* Some configuration properties (such as -identityClientSideCertificate) cannot be synced
-	 between devices. So that this property is not lost when importing a configuration from 
-	 iCloud that is missing it, the configurations are merged, instead of copying.
-	 This process has overhead which means its only used for cloud imports. */
-	if (importingFromCloud) {
-		self.config = [IRCClientConfig newConfigByMerging:currentConfig with:config];
-	} else {
-		self.config = config;
-	}
+	self.config = config;
 
 	/* Update channel list */
 	{
@@ -682,13 +643,6 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 	[self updateStoredConfiguration];
 
 	return [self.config dictionaryValue];
-}
-
-- (NSDictionary<NSString *, id> *)configurationDictionaryForCloud
-{
-	[self updateStoredConfiguration];
-
-	return [self.config dictionaryValueForCloud];
 }
 
 - (void)prepareForApplicationTermination
@@ -4031,14 +3985,9 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 			NSString *applicationName = [TPCApplicationInfo applicationNameWithoutVersion];
 			NSString *versionLong = [TPCApplicationInfo applicationVersion];
 			NSString *versionShort = [TPCApplicationInfo applicationVersionShort];
-			NSString *buildScheme = [TPCApplicationInfo applicationBuildScheme];
+//			NSString *buildScheme = [TPCApplicationInfo applicationBuildScheme];
 
 			NSString *downloadSource = @""; // Assume standalone by default
-
-			if ([buildScheme isEqualToString:@"appstore"]) {
-				downloadSource = TXTLS(@"IRC[9fp-8h]");
-			}
-
 			NSString *buildType = @""; // Assume universal binary by default
 
 #if TEXTUAL_BUILT_AS_UNIVERSAL_BINARY == 0
