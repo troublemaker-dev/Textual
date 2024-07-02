@@ -3985,7 +3985,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 			NSString *applicationName = [TPCApplicationInfo applicationNameWithoutVersion];
 			NSString *versionLong = [TPCApplicationInfo applicationVersion];
 			NSString *versionShort = [TPCApplicationInfo applicationVersionShort];
-			NSString *buildScheme = [TPCApplicationInfo applicationBuildScheme];
+//			NSString *buildScheme = [TPCApplicationInfo applicationBuildScheme];
 
 			NSString *downloadSource = @""; // Assume standalone by default
 			NSString *buildType = @""; // Assume universal binary by default
