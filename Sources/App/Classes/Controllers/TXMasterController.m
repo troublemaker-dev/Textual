@@ -404,7 +404,7 @@ NS_ASSUME_NONNULL_BEGIN
 							self.terminateHistoricLogSaveFinished);
 
 
-	LogToConsoleTerminationProgress("Conditions: %@ %@ %@",
+	LogToConsoleTerminationProgress("Conditions: %@ %@",
 					  StringFromBOOL(condition1),
 					  StringFromBOOL(condition2));
 
