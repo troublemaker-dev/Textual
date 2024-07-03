@@ -129,6 +129,12 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	/* Do not allow changes to be made to the alert */
 	self.alertImmutable = YES;
 
+	/* Non-blocking alerts which are created through this initializer
+	 should not stay on top of other apps when app is not key. */
+	if (window == nil) {
+		self.window.hidesOnDeactivate = YES;
+	}
+
 	/* Perform layout */
 	[self _layout];
 

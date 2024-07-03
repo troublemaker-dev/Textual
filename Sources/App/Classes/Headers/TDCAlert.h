@@ -55,20 +55,28 @@ typedef void (^TDCAlertCompletionBlock)(TDCAlertResponse buttonClicked, BOOL sup
  This is what is fed to that field turns into once the alert is processed. */
 + (NSString *)suppressionKeyWithBase:(NSString *)base;
 
+/* All methods consider it valid to have suppression text but no suppression key.
+ When suppression text is present, the user will be presented with a checkbox
+ titled the value of suppressionText. If suppressionKey is not set, then nothing
+ is recorded to user defaults. This provides a convenient way to ask the user a
+ an unrelated question and receive a response. The response is in the callback
+ blocked. If suppressed is YES, then the user enabled the checkbox. Even if
+ no suppression key is present. */
+
 #pragma mark -
 #pragma mark Modal Alerts (Panel)
 
 + (BOOL)modalAlertWithMessage:(NSString *)bodyText
-						  title:(NSString *)titleText
-				  defaultButton:(NSString *)buttonDefault
-				alternateButton:(nullable NSString *)buttonAlternate;
+						title:(NSString *)titleText
+				defaultButton:(NSString *)buttonDefault
+			  alternateButton:(nullable NSString *)buttonAlternate;
 
 + (BOOL)modalAlertWithMessage:(NSString *)bodyText
-						  title:(NSString *)titleText
-				  defaultButton:(NSString *)buttonDefault
-				alternateButton:(nullable NSString *)buttonAlternate
-				 suppressionKey:(nullable NSString *)suppressKey
-				suppressionText:(nullable NSString *)suppressText;
+						title:(NSString *)titleText
+				defaultButton:(NSString *)buttonDefault
+			  alternateButton:(nullable NSString *)buttonAlternate
+			   suppressionKey:(nullable NSString *)suppressKey
+			  suppressionText:(nullable NSString *)suppressText;
 
 + (BOOL)modalAlertWithMessage:(NSString *)bodyText
 						title:(NSString *)titleText
