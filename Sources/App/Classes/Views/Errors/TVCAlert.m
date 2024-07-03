@@ -290,7 +290,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 
 - (void)buttonPressed:(id)sender
 {
-	self.alertFinished = NO;
+	self.alertFinished = YES;
 
 	NSInteger buttonClicked = [sender tag];
 
