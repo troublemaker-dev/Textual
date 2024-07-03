@@ -257,11 +257,13 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 #pragma mark -
 #pragma mark Non-blocking Alerts (Panel)
 
-+ (void)alertWithMessage:(NSString *)bodyText
++ (TVCAlert *)alertWithMessage:(NSString *)bodyText
 				   title:(NSString *)titleText
 		   defaultButton:(NSString *)buttonDefault
 		 alternateButton:(nullable NSString *)buttonAlternate
 {
+	/* Will never return nil because no suppression. */
+	return (TVCAlert * _Nonnull)
 	[self alertWithMessage:bodyText
 					 title:titleText
 			 defaultButton:buttonDefault
@@ -273,12 +275,13 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		   completionBlock:nil];
 }
 
-+ (void)alertWithMessage:(NSString *)bodyText
++ (TVCAlert *)alertWithMessage:(NSString *)bodyText
 				   title:(NSString *)titleText
 		   defaultButton:(NSString *)buttonDefault
 		 alternateButton:(nullable NSString *)buttonAlternate
 			 otherButton:(nullable NSString *)buttonOther
 {
+	return (TVCAlert * _Nonnull)
 	[self alertWithMessage:bodyText
 					 title:titleText
 			 defaultButton:buttonDefault
@@ -290,13 +293,14 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		   completionBlock:nil];
 }
 
-+ (void)alertWithMessage:(NSString *)bodyText
++ (nullable TVCAlert *)alertWithMessage:(NSString *)bodyText
 				   title:(NSString *)titleText
 		   defaultButton:(NSString *)buttonDefault
 		 alternateButton:(nullable NSString *)buttonAlternate
 		  suppressionKey:(nullable NSString *)suppressKey
 		 suppressionText:(nullable NSString *)suppressText
 {
+	return
 	[self alertWithMessage:bodyText
 					 title:titleText
 			 defaultButton:buttonDefault
@@ -308,12 +312,13 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		   completionBlock:nil];
 }
 
-+ (void)alertWithMessage:(NSString *)bodyText
++ (nullable TVCAlert *)alertWithMessage:(NSString *)bodyText
 				   title:(NSString *)titleText
 		   defaultButton:(NSString *)buttonDefault
 		 alternateButton:(nullable NSString *)buttonAlternate
 		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock
 {
+	return
 	[self alertWithMessage:bodyText
 					 title:titleText
 			 defaultButton:buttonDefault
@@ -325,13 +330,14 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		   completionBlock:completionBlock];
 }
 
-+ (void)alertWithMessage:(NSString *)bodyText
++ (nullable TVCAlert *)alertWithMessage:(NSString *)bodyText
 				   title:(NSString *)titleText
 		   defaultButton:(NSString *)buttonDefault
 		 alternateButton:(nullable NSString *)buttonAlternate
 			 otherButton:(nullable NSString *)buttonOther
 		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock
 {
+	return
 	[self alertWithMessage:bodyText
 					 title:titleText
 			 defaultButton:buttonDefault
@@ -343,7 +349,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		   completionBlock:completionBlock];
 }
 
-+ (void)alertWithMessage:(NSString *)bodyText
++ (nullable TVCAlert *)alertWithMessage:(NSString *)bodyText
 				   title:(NSString *)titleText
 		   defaultButton:(NSString *)buttonDefault
 		 alternateButton:(nullable NSString *)buttonAlternate
@@ -351,6 +357,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		 suppressionText:(nullable NSString *)suppressText
 		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock
 {
+	return
 	[self alertWithMessage:bodyText
 					 title:titleText
 			 defaultButton:buttonDefault
@@ -362,7 +369,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		   completionBlock:completionBlock];
 }
 
-+ (void)alertWithMessage:(NSString *)bodyText
++ (nullable TVCAlert *)alertWithMessage:(NSString *)bodyText
 				   title:(NSString *)titleText
 		   defaultButton:(NSString *)buttonDefault
 		 alternateButton:(nullable NSString *)buttonAlternate
@@ -371,6 +378,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		 suppressionText:(nullable NSString *)suppressText
 		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock
 {
+	return
 	[self alertWithMessage:bodyText
 					 title:titleText
 			 defaultButton:buttonDefault
@@ -382,7 +390,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		   completionBlock:completionBlock];
 }
 
-+ (void)alertWithMessage:(NSString *)bodyText
++ (nullable TVCAlert *)alertWithMessage:(NSString *)bodyText
 				   title:(NSString *)titleText
 		   defaultButton:(NSString *)buttonDefault
 		 alternateButton:(nullable NSString *)buttonAlternate
@@ -391,6 +399,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		   accessoryView:(nullable NSView *)accessoryView
 		 completionBlock:(nullable TDCAlertCompletionBlock)completionBlock
 {
+	return
 	[self alertWithMessage:bodyText
 					 title:titleText
 			 defaultButton:buttonDefault
@@ -402,7 +411,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 		   completionBlock:completionBlock];
 }
 
-+ (void)alertWithMessage:(NSString *)bodyText
++ (nullable TVCAlert *)alertWithMessage:(NSString *)bodyText
 				   title:(NSString *)titleText
 		   defaultButton:(NSString *)buttonDefault
 		 alternateButton:(nullable NSString *)buttonAlternate
@@ -418,7 +427,10 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 
 	/* Require main thread */
 	if ([NSThread isMainThread] == NO) {
+		__block TVCAlert *alert = nil;
+
 		XRPerformBlockSynchronouslyOnQueue(dispatch_get_main_queue(), ^{
+			alert =
 			[self alertWithMessage:bodyText
 							 title:titleText
 					 defaultButton:buttonDefault
@@ -429,7 +441,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 				   completionBlock:completionBlock];
 		});
 
-		return;
+		return alert;
 	}
 
 	/* Prepare suppression */
@@ -442,7 +454,7 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 				completionBlock(TDCAlertResponseDefault, YES, nil);
 			}
 
-			return;
+			return nil;
 		}
 	}
 
@@ -485,6 +497,8 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 			  suppressionKey:suppressKey
 		 suppressionResponse:NULL];
 	}];
+
+	return alert;
 }
 
 #pragma mark -
