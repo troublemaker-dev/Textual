@@ -88,6 +88,8 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	[RZMainBundle() loadNibNamed:@"TVCAlert" owner:self topLevelObjects:nil];
 
 	self.panel.floatingPanel = YES;
+
+	LogToConsoleDebug("[%@] Creating alert host", self);
 }
 
 - (void)showAlert
@@ -144,6 +146,12 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	self.alertVisible = YES;
 
 	if (window) {
+		LogToConsoleDebug("[%@] Running alert sheet in window: %@", self, window);
+	} else {
+		LogToConsoleDebug("[%@] Running non-blocking alert", self);
+	}
+
+	if (window) {
 		self.alertType = TVCAlertTypeSheet;
 
 		[window beginSheet:self.panel
@@ -176,6 +184,8 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	self.alertVisible = YES;
 
 	self.alertType = TVCAlertTypeModal;
+
+	LogToConsoleDebug("[%@] Running modal alert", self);
 
 	return [NSApp runModalForWindow:self.panel];
 }
@@ -293,6 +303,8 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 
 	/* Update state */
 	self.layoutPerformed = YES;
+
+	LogToConsoleDebug("[%@] Layout performed", self);
 }
 
 #pragma mark -
@@ -301,6 +313,8 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 - (void)buttonPressed:(id)sender
 {
 	NSInteger buttonClicked = [sender tag];
+
+	LogToConsoleDebug("[%@] Button pressed: %ld", self, buttonClicked);
 
 	TVCAlertButtonClickedBlock actionBlock = nil;
 
@@ -314,6 +328,9 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 
 	if (actionBlock != nil &&
 		actionBlock(self, buttonClicked) == NO) {
+
+		LogToConsoleDebug("[%@] Button action block denied alert dismissal", self);
+
 		return;
 	}
 
@@ -409,6 +426,8 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	} else if (index == 2) {
 		self.thirdButtonAction = block;
 	}
+
+	LogToConsoleDebug("[%@] Setting button action block at index: %lu", self, index);
 }
 
 - (void)endAlert
@@ -450,6 +469,8 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 			break;
 		}
 	}
+
+	LogToConsoleDebug("[%@] Alert dismissed", self);
 
 	self.alertVisible = NO;
 }
