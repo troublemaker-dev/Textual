@@ -62,7 +62,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 @property (nonatomic, assign) BOOL alertVisible;
 @property (nonatomic, assign) BOOL layoutPerformed;
 @property (nonatomic, assign) TVCAlertType alertType;
-@property (nonatomic, copy) TVCAlertCompletionBlock completionBlock;
+@property (nonatomic, copy, nullable) TVCAlertCompletionBlock completionBlock;
 @property (nonatomic, copy, nullable) TVCAlertButtonClickedBlock firstButtonAction;
 @property (nonatomic, copy, nullable) TVCAlertButtonClickedBlock secondButtonAction;
 @property (nonatomic, copy, nullable) TVCAlertButtonClickedBlock thirdButtonAction;
@@ -473,6 +473,10 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	LogToConsoleDebug("[%@] Alert dismissed", self);
 
 	self.alertVisible = NO;
+
+	// Dereference completion block when finished because the
+	// completion block may be the only reference to self. 
+	self.completionBlock = nil;
 }
 
 #pragma mark -
