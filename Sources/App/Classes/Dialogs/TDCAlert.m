@@ -468,14 +468,14 @@ NSString * const TDCAlertSuppressionPrefix = @"Text Input Prompt Suppression -> 
 	alert.messageText = titleText;
 	alert.informativeText = bodyText;
 
-	[alert addButtonWithTitle:buttonDefault];
+	[alert addButtonWithTitle:buttonDefault forButton:TVCAlertResponseButtonFirst];
 
 	if (buttonAlternate) {
-		[alert addButtonWithTitle:buttonAlternate];
+		[alert addButtonWithTitle:buttonAlternate forButton:TVCAlertResponseButtonSecond];
 	}
 
 	if (buttonOther) {
-		[alert addButtonWithTitle:buttonOther];
+		[alert addButtonWithTitle:buttonOther forButton:TVCAlertResponseButtonThird];
 	}
 
 	if (suppressKey || suppressText) {
