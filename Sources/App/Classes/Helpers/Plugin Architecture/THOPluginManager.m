@@ -397,13 +397,14 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 	[TDCAlert alertWithMessage:TXTLS(@"Prompts[45a-df]", THOPluginProtocolCompatibilityMinimumVersion)
 						 title:TXTLS(@"Prompts[af6-45]", bundlesName)
 				 defaultButton:TXTLS(@"Prompts[324-5d]")
-			   alternateButton:TXTLS(@"Prompts[0ik-o9]")];
+			   alternateButton:nil
+				   otherButton:TXTLS(@"Prompts[0ik-o9]")];
 
 	[alert setButtonClickedBlock:^BOOL(TVCAlert *sender, TVCAlertResponseButton buttonClicked) {
 		[NSBundle openInstallationLocationsForBundles:thirdPartyBundles];
 
 		return NO;
-	} forButton:TVCAlertResponseButtonSecond];
+	} forButton:TVCAlertResponseButtonThird];
 }
 
 - (void)extrasInstallerCheckForUpdates
@@ -497,7 +498,7 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 	NSString *promptMessage = ((updateOptional) ? @"Prompts[x4w-is]" : @"Prompts[34o-pk]");
 	NSString *promptDefaultButton = ((updateOptional) ? @"Prompts[ece-dd]" : @"Prompts[hd0-bf]");
 	NSString *promptAlternateButton = ((updateOptional) ? @"Prompts[ioq-nf]" : @"Prompts[467-5l]");
-	NSString *promptOtherButton = ((updateOptional) ? nil : TXTLS(@"Prompts[0ik-o9]"));
+	NSString *promptOtherButton = ((updateOptional) ? nil : TXTLS(@"Prompts[h78-9e]"));
 
 	TVCAlert *alert =
 	[TDCAlert alertWithMessage:TXTLS(promptMessage)
