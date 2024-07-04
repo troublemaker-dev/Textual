@@ -60,7 +60,7 @@ typedef void (^TDCAlertCompletionBlock)(TDCAlertResponse buttonClicked, BOOL sup
  titled the value of suppressionText. If suppressionKey is not set, then nothing
  is recorded to user defaults. This provides a convenient way to ask the user a
  an unrelated question and receive a response. The response is in the callback
- blocked. If suppressed is YES, then the user enabled the checkbox. Even if
+ block. If suppressed is YES, then the user enabled the checkbox. Even if
  no suppression key is present. */
 
 #pragma mark -
