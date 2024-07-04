@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23077.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17503.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23077.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,7 +22,7 @@
         <window title="Alert" allowsToolTipsWhenApplicationIsInactive="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titleVisibility="hidden" id="pMN-4u-gqK" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" documentModal="YES"/>
             <rect key="contentRect" x="272" y="172" width="430" height="140"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="720"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <view key="contentView" id="xFR-rx-kmt">
                 <rect key="frame" x="0.0" y="0.0" width="430" height="148"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -37,7 +36,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="applicationIcon" id="4"/>
                         <accessibility description="Textual Logo"/>
                     </imageView>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                         <rect key="frame" x="103" y="114" width="309" height="16"/>
                         <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="#infoTitle" id="6">
                             <font key="font" metaFont="systemBold"/>
@@ -45,7 +44,7 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7">
                         <rect key="frame" x="103" y="90" width="309" height="14"/>
                         <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="#InfoMessage" id="8">
                             <font key="font" metaFont="smallSystem"/>
@@ -53,11 +52,8 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" tag="1000" translatesAutoresizingMaskIntoConstraints="NO" id="oPI-db-OzA">
+                    <button tag="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oPI-db-OzA">
                         <rect key="frame" x="323" y="11" width="94" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="nBf-X1-zW3"/>
-                        </constraints>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ey2-K6-XER">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -65,15 +61,15 @@
 DQ
 </string>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="nBf-X1-zW3"/>
+                        </constraints>
                         <connections>
                             <action selector="buttonPressed:" target="-2" id="qhJ-l9-Ttz"/>
                         </connections>
                     </button>
-                    <button hidden="YES" verticalHuggingPriority="750" tag="1001" translatesAutoresizingMaskIntoConstraints="NO" id="Fv3-Bh-Zpr">
+                    <button hidden="YES" tag="1001" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fv3-Bh-Zpr">
                         <rect key="frame" x="232" y="11" width="94" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Q4V-Jj-RmP"/>
-                        </constraints>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZZc-F9-DOe">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -81,19 +77,22 @@ DQ
 Gw
 </string>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Q4V-Jj-RmP"/>
+                        </constraints>
                         <connections>
                             <action selector="buttonPressed:" target="-2" id="x9z-AU-Ov2"/>
                         </connections>
                     </button>
-                    <button hidden="YES" verticalHuggingPriority="750" tag="1002" translatesAutoresizingMaskIntoConstraints="NO" id="gz4-k0-7mW">
+                    <button hidden="YES" tag="1002" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gz4-k0-7mW">
                         <rect key="frame" x="98" y="11" width="94" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="i0R-bj-b2M"/>
-                        </constraints>
                         <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7W2-c2-bfN">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="i0R-bj-b2M"/>
+                        </constraints>
                         <connections>
                             <action selector="buttonPressed:" target="-2" id="Wh3-6u-Oim"/>
                         </connections>
@@ -117,11 +116,12 @@ Gw
                     <constraint firstItem="oPI-db-OzA" firstAttribute="top" secondItem="ygL-Yb-5Mh" secondAttribute="bottom" constant="20" id="YLV-pC-Wgo"/>
                     <constraint firstAttribute="trailing" secondItem="7" secondAttribute="trailing" constant="20" id="awG-JV-Mam"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ygL-Yb-5Mh" secondAttribute="trailing" constant="20" id="axI-xQ-Dfh"/>
+                    <constraint firstItem="oPI-db-OzA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gz4-k0-7mW" secondAttribute="trailing" constant="50" id="gTp-bf-IsA"/>
                     <constraint firstItem="5" firstAttribute="leading" secondItem="3" secondAttribute="trailing" constant="20" id="iTR-5Z-72U"/>
                     <constraint firstAttribute="trailing" secondItem="oPI-db-OzA" secondAttribute="trailing" constant="20" id="jD4-M1-xU7"/>
                     <constraint firstItem="5" firstAttribute="top" secondItem="xFR-rx-kmt" secondAttribute="top" constant="18" id="k4b-VK-fMd"/>
                     <constraint firstItem="3" firstAttribute="top" secondItem="xFR-rx-kmt" secondAttribute="top" constant="18" id="kTZ-SL-ljH"/>
-                    <constraint firstItem="gz4-k0-7mW" firstAttribute="firstBaseline" secondItem="Fv3-Bh-Zpr" secondAttribute="firstBaseline" id="ppq-BW-luc"/>
+                    <constraint firstItem="gz4-k0-7mW" firstAttribute="firstBaseline" secondItem="oPI-db-OzA" secondAttribute="firstBaseline" id="ppq-BW-luc"/>
                     <constraint firstAttribute="bottom" secondItem="oPI-db-OzA" secondAttribute="bottom" constant="18" id="qc8-iz-wW8"/>
                     <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" constant="20" id="tAy-L1-8YY"/>
                     <constraint firstItem="3" firstAttribute="leading" secondItem="xFR-rx-kmt" secondAttribute="leading" constant="20" id="vOf-RU-5xf"/>

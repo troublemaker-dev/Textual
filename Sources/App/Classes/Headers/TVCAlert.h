@@ -39,7 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* TVCAlert acts as a non-blocking substitute to NSAlert
  which can be used to show messages that aren't important. */
-
 typedef NS_ENUM(NSUInteger, TVCAlertResponseButton) {
 	TVCAlertResponseButtonFirst = 1000,
 	TVCAlertResponseButtonSecond = 1001,
@@ -49,6 +48,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertResponseButton) {
 @class TVCAlert;
 
 typedef void (^TVCAlertCompletionBlock)(TVCAlert *sender, TVCAlertResponseButton buttonClicked);
+typedef BOOL (^TVCAlertButtonClickedBlock)(TVCAlert *sender, TVCAlertResponseButton buttonClicked);
 
 @interface TVCAlert : NSObject
 /* All properties are immutable once alert is visible */
@@ -57,7 +57,9 @@ typedef void (^TVCAlertCompletionBlock)(TVCAlert *sender, TVCAlertResponseButton
 
 @property (nonatomic, strong, null_resettable) NSImage *icon;
 
-- (NSButton *)addButtonWithTitle:(NSString *)title;
+- (NSButton *)addButtonWithTitle:(NSString *)title; // Increments from first button, to second, then third
+- (NSButton *)addButtonWithTitle:(NSString *)title forButton:(TVCAlertResponseButton)button;
+- (NSButton *)addButtonWithTitle:(NSString *)title atIndex:(NSUInteger)index;
 
 @property (copy, readonly) NSArray<NSButton *> *buttons;
 
@@ -76,6 +78,24 @@ typedef void (^TVCAlertCompletionBlock)(TVCAlert *sender, TVCAlertResponseButton
 - (void)showAlertInWindow:(NSWindow *)window withCompletionBlock:(nullable TVCAlertCompletionBlock)completionBlock;
 
 - (TVCAlertResponseButton)runModal;
+
+/* A block that is called when a button is clicked.
+
+ If the block returns YES, then the alert is dismissed.
+ If the block returns NO, then no action is taken.
+
+ This feature allows you to take action when a button is clicked,
+ while keeping it visible to the user, without the need to override
+ the target / action of the button in question. */
+/* Changing a button clicked block is permitted with an alert visible. */
+/* An exception is thrown for out-of-bounds access so call this AFTER
+ a button at the index is added. */
+- (void)setButtonClickedBlock:(nullable TVCAlertButtonClickedBlock)block forButton:(TVCAlertResponseButton)button;
+- (void)setButtonClickedBlock:(nullable TVCAlertButtonClickedBlock)block forButtonAtIndex:(NSUInteger)index;
+
+/* End alert */
+- (void)endAlert; // TVCAlertResponseButtonFirst
+- (void)endAlertWithResponse:(TVCAlertResponseButton)response;
 @end
 
 NS_ASSUME_NONNULL_END

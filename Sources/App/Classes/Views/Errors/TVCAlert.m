@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 };
 
 @interface TVCAlert ()
-@property (nonatomic, strong) NSMutableArray *buttonsInt;
+@property (nonatomic, assign) NSUInteger buttonsCount;
 @property (nonatomic, strong, readwrite) IBOutlet NSPanel *panel;
 @property (nonatomic, weak) IBOutlet NSImageView *iconImageView;
 @property (nonatomic, weak) IBOutlet NSTextField *messageTextField;
@@ -62,7 +62,10 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 @property (nonatomic, assign) BOOL alertVisible;
 @property (nonatomic, assign) BOOL layoutPerformed;
 @property (nonatomic, assign) TVCAlertType alertType;
-@property (nonatomic, copy) TVCAlertCompletionBlock completionBlock;
+@property (nonatomic, copy, nullable) TVCAlertCompletionBlock completionBlock;
+@property (nonatomic, copy, nullable) TVCAlertButtonClickedBlock firstButtonAction;
+@property (nonatomic, copy, nullable) TVCAlertButtonClickedBlock secondButtonAction;
+@property (nonatomic, copy, nullable) TVCAlertButtonClickedBlock thirdButtonAction;
 
 - (IBAction)buttonPressed:(id)sender;
 @end
@@ -84,9 +87,9 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 {
 	[RZMainBundle() loadNibNamed:@"TVCAlert" owner:self topLevelObjects:nil];
 
-	self.buttonsInt = [NSMutableArray array];
-
 	self.panel.floatingPanel = YES;
+
+	LogToConsoleDebug("[%@] Creating alert host", self);
 }
 
 - (void)showAlert
@@ -128,6 +131,12 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	/* Do not allow changes to be made to the alert */
 	self.alertImmutable = YES;
 
+	/* Non-blocking alerts which are created through this initializer
+	 should not stay on top of other apps when app is not key. */
+	if (window == nil) {
+		self.window.hidesOnDeactivate = YES;
+	}
+
 	/* Perform layout */
 	[self _layout];
 
@@ -135,6 +144,12 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	self.completionBlock = completionBlock;
 
 	self.alertVisible = YES;
+
+	if (window) {
+		LogToConsoleDebug("[%@] Running alert sheet in window: %@", self, window);
+	} else {
+		LogToConsoleDebug("[%@] Running non-blocking alert", self);
+	}
 
 	if (window) {
 		self.alertType = TVCAlertTypeSheet;
@@ -169,6 +184,8 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	self.alertVisible = YES;
 
 	self.alertType = TVCAlertTypeModal;
+
+	LogToConsoleDebug("[%@] Running modal alert", self);
 
 	return [NSApp runModalForWindow:self.panel];
 }
@@ -254,6 +271,9 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	}
 
 	/* Add first button */
+	NSAssert((self.firstButton.hidden == NO),
+		@"At least one button must be added to alert before presentation.");
+
 	firstButtonAnchor = ((firstButtonAnchor) ?: informativeTextField);
 
 	[contentView addConstraint:
@@ -271,18 +291,18 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	/* We do this because even when hidden, their constraints
 	 still apply to the layout. We could remove the constraints
 	 themselves, but this is an easier solution. */
-	NSUInteger buttonsCount = self.buttons.count;
-
-	if (buttonsCount < 3) {
+	if (self.thirdButton.hidden) {
 		[self.thirdButton removeFromSuperviewWithoutNeedingDisplay];
 	}
 
-	if (buttonsCount < 2) {
+	if (self.secondButton.hidden) {
 		[self.secondButton removeFromSuperviewWithoutNeedingDisplay];
 	}
 
 	/* Update state */
 	self.layoutPerformed = YES;
+
+	LogToConsoleDebug("[%@] Layout performed", self);
 }
 
 #pragma mark -
@@ -290,14 +310,194 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 
 - (void)buttonPressed:(id)sender
 {
-	self.alertFinished = NO;
-
 	NSInteger buttonClicked = [sender tag];
+
+	LogToConsoleDebug("[%@] Button pressed: %ld", self, buttonClicked);
+
+	TVCAlertButtonClickedBlock actionBlock = nil;
+
+	if (buttonClicked == TVCAlertResponseButtonFirst) {
+		actionBlock = self.firstButtonAction;
+	} else if (buttonClicked == TVCAlertResponseButtonSecond) {
+		actionBlock = self.secondButtonAction;
+	} else if (buttonClicked == TVCAlertResponseButtonThird) {
+		actionBlock = self.thirdButtonAction;
+	}
+
+	if (actionBlock != nil &&
+		actionBlock(self, buttonClicked) == NO) {
+
+		LogToConsoleDebug("[%@] Button action block denied alert dismissal", self);
+
+		return;
+	}
+
+	[self endAlertWithResponse:buttonClicked];
+}
+
+- (NSArray<NSButton *> *)buttons
+{
+	NSMutableArray *buttons = [[NSMutableArray alloc] initWithCapacity:3];
+
+	if (self.firstButton.hidden == NO) {
+		[buttons addObject:self.firstButton];
+	}
+
+	if (self.secondButton.hidden == NO) {
+		[buttons addObject:self.secondButton];
+	}
+
+	if (self.secondButton.hidden == NO) {
+		[buttons addObject:self.secondButton];
+	}
+
+	return [buttons copy];
+}
+
+- (NSButton *)addButtonWithTitle:(NSString *)title
+{
+	NSUInteger buttonCount = self.buttonsCount;
+
+	NSAssert((buttonCount < 3),
+		@"Three buttons already exist in view");
+
+	NSButton *button = nil;
+
+	if (buttonCount == 0) {
+		button = self.firstButton;
+	} else if (buttonCount == 1) {
+		button = self.secondButton;
+	} else if (buttonCount == 2) {
+		button = self.thirdButton;
+	}
+
+	return [self _addButtonWithTitle:title withButton:button];
+}
+
+- (NSButton *)addButtonWithTitle:(NSString *)title forButton:(TVCAlertResponseButton)button
+{
+	switch (button) {
+		case TVCAlertResponseButtonFirst:
+			[self addButtonWithTitle:title atIndex:0];
+
+			break;
+		case TVCAlertResponseButtonSecond:
+			[self addButtonWithTitle:title atIndex:1];
+
+			break;
+		case TVCAlertResponseButtonThird:
+			[self addButtonWithTitle:title atIndex:2];
+
+			break;
+		default:
+			NSAssert(NO, @"Invalid button type");
+
+			break;
+	}
+
+	return nil;
+}
+
+- (NSButton *)addButtonWithTitle:(NSString *)title atIndex:(NSUInteger)index
+{
+	NSAssert((index >= 0 && index <= 2),
+		@"Index of button is out of bounds. "
+		"Index: %lu, Range: 0 - 2", index);
+
+	NSButton *button = nil;
+
+	if (index == 0) {
+		button = self.firstButton;
+	} else if (index == 1) {
+		button = self.secondButton;
+	} else if (index == 2) {
+		button = self.thirdButton;
+	}
+
+	return [self _addButtonWithTitle:title withButton:button];
+}
+
+- (NSButton *)_addButtonWithTitle:(NSString *)title withButton:(NSButton *)button
+{
+	NSParameterAssert(title != nil);
+
+	NSAssert((self.alertImmutable == NO),
+		@"Cannot add button because alert is immutable");
+
+	if (button.hidden) {
+		button.hidden = NO;
+
+		self.buttonsCount += 1;
+	}
+
+	button.title = title;
+
+	button.accessibilityTitle = TXTLS(@"Accessibility[wbj-gr]", title);
+
+	return button;
+}
+
+- (void)setButtonClickedBlock:(nullable TVCAlertButtonClickedBlock)block forButton:(TVCAlertResponseButton)button
+{
+	switch (button) {
+		case TVCAlertResponseButtonFirst:
+			[self setButtonClickedBlock:block forButtonAtIndex:0];
+
+			break;
+		case TVCAlertResponseButtonSecond:
+			[self setButtonClickedBlock:block forButtonAtIndex:1];
+
+			break;
+		case TVCAlertResponseButtonThird:
+			[self setButtonClickedBlock:block forButtonAtIndex:2];
+
+			break;
+		default:
+			NSAssert(NO, @"Invalid button type");
+
+			break;
+	}
+}
+
+- (void)setButtonClickedBlock:(nullable TVCAlertButtonClickedBlock)block forButtonAtIndex:(NSUInteger)index
+{
+	NSAssert((self.alertFinished == NO),
+		@"Cannot set button clicked block because alert is finished");
+
+	NSAssert((index >= 0 && index <= 2),
+		@"Index of button is out of bounds. "
+		"Index: %lu, Range: 0 - 2", index);
+
+	if (index == 0) {
+		self.firstButtonAction = block;
+	} else if (index == 1) {
+		self.secondButtonAction = block;
+	} else if (index == 2) {
+		self.thirdButtonAction = block;
+	}
+
+	LogToConsoleDebug("[%@] Setting button action block at index: %lu", self, index);
+}
+
+- (void)endAlert
+{
+	[self endAlertWithResponse:TVCAlertResponseButtonFirst];
+}
+
+- (void)endAlertWithResponse:(TVCAlertResponseButton)response
+{
+	NSAssert((self.alertFinished == NO),
+		@"Cannot end alert because it has already finished");
+
+	NSAssert(self.alertVisible,
+		@"Cannot end alert because it isn't visible");
+
+	self.alertFinished = YES;
 
 	switch (self.alertType) {
 		case TVCAlertTypeNonblockingPanel:
 		{
-			[self _postCompletionBlockWithResponse:buttonClicked];
+			[self _postCompletionBlockWithResponse:response];
 
 			[self.panel orderOut:nil];
 
@@ -305,13 +505,13 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 		}
 		case TVCAlertTypeSheet:
 		{
-			[NSApp endSheet:self.panel returnCode:buttonClicked];
+			[NSApp endSheet:self.panel returnCode:response];
 
 			break;
 		}
 		case TVCAlertTypeModal:
 		{
-			[NSApp stopModalWithCode:buttonClicked];
+			[NSApp stopModalWithCode:response];
 
 			[self.panel orderOut:nil];
 
@@ -319,49 +519,13 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 		}
 	}
 
+	LogToConsoleDebug("[%@] Alert dismissed", self);
+
 	self.alertVisible = NO;
-}
 
-- (NSArray<NSButton *> *)buttons
-{
-	@synchronized (self.buttonsInt) {
-		return [self.buttonsInt copy];
-	}
-}
-
-- (NSButton *)addButtonWithTitle:(NSString *)title
-{
-	NSParameterAssert(title != nil);
-
-	NSAssert((self.alertImmutable == NO),
-		@"Cannot add button because alert is immutable");
-
-	@synchronized (self.buttonsInt) {
-		NSUInteger buttonCount = self.buttonsInt.count;
-
-		NSAssert((buttonCount < 3),
-			@"Three buttons already exist in view");
-
-		NSButton *button = nil;
-
-		if (buttonCount == 0) {
-			button = self.firstButton;
-		} else if (buttonCount == 1) {
-			button = self.secondButton;
-		} else if (buttonCount == 2) {
-			button = self.thirdButton;
-		}
-
-		button.hidden = NO;
-
-		button.title = title;
-
-		[button setAccessibilityTitle:TXTLS(@"Accessibility[wbj-gr]", title)];
-
-		[self.buttonsInt addObject:button];
-
-		return button;
-	}
+	// Dereference completion block when finished because the
+	// completion block may be the only reference to self.
+	self.completionBlock = nil;
 }
 
 #pragma mark -
