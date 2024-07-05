@@ -217,7 +217,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		return TPCResourceManagerMigrationResultNotSuitable;
 	}
 
-//	[self _importPreferences:preferences];
+	[self _importPreferences:preferences];
 
 	/* Migrate group container */
 	BOOL migrateContainer = [self _migrateGroupContainerContentsForStandaloneClassic];
