@@ -144,14 +144,14 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 
 + (void)migrateResources
 {
-	LogToConsoleInfo("Preparing to migrate group containers");
+	LogToConsole("Preparing to migrate group containers");
 
 	/* Do not migrate if we have done so in the past. */
 	if ([RZUserDefaults() boolForKey:MigrationCompleteDefaultsKey]) {
 		[self _notifyGroupContainerMigratedFromDefaults];
 		[self _pruneExtensionSymbolicLinksFromDefaults];
 
-		LogToConsoleInfo("Group containers have already been migrated");
+		LogToConsole("Group containers have already been migrated");
 
 		return;
 	}
@@ -161,14 +161,14 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	if ([self _ageOfCurrentContainerIsRecent] == NO) {
 		[self _setMigrationCompleteAndAcknowledged];
 
-		LogToConsoleInfo("Current group container was not created recently");
+		LogToConsole("Current group container was not created recently");
 
 		return;
 	}
 
 	/* This code can probably be condensed. Not important enough. */
 	/* Migrate Standalone Classic? */
-	LogToConsoleInfo("Start: Migrating Standalone Classic installation");
+	LogToConsole("Start: Migrating Standalone Classic installation");
 
 	TPCResourceManagerMigrationResult tryMigrateStandaloneClass = [self _migrateStandaloneClassic];
 
@@ -176,21 +176,21 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		case TPCResourceManagerMigrationResultSuccess:
 			[self _setMigrationCompleteForStandaloneClassic];
 
-			LogToConsoleInfo("End: Migrating Standalone Classic successful");
+			LogToConsole("End: Migrating Standalone Classic successful");
 
 			return;
 		case TPCResourceManagerMigrationResultError:
-			LogToConsoleInfo("End: Migrating Standalone Classic failed. Stopping all migration");
+			LogToConsole("End: Migrating Standalone Classic failed. Stopping all migration");
 
 			return;
 		case TPCResourceManagerMigrationResultNotSuitable:
-			LogToConsoleInfo("End: Migrating Standalone Classic failed. Installation is not suitable");
+			LogToConsole("End: Migrating Standalone Classic failed. Installation is not suitable");
 
 			break; // Try Mac App Store next
 	}
 
 	/* Migrate Standalone Classic? */
-	LogToConsoleInfo("Start: Migrating Mac App Store installation");
+	LogToConsole("Start: Migrating Mac App Store installation");
 
 	TPCResourceManagerMigrationResult tryMigrateMacAppStore = [self _migrateMacAppStore];
 
@@ -198,15 +198,15 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		case TPCResourceManagerMigrationResultSuccess:
 			[self _setMigrationCompleteForMacAppStore];
 
-			LogToConsoleInfo("End: Migrating Mac App Store successful");
+			LogToConsole("End: Migrating Mac App Store successful");
 
 			return;
 		case TPCResourceManagerMigrationResultError:
-			LogToConsoleInfo("End: Migrating Mac App Store failed. Stopping all migration");
+			LogToConsole("End: Migrating Mac App Store failed. Stopping all migration");
 
 			return;
 		case TPCResourceManagerMigrationResultNotSuitable:
-			LogToConsoleInfo("End: Migrating Mac App Store failed. Installation is not suitable");
+			LogToConsole("End: Migrating Mac App Store failed. Installation is not suitable");
 
 			break;
 	}
@@ -279,7 +279,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	[[NSUserDefaults alloc] initWithSuiteName:[self _defaultsSuiteNameForMacAppStore]];
 
 	if (appStoreDefaults == nil) {
-		LogToConsoleInfo("NSUserDefaults object could not be created for Mac App Store domain");
+		LogToConsole("NSUserDefaults object could not be created for Mac App Store domain");
 
 		return TPCResourceManagerMigrationResultNotSuitable;
 	}
@@ -317,7 +317,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 {
 	NSParameterAssert(dict != nil);
 
-	LogToConsoleInfo("Start: Migrating preferences");
+	LogToConsole("Start: Migrating preferences");
 
 	NSMutableArray *importedKeys = [NSMutableArray arrayWithCapacity:dict.count];
 
@@ -335,19 +335,19 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		[RZUserDefaults() _migrateObject:object forKey:key];
 	}];
 
-	LogToConsoleInfo("End: Migrating preferences");
+	LogToConsole("End: Migrating preferences");
 
 	return [importedKeys copy];
 }
 
 + (void)_removeImportedKeysForInstallation:(TPCResourceManagerMigrationInstallation)installation
 {
-	LogToConsoleInfo("Start: Remove old preferences");
+	LogToConsole("Start: Remove old preferences");
 
 	NSArray *listOfKeys = [RZUserDefaults() arrayForKey:MigrationKeysImportedDefaultsKey];
 
 	if (listOfKeys == nil) {
-		LogToConsoleInfo("No preferences to remove");
+		LogToConsole("No preferences to remove");
 
 		return;
 	}
@@ -356,7 +356,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	[[NSUserDefaults alloc] initWithSuiteName:[self _defaultsSuiteNameForInstallation:installation]];
 
 	if (defaults == nil) {
-		LogToConsoleInfo("NSUserDefaults object could not be created for [%@] installation",
+		LogToConsole("NSUserDefaults object could not be created for [%@] installation",
 			[self _descriptionOfInstallation:installation]);
 
 		return;
@@ -379,7 +379,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 
 	[self _unsetListOfImportedKeys];
 
-	LogToConsoleInfo("End: Remove old preferences - Removed: %lu", listOfKeys.count);
+	LogToConsole("End: Remove old preferences - Removed: %lu", listOfKeys.count);
 }
 
 + (void)_removeImportedKeysForStandaloneClassic
@@ -433,7 +433,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 
 + (BOOL)_migrateGroupContainerContentsForInstallation:(TPCResourceManagerMigrationInstallation)installation
 {
-	LogToConsoleInfo("Start: Migrate group container for '%@'",
+	LogToConsole("Start: Migrate group container for '%@'",
 		[self _descriptionOfInstallation:installation]);
 
 	NSURL *oldLocation = [self _groupContainerURLForInstallation:installation];
@@ -464,7 +464,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 										  CSFileManagerOptionsCreateDirectory |
 										  CSFileManagerCreateSymbolicLinkForPackages)];
 
-	LogToConsoleInfo("End: Migrate group container - Result: %@",
+	LogToConsole("End: Migrate group container - Result: %@",
 		StringFromBOOL(result));
 
 	return result;
@@ -482,7 +482,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 
 + (void)_notifyGroupContainerMigratedForInstallation:(TPCResourceManagerMigrationInstallation)installation
 {
-	LogToConsoleInfo("Notifying user that installation of type [%@] migration performed",
+	LogToConsole("Notifying user that installation of type [%@] migration performed",
 		[self _descriptionOfInstallation:installation]);
 
 	TVCAlert *alert =
@@ -571,7 +571,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 
 + (BOOL)_removeGroupContainerContentsForInstallation:(TPCResourceManagerMigrationInstallation)installation
 {
-	LogToConsoleInfo("Start: Remove group container for '%@'",
+	LogToConsole("Start: Remove group container for '%@'",
 		[self _descriptionOfInstallation:installation]);
 
 	NSURL *gcLocation = [self _groupContainerURLForInstallation:installation];
@@ -592,13 +592,13 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		return NO;
 	}
 
-	LogToConsoleInfo("Removing group container contents at URL: %@", gcLocation);
+	LogToConsole("Removing group container contents at URL: %@", gcLocation);
 
 	BOOL result = [RZFileManager() removeContentsOfDirectoryAtURL:gcLocation
 													excludingURLs:oldExtensions
 														  options:(CSFileManagerOptionContinueOnError)];
 
-	LogToConsoleInfo("End: Remove group container - Result: %@",
+	LogToConsole("End: Remove group container - Result: %@",
 		StringFromBOOL(result));
 
 	return result;
@@ -631,7 +631,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	 link is not present for an extension in the old location, that extension
 	 is deleted. Once all extensions are deleted, a flag is set to stop pruning
 	 so we don't keep scanning the old location forever. */
-	LogToConsoleInfo("Start: Pruning extensions for '%@'",
+	LogToConsole("Start: Pruning extensions for '%@'",
 		[self _descriptionOfInstallation:installation]);
 
 	NSArray *oldExtensions = [self _listOfExtensionsForInstallation:installation];
@@ -643,7 +643,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	}
 
 	if (oldExtensions.count == 0) {
-		LogToConsoleInfo("Source location for extensions to prune is empty");
+		LogToConsole("Source location for extensions to prune is empty");
 
 		[self _setAllExtensionSymbolicLinksPruned];
 
@@ -711,8 +711,8 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		[self _setAllExtensionSymbolicLinksPruned];
 	}
 
-	LogToConsoleInfo("End: Pruning extensions completed. "
-					 "Number remaining: %lu, Number pruned: %lu",
+	LogToConsole("End: Pruning extensions completed. "
+				 "Number remaining: %lu, Number pruned: %lu",
 		numberRemaining, numberPruned);
 }
 
