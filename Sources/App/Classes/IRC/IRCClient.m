@@ -3394,12 +3394,12 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 			}
 
 			/* Prepare to toggle feature */
-			NSString *feature = stringIn.tokenIncludingQuotes.string;
+			NSString *feature = stringIn.tokenInsideQuotes.string;
 
 			BOOL applyToAll = [feature isEqualToString:@"-a"];
 
 			if (applyToAll) {
-				feature = stringIn.tokenIncludingQuotes.string;
+				feature = stringIn.tokenInsideQuotes.string;
 			}
 
 			NSDictionary *features = @{
@@ -12348,7 +12348,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 		return;
 	}
 
-	NSString *section1 = textMutable.tokenIncludingQuotes;
+	NSString *section1 = textMutable.tokenInsideQuotes;
 	NSString *section2 = textMutable.token;
 	NSString *section3 = textMutable.token;
 	NSString *section4 = textMutable.token;

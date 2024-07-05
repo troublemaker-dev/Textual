@@ -425,8 +425,8 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 {
 	return [RZFileManager() replaceItemAtURL:destination
 							   withItemAtURL:url
-						   moveToDestination:NO
-					  moveDestinationToTrash:YES];
+									 options:(CSFileManagerOptionsMoveToTrash |
+											  CSFileManagerOptionsRemoveIfExists)];
 }
 
 @end

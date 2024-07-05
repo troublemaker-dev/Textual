@@ -844,8 +844,7 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 
 	[RZFileManager() replaceItemAtURL:temporaryURL
 						withItemAtURL:originalURL
-					moveToDestination:NO
-			   moveDestinationToTrash:NO];
+							  options:CSFileManagerOptionsRemoveIfExists];
 }
 
 - (void)presentCompatibilityAlert
@@ -1231,8 +1230,8 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 
 	if ([RZFileManager() replaceItemAtURL:destinationURL
 							withItemAtURL:sourceURL
-						moveToDestination:NO
-				   moveDestinationToTrash:YES] == NO)
+								  options:(CSFileManagerOptionsMoveToTrash |
+										   CSFileManagerOptionsRemoveIfExists)] == NO)
 	{
 		[self cancelOperation];
 
