@@ -62,7 +62,7 @@ static NSDictionary *IRCCommandIndexRemoteData = nil;
 + (void)_populateCommandIndex
 {
 	/* Populate public data */
-	NSDictionary *publicValues = [TPCResourceManager loadContentsOfPropertyListInResources:@"IRCCommandIndexLocalData"];
+	NSDictionary *publicValues = [TPCResourceManager dictionaryFromResources:@"IRCCommandIndexLocalData" cacheValue:NO];
 
 	if (publicValues) {
 		NSMutableDictionary *publicValuesMutable = [publicValues mutableCopy];
@@ -73,7 +73,7 @@ static NSDictionary *IRCCommandIndexRemoteData = nil;
 	}
 
 	/* Populate private data */
-	NSDictionary *privateValues = [TPCResourceManager loadContentsOfPropertyListInResources:@"IRCCommandIndexRemoteData"];
+	NSDictionary *privateValues = [TPCResourceManager dictionaryFromResources:@"IRCCommandIndexRemoteData" cacheValue:NO];
 
 	if (privateValues) {
 		NSMutableDictionary *privateValuesMutable = [privateValues mutableCopy];

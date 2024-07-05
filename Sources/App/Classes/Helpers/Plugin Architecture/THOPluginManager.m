@@ -302,34 +302,13 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 	/* List of commands that cannot be used as the name of a script 
 	 because they would conflict with the commands defined by one or
 	 more standard (RFC) */
-	static NSArray<NSString *> *cachedValue = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		NSDictionary *staticValues =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
-
-		cachedValue = [staticValues arrayForKey:@"THOPluginManager List of Forbidden Commands"];
-	});
-
-	return cachedValue;
+	return [TPCResourceManager arrayFromResources:@"StaticStore" key:@"THOPluginManager List of Forbidden Commands"];
 }
 
 - (NSArray<NSString *> *)listOfForbiddenBundles
 {
-	static NSArray<NSString *> *cachedValue = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		NSDictionary *staticValues =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
-
-		cachedValue = [staticValues arrayForKey:@"THOPluginManager List of Forbidden Extensions"];
-	});
-
-	return cachedValue;
+	/* List of bundle identifiers that are not allowed to load. */
+	return [TPCResourceManager arrayFromResources:@"StaticStore" key:@"THOPluginManager List of Forbidden Extensions"];
 }
 
 #pragma mark -
@@ -528,36 +507,15 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (NSDictionary<NSString *, NSString *> *)extrasInstallerLatestBundleVersions
 {
-	static NSDictionary<NSString *, NSString *> *cachedValue = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		NSDictionary *staticValues =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
-
-		cachedValue = [staticValues dictionaryForKey:@"THOPluginManager Extras Installer Latest Extension Versions"];
-	});
-
-	return cachedValue;
+	/* List of extra bundles and their latest version number. */
+	return [TPCResourceManager dictionaryFromResources:@"StaticStore" key:@"THOPluginManager Extras Installer Latest Extension Versions"];
 }
 
 - (NSArray<NSString *> *)extrasInstallerReservedCommands
 {
 	/* List of scripts that are available as downloadable
 	 content from the www.codeux.com website. */
-	static NSArray<NSString *> *cachedValue = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		NSDictionary *staticValues =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
-
-		cachedValue = [staticValues arrayForKey:@"THOPluginManager List of Reserved Commands"];
-	});
-
-	return cachedValue;
+	return [TPCResourceManager arrayFromResources:@"StaticStore" key:@"THOPluginManager List of Reserved Commands"];
 }
 
 - (void)findHandlerForOutgoingCommand:(NSString *)command

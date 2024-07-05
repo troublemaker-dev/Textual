@@ -65,15 +65,196 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 	}
 }
 
-+ (nullable NSDictionary<NSString *, id> *)loadContentsOfPropertyListInResources:(NSString *)name
++ (NSCache *)sharedResourcesCache
+{
+	static NSCache *cachedValue = nil;
+
+	static dispatch_once_t onceToken;
+
+	dispatch_once(&onceToken, ^{
+		cachedValue = [NSCache new];
+	});
+
+	return cachedValue;
+}
+
++ (nullable NSDictionary<NSString *, id> *)dictionaryFromResources:(NSString *)name
+{
+	return [self dictionaryFromResources:name inDirectory:nil key:nil cacheValue:YES];
+}
+
++ (nullable NSDictionary<NSString *, id> *)dictionaryFromResources:(NSString *)name inDirectory:(nullable NSString *)subpath
+{
+	return [self dictionaryFromResources:name inDirectory:subpath key:nil cacheValue:YES];
+}
+
++ (nullable NSDictionary<NSString *, id> *)dictionaryFromResources:(NSString *)name inDirectory:(nullable NSString *)subpath cacheValue:(BOOL)cacheValue
+{
+	return [self dictionaryFromResources:name inDirectory:subpath key:nil cacheValue:cacheValue];
+}
+
++ (nullable NSDictionary<NSString *, id> *)dictionaryFromResources:(NSString *)name cacheValue:(BOOL)cacheValue
+{
+	return [self dictionaryFromResources:name inDirectory:nil key:nil cacheValue:cacheValue];
+}
+
++ (nullable NSDictionary<NSString *, id> *)dictionaryFromResources:(NSString *)name key:(nullable NSString *)key
+{
+	return [self dictionaryFromResources:name inDirectory:nil key:key cacheValue:YES];
+}
+
++ (nullable NSDictionary<NSString *, id> *)dictionaryFromResources:(NSString *)name key:(nullable NSString *)key cacheValue:(BOOL)cacheValue
+{
+	return [self dictionaryFromResources:name inDirectory:nil key:key cacheValue:cacheValue];
+}
+
++ (nullable NSDictionary<NSString *, id> *)dictionaryFromResources:(NSString *)name inDirectory:(nullable NSString *)subpath key:(nullable NSString *)key
+{
+	return [self dictionaryFromResources:name inDirectory:subpath key:key cacheValue:YES];
+}
+
++ (nullable NSDictionary<NSString *, id> *)dictionaryFromResources:(NSString *)name inDirectory:(nullable NSString *)subpath key:(nullable NSString *)key cacheValue:(BOOL)cacheValue
+{
+	return [self objectFromResources:name inDirectory:subpath key:key kindOf:[NSDictionary class] cacheValue:cacheValue];
+}
+
++ (nullable NSArray *)arrayFromResources:(NSString *)name
+{
+	return [self arrayFromResources:name inDirectory:nil key:nil cacheValue:YES];
+}
+
++ (nullable NSArray *)arrayFromResources:(NSString *)name inDirectory:(nullable NSString *)subpath
+{
+	return [self arrayFromResources:name inDirectory:subpath key:nil cacheValue:YES];
+}
+
++ (nullable NSArray *)arrayFromResources:(NSString *)name inDirectory:(nullable NSString *)subpath cacheValue:(BOOL)cacheValue
+{
+	return [self arrayFromResources:name inDirectory:subpath key:nil cacheValue:cacheValue];
+}
+
++ (nullable NSArray *)arrayFromResources:(NSString *)name cacheValue:(BOOL)cacheValue
+{
+	return [self arrayFromResources:name inDirectory:nil key:nil cacheValue:cacheValue];
+}
+
++ (nullable NSArray *)arrayFromResources:(NSString *)name key:(nullable NSString *)key
+{
+	return [self arrayFromResources:name inDirectory:nil key:key cacheValue:YES];
+}
+
++ (nullable NSArray *)arrayFromResources:(NSString *)name key:(nullable NSString *)key cacheValue:(BOOL)cacheValue
+{
+	return [self arrayFromResources:name inDirectory:nil key:key cacheValue:cacheValue];
+}
+
++ (nullable NSArray *)arrayFromResources:(NSString *)name inDirectory:(nullable NSString *)subpath key:(nullable NSString *)key
+{
+	return [self arrayFromResources:name inDirectory:subpath key:key cacheValue:YES];
+}
+
++ (nullable NSArray *)arrayFromResources:(NSString *)name inDirectory:(nullable NSString *)subpath key:(nullable NSString *)key cacheValue:(BOOL)cacheValue
+{
+	return [self objectFromResources:name inDirectory:subpath key:key kindOf:[NSArray class] cacheValue:cacheValue];
+}
+
++ (nullable id)objectFromResources:(NSString *)name inDirectory:(nullable NSString *)subpath key:(nullable NSString *)key kindOf:(Class)class cacheValue:(BOOL)cacheValue
 {
 	NSParameterAssert(name != nil);
 
-	NSString *defaultsPath = [RZMainBundle() pathForResource:name ofType:@"plist"];
+	/* Bypass cache? */
+	if (cacheValue == NO) {
+		return [self _objectFromResources:name inDirectory:subpath key:key kindOf:class];
+	}
 
-	NSDictionary *localDefaults = [NSDictionary dictionaryWithContentsOfFile:defaultsPath];
+	/* Cache hit? */
+	NSString *cacheKey = [NSString stringWithFormat:@"%@.plist / %@ / %@",
+		name, ((subpath) ?: @"Root Folder"), ((key) ?: @"Root Object")];
 
-	return localDefaults;
+	NSCache *cache = self.sharedResourcesCache;
+
+	id cachedValue = [cache objectForKey:cacheKey];
+
+	if (cachedValue) {
+		return cachedValue;
+	}
+
+	/* No cache hit, generate */
+	cachedValue = [self _objectFromResources:name inDirectory:subpath key:key kindOf:class];
+
+	if (cachedValue) {
+		[cache setObject:cachedValue forKey:cacheKey];
+	}
+
+	return cachedValue;
+}
+
++ (nullable id)_objectFromResources:(NSString *)name inDirectory:(nullable NSString *)subpath key:(nullable NSString *)key kindOf:(Class)class
+{
+	/* Locate resource */
+	NSURL *resourceURL = [RZMainBundle() URLForResource:name withExtension:@"plist" subdirectory:subpath];
+
+	if (resourceURL == nil) {
+		LogToConsoleError("Resource '%@' in subpath '%@' was not found.",
+			name, ((subpath) ?: @"<No subpath>"));
+
+		return nil;
+	}
+
+	/* Read resource */
+	NSError *readError = nil;
+
+	NSData *fileContents = [NSData dataWithContentsOfURL:resourceURL options:0 error:&readError];
+
+	if (readError) {
+		LogToConsoleError("Resource '%@' could not be read with error: %@",
+			resourceURL, readError.localizedDescription);
+
+		return nil;
+	}
+
+	/* Process as a property list */
+	NSError *parseError = nil;
+
+	id propertyList =
+	[NSPropertyListSerialization propertyListWithData:fileContents
+											  options:NSPropertyListImmutable
+											   format:NULL
+												error:&parseError];
+
+	if (parseError) {
+		LogToConsoleFault("Resource '%@' could not be parsed as a property list with error: %@",
+			resourceURL, parseError.localizedDescription);
+
+		return nil;
+	}
+
+	/* Locate object */
+	/* Until we know otherwise, the value is the root object. */
+	id objectValue = nil;
+
+	if (key == nil) {
+		objectValue = propertyList;
+	} else {
+		/* Property list can be an array. */
+		if ([propertyList isKindOfClass:[NSDictionary class]] == NO) {
+			LogToConsoleError("Contents of resource '%@' is not a dictionary. "
+							  "Cannot locate value of 'key' in other formats.", resourceURL);
+
+			return nil;
+		}
+
+		objectValue = [propertyList objectForKey:key];
+	}
+
+	if ([objectValue isKindOfClass:class] == NO) {
+		LogToConsoleError("Contents of key '%@' in resource '%@' is not kind of class: %@",
+			((key) ?: @"<Root Object>"), resourceURL, NSStringFromClass(class));
+
+		return nil;
+	}
+
+	return objectValue;
 }
 
 @end

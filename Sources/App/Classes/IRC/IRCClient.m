@@ -1464,18 +1464,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 
 - (NSDictionary<NSString *, NSString *> *)listOfNicknamesToDisallowEncryption
 {
-	static NSDictionary<NSString *, NSString *> *cachedValue = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		NSDictionary *staticValues =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
-
-		cachedValue = [staticValues dictionaryForKey:@"IRCClient List of Nicknames that Encryption Forbids"];
-	});
-
-	return cachedValue;
+	return [TPCResourceManager dictionaryFromResources:@"StaticStore" key:@"IRCClient List of Nicknames that Encryption Forbids"];
 }
 
 #if TEXTUAL_BUILT_WITH_ADVANCED_ENCRYPTION == 1
@@ -6222,34 +6211,12 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 
 - (NSArray<NSString *> *)nickServSupportedNeedIdentificationTokens
 {
-	static NSArray<NSString *> *cachedValue = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		NSDictionary *staticValues =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
-
-		cachedValue = [staticValues arrayForKey:@"IRCClient List of NickServ Needs Identification Tokens"];
-	});
-
-	return cachedValue;
+	return [TPCResourceManager arrayFromResources:@"StaticStore" key:@"IRCClient List of NickServ Needs Identification Tokens"];
 }
 
 - (NSArray<NSString *> *)nickServSupportedSuccessfulIdentificationTokens
 {
-	static NSArray<NSString *> *cachedValue = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		NSDictionary *staticValues =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
-
-		cachedValue = [staticValues arrayForKey:@"IRCClient List of NickServ Successfully Identified Tokens"];
-	});
-
-	return cachedValue;
+	return [TPCResourceManager arrayFromResources:@"StaticStore" key:@"IRCClient List of NickServ Successfully Identified Tokens"];
 }
 
 #pragma mark -

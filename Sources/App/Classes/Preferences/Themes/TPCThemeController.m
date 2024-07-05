@@ -1050,17 +1050,8 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 {
 	NSParameterAssert(themeName != nil);
 
-	static NSDictionary<NSString *, NSString *> *cachedValues = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		NSDictionary *staticValues =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
-
-		cachedValues =
-		[staticValues dictionaryForKey:@"TPCThemeController Remapped Themes"];
-	});
+	NSDictionary *cachedValues =
+	[TPCResourceManager dictionaryFromResources:@"StaticStore" key:@"TPCThemeController Remapped Themes"];
 
 	return cachedValues[themeName];
 }
