@@ -370,6 +370,10 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 			continue;
 		}
 
+#ifdef DEBUG
+		LogToConsoleDebug("Removing key: '%@'", key);
+#endif
+
 		[defaults removeObjectForKey:key];
 	}
 
