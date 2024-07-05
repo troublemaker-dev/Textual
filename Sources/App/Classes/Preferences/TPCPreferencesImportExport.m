@@ -51,6 +51,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface TPCPreferencesUserDefaults ()
+- (void)_migrateObject:(nullable id)value forKey:(NSString *)defaultName;
+@end
+
 @implementation TPCPreferencesImportExport
 
 + (void)importInWindow:(NSWindow *)window
@@ -196,21 +200,9 @@ NS_ASSUME_NONNULL_BEGIN
 			[self importClientConfiguration:object];
 		}];
 	}
-	else if ([key isEqualToString:@"World Controller"])
-	{
-		if ([object isKindOfClass:[NSDictionary class]] == NO) {
-			return;
-		}
-
-		NSArray<NSDictionary *> *clientList = [object arrayForKey:@"clients"];
-
-		if (clientList) {
-			[self import:clientList withKey:IRCWorldClientListDefaultsKey];
-		}
-	}
 	else
 	{
-		[RZUserDefaults() setObject:object forKey:key];
+		[RZUserDefaults() _migrateObject:object forKey:key];
 	}
 }
 
