@@ -43,23 +43,28 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Reading & Writing
 
+typedef NS_ENUM(NSUInteger, TPCPreferencesComparator) {
+	TPCPreferencesComparatorEqual 			= 0,
+	TPCPreferencesComparatorAnchorFront		= 1,
+	TPCPreferencesComparatorAnchorBack		= 2
+};
+
 @implementation TPCPreferencesUserDefaults (TPCPreferencesUserDefaultsLocal)
 
-+ (BOOL)key:(NSString *)defaultName1 matchesKey:(NSString *)defaultName2 usingMatchingPattern:(NSString *)matchingPattern
++ (BOOL)key:(NSString *)defaultName1 matchesKey:(NSString *)defaultName2 usingComparator:(TPCPreferencesComparator)comparator
 {
 	NSParameterAssert(defaultName1 != nil);
 	NSParameterAssert(defaultName2 != nil);
-	NSParameterAssert(matchingPattern != nil);
 
-	if ([matchingPattern isEqualToString:@"="]) {
+	if (comparator == TPCPreferencesComparatorEqual) {
 		if ([defaultName1 isEqualToString:defaultName2]) {
 			return YES;
 		}
-	} else if ([matchingPattern isEqualToString:@"PREFIX"]) {
+	} else if (comparator == TPCPreferencesComparatorAnchorFront) {
 		if ([defaultName1 hasPrefix:defaultName2]) {
 			return YES;
 		}
-	} else if ([matchingPattern isEqualToString:@"SUFFIX"]) {
+	} else if (comparator == TPCPreferencesComparatorAnchorBack) {
 		if ([defaultName1 hasSuffix:defaultName2]) {
 			return YES;
 		}
@@ -68,55 +73,63 @@ NS_ASSUME_NONNULL_BEGIN
 	return NO;
 }
 
-+ (BOOL)keyIsExcludedFromBeingExported:(NSString *)defaultName
++ (BOOL)keyIsExcludedFromExportImport:(NSString *)defaultName
 {
 	NSParameterAssert(defaultName != nil);
 
-	static NSDictionary<NSString *, NSString *> *cachedValues = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		NSDictionary *staticValues =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
-
-		cachedValues =
-		[staticValues dictionaryForKey:@"TPCPreferencesUserDefaults Keys Excluded from Export"];
-	});
+	NSDictionary<NSString *, NSNumber *> *cachedValues =
+	[TPCResourceManager dictionaryFromResources:@"KeysExcludedFromExport" inDirectory:@"Preferences"];
 
 	__block BOOL returnValue = NO;
 
-	[cachedValues enumerateKeysAndObjectsUsingBlock:^(NSString *cachedKey, NSString *cachedObject, BOOL *stop) {
-		if ([self key:defaultName matchesKey:cachedKey usingMatchingPattern:cachedObject]) {
+	[cachedValues enumerateKeysAndObjectsUsingBlock:^(NSString *cachedKey, NSNumber *cachedObject, BOOL *stop) {
+		if ([self key:defaultName matchesKey:cachedKey usingComparator:cachedObject.unsignedIntegerValue]) {
 			*stop = YES;
 
 			returnValue = YES;
 		}
 	}];
 
-	return returnValue;
+	if (returnValue) {
+		return YES;
+	}
+
+	return ([self keyAppearsInMasterList:defaultName] == NO);
 }
 
-+ (BOOL)keyIsObsolete:(NSString *)defaultName
++ (BOOL)keyIsExcludedFromMigration:(NSString *)defaultName
 {
 	NSParameterAssert(defaultName != nil);
 
-	static NSDictionary<NSString *, NSString *> *cachedValues = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		NSDictionary *staticValues =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
-
-		cachedValues =
-		[staticValues dictionaryForKey:@"TPCPreferencesUserDefaults Obsolete Keys"];
-	});
+	NSDictionary<NSString *, NSNumber *> *cachedValues =
+	[TPCResourceManager dictionaryFromResources:@"KeysExcludedFromMigrate" inDirectory:@"Preferences"];
 
 	__block BOOL returnValue = NO;
 
-	[cachedValues enumerateKeysAndObjectsUsingBlock:^(NSString *cachedKey, NSString *cachedObject, BOOL *stop) {
-		if ([self key:defaultName matchesKey:cachedKey usingMatchingPattern:cachedObject]) {
+	[cachedValues enumerateKeysAndObjectsUsingBlock:^(NSString *cachedKey, NSNumber *cachedObject, BOOL *stop) {
+		if ([self key:defaultName matchesKey:cachedKey usingComparator:cachedObject.unsignedIntegerValue]) {
+			*stop = YES;
+
+			returnValue = YES;
+		}
+	}];
+
+	if (returnValue) {
+		return YES;
+	}
+
+	return ([self keyAppearsInMasterList:defaultName] == NO);
+}
+
++ (BOOL)keyAppearsInMasterList:(NSString *)defaultName
+{
+	NSDictionary<NSString *, NSNumber *> *cachedValues =
+	[TPCResourceManager dictionaryFromResources:@"PreferenceKeyMasterList" inDirectory:@"Preferences"];
+
+	__block BOOL returnValue = NO;
+
+	[cachedValues enumerateKeysAndObjectsUsingBlock:^(NSString *cachedKey, NSNumber *cachedObject, BOOL *stop) {
+		if ([self key:defaultName matchesKey:cachedKey usingComparator:cachedObject.unsignedIntegerValue]) {
 			*stop = YES;
 
 			returnValue = YES;

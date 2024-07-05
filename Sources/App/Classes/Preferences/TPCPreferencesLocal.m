@@ -1260,27 +1260,6 @@ static NSArray<NSString *> *_matchKeywords = nil;
 
 }
 
-+ (void)_migratePreferencesToVersion602
-{
-	/* This method removes keys that are obsolete. Obsolete keys include those
-	 that are no longer used by any feature, or keys that should only be stored
-	 temporarily. This method must be called before -registeredDefaults are 
-	 invoked, or we would could potentially fuck shit up really bad. */
-	NSNumber *dictionaryVersion = [RZUserDefaults() objectForKey:@"TPCPreferencesDictionaryVersion"];
-
-	if (dictionaryVersion.integerValue != 600) {
-		return;
-	}
-
-	NSDictionary *dictionaryContents = RZUserDefaults().dictionaryRepresentation;
-
-	[dictionaryContents enumerateKeysAndObjectsUsingBlock:^(NSString *key, id object, BOOL *stop) {
-		if ([TPCPreferencesUserDefaults keyIsObsolete:key]) {
-			[RZUserDefaults() removeObjectForKey:key];
-		}
-	}];
-}
-
 #pragma mark -
 #pragma mark Dynamic Defaults 
 
@@ -1386,8 +1365,6 @@ static NSArray<NSString *> *_matchKeywords = nil;
 	[TPCApplicationInfo incrementApplicationRunCount];
 
 	// ====================================================== //
-
-	[self _migratePreferencesToVersion602];
 
 	[self registerDefaults];
 
