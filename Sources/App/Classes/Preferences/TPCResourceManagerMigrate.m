@@ -598,6 +598,10 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		BOOL pruned = NO;
 
 		if ([self _fileAtURLIsSymbolicLink:newExtension] == NO) {
+#ifdef DEBUG
+			LogToConsoleDebug("Pruning URL: '%@'", oldExtension);
+#endif
+
 			NSError *deleteError = nil;
 
 			pruned = [RZFileManager() removeItemAtURL:oldExtension error:&deleteError];
@@ -619,7 +623,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		[self _setAllExtensionSymbolicLinksPruned];
 	}
 
-	LogToConsoleInfo("Pruning extensions completed. "
+	LogToConsoleInfo("End: Pruning extensions completed. "
 					 "Number remaining: %lu, Number pruned: %lu",
 		numberRemaining, numberPruned);
 }
