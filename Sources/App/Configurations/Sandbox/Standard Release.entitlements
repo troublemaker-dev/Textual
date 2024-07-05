@@ -36,7 +36,7 @@
 		<string>/Library/Application Support/Textual/Textual_Trial_Information_v2.plist</string>
 		<string>/Library/Application Support/Textual/Textual_User_License_v2.plist</string>
 	</array>
-	<key>com.apple.security.temporary-exception.shared-preference.read-only</key>
+	<key>com.apple.security.temporary-exception.shared-preference.read-write</key>
 	<array>
 		<string>com.codeux.apps.textual</string>
 		<string>com.codeux.apps.textual-mas</string>
