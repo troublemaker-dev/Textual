@@ -348,7 +348,7 @@
 		4C06E47520EC541C0055D09A /* CocoaExtensions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF76A391A91153A0088BF9A /* CocoaExtensions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4C06E47720EC541C0055D09A /* EncryptionKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8F2F5D1AAE6467007821CC /* EncryptionKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4C06E47920EC541C0055D09A /* GRMustache.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC4A7371F8A1404008FF15F /* GRMustache.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4C06E47F20EC541C0055D09A /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4C24DC751A93C9CE0098D1BE /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4C06E47F20EC541C0055D09A /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4C24DC751A93C9CE0098D1BE /* Sparkle.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4C06E48120EC54260055D09A /* AutoHyperlinks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF76A371A91153A0088BF9A /* AutoHyperlinks.framework */; };
 		4C06E48220EC54260055D09A /* CocoaExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF76A391A91153A0088BF9A /* CocoaExtensions.framework */; };
 		4C06E48320EC54260055D09A /* EncryptionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8F2F5D1AAE6467007821CC /* EncryptionKit.framework */; };
@@ -1516,6 +1516,7 @@
 		4C1DC5521580420500A47BC9 /* Textual.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Textual.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C24DC751A93C9CE0098D1BE /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = "../../Frameworks/Static Libraries/Libraries/Sparkle.framework"; sourceTree = SOURCE_ROOT; };
 		4C250F361F381320001A92D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		4C2BEB622C385189008F8F0D /* PostprocessSparkle.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = PostprocessSparkle.sh; path = "Build Scripts/PostprocessSparkle.sh"; sourceTree = "<group>"; };
 		4C2E92202C1E4463003BB92D /* Caffeine.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Caffeine.bundle; path = "../../../.tmp/SharedBuildProducts-Extensions/Caffeine.bundle"; sourceTree = "<group>"; };
 		4C2F0C701F2AF3860017D3B7 /* Textual-Extras.pkg */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Textual-Extras.pkg"; path = "Scripting/Script Files/Textual Extras Installer/Packages/Textual-Extras.pkg"; sourceTree = "<group>"; };
 		4C2F0C711F2AF38E0017D3B7 /* Textual-Extras-MAS.pkg */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Textual-Extras-MAS.pkg"; path = "Scripting/Script Files/Textual Extras Installer/Packages/Textual-Extras-MAS.pkg"; sourceTree = "<group>"; };
@@ -3559,6 +3560,7 @@
 				4C48B46320E4D06900CF5F84 /* MergeSwift.sh */,
 				4C7961C6267D25B400D37F07 /* UpdateFeatureFlags.sh */,
 				5D9B8EB8170A0EB400919CB0 /* UpdateVersionInfo.sh */,
+				4C2BEB622C385189008F8F0D /* PostprocessSparkle.sh */,
 			);
 			name = "Build Scripts";
 			sourceTree = SOURCE_ROOT;
@@ -4120,6 +4122,7 @@
 				4C1DC54E1580420500A47BC9 /* Sources */,
 				4CCF2F9E15804C18006FFE21 /* Headers */,
 				4C06E48020EC541C0055D09A /* Embed Frameworks */,
+				4C2BEB612C384E16008F8F0D /* Postprocess Sparkle */,
 				4C01BA101581104D007E2DAF /* Build Extensions */,
 				4C52AED515811C2000940619 /* Copy Extensions */,
 				4C761BAF1E155D7400A505B7 /* Build XPC Services */,
@@ -4529,6 +4532,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\nexec \"${PROJECT_DIR}/Build Scripts/BuildExtensions.sh\" | tee \"${TEXTUAL_WORKSPACE_TEMP_DIR}/Script-Logs/BuildExtensions.txt\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4C2BEB612C384E16008F8F0D /* Postprocess Sparkle */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Postprocess Sparkle";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\nexec \"${PROJECT_DIR}/Build Scripts/PostprocessSparkle.sh\" | tee \"${TEXTUAL_WORKSPACE_TEMP_DIR}/Script-Logs/PostprocessSparkle.txt\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4C48B46520E4D37C00CF5F84 /* Merge Swift Libraries */ = {

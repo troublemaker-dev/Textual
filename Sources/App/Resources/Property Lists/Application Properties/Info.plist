@@ -103,6 +103,10 @@
 	<true/>
 	<key>SUBundleName</key>
 	<string>Textual</string>
+	<key>SUEnableDownloaderService</key>
+	<false/>
+	<key>SUEnableInstallerLauncherService</key>
+	<true/>
 	<key>SUEnableSystemProfiling</key>
 	<false/>
 	<key>SUFeedURL</key>
