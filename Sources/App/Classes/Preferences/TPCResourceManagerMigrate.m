@@ -77,6 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, readonly, copy, nullable) NSURL *gcMacAppStoreURL;
 @property (class, readonly, copy, nullable) NSURL *extensionsStandaloneClassicURL;
 @property (class, readonly, copy, nullable) NSURL *extensionsMacAppStoreURL;
+@property (class, readonly, copy, nullable) NSURL *preferencesMacAppStoreURL;
 @end
 
 @interface TPCPreferencesUserDefaults ()
@@ -162,6 +163,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		return;
 	}
 
+	/* This code can probably be condensed. Not important enough. */
 	/* Migrate Standalone Classic? */
 	LogToConsoleInfo("Start: Migrating Standalone Classic installation");
 
@@ -184,9 +186,30 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 			break; // Try Mac App Store next
 	}
 
+	/* Migrate Standalone Classic? */
+	LogToConsoleInfo("Start: Migrating Mac App Store installation");
 
+	TPCResourceManagerMigrationResult tryMigrateMacAppStore = [self _migrateMacAppStore];
 
+	switch (tryMigrateMacAppStore) {
+		case TPCResourceManagerMigrationResultSuccess:
+			[self _setMigrationCompleteForMacAppStore];
 
+			LogToConsoleInfo("End: Migrating Mac App Store successful");
+
+			return;
+		case TPCResourceManagerMigrationResultError:
+			LogToConsoleInfo("End: Migrating Mac App Store failed. Stopping all migration");
+
+			return;
+		case TPCResourceManagerMigrationResultNotSuitable:
+			LogToConsoleInfo("End: Migrating Mac App Store failed. Installation is not suitable");
+
+			break;
+	}
+
+	/* No other migration path */
+	[self _setMigrationCompleteAndAcknowledged];
 }
 
 #pragma mark -
@@ -227,6 +250,48 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	}
 
 	[self _notifyGroupContainerMigratedForStandaloneClassic];
+
+	return TPCResourceManagerMigrationResultSuccess;
+}
+
++ (TPCResourceManagerMigrationResult)_migrateMacAppStore /* YES on success */
+{
+	/* Preflight checks */
+	if ([self _modificationDateForMacAppStorePreferencesIsRecent] == NO) {
+		LogToConsoleDebug("Migration of Mac App Store has stale preferences file");
+
+		return TPCResourceManagerMigrationResultNotSuitable;
+	}
+
+	NSUserDefaults *standaloneDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"8482Q6EPL6.com.codeux.irc.textual"];
+
+	if (standaloneDefaults == nil) {
+		LogToConsoleInfo("NSUserDefaults object could not be created for Mac App Store domain.");
+
+		return TPCResourceManagerMigrationResultNotSuitable;
+	}
+
+	/* Import preference keys */
+	NSDictionary *preferences = standaloneDefaults.dictionaryRepresentation;
+
+	NSUInteger runCount = [preferences unsignedIntegerForKey:@"TXRunCount"];
+
+	if (runCount == 0) {
+		LogToConsoleError("Migration of Mac App Store has zero run count");
+
+		return TPCResourceManagerMigrationResultNotSuitable;
+	}
+
+	[self _importPreferences:preferences];
+
+	/* Migrate group container */
+	BOOL migrateContainer = [self _migrateGroupContainerContentsForMacAppStore];
+
+	if (migrateContainer == NO) {
+		return TPCResourceManagerMigrationResultError;
+	}
+
+	[self _notifyGroupContainerMigratedForMacAppStore];
 
 	return TPCResourceManagerMigrationResultSuccess;
 }
@@ -720,13 +785,44 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	return (age < 2.0);
 }
 
++ (NSTimeInterval)_modificationDateForMacAppStorePreferencesIsRecent
+{
+	NSURL *location = [TPCPathInfo preferencesMacAppStoreURL];
+
+	if (location == nil) {
+		return NO;
+	}
+
+	NSTimeInterval age = [self _intervalSinceFileAtURLLastModified:location];
+
+	return (age >= 0 && age <= MaximumAgeOfStalePreferences);
+}
+
 + (NSTimeInterval)_ageOfFileAtURL:(NSURL *)url
 {
 	NSParameterAssert(url != nil);
 
 	NSError *error = nil;
 
-	NSTimeInterval age = [url ageOfResourceWithError:&error];
+	NSTimeInterval age = [url intervalSinceCreatedWithError:&error];
+
+	if (error) {
+		/* This is purposely considered debug information as the user knowing
+		 a file not existing is not an error when that is probable outcome. */
+		LogToConsoleDebug("Error caught when calculating age of file: %@",
+			error.localizedDescription);
+	}
+
+	return age;
+}
+
++ (NSTimeInterval)_intervalSinceFileAtURLLastModified:(NSURL *)url
+{
+	NSParameterAssert(url != nil);
+
+	NSError *error = nil;
+
+	NSTimeInterval age = [url intervalSinceLastModificationWithError:&error];
 
 	if (error) {
 		/* This is purposely considered debug information as the user knowing
@@ -796,6 +892,17 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	}
 
 	return [sourceURL URLByAppendingPathComponent:@"/Library/Application Support/Textual/Extensions/"];
+}
+
++ (nullable NSURL *)preferencesMacAppStoreURL
+{
+	NSURL *sourceURL = self.gcMacAppStoreURL;
+
+	if (sourceURL == nil) {
+		return nil;
+	}
+
+	return [sourceURL URLByAppendingPathComponent:@"/Library/Preferences/8482Q6EPL6.com.codeux.irc.textual.plist"];
 }
 
 @end
