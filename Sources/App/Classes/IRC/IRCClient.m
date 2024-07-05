@@ -2301,7 +2301,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 	if ([message.senderNickname isEqualToString:@"irc.znc.in"]) {
 		self.isConnectedToZNC = YES;
 
-		LogToConsoleInfo("ZNC detected...");
+		LogToConsole("ZNC detected...");
 	}
 }
 
@@ -6963,7 +6963,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 	else if ([command isEqualToString:@"PING"])
 	{
 		if (textMutable.length > 50) {
-			LogToConsoleInfo("Ignoring PING query that exceeds 50 bytes");
+			LogToConsoleFault("Ignoring PING query that exceeds 50 bytes");
 
 			return;
 		}

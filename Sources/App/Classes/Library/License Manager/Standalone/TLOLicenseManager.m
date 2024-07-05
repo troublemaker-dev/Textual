@@ -489,7 +489,7 @@ void TLOLicenseManagerMigrateLicenseFiles(void)
 	if ([RZFileManager() fileExistsAtURL:newTrialData] == NO &&
 		[RZFileManager() fileExistsAtURL:oldTrialData]) {
 		if ([RZFileManager() copyItemAtURL:oldTrialData toURL:newTrialData error:&moveError]) {
-			LogToConsoleInfo("Moved trial data file to new location");
+			LogToConsole("Moved trial data file to new location");
 		} else {
 			LogToConsoleError("Moving trial data file to new location failed: %@", moveError.localizedDescription);
 
@@ -503,7 +503,7 @@ void TLOLicenseManagerMigrateLicenseFiles(void)
 	if ([RZFileManager() fileExistsAtURL:newLicenseData] == NO &&
 		[RZFileManager() fileExistsAtURL:oldLicenseData]) {
 		if ([RZFileManager() copyItemAtURL:oldLicenseData toURL:newLicenseData error:&moveError]) {
-			LogToConsoleInfo("Moved license data file to new location");
+			LogToConsole("Moved license data file to new location");
 		} else {
 			LogToConsoleError("Moving license data file to new location failed: %@", moveError.localizedDescription);
 		}

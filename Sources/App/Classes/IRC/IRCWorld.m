@@ -386,7 +386,7 @@ NSString * const IRCWorldWillDestroyChannelNotification = @"IRCWorldWillDestroyC
 	 reschedule timer when the system date changes. */
 	if (self.lastDateHasChangedDate != nil) {
 		if ([self.lastDateHasChangedDate isInSameDayAsDate:lastMidnight]) {
-			LogToConsoleInfo("Date changed event received but the day hasn't changed");
+			LogToConsoleFault("Date changed event received but the day hasn't changed");
 
 			return;
 		}

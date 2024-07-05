@@ -1107,7 +1107,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	NSString *message = [self.class objectValueToCommon:arguments[0]];
 
-	LogToConsoleInfo("JavaScript: %@", message);
+	LogToConsole("JavaScript: %@", message);
 }
 
 - (void)_networkName:(TVCLogScriptEventSinkContext *)context
