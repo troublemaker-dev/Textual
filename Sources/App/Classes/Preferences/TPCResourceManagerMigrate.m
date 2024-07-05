@@ -75,8 +75,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TPCPathInfo (TPCResourceManagerMigrate)
 @property (class, readonly, copy, nullable) NSURL *gcStandaloneClassicURL;
 @property (class, readonly, copy, nullable) NSURL *gcMacAppStoreURL;
-@property (class, readonly, copy, nullable) NSURL *preferencesStandaloneClassicURL;
-@property (class, readonly, copy, nullable) NSURL *preferencesMacAppStoreURL;
+@property (class, readonly, copy, nullable) NSURL *extensionsStandaloneClassicURL;
+@property (class, readonly, copy, nullable) NSURL *extensionsMacAppStoreURL;
 @end
 
 @interface TPCPreferencesUserDefaults ()
@@ -91,7 +91,24 @@ NS_ASSUME_NONNULL_BEGIN
 #define MaximumAgeOfStalePreferences 		(60 * 60 * 24 * 30)  // 30 days
 
 /* Defaults key set after migration is performed. */
-#define MigrationCompleteDefaultsKey		@"TPCResourceManagerMigrate -> Migrated Group Containers"
+/* YES if migration was completed */
+#define MigrationCompleteDefaultsKey					@"TPCResourceManagerMigrate -> Migrated Resources"
+
+/* Integer for the installation that was migrated */
+/* nil value or zero result is possible even after migration
+ is complete because nothing might have been migrated. */
+/* Migration is designed to be one shot. */
+#define MigrationInstallationMigratedDefaultsKey		@"TPCResourceManagerMigrate -> Installation Migrated"
+
+/* Whether the user has dismissed the notification alert */
+#define MigrationUserAcknowledgedDefaultsKey			@"TPCResourceManagerMigrate -> User Acknowledged"
+
+/* Whether the user wants to delete old files */
+#define MigrationUserPrefersPruningDefaultsKey			@"TPCResourceManagerMigrate -> User Prefers Pruning Files"
+
+/* YES if there are no more extensions to prune
+ which means we can bypass all the directory scans. */
+#define MigrationAllExtensionsPrunedDefaultsKey			@"TPCResourceManagerMigrate -> All Extensions Pruned"
 
 /* Result returned when performing migration of a specific installation. */
 typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationResult)
@@ -113,10 +130,10 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationResult)
 typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 {
 	/* Standalone Classic */
-	TPCResourceManagerMigrationInstallationStandaloneClassic,
-	
+	TPCResourceManagerMigrationInstallationStandaloneClassic 	= 100,
+
 	/* Mac App Store */
-	TPCResourceManagerMigrationInstallationMacAppStore
+	TPCResourceManagerMigrationInstallationMacAppStore			= 200
 };
 
 @implementation TPCResourceManager (TPCResourceManagerMigrate)
@@ -127,6 +144,9 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 
 	/* Do not migrate if we have done so in the past. */
 	if ([RZUserDefaults() boolForKey:MigrationCompleteDefaultsKey]) {
+		[self _notifyGroupContainerMigratedFromDefaults];
+		[self _pruneExtensionSymbolicLinksFromDefaults];
+
 		LogToConsoleInfo("Group containers have already been migrated");
 
 		return;
@@ -135,7 +155,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	/* Do not migrate if the age of the current group container is not recent.
 	 The age is only going to be recent the launch it was created. */
 	if ([self _ageOfCurrentContainerIsRecent] == NO) {
-		[self _setMigrationComplete];
+		[self _setMigrationCompleteAndAcknowledged];
 
 		LogToConsoleInfo("Current group container was not created recently");
 
@@ -149,17 +169,17 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 
 	switch (tryMigrateStandaloneClass) {
 		case TPCResourceManagerMigrationResultSuccess:
-			[self _setMigrationComplete];
+			[self _setMigrationCompleteForStandaloneClassic];
 
-			LogToConsoleInfo("End: Migrating Standalone Classic successful.");
+			LogToConsoleInfo("End: Migrating Standalone Classic successful");
 
 			return;
 		case TPCResourceManagerMigrationResultError:
-			LogToConsoleInfo("End: Migrating Standalone Classic failed. Stopping all migration.");
+			LogToConsoleInfo("End: Migrating Standalone Classic failed. Stopping all migration");
 
 			return;
 		case TPCResourceManagerMigrationResultNotSuitable:
-			LogToConsoleInfo("End: Migrating Standalone Classic failed. Installation is not suitable.");
+			LogToConsoleInfo("End: Migrating Standalone Classic failed. Installation is not suitable");
 
 			break; // Try Mac App Store next
 	}
@@ -219,7 +239,9 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 
 	[dict enumerateKeysAndObjectsUsingBlock:^(NSString * key, id object, BOOL *stop) {
 		if ([TPCPreferencesUserDefaults keyIsExcludedFromMigration:key]) {
-			/*			LogToConsoleDebug("Key is excluded from migration: '%@'", key); */
+#ifdef DEBUG
+			LogToConsoleDebug("Key is excluded from migration: '%@'", key);
+#endif
 
 			return;
 		}
@@ -232,9 +254,28 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 
 + (void)_setMigrationComplete
 {
-	[RZUserDefaults() setBool:YES forKey:MigrationCompleteDefaultsKey];
+	[RZUserDefaults() _migrateObject:@(YES) forKey:MigrationCompleteDefaultsKey];
+}
 
-	LogToConsoleInfo("Set migration is complete flag");
++ (void)_setMigrationCompleteForStandaloneClassic
+{
+	[RZUserDefaults() _migrateObject:@(TPCResourceManagerMigrationInstallationStandaloneClassic) forKey:MigrationInstallationMigratedDefaultsKey];
+
+	[self _setMigrationComplete];
+}
+
++ (void)_setMigrationCompleteForMacAppStore
+{
+	[RZUserDefaults() _migrateObject:@(TPCResourceManagerMigrationInstallationMacAppStore) forKey:MigrationInstallationMigratedDefaultsKey];
+
+	[self _setMigrationComplete];
+}
+
++ (void)_setMigrationCompleteAndAcknowledged
+{
+	[self _setMigrationComplete];
+
+	[self _setUserAcknowledgedMigration];
 }
 
 #pragma mark -
@@ -248,7 +289,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	NSURL *oldLocation = [self _groupContainerURLForInstallation:installation];
 
 	if (oldLocation == nil) {
-		LogToConsoleError("Cannot migrate group container contents because of nil source location.");
+		LogToConsoleError("Cannot migrate group container contents because of nil source location");
 
 		return NO;
 	}
@@ -256,7 +297,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	NSURL *newLocation = [TPCPathInfo groupContainerURL];
 
 	if (newLocation == nil) {
-		LogToConsoleError("Cannot migrate group container contents because of nil destination location.");
+		LogToConsoleError("Cannot migrate group container contents because of nil destination location");
 
 		return NO;
 	}
@@ -270,7 +311,8 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 					  withDirectoryAtURL:newLocation
 								 options:(CSFileManagerOptionsEnumerateDirectories |
 										  CSFileManagerOptionContinueOnError |
-										  CSFileManagerOptionsCreateDirectory)];
+										  CSFileManagerOptionsCreateDirectory |
+										  CSFileManagerCreateSymbolicLinkForPackages)];
 
 	LogToConsoleInfo("End: Migrate group container - Result: %@",
 		StringFromBOOL(result));
@@ -301,8 +343,13 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 				   otherButton:TXTLS(@"Prompts[d90-au]")
 				suppressionKey:nil
 			   suppressionText:TXTLS(@"Prompts[q3t-45]")
-			   completionBlock:^(TDCAlertResponse buttonClicked, BOOL suppressed, id  _Nullable underlyingAlert) {
+			   completionBlock:^(TDCAlertResponse buttonClicked, BOOL suppressed, id  _Nullable underlyingAlert) 
+	 {
+		[self _setUserAcknowledgedMigration];
+
 		if (suppressed) {
+			[self _setUserPrefersPruningFiles];
+
 			[self _removeGroupContainerContentsForInstallation:installation];
 		}
 	}];
@@ -314,6 +361,38 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	} forButton:TVCAlertResponseButtonThird];
 }
 
++ (void)_notifyGroupContainerMigratedFromDefaults
+{
+	/* This method is only invoked internally if the defaults key
+	 MigrationCompleteDefaultsKey is set which means we are just
+	 asking the user what they want to do with their files until
+	 they acknowledge the alert. */
+	BOOL userAcknowledged = [RZUserDefaults() boolForKey:MigrationUserAcknowledgedDefaultsKey];
+
+	if (userAcknowledged) {
+		return; // Stop migration
+	}
+
+	TPCResourceManagerMigrationInstallation installation = [RZUserDefaults() unsignedIntegerForKey:MigrationInstallationMigratedDefaultsKey];
+
+	/* Seeing as this value comes from outside and is manipulatable,
+	 we use a switch statement to validate value instead of calling
+	 directly into -_notifyGroupContainerMigratedForInstallation:
+	 which assumes good faith for its arguments. */
+	switch (installation) {
+		case TPCResourceManagerMigrationInstallationStandaloneClassic:
+			[self _notifyGroupContainerMigratedForStandaloneClassic];
+
+			break;
+		case TPCResourceManagerMigrationInstallationMacAppStore:
+			[self _notifyGroupContainerMigratedForMacAppStore];
+
+			break;
+		default:
+			break;
+	}
+}
+
 + (void)_notifyGroupContainerMigratedForStandaloneClassic
 {
 	[self _notifyGroupContainerMigratedForInstallation:TPCResourceManagerMigrationInstallationStandaloneClassic];
@@ -322,6 +401,16 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 + (void)_notifyGroupContainerMigratedForMacAppStore
 {
 	[self _notifyGroupContainerMigratedForInstallation:TPCResourceManagerMigrationInstallationMacAppStore];
+}
+
++ (void)_setUserAcknowledgedMigration
+{
+	[RZUserDefaults() _migrateObject:@(YES) forKey:MigrationUserAcknowledgedDefaultsKey];
+}
+
++ (void)_setUserPrefersPruningFiles
+{
+	[RZUserDefaults() _migrateObject:@(YES) forKey:MigrationUserPrefersPruningDefaultsKey];
 }
 
 #pragma mark -
@@ -335,12 +424,26 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	NSURL *gcLocation = [self _groupContainerURLForInstallation:installation];
 
 	if (gcLocation == nil) {
-		LogToConsoleError("Cannot remove group container contents because of nil location.");
+		LogToConsoleError("Cannot remove group container contents because of nil location");
 
 		return NO;
 	}
 
-	BOOL result = [self _removeGroupContainerContentsAtURL:gcLocation];
+	/* -_listOfExtensionsForInstallation: should only return nil on fatal errors.
+	 It will not return nil for an extension folder that does not exist, or is empty. */
+	NSArray *oldExtensions = [self _listOfExtensionsForInstallation:installation];
+
+	if (gcLocation == nil) {
+		LogToConsoleError("Cannot remove group container contents because of nil extension list");
+
+		return NO;
+	}
+
+	LogToConsoleInfo("Removing group container contents at URL: %@", gcLocation);
+
+	BOOL result = [RZFileManager() removeContentsOfDirectoryAtURL:gcLocation
+													excludingURLs:oldExtensions
+														  options:(CSFileManagerOptionContinueOnError)];
 
 	LogToConsoleInfo("End: Remove group container - Result: %@",
 		StringFromBOOL(result));
@@ -358,13 +461,147 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	return [self _removeGroupContainerContentsForInstallation:TPCResourceManagerMigrationInstallationMacAppStore];
 }
 
-+ (BOOL)_removeGroupContainerContentsAtURL:(NSURL *)location
+#pragma mark -
+#pragma mark Extension Pruning
+
++ (void)_pruneExtensionSymbolicLinksForInstallation:(TPCResourceManagerMigrationInstallation)installation
 {
-	NSParameterAssert(location != nil);
+	/* When you create a copy of a bundle programmatically, macOS will move it to
+	 quarantine. The user is then notified macOS can't verify that it isn't malware.
+	 That is less than ideal when performing migration. */
+	/* When migration is performed, we create a symbolic link to the original
+	 extension instead of copying it to the new location. If the symbolic link
+	 at the new location is replaced, then that extension is now just dangling
+	 never to be used again. */
+	/* TPCResourceManager will handle garbage collection. It will compare the
+	 contents of the old location and new location each launch. If a symbolic
+	 link is not present for an extension in the old location, that extension
+	 is deleted. Once all extensions are deleted, a flag is set to stop pruning
+	 so we don't keep scanning the old location forever. */
+	LogToConsoleInfo("Start: Pruning extensions for '%@'",
+		[self _descriptionOfInstallation:installation]);
 
-	LogToConsoleInfo("Removing group container contents at URL: %@", location);
+	NSArray *oldExtensions = [self _listOfExtensionsForInstallation:installation];
 
-	return [RZFileManager() trashContentsOfDirectoryAtURL:location];
+	if (oldExtensions == nil) {
+		/* Helper method will describe error. */
+
+		return;
+	}
+
+	if (oldExtensions.count == 0) {
+		LogToConsoleInfo("Source location for extensions to prune is empty");
+
+		[self _setAllExtensionSymbolicLinksPruned];
+
+		return;
+	}
+
+	NSURL *newLocation = [TPCPathInfo customExtensionsURL];
+
+	if (newLocation == nil) {
+		LogToConsoleError("Cannot prune extensions because of nil destination location");
+
+		return;
+	}
+
+	NSUInteger numberPruned = 0;
+	NSUInteger numberRemaining = 0;
+
+	for (NSURL *oldExtension in oldExtensions) {
+		NSString *name = [oldExtension resourceValueForKey:NSURLNameKey];
+		
+		NSNumber *isPackage = [oldExtension resourceValueForKey:NSURLIsPackageKey];
+
+		if ([name hasSuffix:@".bundle"] == NO ||
+			(isPackage == nil || isPackage.boolValue == NO))
+		{
+#ifdef DEBUG
+			LogToConsoleDebug("Ignoring non-bundle: '%@' - isPackage: %@", name,
+				StringFromBOOL(isPackage));
+#endif
+
+			continue;
+		}
+
+		NSURL *newExtension = [newLocation URLByAppendingPathComponent:name];
+
+		/* Should we check if the symbolic link points to this extension
+		 and not some other random file on the operating system?
+		 The likelihood of the user having a symbolic link they
+		 created is near zero if not zero. This is already over engineered. */
+		BOOL pruned = NO;
+
+		if ([self _fileAtURLIsSymbolicLink:newLocation] == NO) {
+			NSError *deleteError = nil;
+
+			pruned = [RZFileManager() removeItemAtURL:oldExtension error:&deleteError];
+
+			if (deleteError) {
+				LogToConsoleError("Failed to prune extension at URL ['%@']: %@",
+					oldExtension, deleteError.localizedDescription);
+			}
+		}
+
+		if (pruned) {
+			numberPruned += 1;
+		} else {
+			numberRemaining += 1;
+		}
+	} // Directory list for loop
+
+	if (numberRemaining == 0) {
+		[self _setAllExtensionSymbolicLinksPruned];
+	}
+
+	LogToConsoleInfo("Pruning extensions completed. "
+					 "Number remaining: %lu, Number pruned: %lu",
+		numberRemaining, numberPruned);
+}
+
++ (void)_pruneExtensionSymbolicLinksForStandaloneClassic
+{
+	[self _pruneExtensionSymbolicLinksForInstallation:TPCResourceManagerMigrationInstallationStandaloneClassic];
+}
+
++ (void)_pruneExtensionSymbolicLinksForMacAppStore
+{
+	[self _pruneExtensionSymbolicLinksForInstallation:TPCResourceManagerMigrationInstallationMacAppStore];
+}
+
++ (void)_pruneExtensionSymbolicLinksFromDefaults
+{
+	BOOL doPrune = [RZUserDefaults() boolForKey:MigrationUserPrefersPruningDefaultsKey];
+
+	if (doPrune == NO) {
+		return; // Stop pruning
+	}
+
+	BOOL pruningExhausted = [RZUserDefaults() boolForKey:MigrationAllExtensionsPrunedDefaultsKey];
+
+	if (pruningExhausted) {
+		return; // Stop pruning
+	}
+
+	TPCResourceManagerMigrationInstallation installation = [RZUserDefaults() unsignedIntegerForKey:MigrationInstallationMigratedDefaultsKey];
+
+	switch (installation) {
+		case TPCResourceManagerMigrationInstallationStandaloneClassic:
+			[self _pruneExtensionSymbolicLinksForStandaloneClassic];
+
+			break;
+		case TPCResourceManagerMigrationInstallationMacAppStore:
+			[self _pruneExtensionSymbolicLinksForMacAppStore];
+
+			break;
+		default:
+			break;
+	}
+}
+
++ (void)_setAllExtensionSymbolicLinksPruned
+{
+	[RZUserDefaults() _migrateObject:@(YES) forKey:MigrationAllExtensionsPrunedDefaultsKey];
 }
 
 #pragma mark -
@@ -402,12 +639,67 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	}
 
 	if (gcLocation == nil) {
-		LogToConsoleFault("Group container for installation [%@] is nil."
-						  "This should be impossible.",
+		LogToConsoleFault("Group container URL for installation [%@] is nil",
 			[self _descriptionOfInstallation:installation]);
 	}
 
 	return gcLocation;
+}
+
++ (nullable NSURL *)_extensionsURLForInstallation:(TPCResourceManagerMigrationInstallation)installation
+{
+	NSURL *gcLocation = nil;
+
+	switch (installation) {
+		case TPCResourceManagerMigrationInstallationStandaloneClassic:
+			gcLocation = [TPCPathInfo extensionsStandaloneClassicURL];
+
+			break;
+		case TPCResourceManagerMigrationInstallationMacAppStore:
+			gcLocation = [TPCPathInfo extensionsMacAppStoreURL];
+
+			break;
+		default:
+			return nil;
+	}
+
+	if (gcLocation == nil) {
+		LogToConsoleFault("Extensions URL for installation [%@] is nil",
+			[self _descriptionOfInstallation:installation]);
+	}
+
+	return gcLocation;
+}
+
++ (nullable NSArray<NSURL *> *)_listOfExtensionsForInstallation:(TPCResourceManagerMigrationInstallation)installation
+{
+	NSURL *oldLocation = [self _extensionsURLForInstallation:installation];
+
+	if (oldLocation == nil) {
+		LogToConsoleError("Cannot list extensions because of nil source location");
+
+		return nil;
+	}
+
+	if ([RZFileManager() fileExistsAtURL:oldLocation] == NO) {
+		return @[];
+	}
+
+	NSError *listExtensionsError = nil;
+
+	NSArray *oldExtensions = [RZFileManager() contentsOfDirectoryAtURL:oldLocation
+											includingPropertiesForKeys:@[NSURLNameKey, NSURLIsPackageKey]
+															   options:0
+																 error:&listExtensionsError];
+
+	if (listExtensionsError) {
+		LogToConsoleError("Unable to list contents of extensions at URL ['%@']: %@",
+			oldLocation, listExtensionsError.localizedDescription);
+
+		return nil;
+	}
+
+	return oldExtensions;
 }
 
 + (BOOL)_ageOfCurrentContainerIsRecent
@@ -446,6 +738,17 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	return age;
 }
 
++ (BOOL)_fileAtURLIsSymbolicLink:(NSURL *)url
+{
+	NSParameterAssert(url != nil);
+
+	/* Skip check if file exists because no resource value
+	 will be returned if that is the case. */
+	NSNumber *isSymblink = [url resourceValueForKey:NSURLIsSymbolicLinkKey];
+
+	return (isSymblink != nil && isSymblink.boolValue);
+}
+
 @end
 
 #pragma mark -
@@ -473,14 +776,18 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	return baseURL;
 }
 
-+ (nullable NSURL *)preferencesStandaloneClassicURL
++ (nullable NSURL *)extensionsStandaloneClassicURL
 {
-	NSURL *sourceURL = self.userHomeURL;
+	NSURL *sourceURL = self.gcStandaloneClassicURL;
 
-	return [sourceURL URLByAppendingPathComponent:@"/Library/Preferences/com.codeux.apps.textual.plist"];
+	if (sourceURL == nil) {
+		return nil;
+	}
+
+	return [sourceURL URLByAppendingPathComponent:@"/Library/Application Support/Textual/Extensions/"];
 }
 
-+ (nullable NSURL *)preferencesMacAppStoreURL
++ (nullable NSURL *)extensionsMacAppStoreURL
 {
 	NSURL *sourceURL = self.gcMacAppStoreURL;
 
@@ -488,7 +795,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		return nil;
 	}
 
-	return [sourceURL URLByAppendingPathComponent:@"/Library/Preferences/8482Q6EPL6.com.codeux.irc.textual.plist"];
+	return [sourceURL URLByAppendingPathComponent:@"/Library/Application Support/Textual/Extensions/"];
 }
 
 @end
