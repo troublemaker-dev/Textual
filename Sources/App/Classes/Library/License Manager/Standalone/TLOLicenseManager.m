@@ -482,12 +482,13 @@ void TLOLicenseManagerMigrateLicenseFiles(void)
 	NSURL *newLocation = [TPCPathInfo applicationSupportURL];
 
 	NSURL *oldTrialData = [[TPCPathInfo userHomeURL] URLByAppendingPathComponent:@"/Library/Application Support/Textual/Textual_Trial_Information_v2.plist"];
+	NSURL *newTrialData = [newLocation URLByAppendingPathComponent:@"Textual_Trial_Information_v2.plist"];
 
 	NSError *moveError = nil;
 
-#warning TODO: Change to move operation once stable.
-	if ([RZFileManager() fileExistsAtURL:oldTrialData]) {
-		if ([RZFileManager() copyItemAtURL:oldTrialData toURL:newLocation error:&moveError]) {
+	if ([RZFileManager() fileExistsAtURL:newTrialData] == NO &&
+		[RZFileManager() fileExistsAtURL:oldTrialData]) {
+		if ([RZFileManager() copyItemAtURL:oldTrialData toURL:newTrialData error:&moveError]) {
 			LogToConsoleInfo("Moved trial data file to new location");
 		} else {
 			LogToConsoleError("Moving trial data file to new location failed: %@", moveError.localizedDescription);
@@ -497,9 +498,11 @@ void TLOLicenseManagerMigrateLicenseFiles(void)
 	}
 
 	NSURL *oldLicenseData = [[TPCPathInfo userHomeURL] URLByAppendingPathComponent:@"/Library/Application Support/Textual/Textual_User_License_v2.plist"];
+	NSURL *newLicenseData = [newLocation URLByAppendingPathComponent:@"Textual_User_License_v2.plist"];
 
-	if ([RZFileManager() fileExistsAtURL:oldLicenseData]) {
-		if ([RZFileManager() copyItemAtURL:oldLicenseData toURL:newLocation error:&moveError]) {
+	if ([RZFileManager() fileExistsAtURL:newLicenseData] == NO &&
+		[RZFileManager() fileExistsAtURL:oldLicenseData]) {
+		if ([RZFileManager() copyItemAtURL:oldLicenseData toURL:newLicenseData error:&moveError]) {
 			LogToConsoleInfo("Moved license data file to new location");
 		} else {
 			LogToConsoleError("Moving license data file to new location failed: %@", moveError.localizedDescription);
