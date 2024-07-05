@@ -51,12 +51,6 @@ NSString * const TPCPreferencesUserDefaultsDidChangeNotification = @"TPCPreferen
 #pragma mark -
 #pragma mark Reading & Writing
 
-#if TEXTUAL_BUILDING_XPC_SERVICE == 1
-@interface NSUserDefaults ()
-- (void)setObject:(nullable id)value forKey:(NSString *)defaultName inDomain:(NSString *)domainName;
-@end
-#endif
-
 @implementation TPCPreferencesUserDefaults
 
 + (TPCPreferencesUserDefaults *)sharedUserDefaults
@@ -84,17 +78,9 @@ NSString * const TPCPreferencesUserDefaultsDidChangeNotification = @"TPCPreferen
 
 - (instancetype)_init
 {
-#if TEXTUAL_BUILT_INSIDE_SANDBOX == 0 || TEXTUAL_BUILDING_XPC_SERVICE == 1
-	TPCPreferencesUserDefaults *defaults = [super initWithSuiteName:nil];
-
-#if TEXTUAL_BUILDING_XPC_SERVICE == 1
-	[defaults addSuiteNamed:TXBundleBuildGroupContainerIdentifier];
-#endif
+	TPCPreferencesUserDefaults *defaults = [super initWithSuiteName:TXBundleBuildGroupContainerIdentifier];
 
 	return defaults;
-#else
-	return [super initWithSuiteName:TXBundleBuildGroupContainerIdentifier];
-#endif
 }
 
 #pragma clang diagnostic push
@@ -120,11 +106,7 @@ NSString * const TPCPreferencesUserDefaultsDidChangeNotification = @"TPCPreferen
 
 - (void)_setObject:(nullable id)value forKey:(NSString *)defaultName
 {
-#if TEXTUAL_BUILDING_XPC_SERVICE == 1
-	[super setObject:value forKey:defaultName inDomain:TXBundleBuildGroupContainerIdentifier];
-#else
 	[super setObject:value forKey:defaultName];
-#endif
 }
 
 - (void)setObject:(nullable id)value forKey:(NSString *)defaultName

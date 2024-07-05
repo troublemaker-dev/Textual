@@ -197,18 +197,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray<NSString *> *)defaultSpellingIgnores
 {
-	static NSArray<NSString *> *cachedValue = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		NSDictionary *staticValues =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
-
-		cachedValue = [staticValues arrayForKey:@"Spelling Ignores"];
-	});
-
-	return cachedValue;
+	return [TPCResourceManager arrayFromResources:@"StaticStore" key:@"Spelling Ignores"];
 }
 
 #pragma mark -

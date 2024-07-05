@@ -42,7 +42,6 @@
 #import "TPCApplicationInfoPrivate.h"
 #import "TPCPathInfoPrivate.h"
 #import "TPCPreferencesUserDefaultsLocal.h"
-#import "TPCPreferencesUserDefaultsMigratePrivate.h"
 #import "TPCResourceManager.h"
 #import "TPCThemeController.h"
 #import "TPCTheme.h"
@@ -1261,27 +1260,6 @@ static NSArray<NSString *> *_matchKeywords = nil;
 
 }
 
-+ (void)_migratePreferencesToVersion602
-{
-	/* This method removes keys that are obsolete. Obsolete keys include those
-	 that are no longer used by any feature, or keys that should only be stored
-	 temporarily. This method must be called before -registeredDefaults are 
-	 invoked, or we would could potentially fuck shit up really bad. */
-	NSNumber *dictionaryVersion = [RZUserDefaults() objectForKey:@"TPCPreferencesDictionaryVersion"];
-
-	if (dictionaryVersion.integerValue != 600) {
-		return;
-	}
-
-	NSDictionary *dictionaryContents = RZUserDefaults().dictionaryRepresentation;
-
-	[dictionaryContents enumerateKeysAndObjectsUsingBlock:^(NSString *key, id object, BOOL *stop) {
-		if ([TPCPreferencesUserDefaults keyIsObsolete:key]) {
-			[RZUserDefaults() removeObjectForKey:key];
-		}
-	}];
-}
-
 #pragma mark -
 #pragma mark Dynamic Defaults 
 
@@ -1370,12 +1348,12 @@ static NSArray<NSString *> *_matchKeywords = nil;
 + (void)registerDefaults
 {
 	NSDictionary *localDefaults =
-	[TPCResourceManager loadContentsOfPropertyListInResources:@"RegisteredUserDefaults"];
+	[TPCResourceManager dictionaryFromResources:@"RegisteredUserDefaults" inDirectory:@"Preferences" cacheValue:NO];
 
 	[[NSUserDefaults standardUserDefaults] registerDefaults:localDefaults];
 
 	NSDictionary *containerDefaults =
-	[TPCResourceManager loadContentsOfPropertyListInResources:@"RegisteredUserDefaultsInContainer"];
+	[TPCResourceManager dictionaryFromResources:@"RegisteredUserDefaultsInContainer" inDirectory:@"Preferences" cacheValue:NO];
 
 	[RZUserDefaults() registerDefaults:containerDefaults];
 
@@ -1387,14 +1365,6 @@ static NSArray<NSString *> *_matchKeywords = nil;
 	[TPCApplicationInfo incrementApplicationRunCount];
 
 	// ====================================================== //
-
-	[TPCPreferencesUserDefaults repairPreferences];
-
-#if TEXTUAL_BUILT_INSIDE_SANDBOX == 0
-	[TPCPreferencesUserDefaults migratePreferences];
-#endif
-
-	[self _migratePreferencesToVersion602];
 
 	[self registerDefaults];
 

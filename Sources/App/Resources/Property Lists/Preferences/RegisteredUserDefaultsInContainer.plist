@@ -186,6 +186,8 @@
 	<true/>
 	<key>NotificationType -&gt; Successful File Transfer (Sending) -&gt; Enabled</key>
 	<true/>
+	<key>PostNotificationsWhileInFocus</key>
+	<true/>
 	<key>PreferModernCiphers</key>
 	<false/>
 	<key>PreferModernSockets</key>
@@ -201,8 +203,6 @@
 	<key>OpenClickedLinksInBackgroundBrowser</key>
 	<false/>
 	<key>Optimizations -&gt; Load History Lazily</key>
-	<true/>
-	<key>PostNotificationsWhileInFocus</key>
 	<true/>
 	<key>ReceiveBetaUpdates</key>
 	<false/>

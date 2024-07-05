@@ -8,17 +8,47 @@ mkdir -p "${WORKING_PATH}"
 
 cd "${WORKING_PATH}"
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 xcodebuild -exportArchive \
 -exportOptionsPlist "${TEXTUAL_WORKSPACE_DIR}/Configurations/ExportArchiveConfiguration.plist" \
 -archivePath "${ARCHIVE_PATH}" \
 -exportPath "${WORKING_PATH}"
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Zip product and send to notary
+#
+# Format to add notary to keychain:
+#
+# xcrun notarytool store-credentials "Textual Notary"
+#	--apple-id "<e-mail address>"
+#	--team-id <team id>
+#	--password "<password>"
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+WORKING_ZIP_PATH="./${FULL_PRODUCT_NAME}.zip"
+
+zip -y -r -X "${WORKING_ZIP_PATH}" "./${FULL_PRODUCT_NAME}/"
+
+xcrun notarytool submit "${WORKING_ZIP_PATH}" \
+                   --keychain-profile "Textual Notary" \
+                   --wait \
+                   --verbose \
+                   --progress
+
+# Remove uploaded product
+rm "${WORKING_ZIP_PATH}"
+
+# Stable app
+xcrun stapler staple --verbose "./${FULL_PRODUCT_NAME}/" 
+
+# Create new zip with stapled app
+zip -y -r -X "${WORKING_ZIP_PATH}" "./${FULL_PRODUCT_NAME}/"
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 # Call `git` after `cd` into working path to make
-# sure we are in a directory of a git respository.
+# sure we are in a directory of a git repository.
 GIT_COMMIT_HASH=`git rev-parse --short HEAD`
 
 EXPORT_PATH="${HOME}/Desktop/Textual-${GIT_COMMIT_HASH}"
@@ -37,7 +67,7 @@ mkdir -p "${ARCHSPEC_PATH}"
 
 ZIP_EXPORT_PATH="${ARCHSPEC_PATH}/Textual.zip"
 
-zip -y -r -X "${ZIP_EXPORT_PATH}" "./${FULL_PRODUCT_NAME}/"
+mv "${WORKING_ZIP_PATH}" "${ZIP_EXPORT_PATH}"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 

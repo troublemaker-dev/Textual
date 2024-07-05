@@ -844,8 +844,7 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 
 	[RZFileManager() replaceItemAtURL:temporaryURL
 						withItemAtURL:originalURL
-					moveToDestination:NO
-			   moveDestinationToTrash:NO];
+							  options:CSFileManagerOptionsRemoveIfExists];
 }
 
 - (void)presentCompatibilityAlert
@@ -1050,17 +1049,8 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 {
 	NSParameterAssert(themeName != nil);
 
-	static NSDictionary<NSString *, NSString *> *cachedValues = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		NSDictionary *staticValues =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"StaticStore"];
-
-		cachedValues =
-		[staticValues dictionaryForKey:@"TPCThemeController Remapped Themes"];
-	});
+	NSDictionary *cachedValues =
+	[TPCResourceManager dictionaryFromResources:@"StaticStore" key:@"TPCThemeController Remapped Themes"];
 
 	return cachedValues[themeName];
 }
@@ -1240,8 +1230,8 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 
 	if ([RZFileManager() replaceItemAtURL:destinationURL
 							withItemAtURL:sourceURL
-						moveToDestination:NO
-				   moveDestinationToTrash:YES] == NO)
+								  options:(CSFileManagerOptionsMoveToTrash |
+										   CSFileManagerOptionsRemoveIfExists)] == NO)
 	{
 		[self cancelOperation];
 

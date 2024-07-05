@@ -44,23 +44,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)populateDefaultsPreflight
 {
+	if (self.initializedAsCopy) {
+		return;
+	}
+
 	self->_defaults = @{
-	  @"entryType" : @(IRCAddressBookEntryTypeIgnore),
-	  @"ignoreClientToClientProtocol" : @(NO),
-	  @"ignoreFileTransferRequests"	: @(NO),
-	  @"ignoreGeneralEventMessages"	: @(NO),
-	  @"ignoreInlineMedia" : @(NO),
-	  @"ignoreNoticeMessages" : @(NO),
-	  @"ignorePrivateMessageHighlights" : @(NO),
-	  @"ignorePrivateMessages" : @(NO),
-	  @"ignorePublicMessageHighlights" : @(NO),
-	  @"ignorePublicMessages" : @(NO),
-	  @"trackUserActivity" : @(NO)
+		@"entryType" : @(IRCAddressBookEntryTypeIgnore),
+		@"ignoreClientToClientProtocol" : @(NO),
+		@"ignoreFileTransferRequests"	: @(NO),
+		@"ignoreGeneralEventMessages"	: @(NO),
+		@"ignoreInlineMedia" : @(NO),
+		@"ignoreNoticeMessages" : @(NO),
+		@"ignorePrivateMessageHighlights" : @(NO),
+		@"ignorePrivateMessages" : @(NO),
+		@"ignorePublicMessageHighlights" : @(NO),
+		@"ignorePublicMessages" : @(NO),
+		@"trackUserActivity" : @(NO)
 	};
 }
 
 - (void)populateDefaultsPostflight
 {
+	if (self.initializedAsCopy) {
+		return;
+	}
+
 	SetVariableIfNil(self->_hostmask, @"")
 	SetVariableIfNil(self->_hostmaskRegularExpression, @"")
 
@@ -69,6 +77,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)initializedClassHealthCheck
 {
+	if (self.initializedAsCopy) {
+		return;
+	}
+
 	[self rebuildCache];
 }
 
@@ -125,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
 	[dic assignUnsignedIntegerTo:&self->_entryType forKey:@"entryType"];
 
 	IRCAddressBookEntryType entryType = self->_entryType;
-	
+
 	if (entryType == IRCAddressBookEntryTypeIgnore ||
 		entryType == IRCAddressBookEntryTypeMixed)
 	{
@@ -149,7 +161,7 @@ NS_ASSUME_NONNULL_BEGIN
 		[dic assignBoolTo:&self->_ignorePublicMessageHighlights forKey:@"ignoreHighlights"];
 		[dic assignBoolTo:&self->_ignorePublicMessages forKey:@"ignorePublicMsg"];
 	}
-	
+
 	if (entryType == IRCAddressBookEntryTypeUserTracking ||
 		entryType == IRCAddressBookEntryTypeMixed)
 	{
@@ -243,7 +255,7 @@ NS_ASSUME_NONNULL_BEGIN
 		[dic setBool:self.ignorePublicMessageHighlights forKey:@"ignorePublicMessageHighlights"];
 		[dic setBool:self.ignorePublicMessages forKey:@"ignorePublicMessages"];
 	}
-	
+
 	if (entryType == IRCAddressBookEntryTypeUserTracking ||
 		entryType == IRCAddressBookEntryTypeMixed)
 	{
@@ -255,13 +267,22 @@ NS_ASSUME_NONNULL_BEGIN
 	return [dic dictionaryByRemovingDefaults:self->_defaults];
 }
 
-- (id)uniqueCopyAsMutable:(BOOL)mutableCopy
+- (id)copyAsMutable:(BOOL)mutableCopy uniquing:(BOOL)uniquing
 {
-	IRCAddressBookEntry *object = [super uniqueCopyAsMutable:mutableCopy];
+	IRCAddressBookEntry *config = [self allocForCopyAsMutable:mutableCopy];
 
-	object->_uniqueIdentifier = [NSString stringWithUUID];
+	config->_defaults = self->_defaults;
 
-	return object;
+	config->_hostmaskRegularExpression = self->_hostmaskRegularExpression;
+	config->_trackingNickname = self->_trackingNickname;
+
+	config->_parentEntries = self->_parentEntries;
+
+	if (uniquing) {
+		config->_uniqueIdentifier = [NSString stringWithUUID];
+	}
+
+	return [config initWithDictionary:self.dictionaryValueForCopy];
 }
 
 - (__kindof XRPortablePropertyDict *)mutableClass

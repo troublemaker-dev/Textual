@@ -4,13 +4,7 @@
 <dict>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
-	<key>com.apple.security.cs.disable-library-validation</key>
-	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
-	<key>com.apple.security.temporary-exception.shared-preference.read-write</key>
-	<array>
-		<string>com.codeux.apps.textual</string>
-	</array>
 </dict>
 </plist>

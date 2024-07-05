@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	NSMutableArray<IRCNetwork *> *listOfNetworks = [NSMutableArray array];
 
-	NSDictionary *networkList = [TPCResourceManager loadContentsOfPropertyListInResources:@"IRCNetworks"];
+	NSDictionary *networkList = [TPCResourceManager dictionaryFromResources:@"IRCNetworks" cacheValue:NO];
 
 	NSArray *networkNamesUnsorted = networkList.allKeys;
 

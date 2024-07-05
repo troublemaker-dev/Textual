@@ -860,17 +860,8 @@ typedef NS_OPTIONS(NSUInteger, _TPCThemeMonitoringResult) {
 #pragma mark Templates
 
 + (NSDictionary<NSString *, NSString *> *)_templateLineTypes
-{
-	static NSDictionary<NSString *, NSString *> *cachedValue = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		cachedValue =
-		[TPCResourceManager loadContentsOfPropertyListInResources:@"TemplateLineTypes"];
-	});
-
-	return cachedValue;
+{	
+	return [TPCResourceManager dictionaryFromResources:@"TemplateLineTypes"];
 }
 
 - (NSURL *)_applicationTemplateRepositoryURL
