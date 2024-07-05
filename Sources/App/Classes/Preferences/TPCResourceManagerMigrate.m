@@ -583,7 +583,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		{
 #ifdef DEBUG
 			LogToConsoleDebug("Ignoring non-bundle: '%@' - isPackage: %@", name,
-				StringFromBOOL(isPackage));
+				StringFromBOOL(isPackage.boolValue));
 #endif
 
 			continue;
@@ -597,7 +597,7 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		 created is near zero if not zero. This is already over engineered. */
 		BOOL pruned = NO;
 
-		if ([self _fileAtURLIsSymbolicLink:newLocation] == NO) {
+		if ([self _fileAtURLIsSymbolicLink:newExtension] == NO) {
 			NSError *deleteError = nil;
 
 			pruned = [RZFileManager() removeItemAtURL:oldExtension error:&deleteError];
