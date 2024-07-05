@@ -229,11 +229,6 @@ NSString * const TPCPreferencesUserDefaultsDidChangeNotification = @"TPCPreferen
 	return [self volatileDomainForName:NSRegistrationDomain];
 }
 
-- (void)_migrateObject:(nullable id)value forKey:(NSString *)defaultName
-{
-	[self _setObject:value forKey:defaultName];
-}
-
 @end
 
 NS_ASSUME_NONNULL_END

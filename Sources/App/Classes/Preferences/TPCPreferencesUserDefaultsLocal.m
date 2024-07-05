@@ -49,6 +49,10 @@ typedef NS_ENUM(NSUInteger, TPCPreferencesComparator) {
 	TPCPreferencesComparatorAnchorBack		= 2
 };
 
+@interface TPCPreferencesUserDefaults ()
+- (void)_setObject:(nullable id)value forKey:(NSString *)defaultName;
+@end
+
 @implementation TPCPreferencesUserDefaults (TPCPreferencesUserDefaultsLocal)
 
 + (BOOL)key:(NSString *)defaultName1 matchesKey:(NSString *)defaultName2 usingComparator:(TPCPreferencesComparator)comparator
@@ -137,6 +141,37 @@ typedef NS_ENUM(NSUInteger, TPCPreferencesComparator) {
 	}];
 
 	return returnValue;
+}
+
++ (BOOL)keyIsExcludedFromContainer:(NSString *)defaultName
+{
+	NSParameterAssert(defaultName != nil);
+
+	NSDictionary<NSString *, NSNumber *> *cachedValues =
+	[TPCResourceManager dictionaryFromResources:@"KeysExcludedFromContainer" inDirectory:@"Preferences"];
+
+	__block BOOL returnValue = NO;
+
+	[cachedValues enumerateKeysAndObjectsUsingBlock:^(NSString *cachedKey, NSNumber *cachedObject, BOOL *stop) {
+		if ([self key:defaultName matchesKey:cachedKey usingComparator:cachedObject.unsignedIntegerValue]) {
+			*stop = YES;
+
+			returnValue = YES;
+		}
+	}];
+
+	return returnValue;
+}
+
+- (void)_migrateObject:(nullable id)value forKey:(NSString *)defaultName
+{
+	if ([TPCPreferencesUserDefaults keyIsExcludedFromContainer:defaultName]) {
+		[[NSUserDefaults standardUserDefaults] setObject:value forKey:defaultName];
+
+		return;
+	}
+
+	[self _setObject:value forKey:defaultName];
 }
 
 @end
