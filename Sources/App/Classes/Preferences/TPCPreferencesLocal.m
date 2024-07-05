@@ -42,7 +42,6 @@
 #import "TPCApplicationInfoPrivate.h"
 #import "TPCPathInfoPrivate.h"
 #import "TPCPreferencesUserDefaultsLocal.h"
-#import "TPCPreferencesUserDefaultsMigratePrivate.h"
 #import "TPCResourceManager.h"
 #import "TPCThemeController.h"
 #import "TPCTheme.h"
@@ -1387,12 +1386,6 @@ static NSArray<NSString *> *_matchKeywords = nil;
 	[TPCApplicationInfo incrementApplicationRunCount];
 
 	// ====================================================== //
-
-	[TPCPreferencesUserDefaults repairPreferences];
-
-#if TEXTUAL_BUILT_INSIDE_SANDBOX == 0
-	[TPCPreferencesUserDefaults migratePreferences];
-#endif
 
 	[self _migratePreferencesToVersion602];
 
