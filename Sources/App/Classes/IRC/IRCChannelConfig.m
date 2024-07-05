@@ -48,7 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Defaults
 
 - (void)populateDefaultsPreflight
-{
+{	
+	if (self.initializedAsCopy) {
+		return;
+	}
+
 	self->_defaults = @{
 	  @"autoJoin" : @(YES),
 	  @"channelType" : @(IRCChannelTypeChannel),
@@ -62,7 +66,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)populateDefaultsPostflight
-{
+{	
+	if (self.initializedAsCopy) {
+		return;
+	}
+
 	SetVariableIfNil(self->_channelName, @"")
 
 	SetVariableIfNil(self->_uniqueIdentifier, [NSString stringWithUUID])
@@ -98,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)initializedClassHealthCheck
 {
-	if (self.mutable) {
+	if (self.mutable || self.initializedAsCopy) {
 		return;
 	}
 
@@ -266,7 +274,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)copyAsMutable:(BOOL)mutableCopy uniquing:(BOOL)uniquing
 {
-	IRCChannelConfig *config = [super copyAsMutable:mutableCopy uniquing:uniquing];
+	IRCChannelConfig *config = [self allocForCopyAsMutable:mutableCopy];
 
 	config->_defaults = self->_defaults;
 
@@ -276,7 +284,7 @@ NS_ASSUME_NONNULL_BEGIN
 		config->_uniqueIdentifier = [NSString stringWithUUID];
 	}
 
-	return config;
+	return [config initWithDictionary:self.dictionaryValueForCopy];
 }
 
 - (__kindof XRPortablePropertyDict *)mutableClass

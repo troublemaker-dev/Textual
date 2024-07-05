@@ -46,6 +46,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)populateDefaultsPreflight
 {
+	if (self.initializedAsCopy) {
+		return;
+	}
+
 	self->_defaults = @{
 		@"filterEvents"					: @(TPI_ChatFilterEventTypePlainTextMessage |
 											TPI_ChatFilterEventTypeActionMessage),
@@ -62,6 +66,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)populateDefaultsPostflight
 {
+	if (self.initializedAsCopy) {
+		return;
+	}
+
 	SetVariableIfNil(self->_filterLimitedToChannelsIDs, @[])
 	SetVariableIfNil(self->_filterLimitedToClientsIDs, @[])
 	SetVariableIfNil(self->_filterEventsNumerics, @[])
@@ -207,6 +215,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isEventTypeEnabled:(TPI_ChatFilterEventType)eventType
 {
 	return ((self->_filterEvents & eventType) == eventType);
+}
+
+- (id)copyAsMutable:(BOOL)mutableCopy uniquing:(BOOL)uniquing
+{
+	TPI_ChatFilter *config = [self allocForCopyAsMutable:mutableCopy];
+
+	config->_defaults = self->_defaults;
+
+	config->_cachedIsCommandEnabledResponses = self->_cachedIsCommandEnabledResponses;
+
+	return [config initWithDictionary:self.dictionaryValueForCopy];
 }
 
 - (BOOL)isCommandEnabled:(NSString *)command

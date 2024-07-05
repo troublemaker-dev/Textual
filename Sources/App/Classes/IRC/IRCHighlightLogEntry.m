@@ -136,7 +136,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)initializedClassHealthCheck
 {
-	if (self.mutable) {
+	if (self.mutable || self.initializedAsCopy) {
 		return;
 	}
 

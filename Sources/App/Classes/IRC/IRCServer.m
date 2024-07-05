@@ -51,6 +51,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)initializedClassHealthCheck
 {
+	if (self.initializedAsCopy) {
+		return;
+	}
+
 	/* Health checks are disabled because Server Properties might
 	write an empty server address to the class then perform a
 	copy on the object which would throw an exception. */
@@ -68,6 +72,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)populateDefaultsPreflight
 {
+	if (self.initializedAsCopy) {
+		return;
+	}
+
 	self->_defaults = @{
 		@"serverPort" : @(IRCConnectionDefaultServerPort)
 	};
@@ -75,6 +83,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)populateDefaultsPostflight
 {
+	if (self.initializedAsCopy) {
+		return;
+	}
+
 	SetVariableIfNil(self->_serverAddress, @"")
 
 	SetVariableIfNil(self->_uniqueIdentifier, [NSString stringWithUUID])
@@ -110,13 +122,19 @@ NS_ASSUME_NONNULL_BEGIN
 	return [dic copy];
 }
 
-- (id)uniqueCopyAsMutable:(BOOL)mutableCopy
+- (id)copyAsMutable:(BOOL)mutableCopy uniquing:(BOOL)uniquing
 {
-	IRCServer *object = [super uniqueCopyAsMutable:mutableCopy];
+	IRCServer *config = [self allocForCopyAsMutable:mutableCopy];
 
-	object->_uniqueIdentifier = [NSString stringWithUUID];
+	config->_defaults = self->_defaults;
 
-	return object;
+	config->_serverPassword = self->_serverPassword;
+
+	if (uniquing) {
+		config->_uniqueIdentifier = [NSString stringWithUUID];
+	}
+
+	return [config initWithDictionary:self.dictionaryValueForCopy];
 }
 
 - (__kindof XRPortablePropertyDict *)mutableClass

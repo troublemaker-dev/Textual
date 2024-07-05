@@ -217,6 +217,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)initializedClassHealthCheck
 {
+	if (self.initializedAsCopy) {
+		return;
+	}
+
 	if (self->_proxyPort == 0) {
 		self->_proxyPort = IRCConnectionDefaultProxyPort;
 	}
@@ -630,12 +634,14 @@ TEXTUAL_IGNORE_DEPRECATION_END
 
 - (id)copyAsMutable:(BOOL)mutableCopy uniquing:(BOOL)uniquing
 {
-	IRCClientConfig *config = [super allocForCopyAsMutable:mutableCopy];
+	IRCClientConfig *config = [self allocForCopyAsMutable:mutableCopy];
 
 	config->_nicknamePassword = self->_nicknamePassword;
 	config->_proxyPassword = self->_proxyPassword;
 
 	config->_defaults = self->_defaults;
+
+	config->_migratedServerPasswordPendingDestroy = self->_migratedServerPasswordPendingDestroy;
 
 	if (uniquing) {
 		NSMutableArray *channelList = [self.channelList mutableCopy];
