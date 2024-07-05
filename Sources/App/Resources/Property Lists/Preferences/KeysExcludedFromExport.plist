@@ -62,5 +62,7 @@
 	<integer>0</integer>
 	<key>TPCResourceManagerMigrate -&gt; All Extensions Pruned</key>
 	<integer>0</integer>
+	<key>TPCResourceManagerMigrate -&gt; Imported Keys</key>
+	<integer>0</integer>
 </dict>
 </plist>

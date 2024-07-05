@@ -111,6 +111,9 @@ NS_ASSUME_NONNULL_BEGIN
  which means we can bypass all the directory scans. */
 #define MigrationAllExtensionsPrunedDefaultsKey			@"TPCResourceManagerMigrate -> All Extensions Pruned"
 
+/* An array of preference keys migrated */
+#define MigrationKeysImportedDefaultsKey				@"TPCResourceManagerMigrate -> Imported Keys"
+
 /* Result returned when performing migration of a specific installation. */
 typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationResult)
 {
@@ -220,7 +223,8 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	/* Bundle identifier did not change during non-sandbox -> sandbox transition
 	 which means we create a new blank defaults object because sending the bundle
 	 identifier for the current app to -initWithSuiteName: is not allowed. */
-	NSUserDefaults *standaloneDefaults = [[NSUserDefaults alloc] initWithSuiteName:nil];
+	NSUserDefaults *standaloneDefaults =
+	[[NSUserDefaults alloc] initWithSuiteName:[self _defaultsSuiteNameForStandaloneClassic]];
 
 	if (standaloneDefaults == nil) {
 		LogToConsoleFault("NSUserDefaults object could not be created for standalone domain. "
@@ -240,7 +244,12 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		return TPCResourceManagerMigrationResultNotSuitable;
 	}
 
-	[self _importPreferences:preferences];
+	/* Import preferences */
+	/* Import preferences before migrating group container that way if a
+	 hard failure is encountered there, it wont undo the progress we made.
+	 The user will want something rather than nothing. Especially when it
+	 comes to their configuration. Custom content can be copied manually. */
+	NSArray *importedKeys = [self _importPreferences:preferences];
 
 	/* Migrate group container */
 	BOOL migrateContainer = [self _migrateGroupContainerContentsForStandaloneClassic];
@@ -248,6 +257,9 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	if (migrateContainer == NO) {
 		return TPCResourceManagerMigrationResultError;
 	}
+
+	/* Finish */
+	[self _setListOfImportedKeys:importedKeys];
 
 	[self _notifyGroupContainerMigratedForStandaloneClassic];
 
@@ -263,16 +275,17 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		return TPCResourceManagerMigrationResultNotSuitable;
 	}
 
-	NSUserDefaults *standaloneDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"8482Q6EPL6.com.codeux.irc.textual"];
+	NSUserDefaults *appStoreDefaults = 
+	[[NSUserDefaults alloc] initWithSuiteName:[self _defaultsSuiteNameForMacAppStore]];
 
-	if (standaloneDefaults == nil) {
-		LogToConsoleInfo("NSUserDefaults object could not be created for Mac App Store domain.");
+	if (appStoreDefaults == nil) {
+		LogToConsoleInfo("NSUserDefaults object could not be created for Mac App Store domain");
 
 		return TPCResourceManagerMigrationResultNotSuitable;
 	}
 
 	/* Import preference keys */
-	NSDictionary *preferences = standaloneDefaults.dictionaryRepresentation;
+	NSDictionary *preferences = appStoreDefaults.dictionaryRepresentation;
 
 	NSUInteger runCount = [preferences unsignedIntegerForKey:@"TXRunCount"];
 
@@ -282,7 +295,8 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		return TPCResourceManagerMigrationResultNotSuitable;
 	}
 
-	[self _importPreferences:preferences];
+	/* Import preferences */
+	NSArray *importedKeys = [self _importPreferences:preferences];
 
 	/* Migrate group container */
 	BOOL migrateContainer = [self _migrateGroupContainerContentsForMacAppStore];
@@ -291,18 +305,23 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		return TPCResourceManagerMigrationResultError;
 	}
 
+	/* Finish */
+	[self _setListOfImportedKeys:importedKeys];
+
 	[self _notifyGroupContainerMigratedForMacAppStore];
 
 	return TPCResourceManagerMigrationResultSuccess;
 }
 
-+ (void)_importPreferences:(NSDictionary<NSString *, id> *)dict
++ (NSArray<NSString *> *)_importPreferences:(NSDictionary<NSString *, id> *)dict
 {
 	NSParameterAssert(dict != nil);
 
 	LogToConsoleInfo("Start: Migrating preferences");
 
-	[dict enumerateKeysAndObjectsUsingBlock:^(NSString * key, id object, BOOL *stop) {
+	NSMutableArray *importedKeys = [NSMutableArray arrayWithCapacity:dict.count];
+
+	[dict enumerateKeysAndObjectsUsingBlock:^(NSString *key, id object, BOOL *stop) {
 		if ([TPCPreferencesUserDefaults keyIsExcludedFromMigration:key]) {
 #ifdef DEBUG
 			LogToConsoleDebug("Key is excluded from migration: '%@'", key);
@@ -311,10 +330,72 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 			return;
 		}
 
+		[importedKeys addObject:key];
+
 		[RZUserDefaults() _migrateObject:object forKey:key];
 	}];
 
 	LogToConsoleInfo("End: Migrating preferences");
+
+	return [importedKeys copy];
+}
+
++ (void)_removeImportedKeysForInstallation:(TPCResourceManagerMigrationInstallation)installation
+{
+	LogToConsoleInfo("Start: Remove old preferences");
+
+	NSArray *listOfKeys = [RZUserDefaults() arrayForKey:MigrationKeysImportedDefaultsKey];
+
+	if (listOfKeys == nil) {
+		LogToConsoleInfo("No preferences to remove");
+
+		return;
+	}
+
+	NSUserDefaults *defaults = 
+	[[NSUserDefaults alloc] initWithSuiteName:[self _defaultsSuiteNameForInstallation:installation]];
+
+	if (defaults == nil) {
+		LogToConsoleInfo("NSUserDefaults object could not be created for [%@] installation",
+			[self _descriptionOfInstallation:installation]);
+
+		return;
+	}
+
+	for (id key in listOfKeys) {
+		/* This data could have been manipulated from the outside. */
+		if ([key isKindOfClass:[NSString class]] == NO) {
+			LogToConsoleFault("Corrupted data found inside list of keys");
+
+			continue;
+		}
+
+		[defaults removeObjectForKey:key];
+	}
+
+	[self _unsetListOfImportedKeys];
+
+	LogToConsoleInfo("End: Remove old preferences - Removed: %lu", listOfKeys.count);
+}
+
++ (void)_removeImportedKeysForStandaloneClassic
+{
+	[self _removeImportedKeysForInstallation:TPCResourceManagerMigrationInstallationStandaloneClassic];
+}
+
++ (void)_removeImportedKeysForMacAppStore
+{
+	[self _removeImportedKeysForInstallation:TPCResourceManagerMigrationInstallationMacAppStore];
+}
+
++ (void)_setListOfImportedKeys:(nullable NSArray<NSString *> *)list
+{
+	[RZUserDefaults() _migrateObject:list forKey:MigrationKeysImportedDefaultsKey];
+}
+
++ (void)_unsetListOfImportedKeys
+{
+	[self _setListOfImportedKeys:nil];
 }
 
 + (void)_setMigrationComplete
@@ -415,7 +496,10 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 		if (suppressed) {
 			[self _setUserPrefersPruningFiles];
 
+			[self _removeImportedKeysForInstallation:installation];
 			[self _removeGroupContainerContentsForInstallation:installation];
+		} else {
+			[self _unsetListOfImportedKeys];
 		}
 	}];
 
@@ -738,6 +822,25 @@ typedef NS_ENUM(NSUInteger, TPCResourceManagerMigrationInstallation)
 	}
 
 	return gcLocation;
+}
+
++ (nullable NSString *)_defaultsSuiteNameForInstallation:(TPCResourceManagerMigrationInstallation)installation
+{
+	if (installation == TPCResourceManagerMigrationInstallationMacAppStore) {
+		return @"8482Q6EPL6.com.codeux.irc.textual";
+	}
+
+	return nil;
+}
+
++ (nullable NSString *)_defaultsSuiteNameForStandaloneClassic
+{
+	return [self _defaultsSuiteNameForInstallation:TPCResourceManagerMigrationInstallationStandaloneClassic];
+}
+
++ (nullable NSString *)_defaultsSuiteNameForMacAppStore
+{
+	return [self _defaultsSuiteNameForInstallation:TPCResourceManagerMigrationInstallationMacAppStore];
 }
 
 + (nullable NSArray<NSURL *> *)_listOfExtensionsForInstallation:(TPCResourceManagerMigrationInstallation)installation

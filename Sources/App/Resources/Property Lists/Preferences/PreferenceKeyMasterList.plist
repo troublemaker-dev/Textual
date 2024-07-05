@@ -348,6 +348,8 @@
 	<integer>0</integer>
 	<key>TPCResourceManagerMigrate -&gt; All Extensions Pruned</key>
 	<integer>0</integer>
+	<key>TPCResourceManagerMigrate -&gt; Imported Keys</key>
+	<integer>0</integer>
 	<key>THOPluginManager -&gt; Extras Installer Last Check for Update Payload</key>
 	<integer>0</integer>
 	<key>TVCLogControllerHistoricLogFileSavePath_v3</key>
