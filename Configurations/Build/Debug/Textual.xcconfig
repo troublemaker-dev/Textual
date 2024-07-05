@@ -3,7 +3,7 @@
 #include "Enabled Features.xcconfig"
 
 TEXTUAL_BUNDLE_IDENTIFIER = com.codeux.apps.textual
-TEXTUAL_GROUP_CONTAINER_IDENTIFIER = com.codeux.apps.textual
+TEXTUAL_GROUP_CONTAINER_IDENTIFIER = com.codeux.apps.textual-common
 TEXTUAL_BUILD_SCHEME_TOKEN = debug
 
 TEXTUAL_EXTENSION_BUILD_SCHEME = Debug

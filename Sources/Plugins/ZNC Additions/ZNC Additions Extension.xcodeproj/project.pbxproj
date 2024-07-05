@@ -22,9 +22,6 @@
 		4C1D103D20EBF29F00E72D80 /* Textual Extensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Textual Extensions.xcconfig"; sourceTree = "<group>"; };
 		4C1D103F20EBF29F00E72D80 /* Foundation.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Foundation.xcconfig; sourceTree = "<group>"; };
 		4C1D104220EBF29F00E72D80 /* Foundation Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Foundation Debug.xcconfig"; sourceTree = "<group>"; };
-		4C1D104720EBF29F00E72D80 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
-		4C1D104820EBF29F00E72D80 /* Textual Extensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Textual Extensions.xcconfig"; sourceTree = "<group>"; };
-		4C1D104C20EBF29F00E72D80 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
 		4C1D105020EBF29F00E72D80 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4C1D105120EBF29F00E72D80 /* Textual Extensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Textual Extensions.xcconfig"; sourceTree = "<group>"; };
 		4C1D105520EBF29F00E72D80 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
@@ -94,7 +91,6 @@
 				4C1D103820EBF29F00E72D80 /* Common */,
 				4C1D104D20EBF29F00E72D80 /* Debug */,
 				4C1D102520EBF29F00E72D80 /* Standard Release */,
-				4C1D104420EBF29F00E72D80 /* Standard Release Sandboxed */,
 			);
 			path = Build;
 			sourceTree = "<group>";
@@ -119,16 +115,6 @@
 				4C1D103B20EBF29F00E72D80 /* Textual.xcconfig */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		4C1D104420EBF29F00E72D80 /* Standard Release Sandboxed */ = {
-			isa = PBXGroup;
-			children = (
-				4C1D104C20EBF29F00E72D80 /* Enabled Features.xcconfig */,
-				4C1D104820EBF29F00E72D80 /* Textual Extensions.xcconfig */,
-				4C1D104720EBF29F00E72D80 /* Textual.xcconfig */,
-			);
-			path = "Standard Release Sandboxed";
 			sourceTree = "<group>";
 		};
 		4C1D104D20EBF29F00E72D80 /* Debug */ = {

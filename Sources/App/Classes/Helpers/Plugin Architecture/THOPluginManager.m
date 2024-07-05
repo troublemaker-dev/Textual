@@ -599,11 +599,7 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 
 - (void)extrasInstallerLaunchInstaller
 {
-#if TEXTUAL_BUILT_INSIDE_SANDBOX == 1
-	NSURL *extrasURL = [RZMainBundle() URLForResource:@"Textual-Extras-MAS" withExtension:@"pkg"];
-#else
 	NSURL *extrasURL = [RZMainBundle() URLForResource:@"Textual-Extras" withExtension:@"pkg"];
-#endif
 
 	NSURL *installerURL =
 	[RZWorkspace() URLForApplicationWithBundleIdentifier:@"com.apple.installer"];

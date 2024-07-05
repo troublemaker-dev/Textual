@@ -154,14 +154,6 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	NSURL *baseURL = [RZFileManager() containerURLForSecurityApplicationGroupIdentifier:TXBundleBuildGroupContainerIdentifier];
 
-	if (baseURL == nil) {
-		return nil;
-	}
-
-#if TEXTUAL_BUILT_INSIDE_SANDBOX == 0
-	[self _createDirectoryAtURL:baseURL];
-#endif
-
 	return baseURL;
 }
 

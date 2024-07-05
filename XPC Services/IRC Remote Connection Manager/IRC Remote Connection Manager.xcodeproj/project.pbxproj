@@ -83,9 +83,6 @@
 		4CE1441020EBF5DB000E01C9 /* Foundation.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Foundation.xcconfig; sourceTree = "<group>"; };
 		4CE1441120EBF5DB000E01C9 /* XPC Services.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "XPC Services.xcconfig"; sourceTree = "<group>"; };
 		4CE1441320EBF5DB000E01C9 /* Foundation Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Foundation Debug.xcconfig"; sourceTree = "<group>"; };
-		4CE1441820EBF5DB000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
-		4CE1441B20EBF5DB000E01C9 /* XPC Services.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "XPC Services.xcconfig"; sourceTree = "<group>"; };
-		4CE1441D20EBF5DB000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
 		4CE1442120EBF5DB000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE1442420EBF5DB000E01C9 /* XPC Services.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "XPC Services.xcconfig"; sourceTree = "<group>"; };
 		4CE1442620EBF5DB000E01C9 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
@@ -383,7 +380,6 @@
 				4CE1440920EBF5DB000E01C9 /* Common */,
 				4CE1441E20EBF5DB000E01C9 /* Debug */,
 				4CE143F620EBF5DB000E01C9 /* Standard Release */,
-				4CE1441520EBF5DB000E01C9 /* Standard Release Sandboxed */,
 			);
 			path = Build;
 			sourceTree = "<group>";
@@ -408,16 +404,6 @@
 				4CE1441120EBF5DB000E01C9 /* XPC Services.xcconfig */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		4CE1441520EBF5DB000E01C9 /* Standard Release Sandboxed */ = {
-			isa = PBXGroup;
-			children = (
-				4CE1441D20EBF5DB000E01C9 /* Enabled Features.xcconfig */,
-				4CE1441820EBF5DB000E01C9 /* Textual.xcconfig */,
-				4CE1441B20EBF5DB000E01C9 /* XPC Services.xcconfig */,
-			);
-			path = "Standard Release Sandboxed";
 			sourceTree = "<group>";
 		};
 		4CE1441E20EBF5DB000E01C9 /* Debug */ = {
