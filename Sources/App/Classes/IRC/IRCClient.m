@@ -12348,7 +12348,14 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 		return;
 	}
 
-	NSString *section1 = textMutable.tokenInsideQuotes;
+	NSString *section1 = nil;
+
+	if ([textMutable hasPrefix:@"\""]) {
+		section1 = textMutable.tokenInsideQuotes;
+	} else {
+		section1 = textMutable.token;
+	}
+
 	NSString *section2 = textMutable.token;
 	NSString *section3 = textMutable.token;
 	NSString *section4 = textMutable.token;
