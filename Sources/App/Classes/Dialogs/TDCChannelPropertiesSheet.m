@@ -95,6 +95,23 @@ typedef NS_ENUM(NSUInteger, TDCChannelPropertiesSheetSelection)
 
 @implementation TDCChannelPropertiesSheet
 
+DESIGNATED_INITIALIZER_EXCEPTION_BODY_BEGIN
+- (instancetype)initWithWindow:(nullable NSWindow *)window
+{
+	if ((self = [super initWithWindow:window])) {
+		self.config = [IRCChannelConfigMutable new];
+
+		[self prepareInitialState];
+
+		[self loadConfig];
+
+		return self;
+	}
+
+	return nil;
+}
+DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
+
 - (instancetype)initWithClient:(IRCClient *)client
 {
 	return [self initWithConfig:nil onClient:client];
