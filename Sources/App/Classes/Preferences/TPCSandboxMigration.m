@@ -263,7 +263,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	NSUInteger runCount = [preferences unsignedIntegerForKey:@"TXRunCount"];
 
 	if (runCount == 0) {
-		LogToConsoleError("Migration of [%@]] has zero run count",
+		LogToConsoleError("Migration of [%@] has zero run count",
 			[self _descriptionOfInstallation:installation]);
 
 		return TPCMigrateSandboxResultNotSuitable;
