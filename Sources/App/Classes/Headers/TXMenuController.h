@@ -465,7 +465,6 @@ enum
 - (IBAction)showChannelModifyTopicSheet:(id)sender;
 - (IBAction)showChannelPropertiesSheet:(id)sender;
 - (IBAction)showChannelSpotlightWindow:(id)sender;
-- (IBAction)showCommunityMovedWindow:(id)sender;
 - (IBAction)showFileTransfersWindow:(id)sender;
 - (IBAction)showFindPrompt:(id)sender;
 - (IBAction)showHiddenPreferences:(id)sender;

@@ -264,8 +264,6 @@
 	<integer>0</integer>
 	<key>System Profiler Extension -&gt; Feature Disabled -&gt; System Uptime</key>
 	<integer>0</integer>
-	<key>TDCCommunityMovedDialogAppeared</key>
-	<integer>0</integer>
 	<key>Tab Completion -&gt; Completion Suffix Cut Forward Until Space</key>
 	<integer>0</integer>
 	<key>Tab Completion -&gt; Do Not Use Whitespace for Missing Completion Suffix</key>
