@@ -113,6 +113,17 @@ NS_ASSUME_NONNULL_BEGIN
 						  commandString:(NSString *)commandString
 						  messageString:(NSString *)messageString
 {
+	XRPerformBlockAsynchronouslyOnMainQueue(^{
+		[self _userInputCommandInvokedOnClient:client
+								 commandString:commandString
+								 messageString:messageString];
+	});
+}
+
+- (void)_userInputCommandInvokedOnClient:(IRCClient *)client
+						   commandString:(NSString *)commandString
+						   messageString:(NSString *)messageString
+{
 	IRCChannel *channel = mainWindow().selectedChannel;
 
 	if (channel == nil) {
