@@ -3,7 +3,7 @@
 #include "Enabled Features.xcconfig"
 
 TEXTUAL_BUNDLE_IDENTIFIER = com.codeux.apps.textual
-TEXTUAL_GROUP_CONTAINER_IDENTIFIER = com.codeux.apps.textual.group
+TEXTUAL_GROUP_CONTAINER_IDENTIFIER = 8482Q6EPL6.com.codeux.apps.textual
 TEXTUAL_BUILD_SCHEME_TOKEN = devid
 
 TEXTUAL_EXTENSION_BUILD_SCHEME = Release

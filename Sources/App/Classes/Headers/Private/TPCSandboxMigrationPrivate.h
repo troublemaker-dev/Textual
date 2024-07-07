@@ -39,7 +39,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TPCResourceManager (TPCResourceManagerMigrate)
+@interface TPCSandboxMigration : NSObject
 + (void)migrateResources;
 @end
 

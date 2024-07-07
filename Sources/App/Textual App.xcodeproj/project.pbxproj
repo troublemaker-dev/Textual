@@ -1210,10 +1210,10 @@
 		4C7D616C267DF466006AA911 /* TDCCommunityMovedDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7D6169267DF466006AA911 /* TDCCommunityMovedDialog.xib */; };
 		4C7D616D267DF466006AA911 /* TDCCommunityMovedDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7D6169267DF466006AA911 /* TDCCommunityMovedDialog.xib */; };
 		4C83B9121BA9BED500BD7718 /* Chat Filters.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C83B9101BA9BEB800BD7718 /* Chat Filters.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		4C8878042C33706E0016DB98 /* TPCResourceManagerMigrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8878032C33706E0016DB98 /* TPCResourceManagerMigrate.m */; };
-		4C8878052C33706E0016DB98 /* TPCResourceManagerMigrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8878032C33706E0016DB98 /* TPCResourceManagerMigrate.m */; };
-		4C8878072C3371470016DB98 /* TPCResourceManagerMigratePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8878062C3371470016DB98 /* TPCResourceManagerMigratePrivate.h */; };
-		4C8878082C3371470016DB98 /* TPCResourceManagerMigratePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8878062C3371470016DB98 /* TPCResourceManagerMigratePrivate.h */; };
+		4C8878042C33706E0016DB98 /* TPCSandboxMigration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8878032C33706E0016DB98 /* TPCSandboxMigration.m */; };
+		4C8878052C33706E0016DB98 /* TPCSandboxMigration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8878032C33706E0016DB98 /* TPCSandboxMigration.m */; };
+		4C8878072C3371470016DB98 /* TPCSandboxMigrationPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8878062C3371470016DB98 /* TPCSandboxMigrationPrivate.h */; };
+		4C8878082C3371470016DB98 /* TPCSandboxMigrationPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8878062C3371470016DB98 /* TPCSandboxMigrationPrivate.h */; };
 		4C8F3FD82C31AF7700118AAF /* THOPluginManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C8F3FD92C31AF7700118AAF /* THOPluginManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C8F3FDC2C31B15B00118AAF /* THOPluginItemLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */; };
@@ -2040,8 +2040,8 @@
 		4C7D6164267DF44C006AA911 /* TDCCommunityMovedDialogPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCCommunityMovedDialogPrivate.h; sourceTree = "<group>"; };
 		4C7D616A267DF466006AA911 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TDCCommunityMovedDialog.xib; sourceTree = "<group>"; };
 		4C83B9101BA9BEB800BD7718 /* Chat Filters.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "Chat Filters.bundle"; path = "../../.tmp/SharedBuildProducts-Extensions/Chat Filters.bundle"; sourceTree = SOURCE_ROOT; };
-		4C8878032C33706E0016DB98 /* TPCResourceManagerMigrate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TPCResourceManagerMigrate.m; sourceTree = "<group>"; };
-		4C8878062C3371470016DB98 /* TPCResourceManagerMigratePrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TPCResourceManagerMigratePrivate.h; sourceTree = "<group>"; };
+		4C8878032C33706E0016DB98 /* TPCSandboxMigration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TPCSandboxMigration.m; sourceTree = "<group>"; };
+		4C8878062C3371470016DB98 /* TPCSandboxMigrationPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TPCSandboxMigrationPrivate.h; sourceTree = "<group>"; };
 		4C8F2F5D1AAE6467007821CC /* EncryptionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EncryptionKit.framework; path = "../../.tmp/SharedBuildProducts-Frameworks/EncryptionKit.framework"; sourceTree = SOURCE_ROOT; };
 		4C8F3FD62C31AF6E00118AAF /* THOPluginManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THOPluginManager.h; sourceTree = "<group>"; };
 		4C8F3FDB2C31B15200118AAF /* THOPluginItemLogging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THOPluginItemLogging.m; sourceTree = "<group>"; };
@@ -2401,7 +2401,7 @@
 				4C06E28920EC4F000055D09A /* TPCPreferencesUserDefaults.m */,
 				4C31511920EB673E00448776 /* TPCPreferencesUserDefaultsLocal.m */,
 				4C31511820EB673E00448776 /* TPCResourceManager.m */,
-				4C8878032C33706E0016DB98 /* TPCResourceManagerMigrate.m */,
+				4C8878032C33706E0016DB98 /* TPCSandboxMigration.m */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -2769,7 +2769,7 @@
 				4C31521820EB673E00448776 /* TPCPreferencesLocalPrivate.h */,
 				4C06E26020EC4C560055D09A /* TPCPreferencesPrivate.h */,
 				4C06E26120EC4C560055D09A /* TPCPreferencesUserDefaultsPrivate.h */,
-				4C8878062C3371470016DB98 /* TPCResourceManagerMigratePrivate.h */,
+				4C8878062C3371470016DB98 /* TPCSandboxMigrationPrivate.h */,
 				4C31522520EB673E00448776 /* TPCResourceManagerPrivate.h */,
 				4C31521020EB673E00448776 /* TPCThemeControllerPrivate.h */,
 				4C3151D620EB673E00448776 /* TPCThemePrivate.h */,
@@ -3653,7 +3653,7 @@
 				4C31578D20EB6D0600448776 /* IRCUserNicknameColorStyleGeneratorPrivate.h in Headers */,
 				4C3157B820EB6D0600448776 /* TDCPreferencesNotificationConfigurationPrivate.h in Headers */,
 				4C31580620EB6D0600448776 /* TXMenuControllerPrivate.h in Headers */,
-				4C8878082C3371470016DB98 /* TPCResourceManagerMigratePrivate.h in Headers */,
+				4C8878082C3371470016DB98 /* TPCSandboxMigrationPrivate.h in Headers */,
 				4C31558920EB6CB300448776 /* TVCChannelSelectionViewController.h in Headers */,
 				4C31577C20EB6D0600448776 /* IRCChannelModePrivate.h in Headers */,
 				4C3157F420EB6D0600448776 /* TVCMainWindowTextViewAppearancePrivate.h in Headers */,
@@ -3923,7 +3923,7 @@
 				4C3156FA20EB6D0500448776 /* IRCUserNicknameColorStyleGeneratorPrivate.h in Headers */,
 				4C31572520EB6D0500448776 /* TDCPreferencesNotificationConfigurationPrivate.h in Headers */,
 				4C31577320EB6D0500448776 /* TXMenuControllerPrivate.h in Headers */,
-				4C8878072C3371470016DB98 /* TPCResourceManagerMigratePrivate.h in Headers */,
+				4C8878072C3371470016DB98 /* TPCSandboxMigrationPrivate.h in Headers */,
 				4C3155E020EB6CB400448776 /* TVCChannelSelectionViewController.h in Headers */,
 				4C3156E920EB6D0500448776 /* IRCChannelModePrivate.h in Headers */,
 				4C31576120EB6D0500448776 /* TVCMainWindowTextViewAppearancePrivate.h in Headers */,
@@ -4755,7 +4755,7 @@
 				4C06E5D720EC553A0055D09A /* IRCSendingMessage.m in Sources */,
 				4C06E5D820EC553A0055D09A /* IRCServer.m in Sources */,
 				4C06E5D920EC553A0055D09A /* IRCTimerCommand.m in Sources */,
-				4C8878052C33706E0016DB98 /* TPCResourceManagerMigrate.m in Sources */,
+				4C8878052C33706E0016DB98 /* TPCSandboxMigration.m in Sources */,
 				4C06E5DA20EC553A0055D09A /* IRCTreeItem.m in Sources */,
 				4C06E5DB20EC553A0055D09A /* IRCWorld.m in Sources */,
 				4C06E5DD20EC553A0055D09A /* IRCUserRelations.m in Sources */,
@@ -4942,7 +4942,7 @@
 				4C06E69020EC55B90055D09A /* IRCSendingMessage.m in Sources */,
 				4C06E69120EC55B90055D09A /* IRCServer.m in Sources */,
 				4C06E69220EC55B90055D09A /* IRCTimerCommand.m in Sources */,
-				4C8878042C33706E0016DB98 /* TPCResourceManagerMigrate.m in Sources */,
+				4C8878042C33706E0016DB98 /* TPCSandboxMigration.m in Sources */,
 				4C06E69320EC55B90055D09A /* IRCTreeItem.m in Sources */,
 				4C06E69420EC55B90055D09A /* IRCWorld.m in Sources */,
 				4C06E69620EC55B90055D09A /* IRCUserRelations.m in Sources */,

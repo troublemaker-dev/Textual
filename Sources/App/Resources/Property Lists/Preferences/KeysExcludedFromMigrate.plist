@@ -10,5 +10,17 @@
 	<integer>0</integer>
 	<key>__uniquePageGroupID-1.WebKit2ShouldRespectImageOrientation</key>
 	<integer>0</integer>
+	<key>TPCResourceManagerMigrate -&gt; Migrated Resources</key>
+	<integer>0</integer>
+	<key>TPCResourceManagerMigrate -&gt; Installation Migrated</key>
+	<integer>0</integer>
+	<key>TPCResourceManagerMigrate -&gt; User Acknowledged</key>
+	<integer>0</integer>
+	<key>TPCResourceManagerMigrate -&gt; User Prefers Pruning Files</key>
+	<integer>0</integer>
+	<key>TPCResourceManagerMigrate -&gt; All Extensions Pruned</key>
+	<integer>0</integer>
+	<key>TPCResourceManagerMigrate -&gt; Imported Keys</key>
+	<integer>0</integer>
 </dict>
 </plist>

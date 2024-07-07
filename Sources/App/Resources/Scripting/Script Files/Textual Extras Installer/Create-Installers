@@ -4,7 +4,7 @@ set -e
 export BUILD_PATH="/private/tmp/Textual-${RANDOM}"
 
 export BUILD_PATH_SCRIPTS_STANDALONE="${BUILD_PATH}/Library/Application Scripts/com.codeux.apps.textual"
-export BUILD_PATH_EXTENSIONS_STANDALONE="${BUILD_PATH}/Library/Group Containers/com.codeux.apps.textual.group/Library/Application Support/Textual/Extensions"
+export BUILD_PATH_EXTENSIONS_STANDALONE="${BUILD_PATH}/Library/Group Containers/8482Q6EPL6.com.codeux.apps.textual/Library/Application Support/Textual/Extensions"
 
 export CURRENT_DIRECTORY=$(cd `dirname $0` && pwd)
 
