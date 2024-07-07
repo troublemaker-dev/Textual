@@ -49,7 +49,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString * const _userDefaultsKey	  = @"NSSplitView Saved Frames -> TVCMainWindowSplitView";
+NSString * const _userDefaultsKey	  = @"Window -> Main Window -> Split Channel View Saved Frames";
 
 @interface TVCMainWindowSplitView ()
 @property (nonatomic, assign) BOOL restoredPositions;

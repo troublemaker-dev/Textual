@@ -172,8 +172,6 @@
 	<integer>1</integer>
 	<key>Notification Sound Is Muted</key>
 	<integer>0</integer>
-	<key>NSSplitView Saved Frames -&gt; TVCMainWindowSplitView</key>
-	<integer>0</integer>
 	<key>NSWindow Frame -&gt; Internal (v3) -&gt; </key>
 	<integer>1</integer>
 	<key>PostNotificationsWhileInFocus</key>
@@ -391,6 +389,8 @@
 	<key>Window -&gt; Main Window -&gt; Server List is Visible</key>
 	<integer>0</integer>
 	<key>Window -&gt; Main Window -&gt; Server List Selection</key>
+	<integer>0</integer>
+	<key>Window -&gt; Main Window -&gt; Split Channel View Saved Frames</key>
 	<integer>0</integer>
 	<key>World Controller Client Configurations</key>
 	<integer>0</integer>
