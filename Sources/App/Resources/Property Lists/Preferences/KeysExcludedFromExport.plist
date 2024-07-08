@@ -18,8 +18,6 @@
 	<integer>1</integer>
 	<key>TPCPreferences -&gt; Migration -&gt; </key>
 	<integer>1</integer>
-	<key>NSSplitView Saved Frames -&gt; TVCMainWindowSplitView</key>
-	<integer>0</integer>
 	<key>NSWindow Frame -&gt; Internal (v3) -&gt; </key>
 	<integer>1</integer>
 	<key>SUEnableAutomaticChecks</key>
@@ -52,17 +50,17 @@
 	<integer>0</integer>
 	<key>TVCLogControllerHistoricLogFileSavePath_v3</key>
 	<integer>0</integer>
-	<key>TPCResourceManagerMigrate -&gt; Migrated Resources</key>
+	<key>Sandbox Migration -&gt; Migrated Resources</key>
 	<integer>0</integer>
-	<key>TPCResourceManagerMigrate -&gt; Installation Migrated</key>
+	<key>Sandbox Migration -&gt; Installation Migrated</key>
 	<integer>0</integer>
-	<key>TPCResourceManagerMigrate -&gt; User Acknowledged</key>
+	<key>Sandbox Migration -&gt; User Acknowledged</key>
 	<integer>0</integer>
-	<key>TPCResourceManagerMigrate -&gt; User Prefers Pruning Files</key>
+	<key>Sandbox Migration -&gt; User Prefers Pruning Files</key>
 	<integer>0</integer>
-	<key>TPCResourceManagerMigrate -&gt; All Extensions Pruned</key>
+	<key>Sandbox Migration -&gt; All Extensions Pruned</key>
 	<integer>0</integer>
-	<key>TPCResourceManagerMigrate -&gt; Imported Keys</key>
+	<key>Sandbox Migration -&gt; Imported Keys</key>
 	<integer>0</integer>
 </dict>
 </plist>

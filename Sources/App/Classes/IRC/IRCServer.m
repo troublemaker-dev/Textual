@@ -130,6 +130,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 	config->_serverPassword = self->_serverPassword;
 
+	config->_destroyKeychainItemsDuringDealloc = self->_destroyKeychainItemsDuringDealloc;
+
 	if (uniquing) {
 		config->_uniqueIdentifier = [NSString stringWithUUID];
 	}

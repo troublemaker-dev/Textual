@@ -5,7 +5,7 @@
  *                   | |  __/>  <| |_| |_| | (_| | |
  *                   |_|\___/_/\_\\__|\__,_|\__,_|_|
  *
- *    Copyright (c) 2021 Codeux Software, LLC & respective contributors.
+ *   Copyright (c) 2024 Codeux Software, LLC & respective contributors.
  *       Please see Acknowledgements.pdf for additional information.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,21 +35,12 @@
  *
  *********************************************************************** */
 
-#import "TDCWindowBase.h"
+#import "TPCResourceManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-TEXTUAL_EXTERN NSString * const TDCCommunityMovedDialogAppearedDefaultsKey;
-
-@protocol TDCCommunityMovedDialogDelegate;
-
-@interface TDCCommunityMovedDialog : TDCWindowBase
-@end
-
-@protocol TDCCommunityMovedDialogDelegate <NSObject>
-@required
-
-- (void)communityMovedDialogWillClose:(TDCCommunityMovedDialog *)sender;
+@interface TPCSandboxMigration : NSObject
++ (void)migrateResources;
 @end
 
 NS_ASSUME_NONNULL_END

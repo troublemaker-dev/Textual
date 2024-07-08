@@ -74,6 +74,17 @@ NS_ASSUME_NONNULL_BEGIN
 						  commandString:(NSString *)commandString
 						  messageString:(NSString *)messageString
 {
+	XRPerformBlockAsynchronouslyOnMainQueue(^{
+		[self _userInputCommandInvokedOnClient:client
+								 commandString:commandString
+								 messageString:messageString];
+	});
+}
+
+- (void)_userInputCommandInvokedOnClient:(IRCClient *)client
+						   commandString:(NSString *)commandString
+						   messageString:(NSString *)messageString
+{
 	/* Throw error if user tries to invoke a command that requires the
 	 user to be connected to a ZNC bouncer */
 	if (client.isConnectedToZNC == NO) {
@@ -128,20 +139,18 @@ NS_ASSUME_NONNULL_BEGIN
 			return;
 		}
 
-		XRPerformBlockSynchronouslyOnMainQueue(^{
-			SFCertificateTrustPanel *panel = [SFCertificateTrustPanel new];
+		SFCertificateTrustPanel *panel = [SFCertificateTrustPanel new];
 
-			[panel setDefaultButtonTitle:TXTLS(@"Prompts[aqw-q1]")];
+		[panel setDefaultButtonTitle:TXTLS(@"Prompts[aqw-q1]")];
 
-			[panel setAlternateButtonTitle:nil];
+		[panel setAlternateButtonTitle:nil];
 
-			[panel beginSheetForWindow:[NSApp mainWindow]
-						 modalDelegate:nil
-						didEndSelector:NULL
-						   contextInfo:NULL
-						  certificates:(__bridge NSArray *)certificateArray
-							 showGroup:YES];
-		});
+		[panel beginSheetForWindow:[NSApp mainWindow]
+					 modalDelegate:nil
+					didEndSelector:NULL
+					   contextInfo:NULL
+					  certificates:(__bridge NSArray *)certificateArray
+						 showGroup:YES];
 
 		CFRelease(certificateArray);
 	}

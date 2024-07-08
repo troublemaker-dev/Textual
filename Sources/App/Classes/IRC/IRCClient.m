@@ -118,7 +118,6 @@
 #import "TVCServerListPrivate.h"
 #import "TDCAlert.h"
 #import "TDCChannelBanListSheetPrivate.h"
-#import "TDCCommunityMovedDialogPrivate.h"
 #import "TDCFileTransferDialogPrivate.h"
 #import "TDCFileTransferDialogTransferControllerPrivate.h"
 #import "TDCServerChannelListDialogPrivate.h"
@@ -8842,9 +8841,6 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 
 	/* We need time for the server to send its configuration */
 	[self performSelectorInCommonModes:@selector(populateISONTrackedUsersList) withObject:nil afterDelay:10.0];
-
-	/* Inform user community moved */
-	[self informCommunityMoved];
 }
 
 - (void)receiveNumericReply:(IRCMessage *)m
@@ -12348,7 +12344,14 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 		return;
 	}
 
-	NSString *section1 = textMutable.tokenInsideQuotes;
+	NSString *section1 = nil;
+
+	if ([textMutable hasPrefix:@"\""]) {
+		section1 = textMutable.tokenInsideQuotes;
+	} else {
+		section1 = textMutable.token;
+	}
+
 	NSString *section2 = textMutable.token;
 	NSString *section3 = textMutable.token;
 	NSString *section4 = textMutable.token;
@@ -13274,45 +13277,6 @@ present_error:
 - (void)serverChannelDialogWillClose:(TDCServerChannelListDialog *)sender
 {
 	[windowController() removeWindowFromWindowList:[self channelListDialogWindowKey]];
-}
-
-#pragma mark -
-#pragma mark Community Moved Window
-
-- (void)informCommunityMoved
-{
-	BOOL appeared = [RZUserDefaults() boolForKey:TDCCommunityMovedDialogAppearedDefaultsKey];
-
-	if (appeared) {
-		return;
-	}
-
-	if ([self.serverAddress hasSuffix:@".freenode.net"] == NO) {
-		return;
-	}
-
-	BOOL hasChannel = NO;
-
-	for (IRCChannel *channel in self.channelList) {
-		if ([channel.name isEqualToString:@"#textual"] == NO &&
-			[channel.name hasPrefix:@"#textual-"] == NO)
-		{
-			continue;
-		}
-
-		hasChannel = YES;
-
-		break;
-	}
-
-	if (hasChannel == NO) {
-		return;
-	}
-
-	[menuController() showCommunityMovedWindow:nil];
-
-	/* The dialog will set the _appeared_ key after user
-	 has interacted with it to ensure that they read it. */
 }
 
 @end

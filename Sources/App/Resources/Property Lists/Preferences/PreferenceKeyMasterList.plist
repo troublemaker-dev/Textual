@@ -172,8 +172,6 @@
 	<integer>1</integer>
 	<key>Notification Sound Is Muted</key>
 	<integer>0</integer>
-	<key>NSSplitView Saved Frames -&gt; TVCMainWindowSplitView</key>
-	<integer>0</integer>
 	<key>NSWindow Frame -&gt; Internal (v3) -&gt; </key>
 	<integer>1</integer>
 	<key>PostNotificationsWhileInFocus</key>
@@ -264,8 +262,6 @@
 	<integer>0</integer>
 	<key>System Profiler Extension -&gt; Feature Disabled -&gt; System Uptime</key>
 	<integer>0</integer>
-	<key>TDCCommunityMovedDialogAppeared</key>
-	<integer>0</integer>
 	<key>Tab Completion -&gt; Completion Suffix Cut Forward Until Space</key>
 	<integer>0</integer>
 	<key>Tab Completion -&gt; Do Not Use Whitespace for Missing Completion Suffix</key>
@@ -338,17 +334,17 @@
 	<integer>0</integer>
 	<key>TPCPreferences -&gt; Migration -&gt; World Controller Migrated (600)</key>
 	<integer>0</integer>
-	<key>TPCResourceManagerMigrate -&gt; Migrated Resources</key>
+	<key>Sandbox Migration -&gt; Migrated Resources</key>
 	<integer>0</integer>
-	<key>TPCResourceManagerMigrate -&gt; Installation Migrated</key>
+	<key>Sandbox Migration -&gt; Installation Migrated</key>
 	<integer>0</integer>
-	<key>TPCResourceManagerMigrate -&gt; User Acknowledged</key>
+	<key>Sandbox Migration -&gt; User Acknowledged</key>
 	<integer>0</integer>
-	<key>TPCResourceManagerMigrate -&gt; User Prefers Pruning Files</key>
+	<key>Sandbox Migration -&gt; User Prefers Pruning Files</key>
 	<integer>0</integer>
-	<key>TPCResourceManagerMigrate -&gt; All Extensions Pruned</key>
+	<key>Sandbox Migration -&gt; All Extensions Pruned</key>
 	<integer>0</integer>
-	<key>TPCResourceManagerMigrate -&gt; Imported Keys</key>
+	<key>Sandbox Migration -&gt; Imported Keys</key>
 	<integer>0</integer>
 	<key>THOPluginManager -&gt; Extras Installer Last Check for Update Payload</key>
 	<integer>0</integer>
@@ -393,6 +389,8 @@
 	<key>Window -&gt; Main Window -&gt; Server List is Visible</key>
 	<integer>0</integer>
 	<key>Window -&gt; Main Window -&gt; Server List Selection</key>
+	<integer>0</integer>
+	<key>Window -&gt; Main Window -&gt; Split Channel View Saved Frames</key>
 	<integer>0</integer>
 	<key>World Controller Client Configurations</key>
 	<integer>0</integer>

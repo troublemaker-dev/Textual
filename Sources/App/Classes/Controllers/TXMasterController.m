@@ -60,7 +60,7 @@
 #import "TPCPreferencesLocalPrivate.h"
 #import "TPCPreferencesUserDefaults.h"
 #import "TPCResourceManagerPrivate.h"
-#import "TPCResourceManagerMigratePrivate.h"
+#import "TPCSandboxMigrationPrivate.h"
 #import "TPCThemeControllerPrivate.h"
 #import "TXMenuControllerPrivate.h"
 #import "TXWindowControllerPrivate.h"
@@ -147,7 +147,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)_awakeFromNib
 {
 	/* Migrate files and preferences */
-	[TPCResourceManager migrateResources];
+	[TPCSandboxMigration migrateResources];
 
 	/* Initialize preferences */
 	[TPCPreferences initPreferences];
