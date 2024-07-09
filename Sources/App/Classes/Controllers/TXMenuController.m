@@ -155,7 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)prepareForApplicationTermination
 {
-	LogToConsoleTerminationProgress("Preparing menu controller.");
+	LogToConsoleTerminationProgress("Preparing menu controller");
 
 	[self.fileTransferController prepareForApplicationTermination];
 }

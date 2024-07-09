@@ -160,7 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
 		/* Report error if data is nil or we have a non-OK response from server. */
 		if (data == nil || ((NSHTTPURLResponse *)response).statusCode != 200) {
 			if (error) {
-				LogToConsoleError("Request failed with error: %@",
+				LogToConsoleError("Request failed with error: %{public}@",
 					error.localizedDescription);
 			}
 
@@ -175,7 +175,7 @@ NS_ASSUME_NONNULL_BEGIN
 		NSDictionary *decodedJson = [NSJSONSerialization JSONObjectWithData:data options:0 error:&decodedJsonError];
 
 		if (decodedJson == nil) {
-			LogToConsoleError("Failed to decode response: %@",
+			LogToConsoleError("Failed to decode response: %{public}@",
 				decodedJsonError.localizedDescription);
 
 			completionBlock(NO, nil);

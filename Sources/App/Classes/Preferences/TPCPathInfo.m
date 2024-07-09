@@ -67,8 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 	NSError *createDirectoryError = nil;
 
 	if ([RZFileManager() createDirectoryAtPath:directoryPath withIntermediateDirectories:YES attributes:nil error:&createDirectoryError] == NO) {
-		LogToConsoleError("Failed to create directory at path: '%@' - %@",
-			directoryPath.description, createDirectoryError.localizedDescription);
+		LogToConsoleError("Failed to create directory at path: '%{public}@' - %{public}@",
+			directoryPath.anonymizedFilePath, createDirectoryError.localizedDescription);
 	}
 }
 
@@ -83,8 +83,8 @@ NS_ASSUME_NONNULL_BEGIN
 	NSError *createDirectoryError = nil;
 
 	if ([RZFileManager() createDirectoryAtURL:directoryURL withIntermediateDirectories:YES attributes:nil error:&createDirectoryError] == NO) {
-		LogToConsoleError("Failed to create directory at path: '%@' - %@",
-			directoryURL.description, createDirectoryError.localizedDescription);
+		LogToConsoleError("Failed to create directory at path: '%{public}@' - %{public}@",
+			directoryURL.anonymizedFilePath, createDirectoryError.localizedDescription);
 	}
 }
 
@@ -634,7 +634,7 @@ static NSURL * _Nullable _transcriptFolderURL = nil;
 	}
 
 	if (resolvedBookmark == nil) {
-		LogToConsoleError("Error creating bookmark for URL: %@",
+		LogToConsoleError("Error creating bookmark for URL: %{public}@",
 			  resolvedBookmarkError.localizedDescription);
 
 		[self warnUserAboutStaleTranscriptFolderURL];

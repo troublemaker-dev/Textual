@@ -279,7 +279,7 @@ NS_ASSUME_NONNULL_BEGIN
 	if (intWebView == nil) {
 		LogToConsoleFault("(intWebView == nil) condition faulted. \
 						  Possible race condition. \
-						  Invoking '%@'", NSStringFromSelector(selector));
+						  Invoking '%{public}@'", NSStringFromSelector(selector));
 
 		return;
 	}
@@ -1107,7 +1107,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	NSString *message = [self.class objectValueToCommon:arguments[0]];
 
-	LogToConsole("JavaScript: %@", message);
+	LogToConsole("JavaScript: %{public}@", message);
 }
 
 - (void)_networkName:(TVCLogScriptEventSinkContext *)context

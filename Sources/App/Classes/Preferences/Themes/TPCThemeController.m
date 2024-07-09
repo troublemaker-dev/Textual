@@ -146,17 +146,17 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 
 - (void)prepareForApplicationTermination
 {
-	LogToConsoleTerminationProgress("Preparing theme controller.");
+	LogToConsoleTerminationProgress("Preparing theme controller");
 
-	LogToConsoleTerminationProgress("Removing theme controller observers.");
+	LogToConsoleTerminationProgress("Removing theme controller observers");
 
 	[RZNotificationCenter() removeObserver:self];
 
-	LogToConsoleTerminationProgress("Removing theme change observers.");
+	LogToConsoleTerminationProgress("Removing theme change observers");
 
 	[self stopMonitoringThemes];
 
-	LogToConsoleTerminationProgress("Empty theme cache.");
+	LogToConsoleTerminationProgress("Empty theme cache");
 
 	[self removeTemporaryCopyOfTheme];
 }
@@ -497,7 +497,7 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 	FSEventStreamEventFlags flags = event.flags;
 
 	if ((flags & kFSEventStreamEventFlagItemIsDir) != kFSEventStreamEventFlagItemIsDir) {
-//		LogToConsoleDebug("Ignoring monitoring event for non-directory.");
+//		LogToConsoleDebug("Ignoring monitoring event for non-directory");
 
 		return;
 	}
@@ -514,7 +514,7 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 	NSNumber *parentContext = [self.themeMonitor contextObjectForURL:parentURL];
 
 	if (parentContext == nil) {
-//		LogToConsoleDebug("Ignoring monitoring event for unrelated directory.");
+//		LogToConsoleDebug("Ignoring monitoring event for unrelated directory");
 
 		return;
 	}
@@ -556,7 +556,7 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 		return;
 	}
 
-	LogToConsoleDebug("Theme '%@' named '%@' at '%@' created.", theme, themeName, url);
+	LogToConsoleDebug("Theme '%{public}@' named '%{public}@' at '%{public}@' created", theme, themeName, url.anonymizedFilePath);
 
 	[RZNotificationCenter() postNotificationName:TPCThemeControllerThemeListDidChangeNotification object:self];
 }
@@ -595,7 +595,7 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 										error:&preFileListError];
 
 	if (preFileListError) {
-		LogToConsoleError("Failed to list contents of theme folder: %@",
+		LogToConsoleError("Failed to list contents of theme folder: %{public}@",
 			preFileListError.localizedDescription);
 	}
 
@@ -705,7 +705,7 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 		return;
 	}
 
-	LogToConsoleInfo("Reloading theme because it failed validation.");
+	LogToConsoleInfo("Reloading theme because it failed validation");
 
 	[TPCPreferences performReloadAction:TPCPreferencesReloadActionStyle];
 
@@ -727,13 +727,13 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 	}
 
 	if ([self resetPreferencesForActiveTheme] == NO) { // Validate theme
-		LogToConsoleFault("This should be an impossible condition.");
+		LogToConsoleFault("This should be an impossible condition");
 		LogStackTrace();
 
 		return;
 	}
 
-	LogToConsoleInfo("Reloading theme because it was deleted.");
+	LogToConsoleInfo("Reloading theme because it was deleted");
 
 	[TPCPreferences performReloadAction:TPCPreferencesReloadActionStyle];
 
@@ -752,7 +752,7 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 		return;
 	}
 
-	LogToConsoleInfo("Reloading theme because it was modified.");
+	LogToConsoleInfo("Reloading theme because it was modified");
 
 	[TPCPreferences performReloadAction:TPCPreferencesReloadActionStyle];
 }
@@ -831,7 +831,7 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 	NSError *removeItemError = nil;
 
 	if ([RZFileManager() removeItemAtURL:temporaryURL error:&removeItemError] == NO) {
-		LogToConsoleError("Failed to remove temporary directory: %@",
+		LogToConsoleError("Failed to remove temporary directory: %{public}@",
 				removeItemError.localizedDescription);
 	}
 }
@@ -984,7 +984,7 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 
 	NSString *themeSource = [self.class extractThemeSource:validatedTheme];
 
-	LogToConsoleInfo("Performing validation on theme named '%@' with source type of '%@'.", themeName, themeSource);
+	LogToConsoleInfo("Performing validation on theme named '%{public}@' with source type of '%{public}@'", themeName, themeSource);
 
 	/* Note from October 2020 during refactoring:
 	 I know this is ugly as hell. Please don't shame me for it.

@@ -517,7 +517,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 		if ((now - filterLastPerform) <= floodControlInterval) {
 			LogToConsoleDebugWithSubsystem(THOPluginLoggingSubsystem(),
-				"Not performing action because of flood control: %.2f %.2f",
+				"Not performing action because of flood control: %{public}.2f %{public}.2f",
 				  now, filterLastPerform);
 
 			return NO;

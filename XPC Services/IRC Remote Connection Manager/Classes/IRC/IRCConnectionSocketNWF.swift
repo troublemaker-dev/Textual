@@ -401,7 +401,7 @@ final class ConnectionSocketNWF: ConnectionSocket, ConnectionSocketProtocol
 			case .failed(let error):
 				onDisconnect(with: error)
 			default:
-				LogToConsoleDebug("Status changed \(status)")
+				break
 		}
 	}
 

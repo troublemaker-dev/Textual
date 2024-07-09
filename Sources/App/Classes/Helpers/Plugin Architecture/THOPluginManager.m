@@ -139,7 +139,7 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 		 prevent the old plugin from loading and conflicting with built-in plugin.
 		 This is not designed as a security measure. */
 		if ([forbiddenPlugins containsObject:bundleIdentifier]) {
-			LogToConsoleFault("Forbidden loading of plugin '%@'", bundleIdentifier);
+			LogToConsoleFault("Forbidden loading of plugin '%{public}@'", bundleIdentifier);
 
 			continue;
 		}
@@ -277,11 +277,11 @@ NSString * const THOPluginManagerFinishedLoadingPluginsNotification = @"THOPlugi
 			BOOL executable = [RZFileManager() isExecutableFileAtPath:filePath];
 
 			if (executable == NO && [fileExtension isEqualToString:TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod] == NO) {
-				LogToConsoleDebug("WARNING: File “%@“ found in unsupervised script folder but it isn't AppleScript or an executable. It will be ignored.", file);
+				LogToConsoleInfo("WARNING: File “%{public}@“ found in unsupervised script folder but it isn't AppleScript or an executable. It will be ignored.", file);
 
 				continue;
 			} else if ([forbiddenCommands containsObject:command]) {
-				LogToConsoleDebug("WARNING: The command “%@“ exists as a script file, but it is being ignored because the command name is forbidden.", fileWithoutExtension);
+				LogToConsoleInfo("WARNING: The command “%{public}@“ exists as a script file, but it is being ignored because the command name is forbidden.", fileWithoutExtension);
 
 				continue;
 			}

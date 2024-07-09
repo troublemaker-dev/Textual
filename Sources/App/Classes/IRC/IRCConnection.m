@@ -196,7 +196,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id <RCMConnectionManagerServerProtocol>)remoteObjectProxyWithErrorHandler:(void (^ _Nullable)(NSError *error))handler
 {
 	return [self.serviceConnection remoteObjectProxyWithErrorHandler:^(NSError *error) {
-		LogToConsoleError("Error occurred while communicating with service: %@",
+		LogToConsoleError("Error occurred while communicating with service: %{public}@",
 			  error.localizedDescription);
 
 		if (handler) {

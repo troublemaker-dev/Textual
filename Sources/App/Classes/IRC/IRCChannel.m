@@ -500,25 +500,25 @@ NSString * const IRCChannelConfigurationWasUpdatedNotification = @"IRCChannelCon
 
 - (void)prepareForApplicationTermination
 {
-	LogToConsoleTerminationProgress("Preparing channel: <%@>", self.uniqueIdentifier);
+	LogToConsoleTerminationProgress("Preparing channel: <%{public}@>", self.uniqueIdentifier);
 
 	self.statusChangedByAction = YES;
 
-	LogToConsoleTerminationProgress("[#%@] Resetting status to terminated.", self.uniqueIdentifier);
+	LogToConsoleTerminationProgress("[%{public}@] Resetting status to terminated", self.uniqueIdentifier);
 
 	[self resetStatus:IRCChannelStatusTerminated];
 
-	LogToConsoleTerminationProgress("[#%@] Closing log file.", self.uniqueIdentifier);
+	LogToConsoleTerminationProgress("[%{public}@] Closing log file", self.uniqueIdentifier);
 
 	[self closeLogFile];
 
 	if (self.isPrivateMessage) {
-		LogToConsoleTerminationProgress("[#%@] Destroying keychain items for private message.", self.uniqueIdentifier);
+		LogToConsoleTerminationProgress("[%{public}@] Destroying keychain items for private message", self.uniqueIdentifier);
 
 		[self.config destroySecretKeyKeychainItem];
 	}
 
-	LogToConsoleTerminationProgress("[#%@] Preparing view controller: <%@>", self.uniqueIdentifier, self.viewController.uniqueIdentifier);
+	LogToConsoleTerminationProgress("[%{public}@] Preparing view controller: <%{public}@>", self.uniqueIdentifier, self.viewController.uniqueIdentifier);
 
 	[self.viewController prepareForApplicationTermination];
 }

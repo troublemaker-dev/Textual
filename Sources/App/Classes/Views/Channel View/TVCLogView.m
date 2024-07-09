@@ -250,7 +250,7 @@ NSString * const TVCLogViewCommonUserAgentString = @"Textual/1.0 (+https://help.
 		NSError *fileWriteError = nil;
 
 		if ([string writeToURL:filePath atomically:NO encoding:NSUTF8StringEncoding error:&fileWriteError] == NO) {
-			LogToConsoleError("Failed to write temporary file: %@", fileWriteError.localizedDescription);
+			LogToConsoleError("Failed to write temporary file: %{public}@", fileWriteError.localizedDescription);
 
 			return;
 		}
@@ -558,7 +558,7 @@ NSString * const TVCLogViewCommonUserAgentString = @"Textual/1.0 (+https://help.
 	[objects enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
 		/* Perform check to make sure the key we are using is actually a string. */
 		if ([key isKindOfClass:[NSString class]] == NO) {
-			LogToConsoleDebug("Silently ignoring non-string key: %@", NSStringFromClass([key class]));
+			LogToConsoleDebug("Silently ignoring non-string key: %{public}@", NSStringFromClass([key class]));
 
 			return;
 		}

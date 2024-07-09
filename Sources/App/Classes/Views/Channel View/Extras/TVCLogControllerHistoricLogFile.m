@@ -284,7 +284,7 @@ NS_ASSUME_NONNULL_BEGIN
 	return [self.serviceConnection remoteObjectProxyWithErrorHandler:^(NSError *error) {
 		self.lastServiceConnectionError = error;
 
-		LogToConsoleError("Error occurred while communicating with service: %@",
+		LogToConsoleError("Error occurred while communicating with service: %{public}@",
 			error.localizedDescription);
 
 		if (handler) {
@@ -306,8 +306,7 @@ NS_ASSUME_NONNULL_BEGIN
 		TVCLogLine *logLine = [TVCLogLine logLineFromXPCObject:xpcObject];
 
 		if (logLine == nil) {
-			LogToConsoleError("Failed to initialize object %@. Corrupt data?",
-							  xpcObject.description);
+			LogToConsoleError("Failed to initialize object %{public}@. Corrupt data?", xpcObject.description);
 
 			continue;
 		}

@@ -86,7 +86,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 {
 	NSParameterAssert(path != nil);
 
-	LogToConsoleInfo("Opening database at path: %@", path);
+	LogToConsoleInfo("Opening database at path: %{public}@", path.anonymizedFilePath);
 
 	self.savePath = path;
 
@@ -186,7 +186,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 {
 	NSParameterAssert(viewId != nil);
 
-	LogToConsoleDebug("Forgetting view: %@", viewId);
+	LogToConsoleDebug("Forgetting view: %{public}@", viewId);
 
 	HLSHistoricLogViewContext *viewContext = [self contextForView:viewId];
 
@@ -214,7 +214,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 {
 	NSParameterAssert(viewId != nil);
 
-	LogToConsoleDebug("Resetting the contents of view: %@", viewId);
+	LogToConsoleDebug("Resetting the contents of view: %{public}@", viewId);
 
 	HLSHistoricLogViewContext *viewContext = [self contextForView:viewId];
 
@@ -300,13 +300,13 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		NSArray<NSManagedObject *> *fetchedObjects = [viewContext executeFetchRequest:fetchRequest error:&fetchRequestError];
 
 		if (fetchedObjects == nil) {
-			LogToConsoleError("Error occurred fetching objects: %@",
+			LogToConsoleError("Error occurred fetching objects: %{public}@",
 							  fetchRequestError.localizedDescription);
 
 			return;
 		}
 
-		LogToConsoleDebug("%lu results fetched for view %@",
+		LogToConsoleDebug("%{public}lu results fetched for view %{public}@",
 						  fetchedObjects.count, viewId);
 
 		@autoreleasepool {
@@ -364,13 +364,13 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		NSArray<NSManagedObject *> *fetchedObjects = [viewContext executeFetchRequest:fetchRequest error:&fetchRequestError];
 
 		if (fetchedObjects == nil) {
-			LogToConsoleError("Error occurred fetching objects: %@",
+			LogToConsoleError("Error occurred fetching objects: %{public}@",
 							  fetchRequestError.localizedDescription);
 
 			return;
 		}
 
-		LogToConsoleDebug("%lu results fetched for view %@",
+		LogToConsoleDebug("%{public}lu results fetched for view %{public}@",
 						  fetchedObjects.count, viewId);
 
 		@autoreleasepool {
@@ -453,13 +453,13 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		NSArray<NSManagedObject *> *fetchedObjects = [viewContext executeFetchRequest:fetchRequest error:&fetchRequestError];
 
 		if (fetchedObjects == nil) {
-			LogToConsoleError("Error occurred fetching objects: %@",
+			LogToConsoleError("Error occurred fetching objects: %{public}@",
 							  fetchRequestError.localizedDescription);
 
 			return;
 		}
 
-		LogToConsoleDebug("%lu results fetched for view %@",
+		LogToConsoleDebug("%{public}lu results fetched for view %{public}@",
 						  fetchedObjects.count, viewId);
 
 		@autoreleasepool {
@@ -493,13 +493,13 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		NSArray<NSManagedObject *> *fetchedObjects = [viewContext executeFetchRequest:fetchRequest error:&fetchRequestError];
 
 		if (fetchedObjects == nil) {
-			LogToConsoleError("Error occurred fetching objects: %@",
+			LogToConsoleError("Error occurred fetching objects: %{public}@",
 							  fetchRequestError.localizedDescription);
 
 			return;
 		}
 
-		LogToConsoleDebug("%lu results fetched for view %@",
+		LogToConsoleDebug("%{public}lu results fetched for view %{public}@",
 						  fetchedObjects.count, viewId);
 
 		@autoreleasepool {
@@ -591,7 +591,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 
 	if (persistentStore == nil)
 	{
-		LogToConsoleError("Error Creating Persistent Store: %@",
+		LogToConsoleError("Error Creating Persistent Store: %{public}@",
 						  addPersistentStoreError.localizedDescription);
 
 		if (recursionDepth == 0) {
@@ -664,7 +664,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 	NSError *saveError = nil;
 
 	if ([context save:&saveError] == NO) {
-		LogToConsoleError("Failed to perform save: %@",
+		LogToConsoleError("Failed to perform save: %{public}@",
 						  saveError.localizedDescription);
 	}
 
@@ -743,7 +743,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 
 	viewContext.hls_resizeTimer = resizeTimer;
 
-	LogToConsoleDebug("Scheduled to resize %@ in %f seconds",
+	LogToConsoleDebug("Scheduled to resize %{public}@ in %{public}f seconds",
 					  viewId, resizeTimerInterval);
 }
 
@@ -762,7 +762,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 {
 	NSParameterAssert(viewContext != nil);
 
-	LogToConsoleDebug("Resizing view %@", viewContext.hls_viewId);
+	LogToConsoleDebug("Resizing view %{public}@", viewContext.hls_viewId);
 
 	viewContext.hls_resizeTimer = nil;
 
@@ -816,7 +816,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		blockToPerform();
 	}
 
-	LogToConsoleDebug("Deleted %lu rows in %@", rowsDeleted, viewContext.hls_viewId);
+	LogToConsoleDebug("Deleted %{public}lu rows in %{public}@", rowsDeleted, viewContext.hls_viewId);
 
 	return rowsDeleted;
 }
@@ -837,7 +837,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 	[viewContext executeRequest:batchDeleteRequest error:&batchDeleteError];
 
 	if (batchDeleteResult == nil) {
-		LogToConsoleError("Failed to perform batch delete: %@",
+		LogToConsoleError("Failed to perform batch delete: %{public}@",
 						  batchDeleteError.localizedDescription);
 
 		return 0;
@@ -867,7 +867,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 	NSArray *fetchedObjects = [viewContext executeFetchRequest:fetchRequest error:&fetchRequestError];
 
 	if (fetchedObjects == nil) {
-		LogToConsoleError("Error occurred fetching objects: %@",
+		LogToConsoleError("Error occurred fetching objects: %{public}@",
 						  fetchRequestError.localizedDescription);
 
 		return 0;
@@ -945,7 +945,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		viewContext.hls_newestIdentifier = [self _newestIdentifierInViewContextFromDatabase:viewContext performOnQueue:YES];
 
 		/* Log information for debugging */
-		LogToConsoleDebug("Context created for %@ - Line count: %lu, Newest identifier: %lu",
+		LogToConsoleDebug("Context created for %{public}@ - Line count: %{public}lu, Newest identifier: %{public}lu",
 						  viewContext.hls_viewId,
 						  viewContext.hls_totalLineCount,
 						  viewContext.hls_newestIdentifier);

@@ -119,7 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
 	if ((keyboardKeys & NSEventModifierFlagControl) == NSEventModifierFlagControl) {
 		self.debugModeIsOn = YES;
 
-		LogToConsoleDebug("Launching in debug mode");
+		LogToConsoleInfo("Launching in debug mode");
 	}
 
 #if defined(DEBUG)
@@ -250,7 +250,7 @@ NS_ASSUME_NONNULL_BEGIN
 	(void)[updater startUpdater:&error];
 
 	if (error) {
-		LogToConsoleError("Sparkle failed to start updater: 5@", error.description);
+		LogToConsoleError("Sparkle failed to start updater: %{public}@", error.description);
 	}
 #endif
 }
@@ -355,7 +355,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)queryTerminate
 {
 	if (self.applicationIsTerminating) {
-		LogToConsoleTerminationProgress("A termination is already in progress.");
+		LogToConsoleTerminationProgress("Termination is already in progress");
 
 		return YES;
 	}
@@ -378,7 +378,7 @@ NS_ASSUME_NONNULL_BEGIN
 										defaultButton:TXTLS(@"Prompts[1bf-k0]")
 									  alternateButton:TXTLS(@"Prompts[qso-2g]")];
 
-		LogToConsoleTerminationProgress("Perform termination: %@", StringFromBOOL(result));
+		LogToConsoleTerminationProgress("Perform termination: %{BOOL}d", result);
 
 		return result;
 	}
@@ -409,16 +409,14 @@ NS_ASSUME_NONNULL_BEGIN
 							self.terminateHistoricLogSaveFinished);
 
 
-	LogToConsoleTerminationProgress("Conditions: %@ %@",
-					  StringFromBOOL(condition1),
-					  StringFromBOOL(condition2));
+	LogToConsoleTerminationProgress("Conditions: %{BOOL}d %{BOOL}d", condition1, condition2);
 
 	return (condition1 && condition2);
 }
 
 - (void)performApplicationTerminationStepOne
 {
-	LogToConsoleTerminationProgress("Step one entry.");
+	LogToConsoleTerminationProgress("Step one entry");
 
 	self.applicationIsTerminating = YES;
 
@@ -426,27 +424,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 	[self.mainWindow prepareForApplicationTermination];
 
-	LogToConsoleTerminationProgress("Giving up shared application delegation.");
+	LogToConsoleTerminationProgress("Giving up shared application delegation");
 
 	[[NSApplication sharedApplication] setDelegate:nil];
 
-	LogToConsoleTerminationProgress("Removing workspace notification center observer.");
+	LogToConsoleTerminationProgress("Removing workspace notification center observer");
 
 	[RZWorkspaceNotificationCenter() removeObserver:self];
 
-	LogToConsoleTerminationProgress("Removing shared notification center observer.");
+	LogToConsoleTerminationProgress("Removing shared notification center observer");
 
 	[RZNotificationCenter() removeObserver:self];
 
-	LogToConsoleTerminationProgress("Removing AppleScript event observer.");
+	LogToConsoleTerminationProgress("Removing AppleScript event observer");
 
 	[RZAppleEventManager() removeEventHandlerForEventClass:kInternetEventClass andEventID:kAEGetURL];
 
-	LogToConsoleTerminationProgress("Stopping reachability notifier.");
+	LogToConsoleTerminationProgress("Stopping reachability notifier");
 
 	[[TXSharedApplication sharedNetworkReachabilityNotifier] stopNotifier];
 
-	LogToConsoleTerminationProgress("Stopping speech synthesizer.");
+	LogToConsoleTerminationProgress("Stopping speech synthesizer");
 
 	[[TXSharedApplication sharedSpeechSynthesizer] setIsStopped:YES];
 
@@ -467,7 +465,7 @@ NS_ASSUME_NONNULL_BEGIN
 		return;
 	}
 
-	LogToConsoleTerminationProgress("Step two entry.");
+	LogToConsoleTerminationProgress("Step two entry");
 
 	self.terminatingClientCount = worldController().clientCount;
 
@@ -509,19 +507,19 @@ NS_ASSUME_NONNULL_BEGIN
 		return;
 	}
 
-	LogToConsoleTerminationProgress("Step three entry.");
+	LogToConsoleTerminationProgress("Step three entry");
 
 	if (self.skipTerminateSave == NO) {
-		LogToConsoleTerminationProgress("Saving IRC world.");
+		LogToConsoleTerminationProgress("Saving IRC world");
 
 		[self.world save];
 	}
 
-	LogToConsoleTerminationProgress("Suspending member list dispatch queue.");
+	LogToConsoleTerminationProgress("Suspending member list dispatch queue");
 
 	[IRCChannelMemberList suspendMemberListSerialQueues];
 
-	LogToConsoleTerminationProgress("Unloading plugins.");
+	LogToConsoleTerminationProgress("Unloading plugins");
 
 	[sharedPluginManager() unloadPlugins];
 
@@ -529,11 +527,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 	[themeController() prepareForApplicationTermination];
 
-	LogToConsoleTerminationProgress("Saving running internal.");
+	LogToConsoleTerminationProgress("Saving running internal");
 
 	[TPCApplicationInfo saveTimeIntervalSinceApplicationInstall];
 
-	LogToConsoleTerminationProgress("Terminate.");
+	LogToConsoleTerminationProgress("Terminate");
 
 	[NSApp replyToApplicationShouldTerminate:YES];
 }

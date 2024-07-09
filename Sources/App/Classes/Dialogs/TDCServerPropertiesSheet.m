@@ -1569,7 +1569,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	OSStatus status = SecIdentityCopyCertificate(identityInRef, &certificateRef);
 
 	if (status != noErr) {
-		LogToConsoleError("Operation Failed (2): %i", status);
+		LogToConsoleError("Operation Failed (2): %{public}i", status);
 
 		return;
 	}
@@ -1583,7 +1583,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	if (status != noErr) {
 		CFRelease(certificateRef);
 
-		LogToConsoleError("Operation Failed (3): %i", status);
+		LogToConsoleError("Operation Failed (3): %{public}i", status);
 
 		return;
 	}
@@ -1665,7 +1665,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	OSStatus queryStatus = SecItemCopyMatching((__bridge CFDictionaryRef)queryFlags, (CFTypeRef *)&identities);
 
 	if (queryStatus != noErr) {
-		LogToConsoleError("Operation Failed (1): %i", queryStatus);
+		LogToConsoleError("Operation Failed (1): %{public}i", queryStatus);
 
 		return;
 	}

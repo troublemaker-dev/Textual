@@ -300,7 +300,7 @@ NS_ASSUME_NONNULL_BEGIN
 	XRResumeScheduledBlock(removeUserTimer);
 
 	if (removeUserTimer == NULL) {
-		LogToConsoleError("Failed to create timer to remove user");
+		LogToConsoleFault("Failed to create timer to remove user");
 
 		blockToFire(); // Remove user if timer isn't available
 

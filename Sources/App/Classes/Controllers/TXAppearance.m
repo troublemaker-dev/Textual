@@ -85,7 +85,7 @@ NSString * const TXSystemAppearanceChangedNotification = @"TXSystemAppearanceCha
 
 - (void)prepareForApplicationTermination
 {
-	LogToConsoleTerminationProgress("Removing appearance change observers.");
+	LogToConsoleTerminationProgress("Removing appearance change observers");
 
 	[RZNotificationCenter() removeObserver:self];
 

@@ -937,8 +937,8 @@ NS_ASSUME_NONNULL_BEGIN
 													   error:&bookmarkError];
 
 			if (bookmark == nil) {
-				LogToConsoleError("Error creating bookmark for URL (%@): %@",
-				  path, bookmarkError.localizedDescription);
+				LogToConsoleError("Error creating bookmark for URL ('%{public}@'): %{public}@",
+					path.anonymizedFilePath, bookmarkError.localizedDescription);
 			}
 
 			[transferController setDownloadDestinationURL:bookmark];
@@ -1010,8 +1010,8 @@ NS_ASSUME_NONNULL_BEGIN
 													   error:&bookmarkError];
 
 			if (bookmark == nil) {
-				LogToConsoleError("Error creating bookmark for URL (%@): %@",
-					  path, bookmarkError.localizedDescription);
+				LogToConsoleError("Error creating bookmark for URL ('%{public}@'): %{public}@",
+					path.anonymizedFilePath, bookmarkError.localizedDescription);
 
 				return;
 			}
@@ -1363,7 +1363,7 @@ NS_ASSUME_NONNULL_BEGIN
 	OSStatus aeDescStatus = AECreateDesc('ptru', "Proxies", 7,  &aeDesc);
 
 	if (aeDescStatus != noErr) {
-		LogToConsoleError("aeDescStatus returned value other than noErr: %i", aeDescStatus);
+		LogToConsoleError("aeDescStatus returned value other than noErr: %{public}i", aeDescStatus);
 
 		return;
 	}

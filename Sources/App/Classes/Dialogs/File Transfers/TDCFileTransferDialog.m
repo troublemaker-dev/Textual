@@ -191,17 +191,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)prepareForApplicationTermination
 {
-	LogToConsoleTerminationProgress("Stopping access to download destination bookmark.");
+	LogToConsoleTerminationProgress("Stopping access to download destination bookmark");
 
 	if (self.downloadDestinationURLPrivate) {
 		[self.downloadDestinationURLPrivate stopAccessingSecurityScopedResource];
 	}
 
-	LogToConsoleTerminationProgress("Closing file transfer window.");
+	LogToConsoleTerminationProgress("Closing file transfer window");
 
 	[self close];
 
-	LogToConsoleTerminationProgress("Preparing all file transfers for destruction.");
+	LogToConsoleTerminationProgress("Preparing all file transfers for destruction");
 
 	[self enumerateFileTransfers:^(TDCFileTransferDialogTransferController *fileTransfer, BOOL *stop) {
 		[fileTransfer prepareForPermanentDestruction];
@@ -218,7 +218,7 @@ NS_ASSUME_NONNULL_BEGIN
 	/* A hard limit exists to prevent a bad person continuously sending file transfers 
 	 which appear in the file transfer, exhausting resources. */
 	if ([self receiverCount] > _addReceiverHardLimit) {
-		LogToConsoleError("Max receiver count of %i exceeded.", _addReceiverHardLimit);
+		LogToConsoleError("Max receiver count of %{public}i exceeded", _addReceiverHardLimit);
 
 		return nil;
 	}
@@ -850,7 +850,7 @@ NS_ASSUME_NONNULL_BEGIN
 								error:&resolvedBookmarkError];
 
 	if (resolvedBookmark == nil) {
-		LogToConsoleError("Error creating bookmark for URL: %@",
+		LogToConsoleError("Error creating bookmark for URL: %{public}@",
 			  resolvedBookmarkError.localizedDescription);
 
 		return;

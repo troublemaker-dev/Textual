@@ -200,7 +200,7 @@ TEXTUAL_IGNORE_DEPRECATION_BEGIN
 TEXTUAL_IGNORE_DEPRECATION_END
 
 		if (override == nil || [override isKindOfClass:[NSColor class]] == NO) {
-			LogToConsoleError("Failed to decode contents of '%@'", key);
+			LogToConsoleError("Failed to decode contents of '%{private}@'", key);
 
 			return;
 		}
@@ -212,7 +212,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 														 error:&error];
 
 		if (error) {
-			LogToConsoleError("Failed to decode contents for '%@': %@",
+			LogToConsoleError("Failed to decode contents for '%{private}@': %{public}@",
 				 key, error.description);
 
 			return;
@@ -247,7 +247,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 															   error:&error];
 
 	if (error) {
-		LogToConsoleError("Failed to decode color for '%@': %@",
+		LogToConsoleError("Failed to decode color for '%{private}@': %{public}@",
 				styleKey, error.description);
 	}
 
@@ -274,7 +274,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 															error:&error];
 
 		if (error) {
-			LogToConsoleError("Failed to decode color for '%@': %@",
+			LogToConsoleError("Failed to decode color for '%{private}@': %{public}@",
 				 styleKey, error.description);
 
 			return;

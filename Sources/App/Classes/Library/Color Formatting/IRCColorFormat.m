@@ -596,7 +596,7 @@ NSString * const IRCTextFormatterSpoilerAttributeName = @"IRCTextFormatterSpoile
 	}
 
 	/* Debug information */
-	LogToConsoleDebug("Minimum length: %ld; Final length: %ld; Difference: %ld;",
+	LogToConsoleDebug("Minimum length: %{public}ld; Final length: %{public}ld; Difference: %{public}ld;",
 		 minimumLength, resultLength, (maximumLength - resultLength));
 
 #undef _textTruncationPRIVMSGCommandConstant

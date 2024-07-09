@@ -113,10 +113,10 @@ final class Connection: NSObject, ConnectionSocketDelegate
 	@objc
 	final func open()
 	{
-		LogToConsoleDebug("Opening connection \(socket.uniqueIdentifier)...")
+		Logging.defaultSubsystem?.debug("Opening connection \(self.socket.uniqueIdentifier, privacy: .public)...")
 
 		if (socket.disconnected == false) {
-			LogToConsoleError("Already connected")
+			Logging.defaultSubsystem?.error("Already connected")
 
 			return
 		}
@@ -133,10 +133,10 @@ final class Connection: NSObject, ConnectionSocketDelegate
 	@objc
 	final func close()
 	{
-		LogToConsoleDebug("Closing connection \(socket.uniqueIdentifier)...")
+		Logging.defaultSubsystem?.debug("Closing connection \(self.socket.uniqueIdentifier, privacy: .public)...")
 
 		if (socket.disconnected) {
-			LogToConsoleError("Not connected")
+			Logging.defaultSubsystem?.error("Not connected")
 
 			return
 		}
@@ -254,7 +254,7 @@ final class Connection: NSObject, ConnectionSocketDelegate
 	final func send(_ data: Data, bypassQueue: Bool = false)
 	{
 		if (socket.disconnected) {
-			LogToConsoleError("Cannot send data while disconnected")
+			Logging.defaultSubsystem?.error("Cannot send data while disconnected")
 
 			return
 		}

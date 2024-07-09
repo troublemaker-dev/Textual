@@ -94,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startSheet
 {
-	LogToConsoleError("This method does nothing. Use -checkEligibility instead.");
+	LogToConsoleError("This method does nothing. Use -checkEligibility instead");
 	LogStackTrace();
 }
 
@@ -229,7 +229,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)_extractEligibilityFromResponseWithStatusCode:(NSUInteger)statusCode statusContext:(nullable NSDictionary<NSString *, id> *)statusContext
 {
-	LogToConsoleDebug("Status code: %lu", statusCode);
+	LogToConsoleDebug("Status code: %{public}lu", statusCode);
 
 #define _presentEligibilityCheckFailedSheet 	\
 	[self _presentEligibilityCheckFailedSheetWithError:errorMessage]; 	\

@@ -700,7 +700,7 @@ NSString * const ICLMediaAssessorErrorDomain = @"ICLMediaAssessorErrorDomain";
 		case ICLMediaAssessorErrorCodeMalformedContentLength:
 		case ICLMediaAssessorErrorCodeUnexpectedResponse:
 		{
-			LogToConsoleDebug("Assessor fatal error: %@",
+			LogToConsoleDebug("Assessor fatal error: %{public}@",
 				error.localizedDescription);
 		}
 		case ICLMediaAssessorErrorCodeUnexpectedType:
@@ -708,7 +708,7 @@ NSString * const ICLMediaAssessorErrorDomain = @"ICLMediaAssessorErrorDomain";
 		case ICLMediaAssessorErrorCodeMaximumWidthExceeded:
 		case ICLMediaAssessorErrorCodeMaximumHeightExceeded:
 		{
-			LogToConsoleDebug("Assessor validation error: %@",
+			LogToConsoleDebug("Assessor validation error: %{public}@",
 				error.localizedDescription);
 		}
 	} // switch()

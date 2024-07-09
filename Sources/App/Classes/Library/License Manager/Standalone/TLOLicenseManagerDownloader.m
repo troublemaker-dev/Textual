@@ -290,7 +290,7 @@ typedef void (^TLOLicenseManagerDownloaderConnectionCompletionBlock)(TLOLicenseM
 
 		if (propertyList == nil || [propertyList isKindOfClass:[NSDictionary class]] == NO) {
 			if (propertyListReadError) {
-				LogToConsoleError("Failed to convert contents of request into dictionary. Error: %@",
+				LogToConsoleError("Failed to convert contents of request into dictionary. Error: %{public}@",
 					  propertyListReadError.localizedDescription);
 			}
 		}
@@ -554,7 +554,7 @@ typedef void (^TLOLicenseManagerDownloaderConnectionCompletionBlock)(TLOLicenseM
 				return presentErrorUnconditionally();
 			}
 
-			LogToConsoleError("Receipt validation failed:\n%@", errorMessage);
+			LogToConsoleError("Receipt validation failed:\n%{public}@", errorMessage);
 
 			[TDCAlert modalAlertWithMessage:TXTLS(@"TLOLicenseManager[ujo-cd]", errorMessage)
 									  title:TXTLS(@"TLOLicenseManager[p9s-ak]")
@@ -760,7 +760,7 @@ typedef void (^TLOLicenseManagerDownloaderConnectionCompletionBlock)(TLOLicenseM
 	{
 		if (data == nil) {
 			if (error) {
-				LogToConsoleError("Request failed with error: %@",
+				LogToConsoleError("Request failed with error: %{public}@",
 					error.localizedDescription);
 			}
 

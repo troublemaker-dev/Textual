@@ -207,7 +207,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-	LogToConsole("Lookup failed with error: %@", error.localizedDescription);
+	LogToConsole("Lookup failed with error: %{public}@", error.localizedDescription);
 
 	[self teardownConnectionRequest];
 }
