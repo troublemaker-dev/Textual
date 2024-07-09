@@ -344,6 +344,12 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
+- (BOOL)applicationSupportsSecureRestorableState:(NSApplication *)sender
+{
+	/* This will have no effect on our app. Implement to suppress warning in console. */
+	return YES;
+}
+
 #pragma mark -
 #pragma mark NSApplication Terminate Procedure
 

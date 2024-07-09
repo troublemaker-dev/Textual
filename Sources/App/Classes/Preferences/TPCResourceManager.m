@@ -264,6 +264,12 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 
 @implementation TPCResourceManagerDocumentTypeImporter
 
++ (BOOL)autosavesInPlace
+{
+	/* We are read-only. This suppresses a warning in console. */
+	return YES;
+}
+
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError **)outError
 {
 	NSString *filePath = url.filePathURL.absoluteString;
