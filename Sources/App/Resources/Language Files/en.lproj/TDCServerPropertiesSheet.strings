@@ -80,6 +80,14 @@ For example: “Guest1 Guest2 Guest3“";
 "6wq-i4" = "Choose An Identity";
 "mi4-fd" = "Select a certificate to send when you connect securely.";
 
+"pmk-os" = "No Certificates Available";
+"489-hG" = "There are no certificates in the keychain configured for identity purposes.
+
+Certificates must meet the following criteria:
+	• Certificate is configured as type: “SSL Client”
+	• Certificate has matching private key";
+"3ju-lo" = "Learn to Create a Certificate";
+
 /* Cipher suites */
 "yko-5g" = "The “%@” includes the following cipher suites:";
 "k50-8n" = "%@\n\nThese cipher suites are ordered by preference with the most preferred at the top.";
