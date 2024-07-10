@@ -277,7 +277,7 @@ Textual.handleEvent                            = function(eventToken) {};
         The value of this entry is the name to save the store under.
 
         Preferably, this will be the name of the style, but a different name can
-        be entered so that multiple variants of a style can share the same store.
+        be entered so that multiple varieties of a style can share the same store.
 
     - Notice:
         • null (not undefined) is returned when a value does not exist for a key.
