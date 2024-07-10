@@ -54,4 +54,10 @@ TEXTUAL_EXTERN NSNotificationName const TPCPreferencesUserDefaultsDidChangeNotif
 @property (copy, readonly) NSDictionary<NSString *, id> *registeredDefaults;
 @end
 
+/* Trying to create a new instance of TPCPreferencesUserDefaultsController will
+ return the value of +sharedUserDefaultsController */
+@interface TPCPreferencesUserDefaultsController : NSUserDefaultsController
++ (TPCPreferencesUserDefaultsController *)sharedUserDefaultsController;
+@end
+
 NS_ASSUME_NONNULL_END
