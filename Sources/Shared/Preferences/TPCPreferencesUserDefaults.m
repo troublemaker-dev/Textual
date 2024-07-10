@@ -226,21 +226,6 @@ NSString * const TPCPreferencesUserDefaultsDidChangeNotification = @"TPCPreferen
 
 @implementation TPCPreferencesUserDefaultsController
 
-+ (TPCPreferencesUserDefaultsController *)sharedUserDefaultsController
-{
-	static id sharedSelf = nil;
-
-	static dispatch_once_t onceToken;
-
-	dispatch_once(&onceToken, ^{
-		sharedSelf = [[self alloc] _initWithSharedDefaults];
-
-		[sharedSelf setAppliesImmediately:YES];
-	});
-
-	return sharedSelf;
-}
-
 - (instancetype)_initWithSharedDefaults
 {
 	TPCPreferencesUserDefaults *defaults = [TPCPreferencesUserDefaults sharedUserDefaults];
@@ -248,23 +233,20 @@ NSString * const TPCPreferencesUserDefaultsDidChangeNotification = @"TPCPreferen
 	return [super initWithDefaults:defaults initialValues:nil];
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 - (instancetype)init
 {
-	return [self.class sharedUserDefaultsController];
+	return [self _initWithSharedDefaults];
 }
 
 - (nullable instancetype)initWithCoder:(NSCoder *)coder
 {
-	return [self.class sharedUserDefaultsController];
+	return [self _initWithSharedDefaults];
 }
 
 - (instancetype)initWithDefaults:(nullable NSUserDefaults *)defaults initialValues:(nullable NSDictionary<NSString *, id> *)initialValues
 {
-	return [self.class sharedUserDefaultsController];
+	return [self _initWithSharedDefaults];
 }
-#pragma clang diagnostic pop
 
 @end
 
