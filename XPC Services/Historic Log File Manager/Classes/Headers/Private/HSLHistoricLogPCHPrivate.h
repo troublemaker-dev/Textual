@@ -39,6 +39,7 @@
 
 #import <CoreData/CoreData.h>
 
+#import "StaticDefinitions.h"
 #import "TVCLogLineXPCPrivate.h"
 
 #import "HLSHistoricLogProtocol.h"

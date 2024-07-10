@@ -35,6 +35,8 @@
  *
  *********************************************************************** */
 
+#import "TPCPreferencesUserDefaults.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
@@ -49,7 +51,8 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, copy) NSString *savePath;
+@property (nonatomic, copy) NSString *databasePath; // Path to database file
+@property (nonatomic, copy) NSString *databaseDirectory; // Path to database directory
 /* contextObjects is mutable. It should only be accessed in a queue. Use the global context's queue. */
 @property (nonatomic, strong) NSMutableDictionary<NSString *, HLSHistoricLogViewContext *> *contextObjects;
 @property (nonatomic, assign) NSUInteger maximumLineCount;
@@ -82,13 +85,56 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 	self.maximumLineCount = 100;
 }
 
-- (void)openDatabaseAtPath:(NSString *)path withCompletionBlock:(void (NS_NOESCAPE ^ _Nullable)(BOOL))completionBlock
+- (void)_resetDatabaseFilename
 {
-	NSParameterAssert(path != nil);
+	NSString *filename = [NSString stringWithFormat:@"logControllerHistoricLog_%@.sqlite", [NSString stringWithUUID]];
 
-	LogToConsoleInfo("Opening database at path: %{public}@", path.standardizedTildePath);
+	[RZUserDefaults() setObject:filename forKey:@"TVCLogControllerHistoricLogFileSavePath_v3"];
+}
 
-	self.savePath = path;
+- (NSString *)_databaseSaveFilename
+{
+	NSString *filename = [RZUserDefaults() objectForKey:@"TVCLogControllerHistoricLogFileSavePath_v3"];
+
+	if (filename == nil) {
+		[self _resetDatabaseFilename];
+	}
+
+	return filename;
+}
+
+- (void)_setDatabasePathInDirectory:(NSString *)databaseDirectory
+{
+	NSParameterAssert(databaseDirectory != nil);
+
+	self.databaseDirectory = databaseDirectory;
+
+	[self _setDatabasePath];
+}
+
+- (void)_setDatabasePath
+{
+	NSString *filename = [self _databaseSaveFilename];
+
+	NSString *databasePath = [self.databaseDirectory stringByAppendingPathComponent:filename];
+
+	self.databasePath = databasePath;
+}
+
+- (void)_resetDatabasePath
+{
+	[self _resetDatabaseFilename];
+
+	[self _setDatabasePath];
+}
+
+- (void)openDatabaseInDirectory:(NSString *)databaseDirectory withCompletionBlock:(void (NS_NOESCAPE ^ _Nullable)(BOOL))completionBlock
+{
+	NSParameterAssert(databaseDirectory != nil);
+
+	[self _setDatabasePathInDirectory:databaseDirectory];
+
+	LogToConsoleInfo("Opening database at path: %{public}@", self.databasePath.standardizedTildePath);
 
 	BOOL success = [self _createBaseModel];
 
@@ -578,7 +624,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		NSSQLitePragmasOption : pragmaOptions
 	};
 
-	NSURL *persistentStorePath = [NSURL fileURLWithPath:self.savePath];
+	NSURL *persistentStorePath = [NSURL fileURLWithPath:self.databasePath];
 
 	NSError *addPersistentStoreError = nil;
 
@@ -598,9 +644,8 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 			LogToConsoleInfo("Attempting to create a new persistent store");
 
 			/* If we failed to load our store, we create a brand new one at a new path
-			 incase the old one is corrupted. We also erase the old database to not allow
-			 the file to just hang on the OS. */
-			[self resetDatabase]; // Destroy any data that may exist
+			 incase the old one is corrupted. */
+			[self _resetDatabasePath]; // Destroy any data that may exist
 
 			return [self _createBaseModelWithRecursion:1];
 		}
@@ -624,15 +669,6 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 
 		return YES;
 	}
-}
-
-- (void)resetDatabase
-{
-	NSString *path = self.savePath;
-
-	[[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
-	[[NSFileManager defaultManager] removeItemAtPath:[path stringByAppendingString:@"-shm"] error:NULL];
-	[[NSFileManager defaultManager] removeItemAtPath:[path stringByAppendingString:@"-wal"] error:NULL];
 }
 
 - (void)_rescheduleSave

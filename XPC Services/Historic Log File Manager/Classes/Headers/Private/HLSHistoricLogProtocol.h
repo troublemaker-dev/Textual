@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Server Protocol
 
 @protocol HLSHistoricLogServerProtocol
-- (void)openDatabaseAtPath:(NSString *)path withCompletionBlock:(void (NS_NOESCAPE ^ _Nullable)(BOOL success))completionBlock;
+- (void)openDatabaseInDirectory:(NSString *)databaseDirectory withCompletionBlock:(void (NS_NOESCAPE ^ _Nullable)(BOOL))completionBlock;
 
 - (void)writeLogLine:(TVCLogLineXPC *)logLine;
 
