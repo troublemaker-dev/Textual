@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
 		kUTTagClassFilenameExtension, (__bridge CFStringRef)fileExtension, NULL);
 
 	if (UTTypeConformsTo(fileUTI, kUTTypeAudio) == false) {
-		LogToConsoleDebug("File is not audio file: '%{public}@'", filePath.anonymizedFilePath);
+		LogToConsoleDebug("File is not audio file: '%{public}@'", filePath.standardizedTildePath);
 
 		CFRelease(fileUTI);
 
@@ -164,7 +164,7 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 
 	LogToConsoleError("Returned error code %{public}i when loading file at path: %{public}@",
-		soundLoadError, soundPathURL.anonymizedFilePath);
+		soundLoadError, soundPathURL.standardizedTildePath);
 
 	return 0;
 }

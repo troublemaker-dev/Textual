@@ -521,7 +521,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 		return NO;
 	}
 
-	LogToConsole("Removing group container contents at URL: %{public}@", gcLocation.anonymizedFilePath);
+	LogToConsole("Removing group container contents at URL: %{public}@", gcLocation.standardizedTildePath);
 
 	BOOL result = [RZFileManager() removeContentsOfDirectoryAtURL:gcLocation
 													excludingURLs:oldExtensions
@@ -604,7 +604,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 
 		if ([TPCResourceManager _URLIsSymbolicLink:newExtension] == NO) {
 #ifdef DEBUG
-			LogToConsoleDebug("Pruning URL: '%{public}@'", oldExtension.anonymizedFilePath);
+			LogToConsoleDebug("Pruning URL: '%{public}@'", oldExtension.standardizedTildePath);
 #endif
 
 			NSError *deleteError = nil;
@@ -613,7 +613,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 
 			if (deleteError) {
 				LogToConsoleError("Failed to prune extension at URL ['%{public}@']: %{public}@",
-					oldExtension.anonymizedFilePath, deleteError.localizedDescription);
+					oldExtension.standardizedTildePath, deleteError.localizedDescription);
 			}
 		}
 
@@ -749,7 +749,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 
 	if (listExtensionsError) {
 		LogToConsoleError("Unable to list contents of extensions at URL ['%{public}@']: %{public}@",
-			oldLocation.anonymizedFilePath, listExtensionsError.localizedDescription);
+			oldLocation.standardizedTildePath, listExtensionsError.localizedDescription);
 
 		return nil;
 	}

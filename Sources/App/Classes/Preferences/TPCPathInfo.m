@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	if ([RZFileManager() createDirectoryAtPath:directoryPath withIntermediateDirectories:YES attributes:nil error:&createDirectoryError] == NO) {
 		LogToConsoleError("Failed to create directory at path: '%{public}@' - %{public}@",
-			directoryPath.anonymizedFilePath, createDirectoryError.localizedDescription);
+			directoryPath.standardizedTildePath, createDirectoryError.localizedDescription);
 	}
 }
 
@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	if ([RZFileManager() createDirectoryAtURL:directoryURL withIntermediateDirectories:YES attributes:nil error:&createDirectoryError] == NO) {
 		LogToConsoleError("Failed to create directory at path: '%{public}@' - %{public}@",
-			directoryURL.anonymizedFilePath, createDirectoryError.localizedDescription);
+			directoryURL.standardizedTildePath, createDirectoryError.localizedDescription);
 	}
 }
 

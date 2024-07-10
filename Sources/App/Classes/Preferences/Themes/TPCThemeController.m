@@ -556,7 +556,7 @@ typedef NSMutableDictionary	<NSString *, TPCTheme *> 	*TPCThemeControllerThemeLi
 		return;
 	}
 
-	LogToConsoleDebug("Theme '%{public}@' named '%{public}@' at '%{public}@' created", theme, themeName, url.anonymizedFilePath);
+	LogToConsoleDebug("Theme '%{public}@' named '%{public}@' at '%{public}@' created", theme, themeName, url.standardizedTildePath);
 
 	[RZNotificationCenter() postNotificationName:TPCThemeControllerThemeListDidChangeNotification object:self];
 }

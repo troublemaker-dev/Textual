@@ -208,7 +208,7 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 
 	if (readError) {
 		LogToConsoleError("Resource '%{public}@' could not be read with error: %{public}@",
-			resourceURL.anonymizedFilePath, readError.localizedDescription);
+			resourceURL.standardizedTildePath, readError.localizedDescription);
 
 		return nil;
 	}
@@ -224,7 +224,7 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 
 	if (parseError) {
 		LogToConsoleFault("Resource '%{public}@' could not be parsed as a property list with error: %{public}@",
-			resourceURL.anonymizedFilePath, parseError.localizedDescription);
+			resourceURL.standardizedTildePath, parseError.localizedDescription);
 
 		return nil;
 	}
@@ -240,7 +240,7 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 		if ([propertyList isKindOfClass:[NSDictionary class]] == NO) {
 			LogToConsoleError("Contents of resource '%{public}@' is not a dictionary. "
 							  "Cannot locate value of 'key' in other formats.",
-							  resourceURL.anonymizedFilePath);
+							  resourceURL.standardizedTildePath);
 
 			return nil;
 		}
@@ -250,7 +250,7 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 
 	if ([objectValue isKindOfClass:class] == NO) {
 		LogToConsoleError("Contents of key '%{public}@' in resource '%{public}@' is not kind of class: %{public}@",
-			((key) ?: @"<Root Object>"), resourceURL.anonymizedFilePath, NSStringFromClass(class));
+			((key) ?: @"<Root Object>"), resourceURL.standardizedTildePath, NSStringFromClass(class));
 
 		return nil;
 	}

@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 		if (copyResult == NO) {
 			LogToConsoleError("Copy operation for '%{public}@' failed with error: %{public}@",
-				resourcePath.anonymizedFilePath, copyError.localizedDescription);
+				resourcePath.standardizedTildePath, copyError.localizedDescription);
 		}
 
 		return destinationPath;

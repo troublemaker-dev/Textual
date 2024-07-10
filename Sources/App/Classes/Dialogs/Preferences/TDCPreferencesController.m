@@ -938,7 +938,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 			if (bookmark == nil) {
 				LogToConsoleError("Error creating bookmark for URL ('%{public}@'): %{public}@",
-					path.anonymizedFilePath, bookmarkError.localizedDescription);
+					path.standardizedTildePath, bookmarkError.localizedDescription);
 			}
 
 			[transferController setDownloadDestinationURL:bookmark];
@@ -1011,7 +1011,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 			if (bookmark == nil) {
 				LogToConsoleError("Error creating bookmark for URL ('%{public}@'): %{public}@",
-					path.anonymizedFilePath, bookmarkError.localizedDescription);
+					path.standardizedTildePath, bookmarkError.localizedDescription);
 
 				return;
 			}

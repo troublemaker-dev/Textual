@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	if ([componentPathURL setResourceValue:@(YES) forKey:NSURLIsHiddenKey error:&attributesChangeError] == NO) {
 		LogToConsoleError("Failed to hide the folder at the path '%{private}@': %{private}@",
-			componentPathURL.anonymizedFilePath, attributesChangeError.localizedDescription);
+			componentPathURL.standardizedTildePath, attributesChangeError.localizedDescription);
 	}
 
 	[otrKit setMaximumProtocolSize:[self otrKitProtocolMaximumMessageSize]
@@ -152,7 +152,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	if ([pathURL setResourceValue:@(YES) forKey:NSURLIsExcludedFromBackupKey error:&attributesChangeError] == NO) {
 		LogToConsoleError("Failed to exclude the files at the path '%{private}@' from backup: %{private}@",
-			pathURL.anonymizedFilePath, attributesChangeError.localizedDescription);
+			pathURL.standardizedTildePath, attributesChangeError.localizedDescription);
 	}
 }
 

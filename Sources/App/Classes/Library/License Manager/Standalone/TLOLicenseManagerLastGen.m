@@ -137,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
 	NSData *licenseContents = [NSData dataWithContentsOfURL:licenseFilePath options:0 error:&readError];
 
 	if (licenseContents == nil) {
-		LogToConsoleError("Unable to read user license file (%{public}@). Error: %{public}@", licenseFilePath.anonymizedFilePath, readError.localizedDescription);
+		LogToConsoleError("Unable to read user license file (%{public}@). Error: %{public}@", licenseFilePath.standardizedTildePath, readError.localizedDescription);
 
 		return nil;
 	}

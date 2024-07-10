@@ -313,7 +313,7 @@ static NSUInteger _numberOfOpenFileHandles = 0;
 	NSFileHandle *fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:filePath];
 
 	if (fileHandle == nil) {
-		LogToConsoleError("Failed to open file handle at path '%{public}@'", filePath.anonymizedFilePath);
+		LogToConsoleError("Failed to open file handle at path '%{public}@'", filePath.standardizedTildePath);
 
 		return;
 	}

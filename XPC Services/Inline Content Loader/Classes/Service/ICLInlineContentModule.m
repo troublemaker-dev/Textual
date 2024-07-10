@@ -126,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	if (template == nil) {
 		LogToConsoleError("Failed to load template '%{public}@': %{public}@",
-			templateURL.anonymizedFilePath, templateLoadError.localizedDescription);
+			templateURL.standardizedTildePath, templateLoadError.localizedDescription);
 	}
 
 	return template;

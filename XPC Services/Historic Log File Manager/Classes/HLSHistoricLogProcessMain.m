@@ -86,7 +86,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 {
 	NSParameterAssert(path != nil);
 
-	LogToConsoleInfo("Opening database at path: %{public}@", path.anonymizedFilePath);
+	LogToConsoleInfo("Opening database at path: %{public}@", path.standardizedTildePath);
 
 	self.savePath = path;
 
