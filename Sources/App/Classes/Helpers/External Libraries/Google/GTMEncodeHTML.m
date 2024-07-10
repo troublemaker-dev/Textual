@@ -368,14 +368,13 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 	return val;
 }
 
-@implementation NSString (GTMNSStringHTMLAdditions)
-
-- (NSString *)gtm_stringByEscapingHTMLUsingTable:(HTMLEscapeMap*)table
-										  ofSize:(NSUInteger)size
-								 escapingUnicode:(BOOL)escapeUnicode {
-	NSUInteger length = [self length];
+static NSString *StringByEscapingHTMLUsingTable(NSString *src,
+												HTMLEscapeMap* table,
+												NSUInteger tableSize,
+												BOOL escapeUnicode) {
+	NSUInteger length = [src length];
 	if (!length) {
-		return self;
+		return src;
 	}
 
 	NSMutableString *finalString = [NSMutableString string];
@@ -383,25 +382,25 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 
 	// this block is common between GTMNSString+HTML and GTMNSString+XML but
 	// it's so short that it isn't really worth trying to share.
-	const unichar *buffer = CFStringGetCharactersPtr((CFStringRef)self);
+	const unichar *buffer = CFStringGetCharactersPtr((CFStringRef)src);
 	if (!buffer) {
 		// We want this buffer to be autoreleased.
 		NSMutableData *data = [NSMutableData dataWithLength:length * sizeof(UniChar)];
 		if (!data) {
 			// COV_NF_START  - Memory fail case
-			//_GTMDevLog(@"couldn't alloc buffer");
-			return nil;
+			// If we can't get enough memory for the buffer copy, odds are finalString
+			// will also run out of memory, so just give up.
+			NSCAssert(NO, @"couldn't alloc buffer");
 			// COV_NF_END
 		}
-		[self getCharacters:[data mutableBytes]];
+		[src getCharacters:[data mutableBytes]];
 		buffer = [data bytes];
 	}
 
 	if (!buffer || !data2) {
-		// COV_NF_START
-		//_GTMDevLog(@"Unable to allocate buffer or data2");
-		return nil;
-		// COV_NF_END
+		// If we can't get enough memory for the buffer copy, odds are finalString
+		// will also run out of memory, so just give up.
+		NSCAssert(NO, @"Unable to allocate buffer or data2");
 	}
 
 	unichar *buffer2 = (unichar *)[data2 mutableBytes];
@@ -410,7 +409,7 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 
 	for (NSUInteger i = 0; i < length; ++i) {
 		HTMLEscapeMap *val = bsearch(&buffer[i], table,
-									 size / sizeof(HTMLEscapeMap),
+									 tableSize / sizeof(HTMLEscapeMap),
 									 sizeof(HTMLEscapeMap), EscapeMapCompare);
 		if (val || (escapeUnicode && buffer[i] > 127)) {
 			if (buffer2Length) {
@@ -423,7 +422,7 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 				[finalString appendString:val->escapeSequence];
 			}
 			else {
-				//_GTMDevAssert(escapeUnicode && buffer[i] > 127, @"Illegal Character");
+				NSCAssert((escapeUnicode && buffer[i] > 127), @"Illegal Character");
 				[finalString appendFormat:@"&#%d;", buffer[i]];
 			}
 		} else {
@@ -439,16 +438,20 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 	return finalString;
 }
 
+@implementation NSString (GTMNSStringHTMLAdditions)
+
 - (NSString *)gtm_stringByEscapingForHTML {
-	return [self gtm_stringByEscapingHTMLUsingTable:gUnicodeHTMLEscapeMap
-											 ofSize:sizeof(gUnicodeHTMLEscapeMap)
-									escapingUnicode:NO];
+	return StringByEscapingHTMLUsingTable(self,
+										  gUnicodeHTMLEscapeMap,
+										  sizeof(gUnicodeHTMLEscapeMap),
+										  /*escapingUnicode=*/NO);
 } // gtm_stringByEscapingHTML
 
 - (NSString *)gtm_stringByEscapingForAsciiHTML {
-	return [self gtm_stringByEscapingHTMLUsingTable:gAsciiHTMLEscapeMap
-											 ofSize:sizeof(gAsciiHTMLEscapeMap)
-									escapingUnicode:YES];
+	return StringByEscapingHTMLUsingTable(self,
+										  gAsciiHTMLEscapeMap,
+										  sizeof(gAsciiHTMLEscapeMap),
+										  /*escapingUnicode=*/YES);
 } // gtm_stringByEscapingAsciiHTML
 
 - (NSString *)gtm_stringByUnescapingFromHTML {
@@ -479,26 +482,47 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 					NSScanner *scanner = [NSScanner scannerWithString:hexSequence];
 					unsigned value;
 					if ([scanner scanHexInt:&value] &&
-						value < USHRT_MAX &&
 						value > 0
 						&& [scanner scanLocation] == length - 4) {
-						unichar uchar = (unichar)value;
-						NSString *charString = [NSString stringWithCharacters:&uchar length:1];
-						[finalString replaceCharactersInRange:escapeRange withString:charString];
+						if (value < USHRT_MAX) {
+							unichar uchar = (unichar)value;
+							NSString *charString = [NSString stringWithCharacters:&uchar length:1];
+							[finalString replaceCharactersInRange:escapeRange withString:charString];
+						} else if (value >= 0x10000 && value <= 0x10FFFF) {
+							// code points in unicode supplementary planes
+							int subtractedValue = value - 0x10000;
+							unichar uchars[2];
+							uchars[0] = 0xD800 + (subtractedValue >> 10);
+							uchars[1] = 0xDC00 + (subtractedValue & 0x3FF);
+							NSString *charString = [NSString stringWithCharacters:uchars length:2];
+							if (charString) {
+								[finalString replaceCharactersInRange:escapeRange withString:charString];
+							}
+						}
 					}
-
 				} else {
 					// Decimal Sequences &#123;
 					NSString *numberSequence = [escapeString substringWithRange:NSMakeRange(2, length - 3)];
 					NSScanner *scanner = [NSScanner scannerWithString:numberSequence];
 					int value;
 					if ([scanner scanInt:&value] &&
-						value < USHRT_MAX &&
 						value > 0
 						&& [scanner scanLocation] == length - 3) {
-						unichar uchar = (unichar)value;
-						NSString *charString = [NSString stringWithCharacters:&uchar length:1];
-						[finalString replaceCharactersInRange:escapeRange withString:charString];
+						if (value < USHRT_MAX) {
+							unichar uchar = (unichar)value;
+							NSString *charString = [NSString stringWithCharacters:&uchar length:1];
+							[finalString replaceCharactersInRange:escapeRange withString:charString];
+						} else if (value >= 0x10000 && value <= 0x10FFFF) {
+							// code points in unicode supplementary planes
+							int subtractedValue = value - 0x10000;
+							unichar uchars[2];
+							uchars[0] = 0xD800 + (subtractedValue >> 10);
+							uchars[1] = 0xDC00 + (subtractedValue & 0x3FF);
+							NSString *charString = [NSString stringWithCharacters:uchars length:2];
+							if (charString) {
+								[finalString replaceCharactersInRange:escapeRange withString:charString];
+							}
+						}
 					}
 				}
 			} else {
