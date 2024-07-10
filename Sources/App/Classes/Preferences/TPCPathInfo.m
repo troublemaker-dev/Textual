@@ -43,12 +43,6 @@
 #import "TPCPreferencesUserDefaults.h"
 #import "TPCPathInfoPrivate.h"
 
-#if TEXTUAL_BUILT_INSIDE_SANDBOX == 1
-#include <pwd.h>            // -------
-#include <sys/types.h>      // --- | For +userHomeDirectoryPathOutsideSandbox
-#include <unistd.h>         // -------
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation TPCPathInfo
@@ -509,20 +503,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)userHome
 {
-#if TEXTUAL_BUILT_INSIDE_SANDBOX == 1
-	uid_t userId = getuid();
-
-	struct passwd *pw = getpwuid(userId);
-
-	return @(pw->pw_dir);
-#else
-	return NSHomeDirectory();
-#endif
+	return [NSFileManager pathOfHomeDirectoryOutsideSandbox];
 }
 
 + (NSURL *)userHomeURL
 {
-	return [NSURL fileURLWithPath:self.userHome isDirectory:YES];
+	return [NSFileManager URLOfHomeDirectoryOutsideSandbox];
 }
 
 + (nullable NSString *)userPreferences
