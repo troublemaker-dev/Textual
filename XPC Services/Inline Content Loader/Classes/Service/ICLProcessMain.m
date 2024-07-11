@@ -365,7 +365,7 @@ NSString * const ICLInlineContentErrorDomain = @"ICLInlineContentErrorDomain";
 		}
 		default:
 		{
-			LogToConsoleError("Unexpected media type: %lu", type);
+			LogToConsoleError("Unexpected media type: %{public}lu", type);
 
 			break;
 		} // case

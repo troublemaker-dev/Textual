@@ -120,8 +120,8 @@ NS_ASSUME_NONNULL_BEGIN
 	NSError *attributesChangeError = nil;
 
 	if ([componentPathURL setResourceValue:@(YES) forKey:NSURLIsHiddenKey error:&attributesChangeError] == NO) {
-		LogToConsoleError("Failed to hide the folder at the path '%@': %@",
-			  componentPathURL, attributesChangeError.localizedDescription);
+		LogToConsoleError("Failed to hide the folder at the path '%{private}@': %{private}@",
+			componentPathURL.standardizedTildePath, attributesChangeError.localizedDescription);
 	}
 
 	[otrKit setMaximumProtocolSize:[self otrKitProtocolMaximumMessageSize]
@@ -139,7 +139,7 @@ NS_ASSUME_NONNULL_BEGIN
 		NSError *writeError = nil;
 
 		if ([@"" writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&writeError] == NO) {
-			LogToConsoleError("Failed to create base file for encryption component at path: %@",
+			LogToConsoleError("Failed to create base file for encryption component at path: %{private}@",
 				  writeError.localizedDescription);
 		}
 	}
@@ -151,14 +151,14 @@ NS_ASSUME_NONNULL_BEGIN
 	NSError *attributesChangeError = nil;
 
 	if ([pathURL setResourceValue:@(YES) forKey:NSURLIsExcludedFromBackupKey error:&attributesChangeError] == NO) {
-		LogToConsoleError("Failed to exclude the files at the path '%@' from backup: %@",
-			  pathURL, attributesChangeError.localizedDescription);
+		LogToConsoleError("Failed to exclude the files at the path '%{private}@' from backup: %{private}@",
+			pathURL.standardizedTildePath, attributesChangeError.localizedDescription);
 	}
 }
 
 - (void)prepareForApplicationTermination
 {
-	LogToConsoleTerminationProgress("Preparing encryption manager.");
+	LogToConsoleTerminationProgress("Preparing encryption manager");
 }
 
 #pragma mark -

@@ -35,6 +35,8 @@
  *
  *********************************************************************** */
 
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TVCWK1AutoScroller : NSObject
@@ -55,5 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)saveScrollerPosition;
 - (void)restoreScrollerPosition;
 @end
+
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
 
 NS_ASSUME_NONNULL_END

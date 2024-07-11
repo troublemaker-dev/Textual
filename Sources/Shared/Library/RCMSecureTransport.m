@@ -670,7 +670,7 @@ static const char * _Nonnull kMacNames[] = {
 	OSStatus trustRefStatus = SecTrustCreateWithCertificates(certificatesMutableRef, policyRef, &trustRef);
 
 	if (trustRefStatus != noErr) {
-		LogToConsoleError("SecTrustCreateWithCertificates() returned %i", trustRefStatus);
+		LogToConsoleError("SecTrustCreateWithCertificates() returned %{public}i", trustRefStatus);
 	}
 
 	CFRelease(certificatesMutableRef);
@@ -693,7 +693,7 @@ static const char * _Nonnull kMacNames[] = {
 		NSData *certificateData = (__bridge_transfer NSData *)SecCertificateCopyData(certificateRef);
 
 		if (certificateData == nil) {
-			LogToConsoleError("Bad certificate data at index: %lu", trustCertificateIndex);
+			LogToConsoleError("Bad certificate data at index: %{public}lu", trustCertificateIndex);
 
 			continue;
 		}
@@ -713,7 +713,7 @@ static const char * _Nonnull kMacNames[] = {
 	OSStatus trustPoliciesStatus = SecTrustCopyPolicies(trustRef, &trustPolicies);
 
 	if (trustPoliciesStatus != noErr) {
-		LogToConsoleError("SecTrustCopyPolicies() returned %i", trustPoliciesStatus);
+		LogToConsoleError("SecTrustCopyPolicies() returned %{public}i", trustPoliciesStatus);
 
 		return nil;
 	}

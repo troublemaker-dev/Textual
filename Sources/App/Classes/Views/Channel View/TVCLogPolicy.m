@@ -130,6 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
 		NSMenuItem *lookupInDictionaryItem = nil;
 		NSMenuItem *searchWithGoogleItem = nil;
 
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
 		for (NSMenuItem *item in defaultMenuItems) {
 			if ((item.tag == _WebKit1MenuItemTagLookupInDictionary && isWebKit2 == NO) ||
 				(item.tag == _WebKit2MenuItemTagLookupInDictionary && isWebKit2))
@@ -145,6 +146,7 @@ NS_ASSUME_NONNULL_BEGIN
 				searchWithGoogleItem = [item copy];
 			}
 		}
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
 
 		for (NSMenuItem *item in menu.itemArray) {
 			NSMenuItem *newItem = [item copy];
@@ -241,6 +243,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark WebKit Delegate
 
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
+
 - (NSArray<NSMenuItem *> *)webView1:(WebView *)webView logView:(TVCLogView *)logView contextMenuWithDefaultMenuItems:(NSArray *)defaultMenuItems
 {
 	return [self constructContextMenuItemsForWebView:logView defaultMenuItems:defaultMenuItems];
@@ -276,6 +280,8 @@ NS_ASSUME_NONNULL_BEGIN
 		[listener use];
 	}
 }
+
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
 
 #pragma mark -
 #pragma mark WebKit2 Delegate

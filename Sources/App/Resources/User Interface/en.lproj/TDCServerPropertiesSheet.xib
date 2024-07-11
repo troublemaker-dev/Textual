@@ -2253,7 +2253,7 @@ Gw
                         <gridCell row="LVM-ri-oUP" column="bSr-v0-1FE" id="7JN-IO-EJT">
                             <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ou1-Bl-kz1">
                                 <rect key="frame" x="143" y="87" width="279" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Label" usesSingleLineMode="YES" id="Cy6-oh-U2a">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Label" usesSingleLineMode="YES" id="Cy6-oh-U2a">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2289,7 +2289,7 @@ Gw
                         <gridCell row="mRF-0R-krg" column="bSr-v0-1FE" id="QPa-gG-WYl">
                             <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="2ie-9H-xb2">
                                 <rect key="frame" x="143" y="59" width="279" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Label" usesSingleLineMode="YES" id="Gbb-jh-4mY">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Label" usesSingleLineMode="YES" id="Gbb-jh-4mY">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2325,7 +2325,7 @@ Gw
                         <gridCell row="1CG-bD-ulB" column="bSr-v0-1FE" id="04Y-ei-D2h">
                             <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="nFm-83-7HQ">
                                 <rect key="frame" x="143" y="31" width="279" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Label" usesSingleLineMode="YES" id="Sia-Zk-rSR">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Label" usesSingleLineMode="YES" id="Sia-Zk-rSR">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2361,7 +2361,7 @@ Gw
                         <gridCell row="DDA-TD-JgL" column="bSr-v0-1FE" id="abJ-zN-WA0">
                             <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Grr-p8-MOF">
                                 <rect key="frame" x="143" y="3" width="279" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Label" usesSingleLineMode="YES" id="MCd-Ig-Szi">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Label" usesSingleLineMode="YES" id="MCd-Ig-Szi">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

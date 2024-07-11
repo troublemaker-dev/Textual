@@ -190,7 +190,7 @@ NSString * const TVCLogControllerViewFinishedLoadingNotification = @"TVCLogContr
 
 - (void)prepareForApplicationTermination
 {
-	LogToConsoleTerminationProgress("Preparing view controller: %@", self.uniqueIdentifier);
+	LogToConsoleTerminationProgress("Preparing view controller: %{public}@", self.uniqueIdentifier);
 
 	[self prepareForTermination:YES];
 }
@@ -489,7 +489,7 @@ NSString * const TVCLogControllerViewFinishedLoadingNotification = @"TVCLogContr
 		NSString *html = [self renderLogLine:logLine resultInfo:&resultInfo];
 
 		if (html == nil) {
-			LogToConsoleError("Failed to render log line %@", logLine.description);
+			LogToConsoleError("Failed to render log line %{public}@", logLine.description);
 
 			continue;
 		}
@@ -855,7 +855,7 @@ NSString * const TVCLogControllerViewFinishedLoadingNotification = @"TVCLogContr
 
 - (void)processingInlineMediaPayload:(ICLPayload *)payload failedWithError:(NSError *)error
 {
-	LogToConsoleError("Processing request for '%@' at '%@' failed with error: %@",
+	LogToConsoleError("Processing request for '%{public}@' at '%{public}@' failed with error: %{public}@",
 		payload.uniqueIdentifier, payload.lineNumber, error.localizedDescription);
 }
 
@@ -1152,7 +1152,7 @@ NSString * const TVCLogControllerViewFinishedLoadingNotification = @"TVCLogContr
 		NSString *html = [self renderLogLine:logLine resultInfo:&resultInfo];
 
 		if (html == nil) {
-			LogToConsoleError("Failed to render log line %@", logLine.description);
+			LogToConsoleError("Failed to render log line %{public}@", logLine.description);
 
 			continue;
 		}
@@ -1217,7 +1217,7 @@ NSString * const TVCLogControllerViewFinishedLoadingNotification = @"TVCLogContr
 		NSString *html = [self renderLogLine:logLine resultInfo:&resultInfo];
 
 		if (html == nil) {
-			LogToConsoleError("Failed to render log line %@", logLine.description);
+			LogToConsoleError("Failed to render log line %{public}@", logLine.description);
 
 			return;
 		}

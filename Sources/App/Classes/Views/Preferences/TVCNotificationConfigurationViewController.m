@@ -357,7 +357,7 @@ NS_ASSUME_NONNULL_BEGIN
 			return;
 		}
 
-		LogToConsoleDebug("Reloading user interface because key %@ changed remotely", keyPath);
+		LogToConsoleDebug("Reloading user interface because key %{public}@ changed remotely", keyPath);
 
 		[self reload];
 	}

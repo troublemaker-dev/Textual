@@ -218,7 +218,7 @@ typedef NS_OPTIONS(NSUInteger, _TPCThemeMonitoringResult) {
 										error:&preFileListError];
 
 	if (preFileListError) {
-		LogToConsoleError("Failed to list contents of Varieties folder: %@",
+		LogToConsoleError("Failed to list contents of Varieties folder: %{public}@",
 			preFileListError.localizedDescription);
 	}
 
@@ -258,7 +258,7 @@ typedef NS_OPTIONS(NSUInteger, _TPCThemeMonitoringResult) {
 	GRMustacheTemplateRepository *repository = [GRMustacheTemplateRepository templateRepositoryWithBaseURL:repositoryURL];
 
 	NSAssert((repository != nil),
-		@"Default template repository not found.");
+		@"Default template repository not found");
 
 	self.defaultTemplateRepository = repository;
 }
@@ -938,7 +938,7 @@ typedef NS_OPTIONS(NSUInteger, _TPCThemeMonitoringResult) {
 		}
 
 		if (loadError && logErrors) {
-			LogToConsoleError("Failed to load template '%@' with error: '%@'",
+			LogToConsoleError("Failed to load template '%{public}@' with error: '%{public}@'",
 				templateName, loadError.localizedDescription);
 			LogStackTrace();
 		}
@@ -1273,7 +1273,7 @@ static inline BOOL _reevaluateFileDuringSetOrUnset(NSURL *fileURL, NSURL * __str
 		}
 	}
 	@catch (NSException *exception) {
-		LogToConsoleError("Caught exception: %@", exception.reason);
+		LogToConsoleError("Caught exception: %{public}@", exception.reason);
 		LogStackTrace();
 	}
 
@@ -1399,7 +1399,10 @@ static inline BOOL _reevaluateFileDuringSetOrUnset(NSURL *fileURL, NSURL * __str
 
 	BOOL removeValue = ( objectValue == nil ||
 						[objectValue isKindOfClass:[NSNull class]] ||
+
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
 						[objectValue isKindOfClass:[WebUndefined class]]);
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
 
 	NSDictionary *styleSettings = [RZUserDefaults() dictionaryForKey:storeKey];
 

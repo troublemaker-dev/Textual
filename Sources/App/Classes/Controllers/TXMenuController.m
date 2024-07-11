@@ -155,7 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)prepareForApplicationTermination
 {
-	LogToConsoleTerminationProgress("Preparing menu controller.");
+	LogToConsoleTerminationProgress("Preparing menu controller");
 
 	[self.fileTransferController prepareForApplicationTermination];
 }
@@ -3725,6 +3725,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showPreferencesWindow:(id)sender
 {
 	[self showPreferencesWindowWithSelection:TDCPreferencesControllerSelectionDefault];
+}
+
+- (void)showNotificationPreferences:(id)sender
+{
+	[self showPreferencesWindowWithSelection:TDCPreferencesControllerSelectionNotifications];
 }
 
 - (void)showStylePreferences:(id)sender

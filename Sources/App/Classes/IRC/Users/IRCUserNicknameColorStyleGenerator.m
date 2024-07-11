@@ -171,7 +171,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 	NSMutableData *hashedData = [NSMutableData dataWithLength:CC_MD5_DIGEST_LENGTH];
 
+TEXTUAL_IGNORE_DEPRECATION_BEGIN
 	CC_MD5(stringToHashData.bytes, (CC_LONG)stringToHashData.length, hashedData.mutableBytes);
+TEXTUAL_IGNORE_DEPRECATION_END
 
 	unsigned int hashedValue;
 	[hashedData getBytes:&hashedValue length:sizeof(unsigned int)];
@@ -200,7 +202,7 @@ TEXTUAL_IGNORE_DEPRECATION_BEGIN
 TEXTUAL_IGNORE_DEPRECATION_END
 
 		if (override == nil || [override isKindOfClass:[NSColor class]] == NO) {
-			LogToConsoleError("Failed to decode contents of '%@'", key);
+			LogToConsoleError("Failed to decode contents of '%{private}@'", key);
 
 			return;
 		}
@@ -212,7 +214,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 														 error:&error];
 
 		if (error) {
-			LogToConsoleError("Failed to decode contents for '%@': %@",
+			LogToConsoleError("Failed to decode contents for '%{private}@': %{public}@",
 				 key, error.description);
 
 			return;
@@ -247,7 +249,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 															   error:&error];
 
 	if (error) {
-		LogToConsoleError("Failed to decode color for '%@': %@",
+		LogToConsoleError("Failed to decode color for '%{private}@': %{public}@",
 				styleKey, error.description);
 	}
 
@@ -274,7 +276,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 															error:&error];
 
 		if (error) {
-			LogToConsoleError("Failed to decode color for '%@': %@",
+			LogToConsoleError("Failed to decode color for '%{private}@': %{public}@",
 				 styleKey, error.description);
 
 			return;

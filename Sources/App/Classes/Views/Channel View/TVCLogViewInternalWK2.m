@@ -395,13 +395,13 @@ create_normal_pool:
 	}
 
 	if (lineNumber == nil || errorMessage == nil || sourceURL == nil) {
-		LogToConsoleError("JavaScript Error in %@: %@", channelName, error.localizedDescription);
+		LogToConsoleError("JavaScript Error in %{private}@: %{public}@", channelName, error.localizedDescription);
 
 		return;
 	}
 
-	LogToConsoleError("A JavaScript error occurred in %@ on line %ld of %@: %@",
-		  channelName, lineNumber.unsignedIntegerValue, sourceURL.path, errorMessage);
+	LogToConsoleError("A JavaScript error occurred in %{public}@ on line %{public}ld of %{public}@: %{public}@",
+		channelName, lineNumber.unsignedIntegerValue, sourceURL.standardizedTildePath, errorMessage);
 }
 
 - (void)_t_evaluateJavaScript:(NSString *)code completionHandler:(void (^ _Nullable)(id _Nullable))completionHandler
@@ -415,7 +415,9 @@ create_normal_pool:
 
 		if (result) {
 			if ([result isKindOfClass:[NSNull class]] ||
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
 				[result isKindOfClass:[WebUndefined class]])
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
 			{
 				if (completionHandler) {
 					completionHandler(nil);
@@ -488,23 +490,23 @@ create_normal_pool:
 
 	switch (reason) {
 		case _WKProcessTerminationReasonExceededMemoryLimit:
-			LogToConsoleError("WebView [%@] terminated due to memory limit.", self.description);
+			LogToConsoleError("WebView [%{public}@] terminated due to memory limit", self.description);
 
 			break;
 		case _WKProcessTerminationReasonExceededCPULimit:
-			LogToConsoleError("WebView [%@] terminated due to CPU limit.", self.description);
+			LogToConsoleError("WebView [%{public}@] terminated due to CPU limit", self.description);
 
 			break;
 		case _WKProcessTerminationReasonRequestedByClient:
-			LogToConsoleDebug("WebView [%@] terminated by client.", self.description);
+			LogToConsoleDebug("WebView [%{public}@] terminated by client", self.description);
 
 			break;
 		case _WKProcessTerminationReasonCrash:
-			LogToConsoleError("WebView [%@] terminated due to crash.", self.description);
+			LogToConsoleError("WebView [%{public}@] terminated due to crash", self.description);
 
 			break;
 		default:
-			LogToConsoleError("WebView [%@] terminated by other means: %i", self.description, reason);
+			LogToConsoleError("WebView [%{public}@] terminated by other means: %{public}ld", self.description, reason);
 
 			break;
 	}
@@ -525,14 +527,14 @@ create_normal_pool:
 {
 	NSParameterAssert(webView == self);
 
-	LogToConsoleError("WebView [%@] terminated due to unresponsive.", self.description);
+	LogToConsoleError("WebView [%{public}@] terminated due to unresponsive", self.description);
 }
 
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView
 {
 	NSParameterAssert(webView == self);
 
-	LogToConsoleDebug("WebView [%@] terminated", self.description);
+	LogToConsoleDebug("WebView [%{public}@] terminated", self.description);
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSString *, id> *)change context:(nullable void *)context

@@ -81,26 +81,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Save Path
 
-- (void)resetDatabaseSavePath
-{
-	NSString *filename = [NSString stringWithFormat:@"logControllerHistoricLog_%@.sqlite", [NSString stringWithUUID]];
-
-	[RZUserDefaults() setObject:filename forKey:@"TVCLogControllerHistoricLogFileSavePath_v3"];
-}
-
 - (NSString *)databaseSavePath
 {
-	NSString *filename = [RZUserDefaults() objectForKey:@"TVCLogControllerHistoricLogFileSavePath_v3"];
-
-	if (filename == nil) {
-		[self resetDatabaseSavePath];
-
-		return [self databaseSavePath];
-	}
-
-	NSString *sourcePath = [TPCPathInfo groupContainerApplicationCaches];
-
-	return [sourcePath stringByAppendingPathComponent:filename];
+	return [TPCPathInfo groupContainerApplicationCaches];
 }
 
 #pragma mark -
@@ -143,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
 		self.processLoaded = NO;
 
 		LogToConsoleError("Failed to communicate with process to open database");
-	}] openDatabaseAtPath:[self databaseSavePath] withCompletionBlock:^(BOOL success) {
+	}] openDatabaseInDirectory:[self databaseSavePath] withCompletionBlock:^(BOOL success) {
 		if (success) {
 			LogToConsoleDebug("Successfully opened database");
 		} else {
@@ -284,7 +267,7 @@ NS_ASSUME_NONNULL_BEGIN
 	return [self.serviceConnection remoteObjectProxyWithErrorHandler:^(NSError *error) {
 		self.lastServiceConnectionError = error;
 
-		LogToConsoleError("Error occurred while communicating with service: %@",
+		LogToConsoleError("Error occurred while communicating with service: %{public}@",
 			error.localizedDescription);
 
 		if (handler) {
@@ -306,8 +289,7 @@ NS_ASSUME_NONNULL_BEGIN
 		TVCLogLine *logLine = [TVCLogLine logLineFromXPCObject:xpcObject];
 
 		if (logLine == nil) {
-			LogToConsoleError("Failed to initialize object %@. Corrupt data?",
-							  xpcObject.description);
+			LogToConsoleError("Failed to initialize object %{public}@. Corrupt data?", xpcObject.description);
 
 			continue;
 		}

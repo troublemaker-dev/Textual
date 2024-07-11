@@ -90,8 +90,8 @@ NS_ASSUME_NONNULL_BEGIN
 								  error:&copyError];
 
 		if (copyResult == NO) {
-			LogToConsoleError("Copy operation for '%@' failed with error: ",
-				resourcePath, copyError.localizedDescription);
+			LogToConsoleError("Copy operation for '%{public}@' failed with error: %{public}@",
+				resourcePath.standardizedTildePath, copyError.localizedDescription);
 		}
 
 		return destinationPath;

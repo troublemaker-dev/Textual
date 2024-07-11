@@ -203,8 +203,8 @@ NS_ASSUME_NONNULL_BEGIN
 		if ([self canUseApplicationAtURL:applicationURL applicationName:NULL]) {
 			matchedApplication = applicationURL;
 
-			LogToConsoleInfo("Automatically detected Mac App Store Textual 7 at the following path: %@",
-			 matchedApplication.path);
+			LogToConsoleInfo("Automatically detected Mac App Store Textual 7 at the following path: %{public}@",
+				matchedApplication.standardizedTildePath);
 
 			break;
 		}
@@ -301,8 +301,8 @@ NS_ASSUME_NONNULL_BEGIN
 	NSData *receiptData = [NSData dataWithContentsOfURL:receiptFileURL options:0 error:&receiptDataReadError];
 
 	if (receiptData == nil) {
-		LogToConsoleError("Failed to read the contents of the receipt file: %@",
-		  receiptDataReadError.localizedDescription);
+		LogToConsoleError("Failed to read the contents of the receipt file '%{public}@': %{public}@",
+			receiptFileURL.standardizedTildePath, receiptDataReadError.localizedDescription);
 
 		return nil;
 	}

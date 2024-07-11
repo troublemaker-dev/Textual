@@ -89,7 +89,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 
 	self.panel.floatingPanel = YES;
 
-	LogToConsoleDebug("[%@] Creating alert host", self);
+	LogToConsoleDebug("[%{public}@] Creating alert host", self);
 }
 
 - (void)showAlert
@@ -146,9 +146,9 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	self.alertVisible = YES;
 
 	if (window) {
-		LogToConsoleDebug("[%@] Running alert sheet in window: %@", self, window);
+		LogToConsoleDebug("[%{public}@] Running alert sheet in window: %{public}@", self, window);
 	} else {
-		LogToConsoleDebug("[%@] Running non-blocking alert", self);
+		LogToConsoleDebug("[%{public}@] Running non-blocking alert", self);
 	}
 
 	if (window) {
@@ -185,7 +185,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 
 	self.alertType = TVCAlertTypeModal;
 
-	LogToConsoleDebug("[%@] Running modal alert", self);
+	LogToConsoleDebug("[%{public}@] Running modal alert", self);
 
 	return [NSApp runModalForWindow:self.panel];
 }
@@ -272,7 +272,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 
 	/* Add first button */
 	NSAssert((self.firstButton.hidden == NO),
-		@"At least one button must be added to alert before presentation.");
+		@"At least one button must be added to alert before presentation");
 
 	firstButtonAnchor = ((firstButtonAnchor) ?: informativeTextField);
 
@@ -302,7 +302,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	/* Update state */
 	self.layoutPerformed = YES;
 
-	LogToConsoleDebug("[%@] Layout performed", self);
+	LogToConsoleDebug("[%{public}@] Layout performed", self);
 }
 
 #pragma mark -
@@ -312,7 +312,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 {
 	NSInteger buttonClicked = [sender tag];
 
-	LogToConsoleDebug("[%@] Button pressed: %ld", self, buttonClicked);
+	LogToConsoleDebug("[%{public}@] Button pressed: %ld", self, buttonClicked);
 
 	TVCAlertButtonClickedBlock actionBlock = nil;
 
@@ -327,7 +327,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	if (actionBlock != nil &&
 		actionBlock(self, buttonClicked) == NO) {
 
-		LogToConsoleDebug("[%@] Button action block denied alert dismissal", self);
+		LogToConsoleDebug("[%{public}@] Button action block denied alert dismissal", self);
 
 		return;
 	}
@@ -476,7 +476,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 		self.thirdButtonAction = block;
 	}
 
-	LogToConsoleDebug("[%@] Setting button action block at index: %lu", self, index);
+	LogToConsoleDebug("[%{public}@] Setting button action block at index: %lu", self, index);
 }
 
 - (void)endAlert
@@ -519,7 +519,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 		}
 	}
 
-	LogToConsoleDebug("[%@] Alert dismissed", self);
+	LogToConsoleDebug("[%{public}@] Alert dismissed", self);
 
 	self.alertVisible = NO;
 

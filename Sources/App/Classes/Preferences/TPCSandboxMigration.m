@@ -209,7 +209,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 
 	NSString *description = [self _descriptionOfInstallation:installation];
 
-	LogToConsole("Start: Migrating [%@] installation", description);
+	LogToConsole("Start: Migrating [%{public}@] installation", description);
 
 	TPCMigrateSandboxResult result = [self _migrateInstallation:installation];
 
@@ -217,15 +217,15 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 		case TPCMigrateSandboxResultSuccess:
 			[self _setMigrationCompleteForInstallation:installation];
 
-			LogToConsole("End: Migrating [%@] successful", description);
+			LogToConsole("End: Migrating [%{public}@] successful", description);
 
 			return YES; // Stop further migration
 		case TPCMigrateSandboxResultError:
-			LogToConsole("End: Migrating [%@] failed. Stopping all migration", description);
+			LogToConsole("End: Migrating [%{public}@] failed. Stopping all migration", description);
 
 			return YES; // Stop further migration
 		case TPCMigrateSandboxResultNotSuitable:
-			LogToConsole("End: Migrating [%@] failed. Installation is not suitable", description);
+			LogToConsole("End: Migrating [%{public}@] failed. Installation is not suitable", description);
 
 			return NO; // Allow further migration
 	}
@@ -247,7 +247,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:suiteName];
 
 	if (defaults == nil) {
-		LogToConsole("NSUserDefaults object could not be created for [%@] domain: '%@'",
+		LogToConsole("NSUserDefaults object could not be created for [%{public}@] domain: '%{public}@'",
 			[self _descriptionOfInstallation:installation], ((suiteName) ?: @"<no suite name>"));
 
 		return TPCMigrateSandboxResultNotSuitable;
@@ -263,7 +263,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	NSUInteger runCount = [preferences unsignedIntegerForKey:@"TXRunCount"];
 
 	if (runCount == 0) {
-		LogToConsoleError("Migration of [%@] has zero run count",
+		LogToConsoleError("Migration of [%{public}@] has zero run count",
 			[self _descriptionOfInstallation:installation]);
 
 		return TPCMigrateSandboxResultNotSuitable;
@@ -298,7 +298,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	[dict enumerateKeysAndObjectsUsingBlock:^(NSString *key, id object, BOOL *stop) {
 		if ([TPCPreferencesUserDefaults keyIsExcludedFromMigration:key]) {
 #ifdef DEBUG
-			LogToConsoleDebug("Key is excluded from migration: '%@'", key);
+			LogToConsoleDebug("Key is excluded from migration: '%{public}@'", key);
 #endif
 
 			return;
@@ -330,7 +330,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	[[NSUserDefaults alloc] initWithSuiteName:[self _defaultsSuiteNameForInstallation:installation]];
 
 	if (defaults == nil) {
-		LogToConsole("NSUserDefaults object could not be created for [%@] installation",
+		LogToConsole("NSUserDefaults object could not be created for [%{public}@] installation",
 			[self _descriptionOfInstallation:installation]);
 
 		return;
@@ -345,7 +345,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 		}
 
 #ifdef DEBUG
-		LogToConsoleDebug("Removing key: '%@'", key);
+		LogToConsoleDebug("Removing key: '%{public}@'", key);
 #endif
 
 		[defaults removeObjectForKey:key];
@@ -353,7 +353,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 
 	[self _unsetListOfImportedKeys];
 
-	LogToConsole("End: Remove old preferences - Removed: %lu", listOfKeys.count);
+	LogToConsole("End: Remove old preferences - Removed: %{public}lu", listOfKeys.count);
 }
 
 + (void)_setListOfImportedKeys:(nullable NSArray<NSString *> *)list
@@ -392,7 +392,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 
 + (BOOL)_migrateGroupContainerContentsForInstallation:(TPCMigrateSandboxInstallation)installation
 {
-	LogToConsole("Start: Migrate group container for '%@'",
+	LogToConsole("Start: Migrate group container for '%{public}@'",
 		[self _descriptionOfInstallation:installation]);
 
 	NSURL *oldLocation = [TPCPathInfo _groupContainerURLForInstallation:installation];
@@ -423,15 +423,14 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 										  CSFileManagerOptionsCreateDirectory |
 										  CSFileManagerCreateSymbolicLinkForPackages)];
 
-	LogToConsole("End: Migrate group container - Result: %@",
-		StringFromBOOL(result));
+	LogToConsole("End: Migrate group container - Result: %{BOOL}d", result);
 
 	return result;
 }
 
 + (void)_notifyGroupContainerMigratedForInstallation:(TPCMigrateSandboxInstallation)installation
 {
-	LogToConsole("Notifying user that installation of type [%@] migration performed",
+	LogToConsole("Notifying user that installation of type [%{public}@] migration performed",
 		[self _descriptionOfInstallation:installation]);
 
 	TVCAlert *alert =
@@ -501,7 +500,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 
 + (BOOL)_removeGroupContainerContentsForInstallation:(TPCMigrateSandboxInstallation)installation
 {
-	LogToConsole("Start: Remove group container for '%@'",
+	LogToConsole("Start: Remove group container for '%{public}@'",
 		[self _descriptionOfInstallation:installation]);
 
 	NSURL *gcLocation = [TPCPathInfo _groupContainerURLForInstallation:installation];
@@ -522,14 +521,13 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 		return NO;
 	}
 
-	LogToConsole("Removing group container contents at URL: %@", gcLocation);
+	LogToConsole("Removing group container contents at URL: %{public}@", gcLocation.standardizedTildePath);
 
 	BOOL result = [RZFileManager() removeContentsOfDirectoryAtURL:gcLocation
 													excludingURLs:oldExtensions
 														  options:(CSFileManagerOptionContinueOnError)];
 
-	LogToConsole("End: Remove group container - Result: %@",
-		StringFromBOOL(result));
+	LogToConsole("End: Remove group container - Result: %{BOOL}d", result);
 
 	return result;
 }
@@ -551,7 +549,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	 link is not present for an extension in the old location, that extension
 	 is deleted. Once all extensions are deleted, a flag is set to stop pruning
 	 so we don't keep scanning the old location forever. */
-	LogToConsole("Start: Pruning extensions for '%@'",
+	LogToConsole("Start: Pruning extensions for '%{public}@'",
 		[self _descriptionOfInstallation:installation]);
 
 	NSArray *oldExtensions = [TPCResourceManager _listOfExtensionsForInstallation:installation];
@@ -590,8 +588,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 			(isPackage == nil || isPackage.boolValue == NO))
 		{
 #ifdef DEBUG
-			LogToConsoleDebug("Ignoring non-bundle: '%@' - isPackage: %@", name,
-				StringFromBOOL(isPackage.boolValue));
+			LogToConsoleDebug("Ignoring non-bundle: '%{public}@' - isPackage: %{BOOL}d", name, isPackage.boolValue);
 #endif
 
 			continue;
@@ -607,7 +604,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 
 		if ([TPCResourceManager _URLIsSymbolicLink:newExtension] == NO) {
 #ifdef DEBUG
-			LogToConsoleDebug("Pruning URL: '%@'", oldExtension);
+			LogToConsoleDebug("Pruning URL: '%{public}@'", oldExtension.standardizedTildePath);
 #endif
 
 			NSError *deleteError = nil;
@@ -615,8 +612,8 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 			pruned = [RZFileManager() removeItemAtURL:oldExtension error:&deleteError];
 
 			if (deleteError) {
-				LogToConsoleError("Failed to prune extension at URL ['%@']: %@",
-					oldExtension, deleteError.localizedDescription);
+				LogToConsoleError("Failed to prune extension at URL ['%{public}@']: %{public}@",
+					oldExtension.standardizedTildePath, deleteError.localizedDescription);
 			}
 		}
 
@@ -632,7 +629,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	}
 
 	LogToConsole("End: Pruning extensions completed. "
-				 "Number remaining: %lu, Number pruned: %lu",
+				 "Number remaining: %{public}lu, Number pruned: %{public}lu",
 		numberRemaining, numberPruned);
 }
 
@@ -751,8 +748,8 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 																 error:&listExtensionsError];
 
 	if (listExtensionsError) {
-		LogToConsoleError("Unable to list contents of extensions at URL ['%@']: %@",
-			oldLocation, listExtensionsError.localizedDescription);
+		LogToConsoleError("Unable to list contents of extensions at URL ['%{public}@']: %{public}@",
+			oldLocation.standardizedTildePath, listExtensionsError.localizedDescription);
 
 		return nil;
 	}
@@ -802,7 +799,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	if (error) {
 		/* This is purposely considered debug information as the user knowing
 		 a file not existing is not an error when that is probable outcome. */
-		LogToConsoleDebug("Error caught when calculating age of file: %@",
+		LogToConsoleDebug("Error caught when calculating age of file: %{public}@",
 			error.localizedDescription);
 	}
 
@@ -820,7 +817,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	if (error) {
 		/* This is purposely considered debug information as the user knowing
 		 a file not existing is not an error when that is probable outcome. */
-		LogToConsoleDebug("Error caught when calculating age of file: %@",
+		LogToConsoleDebug("Error caught when calculating age of file: %{public}@",
 			error.localizedDescription);
 	}
 

@@ -46,6 +46,7 @@
 #import "IRCNetworkList.h"
 #import "IRCServer.h"
 #import "TLOLocalization.h"
+#import "TLOpenLink.h"
 #import "TPCPreferencesLocal.h"
 #import "TPCPreferencesUserDefaults.h"
 #import "TVCBasicTableView.h"
@@ -1569,7 +1570,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	OSStatus status = SecIdentityCopyCertificate(identityInRef, &certificateRef);
 
 	if (status != noErr) {
-		LogToConsoleError("Operation Failed (2): %i", status);
+		LogToConsoleError("Operation Failed (2): %{public}i", status);
 
 		return;
 	}
@@ -1583,7 +1584,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	if (status != noErr) {
 		CFRelease(certificateRef);
 
-		LogToConsoleError("Operation Failed (3): %i", status);
+		LogToConsoleError("Operation Failed (3): %{public}i", status);
 
 		return;
 	}
@@ -1665,7 +1666,21 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	OSStatus queryStatus = SecItemCopyMatching((__bridge CFDictionaryRef)queryFlags, (CFTypeRef *)&identities);
 
 	if (queryStatus != noErr) {
-		LogToConsoleError("Operation Failed (1): %i", queryStatus);
+		LogToConsoleError("Operation Failed (1): %{public}i", queryStatus);
+	}
+
+	identities = NULL;
+	if (identities == NULL || CFArrayGetCount(identities) == 0) {
+		[TDCAlert alertWithMessage:TXTLS(@"TDCServerPropertiesSheet[489-hG]")
+							 title:TXTLS(@"TDCServerPropertiesSheet[pmk-os]")
+					 defaultButton:TXTLS(@"Prompts[c7s-dq]")
+				   alternateButton:nil
+					   otherButton:TXTLS(@"TDCServerPropertiesSheet[3ju-lo]")
+				   completionBlock:^(TDCAlertResponse buttonClicked, BOOL suppressed, id underlyingAlert) {
+			if (buttonClicked == TDCAlertResponseOther) {
+				[TLOpenLink openWithString:@"https://help.codeux.com/textual/Using-CertFP.kb" inBackground:NO];
+			}
+		}];
 
 		return;
 	}

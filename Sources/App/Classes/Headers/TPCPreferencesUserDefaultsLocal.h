@@ -39,17 +39,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define RZUserDefaultsController()				[TPCPreferencesUserDefaultsController sharedUserDefaultsController]
-
 @interface TPCPreferencesUserDefaults (TPCPreferencesUserDefaultsLocal)
 + (BOOL)keyIsExcludedFromExportImport:(NSString *)defaultName;
 + (BOOL)keyIsExcludedFromMigration:(NSString *)defaultName;
-@end
-
-/* Trying to create a new instance of TPCPreferencesUserDefaultsController will
- return the value of +sharedUserDefaultsController */
-@interface TPCPreferencesUserDefaultsController : NSUserDefaultsController
-+ (TPCPreferencesUserDefaultsController *)sharedUserDefaultsController;
 @end
 
 NS_ASSUME_NONNULL_END

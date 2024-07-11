@@ -556,7 +556,7 @@ NS_ASSUME_NONNULL_BEGIN
 	NSRect controlFrame = NSMakeRect(0.0, 1.0,   cellBounds.size.width,
 												(cellBounds.size.height - 2.0));
 
-	CGContextRef context = RZGraphicsCurrentContext().graphicsPort;
+	CGContextRef context = RZGraphicsCurrentContext().CGContext;
 
 	/* Inner gradient color */
 	NSGradient *insideGradient = nil;

@@ -125,8 +125,8 @@ NS_ASSUME_NONNULL_BEGIN
 	GRMustacheTemplate *template = [GRMustacheTemplate templateFromContentsOfURL:templateURL error:&templateLoadError];
 
 	if (template == nil) {
-		LogToConsoleError("Failed to load template '%@': %@",
-			templateURL, templateLoadError.localizedDescription);
+		LogToConsoleError("Failed to load template '%{public}@': %{public}@",
+			templateURL.standardizedTildePath, templateLoadError.localizedDescription);
 	}
 
 	return template;

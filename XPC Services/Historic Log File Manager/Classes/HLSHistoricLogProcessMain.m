@@ -35,6 +35,8 @@
  *
  *********************************************************************** */
 
+#import "TPCPreferencesUserDefaults.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
@@ -49,7 +51,8 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, copy) NSString *savePath;
+@property (nonatomic, copy) NSString *databasePath; // Path to database file
+@property (nonatomic, copy) NSString *databaseDirectory; // Path to database directory
 /* contextObjects is mutable. It should only be accessed in a queue. Use the global context's queue. */
 @property (nonatomic, strong) NSMutableDictionary<NSString *, HLSHistoricLogViewContext *> *contextObjects;
 @property (nonatomic, assign) NSUInteger maximumLineCount;
@@ -82,13 +85,56 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 	self.maximumLineCount = 100;
 }
 
-- (void)openDatabaseAtPath:(NSString *)path withCompletionBlock:(void (NS_NOESCAPE ^ _Nullable)(BOOL))completionBlock
+- (void)_resetDatabaseFilename
 {
-	NSParameterAssert(path != nil);
+	NSString *filename = [NSString stringWithFormat:@"logControllerHistoricLog_%@.sqlite", [NSString stringWithUUID]];
 
-	LogToConsoleInfo("Opening database at path: %@", path);
+	[RZUserDefaults() setObject:filename forKey:@"TVCLogControllerHistoricLogFileSavePath_v3"];
+}
 
-	self.savePath = path;
+- (NSString *)_databaseSaveFilename
+{
+	NSString *filename = [RZUserDefaults() objectForKey:@"TVCLogControllerHistoricLogFileSavePath_v3"];
+
+	if (filename == nil) {
+		[self _resetDatabaseFilename];
+	}
+
+	return filename;
+}
+
+- (void)_setDatabasePathInDirectory:(NSString *)databaseDirectory
+{
+	NSParameterAssert(databaseDirectory != nil);
+
+	self.databaseDirectory = databaseDirectory;
+
+	[self _setDatabasePath];
+}
+
+- (void)_setDatabasePath
+{
+	NSString *filename = [self _databaseSaveFilename];
+
+	NSString *databasePath = [self.databaseDirectory stringByAppendingPathComponent:filename];
+
+	self.databasePath = databasePath;
+}
+
+- (void)_resetDatabasePath
+{
+	[self _resetDatabaseFilename];
+
+	[self _setDatabasePath];
+}
+
+- (void)openDatabaseInDirectory:(NSString *)databaseDirectory withCompletionBlock:(void (NS_NOESCAPE ^ _Nullable)(BOOL))completionBlock
+{
+	NSParameterAssert(databaseDirectory != nil);
+
+	[self _setDatabasePathInDirectory:databaseDirectory];
+
+	LogToConsoleInfo("Opening database at path: %{public}@", self.databasePath.standardizedTildePath);
 
 	BOOL success = [self _createBaseModel];
 
@@ -186,7 +232,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 {
 	NSParameterAssert(viewId != nil);
 
-	LogToConsoleDebug("Forgetting view: %@", viewId);
+	LogToConsoleDebug("Forgetting view: %{public}@", viewId);
 
 	HLSHistoricLogViewContext *viewContext = [self contextForView:viewId];
 
@@ -214,7 +260,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 {
 	NSParameterAssert(viewId != nil);
 
-	LogToConsoleDebug("Resetting the contents of view: %@", viewId);
+	LogToConsoleDebug("Resetting the contents of view: %{public}@", viewId);
 
 	HLSHistoricLogViewContext *viewContext = [self contextForView:viewId];
 
@@ -300,13 +346,13 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		NSArray<NSManagedObject *> *fetchedObjects = [viewContext executeFetchRequest:fetchRequest error:&fetchRequestError];
 
 		if (fetchedObjects == nil) {
-			LogToConsoleError("Error occurred fetching objects: %@",
+			LogToConsoleError("Error occurred fetching objects: %{public}@",
 							  fetchRequestError.localizedDescription);
 
 			return;
 		}
 
-		LogToConsoleDebug("%lu results fetched for view %@",
+		LogToConsoleDebug("%{public}lu results fetched for view %{public}@",
 						  fetchedObjects.count, viewId);
 
 		@autoreleasepool {
@@ -364,13 +410,13 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		NSArray<NSManagedObject *> *fetchedObjects = [viewContext executeFetchRequest:fetchRequest error:&fetchRequestError];
 
 		if (fetchedObjects == nil) {
-			LogToConsoleError("Error occurred fetching objects: %@",
+			LogToConsoleError("Error occurred fetching objects: %{public}@",
 							  fetchRequestError.localizedDescription);
 
 			return;
 		}
 
-		LogToConsoleDebug("%lu results fetched for view %@",
+		LogToConsoleDebug("%{public}lu results fetched for view %{public}@",
 						  fetchedObjects.count, viewId);
 
 		@autoreleasepool {
@@ -453,13 +499,13 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		NSArray<NSManagedObject *> *fetchedObjects = [viewContext executeFetchRequest:fetchRequest error:&fetchRequestError];
 
 		if (fetchedObjects == nil) {
-			LogToConsoleError("Error occurred fetching objects: %@",
+			LogToConsoleError("Error occurred fetching objects: %{public}@",
 							  fetchRequestError.localizedDescription);
 
 			return;
 		}
 
-		LogToConsoleDebug("%lu results fetched for view %@",
+		LogToConsoleDebug("%{public}lu results fetched for view %{public}@",
 						  fetchedObjects.count, viewId);
 
 		@autoreleasepool {
@@ -493,13 +539,13 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		NSArray<NSManagedObject *> *fetchedObjects = [viewContext executeFetchRequest:fetchRequest error:&fetchRequestError];
 
 		if (fetchedObjects == nil) {
-			LogToConsoleError("Error occurred fetching objects: %@",
+			LogToConsoleError("Error occurred fetching objects: %{public}@",
 							  fetchRequestError.localizedDescription);
 
 			return;
 		}
 
-		LogToConsoleDebug("%lu results fetched for view %@",
+		LogToConsoleDebug("%{public}lu results fetched for view %{public}@",
 						  fetchedObjects.count, viewId);
 
 		@autoreleasepool {
@@ -578,7 +624,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		NSSQLitePragmasOption : pragmaOptions
 	};
 
-	NSURL *persistentStorePath = [NSURL fileURLWithPath:self.savePath];
+	NSURL *persistentStorePath = [NSURL fileURLWithPath:self.databasePath];
 
 	NSError *addPersistentStoreError = nil;
 
@@ -591,16 +637,15 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 
 	if (persistentStore == nil)
 	{
-		LogToConsoleError("Error Creating Persistent Store: %@",
+		LogToConsoleError("Error Creating Persistent Store: %{public}@",
 						  addPersistentStoreError.localizedDescription);
 
 		if (recursionDepth == 0) {
 			LogToConsoleInfo("Attempting to create a new persistent store");
 
 			/* If we failed to load our store, we create a brand new one at a new path
-			 incase the old one is corrupted. We also erase the old database to not allow
-			 the file to just hang on the OS. */
-			[self resetDatabase]; // Destroy any data that may exist
+			 incase the old one is corrupted. */
+			[self _resetDatabasePath]; // Destroy any data that may exist
 
 			return [self _createBaseModelWithRecursion:1];
 		}
@@ -624,15 +669,6 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 
 		return YES;
 	}
-}
-
-- (void)resetDatabase
-{
-	NSString *path = self.savePath;
-
-	[[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
-	[[NSFileManager defaultManager] removeItemAtPath:[path stringByAppendingString:@"-shm"] error:NULL];
-	[[NSFileManager defaultManager] removeItemAtPath:[path stringByAppendingString:@"-wal"] error:NULL];
 }
 
 - (void)_rescheduleSave
@@ -664,7 +700,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 	NSError *saveError = nil;
 
 	if ([context save:&saveError] == NO) {
-		LogToConsoleError("Failed to perform save: %@",
+		LogToConsoleError("Failed to perform save: %{public}@",
 						  saveError.localizedDescription);
 	}
 
@@ -743,7 +779,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 
 	viewContext.hls_resizeTimer = resizeTimer;
 
-	LogToConsoleDebug("Scheduled to resize %@ in %f seconds",
+	LogToConsoleDebug("Scheduled to resize %{public}@ in %{public}f seconds",
 					  viewId, resizeTimerInterval);
 }
 
@@ -762,7 +798,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 {
 	NSParameterAssert(viewContext != nil);
 
-	LogToConsoleDebug("Resizing view %@", viewContext.hls_viewId);
+	LogToConsoleDebug("Resizing view %{public}@", viewContext.hls_viewId);
 
 	viewContext.hls_resizeTimer = nil;
 
@@ -816,7 +852,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		blockToPerform();
 	}
 
-	LogToConsoleDebug("Deleted %lu rows in %@", rowsDeleted, viewContext.hls_viewId);
+	LogToConsoleDebug("Deleted %{public}lu rows in %{public}@", rowsDeleted, viewContext.hls_viewId);
 
 	return rowsDeleted;
 }
@@ -837,7 +873,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 	[viewContext executeRequest:batchDeleteRequest error:&batchDeleteError];
 
 	if (batchDeleteResult == nil) {
-		LogToConsoleError("Failed to perform batch delete: %@",
+		LogToConsoleError("Failed to perform batch delete: %{public}@",
 						  batchDeleteError.localizedDescription);
 
 		return 0;
@@ -867,7 +903,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 	NSArray *fetchedObjects = [viewContext executeFetchRequest:fetchRequest error:&fetchRequestError];
 
 	if (fetchedObjects == nil) {
-		LogToConsoleError("Error occurred fetching objects: %@",
+		LogToConsoleError("Error occurred fetching objects: %{public}@",
 						  fetchRequestError.localizedDescription);
 
 		return 0;
@@ -945,7 +981,7 @@ typedef NS_ENUM(NSUInteger, HLSHistoricLogUniqueIdentifierFetchType)
 		viewContext.hls_newestIdentifier = [self _newestIdentifierInViewContextFromDatabase:viewContext performOnQueue:YES];
 
 		/* Log information for debugging */
-		LogToConsoleDebug("Context created for %@ - Line count: %lu, Newest identifier: %lu",
+		LogToConsoleDebug("Context created for %{public}@ - Line count: %{public}lu, Newest identifier: %{public}lu",
 						  viewContext.hls_viewId,
 						  viewContext.hls_totalLineCount,
 						  viewContext.hls_newestIdentifier);

@@ -53,6 +53,7 @@
 #import "TLOLicenseManagerLastGenPrivate.h"
 #import "TLOLicenseManagerPrivate.h"
 #import "TLOLocalization.h"
+#import "TLONotificationController.h"
 #import "TDCAlert.h"
 #import "TDCLicenseManagerDialogPrivate.h"
 
@@ -96,6 +97,10 @@ NSString * const TDCLicenseManagerTrialExpiredNotification = @"TDCLicenseManager
 - (IBAction)unregisteredViewRecoveryLostLicense:(id)sender;
 
 - (IBAction)registeredViewDeactivateTextual:(id)sender;
+@end
+
+@interface TLONotificationController ()
+- (void)scheduleLicenseManagerNotificationWithTitle:(NSString *)title message:(NSString *)message;
 @end
 
 @implementation TDCLicenseManagerDialog
@@ -843,21 +848,11 @@ NSString * const TDCLicenseManagerTrialExpiredNotification = @"TDCLicenseManager
 		return; // Do not schedule notification...
 	}
 
-	NSUserNotification *notification = [NSUserNotification new];
+	NSString *title = [self timeRemainingInTrialFormattedMessage];
 
-	notification.deliveryDate = [NSDate date];
+	NSString *message = TXTLS(@"TLOLicenseManager[ccj-ag]");
 
-	notification.informativeText = TXTLS(@"TLOLicenseManager[ccj-ag]");
-
-	notification.title = [self timeRemainingInTrialFormattedMessage];
-
-	notification.userInfo = @{@"isLicenseManagerTimeRemainingInTrialNotification" : @(YES)};
-
-	[notification setValue:@(YES) forKey:@"_showsButtons"];
-
-	notification.actionButtonTitle = TXTLS(@"TLOLicenseManager[b8b-sg]");
-
-	[RZUserNotificationCenter() scheduleNotification:notification];
+	[sharedNotificationController() scheduleLicenseManagerNotificationWithTitle:title message:message];
 }
 
 #pragma mark -

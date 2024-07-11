@@ -107,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
 	NSArray *listedFiles = [RZFileManager() contentsOfDirectoryAtPath:pluginsPath error:&listedFilesError];
 
 	if (listedFiles == nil) {
-		LogToConsoleError("Failed to list plugins: %@",
+		LogToConsoleError("Failed to list plugins: %{public}@",
 			listedFilesError.localizedDescription);
 
 		return nil;
@@ -147,14 +147,14 @@ NS_ASSUME_NONNULL_BEGIN
 	Class principalClass = bundle.principalClass;
 
 	if (principalClass == NULL) {
-		LogToConsoleError("Failed to load bundle '%@' because of NULL principal class", bundle.bundleURL);
+		LogToConsoleError("Failed to load bundle '%{public}@' because of NULL principal class", bundle.bundleURL.standardizedTildePath);
 
 		return nil;
 	}
 
 	/* Check for conformity */
 	if ([principalClass conformsToProtocol:@protocol(ICLPluginProtocol)] == NO) {
-		LogToConsoleError("Failed to load bundle '%@' because it does not conform to the ICLPluginProtocol protocol", bundle.bundleURL);
+		LogToConsoleError("Failed to load bundle '%{public}@' because it does not conform to the ICLPluginProtocol protocol", bundle.bundleURL.standardizedTildePath);
 
 		return nil;
 	}

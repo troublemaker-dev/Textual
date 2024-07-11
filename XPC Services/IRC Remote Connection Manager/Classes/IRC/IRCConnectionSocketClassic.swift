@@ -117,7 +117,7 @@ final class ConnectionSocketClassic: ConnectionSocket, ConnectionSocketProtocol,
 
 			if (populateSystemSocksProxy(failureReason: &proxyPopulateError) == false) {
 				if let error = proxyPopulateError {
-					LogToConsoleError(error)
+					Logging.defaultSubsystem?.error("\(error, privacy: .public)")
 				}
 			} else {
 				let proxyAddress = config.proxyAddress!

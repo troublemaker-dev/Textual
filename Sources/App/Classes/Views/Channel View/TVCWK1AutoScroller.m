@@ -35,6 +35,8 @@
  *
  *********************************************************************** */
 
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
+
 #import "TVCWK1AutoScrollerPrivate.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -245,9 +247,9 @@ static CGFloat _userScrolledMinimum = 25.0;
 		self->_userScrolled = userScrolled;
 
 		if (userScrolled) {
-			LogToConsoleDebug("User scrolled above threshold. Disabled auto scroll.");
+			LogToConsoleDebug("User scrolled above threshold. Disabled auto scroll");
 		} else {
-			LogToConsoleDebug("Scrolled below threshold. Enabled auto scroll.");
+			LogToConsoleDebug("Scrolled below threshold. Enabled auto scroll");
 		}
 	}
 }
@@ -265,3 +267,5 @@ static CGFloat _userScrolledMinimum = 25.0;
 @end
 
 NS_ASSUME_NONNULL_END
+
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END

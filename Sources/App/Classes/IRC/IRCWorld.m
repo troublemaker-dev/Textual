@@ -173,13 +173,13 @@ NSString * const IRCWorldWillDestroyChannelNotification = @"IRCWorldWillDestroyC
 
 - (void)prepareForApplicationTermination
 {
-	LogToConsoleTerminationProgress("Preparing IRC world.");
+	LogToConsoleTerminationProgress("Preparing IRC world");
 
-	LogToConsoleTerminationProgress("Removing IRC world observers.");
+	LogToConsoleTerminationProgress("Removing IRC world observers");
 
 	[RZNotificationCenter() removeObserver:self];
 
-	LogToConsoleTerminationProgress("Preparing clients: %ld", self.clientCount);
+	LogToConsoleTerminationProgress("Preparing clients: %{public}ld", self.clientCount);
 
 	for (IRCClient *u in self.clientList) {
 		[u prepareForApplicationTermination];
@@ -686,7 +686,7 @@ NSString * const IRCWorldWillDestroyChannelNotification = @"IRCWorldWillDestroyC
 		[mainWindowServerList() removeItemFromList:client];
 	}
 	@catch (NSException *exception) {
-		LogToConsoleError("Caught exception: %@", exception.reason);
+		LogToConsoleError("Caught exception: %{public}@", exception.reason);
 		LogStackTrace();
 	}
 
@@ -738,7 +738,7 @@ NSString * const IRCWorldWillDestroyChannelNotification = @"IRCWorldWillDestroyC
 			[mainWindowServerList() removeItemFromList:channel];
 		}
 		@catch (NSException *exception) {
-			LogToConsoleError("Caught exception: %@", exception.reason);
+			LogToConsoleError("Caught exception: %{public}@", exception.reason);
 			LogStackTrace();
 		}
 

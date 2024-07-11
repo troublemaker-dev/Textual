@@ -195,7 +195,7 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 	NSURL *resourceURL = [RZMainBundle() URLForResource:name withExtension:@"plist" subdirectory:subpath];
 
 	if (resourceURL == nil) {
-		LogToConsoleError("Resource '%@' in subpath '%@' was not found.",
+		LogToConsoleError("Resource '%{public}@' in subpath '%{public}@' was not found.",
 			name, ((subpath) ?: @"<No subpath>"));
 
 		return nil;
@@ -207,8 +207,8 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 	NSData *fileContents = [NSData dataWithContentsOfURL:resourceURL options:0 error:&readError];
 
 	if (readError) {
-		LogToConsoleError("Resource '%@' could not be read with error: %@",
-			resourceURL, readError.localizedDescription);
+		LogToConsoleError("Resource '%{public}@' could not be read with error: %{public}@",
+			resourceURL.standardizedTildePath, readError.localizedDescription);
 
 		return nil;
 	}
@@ -223,8 +223,8 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 												error:&parseError];
 
 	if (parseError) {
-		LogToConsoleFault("Resource '%@' could not be parsed as a property list with error: %@",
-			resourceURL, parseError.localizedDescription);
+		LogToConsoleFault("Resource '%{public}@' could not be parsed as a property list with error: %{public}@",
+			resourceURL.standardizedTildePath, parseError.localizedDescription);
 
 		return nil;
 	}
@@ -238,8 +238,9 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 	} else {
 		/* Property list can be an array. */
 		if ([propertyList isKindOfClass:[NSDictionary class]] == NO) {
-			LogToConsoleError("Contents of resource '%@' is not a dictionary. "
-							  "Cannot locate value of 'key' in other formats.", resourceURL);
+			LogToConsoleError("Contents of resource '%{public}@' is not a dictionary. "
+							  "Cannot locate value of 'key' in other formats.",
+							  resourceURL.standardizedTildePath);
 
 			return nil;
 		}
@@ -248,8 +249,8 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 	}
 
 	if ([objectValue isKindOfClass:class] == NO) {
-		LogToConsoleError("Contents of key '%@' in resource '%@' is not kind of class: %@",
-			((key) ?: @"<Root Object>"), resourceURL, NSStringFromClass(class));
+		LogToConsoleError("Contents of key '%{public}@' in resource '%{public}@' is not kind of class: %{public}@",
+			((key) ?: @"<Root Object>"), resourceURL.standardizedTildePath, NSStringFromClass(class));
 
 		return nil;
 	}
@@ -262,6 +263,12 @@ NSString * const TPCResourceManagerScriptDocumentTypeExtensionWithoutPeriod		= @
 #pragma mark -
 
 @implementation TPCResourceManagerDocumentTypeImporter
+
++ (BOOL)autosavesInPlace
+{
+	/* We are read-only. This suppresses a warning in console. */
+	return YES;
+}
 
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError **)outError
 {

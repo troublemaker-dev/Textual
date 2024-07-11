@@ -413,7 +413,7 @@ typedef NS_ENUM(NSUInteger, TVCListAppearanceImageType)
 			SEL selector = NSSelectorFromString(colorValue);
 
 			if ([NSColor respondsToSelector:selector] == NO) {
-				LogToConsoleError("Missing color: %@", colorValue);
+				LogToConsoleError("Missing color: %{public}@", colorValue);
 
 				return nil;
 			}

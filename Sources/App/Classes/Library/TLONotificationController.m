@@ -41,7 +41,6 @@
 #import "TXMenuController.h"
 #import "TVCMainWindow.h"
 #import "TPCApplicationInfo.h"
-#import "TPCPathInfo.h"
 #import "TPCPreferencesLocal.h"
 #import "TLOLocalization.h"
 #import "TDCFileTransferDialogPrivate.h"
@@ -53,7 +52,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define _clickInterval			2
+NSString * const TXNotificationUserInfoClientIdentifierKey		= @"clientId";
+NSString * const TXNotificationUserInfoChannelIdentifierKey		= @"channelId";
 
 NSString * const TXNotificationDialogStandardNicknameFormat		= @"%@ %@";
 NSString * const TXNotificationDialogActionNicknameFormat		= @"\u2022 %@: %@";
@@ -61,9 +61,18 @@ NSString * const TXNotificationDialogActionNicknameFormat		= @"\u2022 %@: %@";
 NSString * const TXNotificationHighlightLogStandardActionFormat			= @"\u2022 %@: %@";
 NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 
-@interface TLONotificationController ()
-@property (nonatomic, copy, nullable) NSDictionary<NSString *, id> *lastClickedContext;
-@property (nonatomic, assign) NSTimeInterval lastClickedTime;
+NSString * const TXNotificationCategoryIdentifierFileTransfer = @"TXNotificationCategoryIdentifierFileTransfer";
+NSString * const TXNotificationActionIdentifierFileTransferAccept = @"TXNotificationActionIdentifierFileTransferAccept";
+
+NSString * const TXNotificationCategoryIdentifierPrivateMessage = @"TXNotificationCategoryIdentifierPrivateMessage";
+NSString * const TXNotificationActionIdentifierPrivateMessageReply = @"TXNotificationActionIdentifierPrivateMessageReply";
+
+#if TEXTUAL_BUILT_WITH_LICENSE_MANAGER == 1
+NSString * const TXNotificationCategoryIdentifierLicenseManager = @"TXNotificationCategoryIdentifierLicenseManager";
+NSString * const TXNotificationActionIdentifierLicenseManagerMoreInfo = @"TXNotificationActionIdentifierLicenseManagerMoreInfo";
+#endif
+
+@interface TLONotificationController () <UNUserNotificationCenterDelegate>
 @end
 
 @implementation TLONotificationController
@@ -84,13 +93,71 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 	RZUserNotificationCenter().delegate = (id)self;
 
 	[RZNotificationCenter() addObserver:self selector:@selector(mainWindowSelectionChanged:) name:TVCMainWindowSelectionChangedNotification object:nil];
+
+	[self registerCategories];
+}
+
+- (NSSet<UNNotificationCategory *> *)categoriesToRegister
+{
+	/* File Transfers */
+	UNNotificationAction *ftAcceptAction =
+	[UNNotificationAction actionWithIdentifier:TXNotificationActionIdentifierFileTransferAccept
+										 title:TXTLS(@"Prompts[qpv-go]")
+									   options:0];
+
+	UNNotificationCategory *ftCategory =
+	[UNNotificationCategory categoryWithIdentifier:TXNotificationCategoryIdentifierFileTransfer
+										   actions:@[ftAcceptAction]
+								 intentIdentifiers:@[]
+										   options:UNNotificationCategoryOptionCustomDismissAction];
+
+	/* Private Message */
+	UNTextInputNotificationAction *pmReplyAction =
+	[UNTextInputNotificationAction actionWithIdentifier:TXNotificationActionIdentifierPrivateMessageReply
+												  title:TXTLS(@"Notifications[3t4-kl]")
+												options:0
+								   textInputButtonTitle:TXTLS(@"Notifications[bhn-uo]")
+								   textInputPlaceholder:TXTLS(@"Notifications[do4-2e]")];
+
+	UNNotificationCategory *pmCategory =
+	[UNNotificationCategory categoryWithIdentifier:TXNotificationCategoryIdentifierPrivateMessage
+										   actions:@[pmReplyAction]
+								 intentIdentifiers:@[]
+										   options:UNNotificationCategoryOptionCustomDismissAction];
+
+#if TEXTUAL_BUILT_WITH_LICENSE_MANAGER == 1
+	UNNotificationAction *lmMoreInfoAction =
+	[UNNotificationAction actionWithIdentifier:TXNotificationActionIdentifierLicenseManagerMoreInfo
+										 title:TXTLS(@"TLOLicenseManager[b8b-sg]")
+									   options:0];
+
+	UNNotificationCategory *lmCategory =
+	[UNNotificationCategory categoryWithIdentifier:TXNotificationCategoryIdentifierLicenseManager
+										   actions:@[lmMoreInfoAction]
+								 intentIdentifiers:@[]
+										   options:UNNotificationCategoryOptionCustomDismissAction];
+
+	NSSet *categories = [NSSet setWithObjects:ftCategory, pmCategory, lmCategory, nil];
+#else
+	NSSet *categories = [NSSet setWithObjects:ftCategory, pmCategory, nil];
+#endif
+
+	return categories;
+}
+
+- (void)registerCategories
+{
+	NSSet *categories = [self categoriesToRegister];
+
+	[RZUserNotificationCenter() setNotificationCategories:categories];
 }
 
 - (void)mainWindowSelectionChanged:(NSNotification *)notification
 {
 	TVCMainWindow *mainWindow = mainWindow();
 
-	[self dismissNotificationCenterNotificationsForChannel:mainWindow.selectedChannel onClient:mainWindow.selectedClient];
+	[self dismissNotificationsForChannel:mainWindow.selectedChannel
+								onClient:mainWindow.selectedClient];
 }
 
 - (NSString *)titleForEvent:(TXNotificationType)event
@@ -251,116 +318,365 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 		eventDescription = eventDescription.stripIRCEffects;
 	}
 
-	NSUserNotification *notification = [NSUserNotification new];
-
-	notification.deliveryDate = [NSDate date];
-	notification.informativeText = eventDescription;
-	notification.title = eventTitle;
-	notification.userInfo = eventContext;
+	NSString *categoryIdentifier = nil;
 
 	if (eventType == TXNotificationTypeFileTransferReceiveRequested) {
-		/* sshhhh... you didn't see nothing. */
-		[notification setValue:@(YES) forKey:@"_showsButtons"];
-
-		notification.actionButtonTitle = TXTLS(@"Prompts[qpv-go]");
-	}
-
-	/* These are the only event types we want to support for now */
-	if (eventType == TXNotificationTypeNewPrivateMessage ||
-		eventType == TXNotificationTypePrivateMessage)
+		categoryIdentifier = TXNotificationCategoryIdentifierFileTransfer;
+	} else if (eventType == TXNotificationTypeNewPrivateMessage ||
+			   eventType == TXNotificationTypePrivateMessage)
 	{
-		notification.hasReplyButton = YES;
-
-		notification.responsePlaceholder = TXTLS(@"Notifications[do4-2e]");
+		categoryIdentifier = TXNotificationCategoryIdentifierPrivateMessage;
 	}
 
-	[RZUserNotificationCenter() scheduleNotification:notification];
+	NSString *clientId = eventContext[TXNotificationUserInfoClientIdentifierKey];
+	NSString *channelId = eventContext[TXNotificationUserInfoChannelIdentifierKey];
+
+	NSString *threadIdentifier = [self threadIdentifierForClient:clientId channel:channelId];
+
+	[self scheduleNotificationWithTitle:eventTitle
+								message:eventDescription
+							   userInfo:eventContext
+				 notificationIdentifier:nil
+					   threadIdentifier:threadIdentifier
+					 categoryIdentifier:categoryIdentifier];
 }
+
+- (nullable NSString *)threadIdentifierForClient:(nullable NSString *)clientIdentifier channel:(nullable NSString *)channelIdentifier
+{
+	if (clientIdentifier == nil) {
+		return nil;
+	}
+
+	if (channelIdentifier) {
+		return [clientIdentifier stringByAppendingFormat:@"-%@", channelIdentifier];
+	}
+
+	return clientIdentifier;
+}
+
+- (void)scheduleNotificationWithTitle:(NSString *)title
+							  message:(NSString *)message
+							 userInfo:(nullable NSDictionary<NSString *, id> *)userInfo
+{
+	NSParameterAssert(title != nil);
+	NSParameterAssert(message != nil);
+
+	[self scheduleNotificationWithTitle:title
+								message:message
+							   userInfo:userInfo
+				 notificationIdentifier:nil
+					   threadIdentifier:nil
+					 categoryIdentifier:nil];
+}
+
+- (void)scheduleNotificationWithTitle:(NSString *)title
+							  message:(NSString *)message
+							 userInfo:(nullable NSDictionary<NSString *, id> *)userInfo
+					 threadIdentifier:(NSString *)threadIdentifier
+{
+	NSParameterAssert(title != nil);
+	NSParameterAssert(message != nil);
+	NSParameterAssert(threadIdentifier != nil);
+
+	[self scheduleNotificationWithTitle:title
+								message:message
+							   userInfo:userInfo
+				 notificationIdentifier:nil
+					   threadIdentifier:threadIdentifier
+					 categoryIdentifier:nil];
+}
+
+- (void)scheduleNotificationWithTitle:(NSString *)title
+							  message:(NSString *)message
+						   forChannel:(IRCChannel *)channel
+{
+	NSParameterAssert(title != nil);
+	NSParameterAssert(message != nil);
+	NSParameterAssert(channel != nil);
+
+	IRCClient *client = channel.associatedClient;
+
+	[self scheduleNotificationWithTitle:title
+								message:message
+							 forChannel:channel
+							   onClient:client];
+}
+
+- (void)scheduleNotificationWithTitle:(NSString *)title
+							  message:(NSString *)message
+							 onClient:(IRCClient *)client
+{
+	NSParameterAssert(title != nil);
+	NSParameterAssert(message != nil);
+	NSParameterAssert(client != nil);
+
+	[self scheduleNotificationWithTitle:title
+								message:message
+							 forChannel:nil
+							   onClient:client];
+}
+
+- (void)scheduleNotificationWithTitle:(NSString *)title
+							  message:(NSString *)message
+						   forChannel:(nullable IRCChannel *)channel
+							 onClient:(IRCClient *)client
+{
+	NSParameterAssert(title != nil);
+	NSParameterAssert(message != nil);
+	NSParameterAssert(client != nil);
+
+	NSString *clientId = client.uniqueIdentifier;
+	NSString *channelId = channel.uniqueIdentifier;
+
+	NSString *threadIdentifier = [self threadIdentifierForClient:clientId channel:channelId];
+
+	NSDictionary *userInfo = nil;
+
+	if (channelId) {
+		userInfo = @{TXNotificationUserInfoClientIdentifierKey : clientId,
+					 TXNotificationUserInfoChannelIdentifierKey : channelId};
+	} else {
+		userInfo = @{TXNotificationUserInfoClientIdentifierKey : clientId};
+	}
+
+	[self scheduleNotificationWithTitle:title
+								message:message
+							   userInfo:userInfo
+				 notificationIdentifier:nil
+					   threadIdentifier:threadIdentifier
+					 categoryIdentifier:nil];
+}
+
+- (void)scheduleNotificationWithTitle:(NSString *)title
+							  message:(NSString *)message
+							 userInfo:(nullable NSDictionary<NSString *, id> *)userInfo
+			   notificationIdentifier:(nullable NSString *)notificationIdentifier
+					 threadIdentifier:(nullable NSString *)threadIdentifier
+				   categoryIdentifier:(nullable NSString *)categoryIdentifier
+{
+	NSParameterAssert(title != nil);
+	NSParameterAssert(message != nil);
+
+	UNMutableNotificationContent *notificationContent = [UNMutableNotificationContent new];
+
+	notificationContent.title = title;
+	notificationContent.body = message;
+
+	if (userInfo) {
+		notificationContent.userInfo = userInfo;
+	}
+
+	if (categoryIdentifier) {
+		notificationContent.categoryIdentifier = categoryIdentifier;
+	}
+
+	if (threadIdentifier) {
+		notificationContent.threadIdentifier = threadIdentifier;
+	}
+
+	/* The notification identifier should be unique to the specific notification
+	 because otherwise the system will replace existing notifications of the
+	 same identifier. That's not a bad behavior. Just not one we want. */
+	/* Textual will format the identifier as such:
+	 TXNotification[-<clientID>[-<channelId>]]-<eventTitle hash>-<eventDescription hash> */
+	if (notificationIdentifier == nil) {
+		notificationIdentifier = [NSString stringWithFormat:@"TXNotification-%@-%ld-%ld",
+			((threadIdentifier) ?: @"<No Thread>"), title.hash, message.hash];;
+	}
+
+	[self scheduleNotificationWithContent:notificationContent
+							   identifier:notificationIdentifier];
+}
+
+- (void)scheduleNotificationWithContent:(UNNotificationContent *)notificationContent identifier:(nullable NSString *)notificationIdentifier
+{
+	NSParameterAssert(notificationContent != nil);
+	NSParameterAssert(notificationIdentifier != nil);
+
+	UNNotificationRequest *notificationRequest =
+	[UNNotificationRequest requestWithIdentifier:notificationIdentifier
+										 content:notificationContent
+										 trigger:nil];
+
+	[self scheduleNotificationRequest:notificationRequest];
+}
+
+- (void)scheduleNotificationRequest:(UNNotificationRequest *)request
+{
+	NSParameterAssert(request != nil);
+
+	[RZUserNotificationCenter() addNotificationRequest:request
+								 withCompletionHandler:^(NSError * _Nullable error) {
+		if (error) {
+			LogToConsoleError("Failed to post notification '%{private}@': %{public}@",
+				request.content.title, error.localizedDescription);
+		}
+	}];
+}
+
+#if TEXTUAL_BUILT_WITH_LICENSE_MANAGER == 1
+- (void)scheduleLicenseManagerNotificationWithTitle:(NSString *)title
+											message:(NSString *)message
+{
+	NSParameterAssert(title != nil);
+	NSParameterAssert(message != nil);
+
+	[self scheduleNotificationWithTitle:title
+								message:message
+							   userInfo:nil
+				 notificationIdentifier:nil
+					   threadIdentifier:nil
+					 categoryIdentifier:TXNotificationCategoryIdentifierLicenseManager];
+}
+#endif
 
 #pragma mark -
 #pragma mark Notification Center Delegate
 
-- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center
-	 shouldPresentNotification:(NSUserNotification *)notification
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification
 {
-	return YES;
+	[menuController() showNotificationPreferences:nil];
 }
 
-- (void)userNotificationCenter:(NSUserNotificationCenter *)center
-	   didActivateNotification:(NSUserNotification *)notification
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
 {
-	[RZUserNotificationCenter() removeDeliveredNotification:notification];
+	completionHandler(UNNotificationPresentationOptionList |
+					  UNNotificationPresentationOptionBanner);
+}
 
-	if (notification.activationType == NSUserNotificationActivationTypeReplied) {
-		NSString *replyMessage = notification.response.string; // It is attributed string, we only want string.
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)(void))completionHandler
+{
+#warning TODO: Do we need to dismiss or does completion handler do that?
 
-		[self notificationWasClicked:notification.userInfo
-					  activationType:notification.activationType
-					withReplyMessage:replyMessage];
+	NSString *message = nil;
 
-		return; // Do not continue this method.
+	if ([response isKindOfClass:[UNTextInputNotificationResponse class]]) {
+		message = [((UNTextInputNotificationResponse *)response) userText];
 	}
 
-	[self notificationWasClicked:notification.userInfo
-				  activationType:notification.activationType
-				withReplyMessage:nil];
+	/* Now that is what you call chaining... */
+	NSDictionary *userInfo = response.notification.request.content.userInfo;
+
+	[self notificationResponseReceived:response context:userInfo withReplyMessage:message];
 }
 
-- (void)dismissNotificationCenterNotificationsForChannel:(IRCChannel *)channel onClient:(IRCClient *)client
+- (void)dismissNotificationsForChannel:(nullable IRCChannel *)channel onClient:(IRCClient *)client
 {
-	NSArray *notifications = RZUserNotificationCenter().deliveredNotifications;
+	NSParameterAssert(client != nil);
 
-	for (NSUserNotification *note in notifications) {
-		NSDictionary *context = note.userInfo;
+	NSString *clientId = client.uniqueIdentifier;
+	NSString *channelId = channel.uniqueIdentifier;
 
-		NSString *clientId = context[@"clientId"];
-		NSString *channelId = context[@"channelId"];
+	LogToConsoleDebug("Dismissing notifications for '%{public}@' on '%{public}@'",
+		((channelId) ?: @"<No Channel>"), clientId);
 
-		if ([clientId isEqualToString:client.uniqueIdentifier] &&
-			[channelId isEqualToString:channel.uniqueIdentifier])
-		{
-			[RZUserNotificationCenter() removeDeliveredNotification:note];
+	/* Pending Notifications */
+	[RZUserNotificationCenter() getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> *requests) {
+		NSMutableArray<NSString *> *notificationIdentifiers = [NSMutableArray array];
+
+		[requests enumerateObjectsUsingBlock:^(UNNotificationRequest *request, NSUInteger index, BOOL *stop) {
+			if ([self isNotificationRequest:request inScopeOfChannel:channel onClient:client]) {
+				[notificationIdentifiers addObject:request.identifier];
+			}
+		}];
+
+		if (notificationIdentifiers.count == 0) {
+			return;
 		}
-	}
+
+		[RZUserNotificationCenter() removePendingNotificationRequestsWithIdentifiers:notificationIdentifiers];
+
+		LogToConsoleDebug("Dismissed %{public}ld pending notifications",
+			notificationIdentifiers.count);
+	}];
+
+	/* Delivered Notifications */
+	[RZUserNotificationCenter() getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> *notifications) {
+		NSMutableArray<NSString *> *notificationIdentifiers = [NSMutableArray array];
+
+		[notifications enumerateObjectsUsingBlock:^(UNNotification *notification, NSUInteger index, BOOL *stop) {
+			UNNotificationRequest *request = notification.request;
+
+			if ([self isNotificationRequest:request inScopeOfChannel:channel onClient:client]) {
+				[notificationIdentifiers addObject:request.identifier];
+			}
+		}];
+
+		if (notificationIdentifiers.count == 0) {
+			return;
+		}
+
+		[RZUserNotificationCenter() removeDeliveredNotificationsWithIdentifiers:notificationIdentifiers];
+
+		LogToConsoleDebug("Dismissed %{public}ld delivered notifications",
+			notificationIdentifiers.count);
+	}];
+}
+
+- (BOOL)isNotificationRequest:(UNNotificationRequest *)request inScopeOfChannel:(nullable IRCChannel *)channel onClient:(IRCClient *)client
+{
+	NSParameterAssert(request != nil);
+	NSParameterAssert(client != nil);
+
+	NSString *clientIdLeft = client.uniqueIdentifier;
+	NSString *channelIdLeft = channel.uniqueIdentifier;
+
+	NSDictionary *userInfo = request.content.userInfo;
+
+	NSString *clientIdRight = userInfo[TXNotificationUserInfoClientIdentifierKey];
+	NSString *channelIdRight = userInfo[TXNotificationUserInfoChannelIdentifierKey];
+
+	/* NSObjectsAreEqual() checks for equality of nil so it is valid
+	 if channel ID left and right are both nil. */
+	return (NSObjectsAreEqual(clientIdLeft, clientIdRight) &&
+			NSObjectsAreEqual(channelIdLeft, channelIdRight));
 }
 
 #pragma mark -
 #pragma mark Notification Callback
 
-- (void)notificationWasClicked:(NSDictionary<NSString *, id> *)context activationType:(NSUserNotificationActivationType)activationType withReplyMessage:(nullable NSString *)message
+- (void)notificationResponseReceived:(UNNotificationResponse *)response context:(NSDictionary<NSString *, id> *)context withReplyMessage:(nullable NSString *)message
 {
 	NSParameterAssert(context != nil);
 
-	NSTimeInterval now = [NSDate timeIntervalSince1970];
+	NSString *actionIdentifier = [response actionIdentifier];
 
-	if ((now - self.lastClickedTime) < _clickInterval) {
-		if (self.lastClickedContext && [self.lastClickedContext isEqualToDictionary:context]) {
-			return;
-		}
+	if ([actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
+		LogToConsoleDebug("Dismissed notification: '%{private}@'", response);
+
+		return;
 	}
 
-	self.lastClickedContext = context;
+	/* If we ever expand beyond a few different actions, then revisit
+	 this so that we aren't just declaring a bunch of booleans.
+	 This was just the easier solution at the time. */
+	BOOL isFileTransferAction = [actionIdentifier isEqualToString:TXNotificationActionIdentifierFileTransferAccept];
+	BOOL isPrivateMessageAction = [actionIdentifier isEqualToString:TXNotificationActionIdentifierPrivateMessageReply];
+	BOOL isLicenseManagerAction = NO;
 
-	self.lastClickedTime = now;
+#if TEXTUAL_BUILT_WITH_LICENSE_MANAGER == 1
+	if ([actionIdentifier isEqualToString:TXNotificationActionIdentifierLicenseManagerMoreInfo]) {
+		isLicenseManagerAction = YES;
+	}
+#endif
 
-	BOOL changeFocus =
-		(activationType != NSUserNotificationActivationTypeReplied &&
-		 activationType != NSUserNotificationActivationTypeActionButtonClicked);
+	BOOL activateApp 	= (isPrivateMessageAction == NO);
+	BOOL keyMainWindow 	= (isPrivateMessageAction == NO &&
+						   isFileTransferAction == NO &&
+						   isLicenseManagerAction == NO);
 
-	if (changeFocus) {
-		[mainWindow() makeKeyAndOrderFront:nil];
-
+	if (activateApp) {
 		[NSApp activateIgnoringOtherApps:YES];
 	}
 
-	if ([context isKindOfClass:[NSDictionary class]] == NO) {
-		return;
+	if (keyMainWindow) {
+		[mainWindow() makeKeyAndOrderFront:nil];
 	}
 
 #if TEXTUAL_BUILT_WITH_LICENSE_MANAGER == 1
 	/* Handle a notification that was clicked related to a warnings about
 	 the trial of Textual preparing to expire. */
-	if ([context boolForKey:@"isLicenseManagerTimeRemainingInTrialNotification"])
+	if (isLicenseManagerAction)
 	{
 		[menuController() manageLicense:nil];
 	}
@@ -369,13 +685,11 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 
 	/* Handle file transfer notifications allowing the user to start a
 	 file transfer directly through the notification's action button. */
-	if ([context boolForKey:@"isFileTransferNotification"])
+	if (isFileTransferAction)
 	{
-		NSInteger alertType = [context integerForKey:@"fileTransferNotificationType"];
+		[[TXSharedApplication sharedFileTransferDialog] show:YES restorePosition:NO];
 
-		if (activationType != NSUserNotificationActivationTypeActionButtonClicked) {
-			return;
-		}
+		NSInteger alertType = [context integerForKey:@"fileTransferNotificationType"];
 
 		if (alertType != TXNotificationTypeFileTransferReceiveRequested) {
 			return;
@@ -395,22 +709,14 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 			return;
 		}
 
-		NSString *savePath = fileTransfer.path;
-
-		if (savePath == nil) {
-			savePath = [TPCPathInfo userDownloads];
-		}
-
-		[fileTransfer openWithPath:savePath];
-
-		[[TXSharedApplication sharedFileTransferDialog] show:YES restorePosition:NO];
+		[fileTransfer openWithPathOrUserDownloads];
 	}
 
 	/* Handle all other IRC related notifications. */
 	else
 	{
-		NSString *clientId = context[@"clientId"];
-		NSString *channelId = context[@"channelId"];
+		NSString *clientId = context[TXNotificationUserInfoClientIdentifierKey];
+		NSString *channelId = context[TXNotificationUserInfoChannelIdentifierKey];
 
 		if (clientId == nil) {
 			return;
@@ -425,12 +731,10 @@ NSString * const TXNotificationHighlightLogStandardMessageFormat		= @"%@ %@";
 			client = [worldController() findClientWithId:clientId];
 		}
 
-		if (changeFocus) {
-			if (channel) {
-				[mainWindow() select:channel];
-			} else if (client) {
-				[mainWindow() select:client];
-			}
+		if (channel) {
+			[mainWindow() select:channel];
+		} else if (client) {
+			[mainWindow() select:client];
 		}
 
 		if (channel == nil) {

@@ -16,6 +16,7 @@
 		4C469E9C20EC5F7700094EA4 /* HistoricLogFileStorageModel.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4C469E9820EC5F7700094EA4 /* HistoricLogFileStorageModel.xcmappingmodel */; };
 		4C469E9D20EC5F7700094EA4 /* HistoricLogFileStorageModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C469E9920EC5F7700094EA4 /* HistoricLogFileStorageModel.xcdatamodeld */; };
 		4C58C6E21E15428300934680 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C58C6E11E15428300934680 /* CoreData.framework */; };
+		4CBDFBEA2C3ED3920003B272 /* TPCPreferencesUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBDFBE72C3ED3920003B272 /* TPCPreferencesUserDefaults.m */; };
 		4CE1461E20EC10F4000E01C9 /* CocoaExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE145E420EC0F5C000E01C9 /* CocoaExtensions.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,8 @@
 		4C469E9F20EC5FA000094EA4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C46A01120EC64FA00094EA4 /* HLSHistoricLogProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HLSHistoricLogProtocol.h; path = Classes/Headers/Private/HLSHistoricLogProtocol.h; sourceTree = SOURCE_ROOT; };
 		4C58C6E11E15428300934680 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4CBDFBE42C3ED32A0003B272 /* TPCPreferencesUserDefaultsPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TPCPreferencesUserDefaultsPrivate.h; sourceTree = "<group>"; };
+		4CBDFBE72C3ED3920003B272 /* TPCPreferencesUserDefaults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TPCPreferencesUserDefaults.m; sourceTree = "<group>"; };
 		4CE145E420EC0F5C000E01C9 /* CocoaExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaExtensions.framework; path = "../../.tmp/SharedBuildProducts-Frameworks/CocoaExtensions.framework"; sourceTree = SOURCE_ROOT; };
 		4CE145EB20EC0F7F000E01C9 /* Textual.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Textual.xcconfig; sourceTree = "<group>"; };
 		4CE145EE20EC0F7F000E01C9 /* XPC Services.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "XPC Services.xcconfig"; sourceTree = "<group>"; };
@@ -151,6 +154,7 @@
 		4C469E5420EC5E9C00094EA4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				4CBDFBE82C3ED3920003B272 /* Preferences */,
 				4C469E6320EC5E9C00094EA4 /* Headers */,
 				4C469E9320EC5ED500094EA4 /* Views */,
 			);
@@ -170,6 +174,7 @@
 		4C469E7120EC5E9C00094EA4 /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				4CBDFBE42C3ED32A0003B272 /* TPCPreferencesUserDefaultsPrivate.h */,
 				4C469E7520EC5E9C00094EA4 /* TVCLogLineXPCPrivate.h */,
 			);
 			path = Private;
@@ -238,6 +243,14 @@
 				4C442CAF1E13B55900B187F4 /* Configurations */,
 			);
 			name = "Build Settings";
+			sourceTree = "<group>";
+		};
+		4CBDFBE82C3ED3920003B272 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				4CBDFBE72C3ED3920003B272 /* TPCPreferencesUserDefaults.m */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		4CE145E720EC0F7F000E01C9 /* Build */ = {
@@ -367,6 +380,7 @@
 				4C469E9620EC5ED500094EA4 /* TVCLogLineXPC.m in Sources */,
 				4C469E4F20EC5E5300094EA4 /* HSLHistoricLogProcessDelegate.m in Sources */,
 				4C469E9D20EC5F7700094EA4 /* HistoricLogFileStorageModel.xcdatamodeld in Sources */,
+				4CBDFBEA2C3ED3920003B272 /* TPCPreferencesUserDefaults.m in Sources */,
 				4C469E5120EC5E5300094EA4 /* main.m in Sources */,
 				4C469E9C20EC5F7700094EA4 /* HistoricLogFileStorageModel.xcmappingmodel in Sources */,
 			);

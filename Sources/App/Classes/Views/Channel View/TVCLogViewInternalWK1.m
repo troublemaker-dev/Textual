@@ -35,6 +35,8 @@
  *
  *********************************************************************** */
 
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
+
 #include <objc/message.h>
 
 #import "TPCThemeController.h"
@@ -373,3 +375,5 @@ static TVCLogPolicy *_sharedWebPolicy = nil;
 @end
 
 NS_ASSUME_NONNULL_END
+
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END

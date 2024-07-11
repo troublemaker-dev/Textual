@@ -717,6 +717,8 @@
 		4C2BEB652C3866E2008F8F0D /* KeysExcludedFromContainer.plist in Copy Preference Resources */ = {isa = PBXBuildFile; fileRef = 4C2BEB632C3864C1008F8F0D /* KeysExcludedFromContainer.plist */; };
 		4C2E92212C1E446E003BB92D /* Caffeine.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C2E92202C1E4463003BB92D /* Caffeine.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4C2E92232C1E447E003BB92D /* Caffeine.bundle in Copy Extensions */ = {isa = PBXBuildFile; fileRef = 4C2E92202C1E4463003BB92D /* Caffeine.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4C2F42052C3F4218000D962D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2F42042C3F4218000D962D /* UserNotifications.framework */; };
+		4C2F42062C3F4218000D962D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2F42042C3F4218000D962D /* UserNotifications.framework */; };
 		4C31554C20EB6CB300448776 /* IRC.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31524120EB673E00448776 /* IRC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31554D20EB6CB300448776 /* IRCAddressBook.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3151A720EB673E00448776 /* IRCAddressBook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C31554E20EB6CB300448776 /* IRCAddressBookUserTracking.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31517620EB673E00448776 /* IRCAddressBookUserTracking.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1513,11 +1515,11 @@
 		4C17305322B4A94000DC5836 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TDCPreferencesUserStyleSheet.xib; sourceTree = "<group>"; };
 		4C1DC5521580420500A47BC9 /* Textual.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Textual.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C24DC751A93C9CE0098D1BE /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = "../../Frameworks/Static Libraries/Libraries/Sparkle.framework"; sourceTree = SOURCE_ROOT; };
-		4C250F361F381320001A92D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		4C2BEB622C385189008F8F0D /* PostprocessSparkle.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = PostprocessSparkle.sh; path = "Build Scripts/PostprocessSparkle.sh"; sourceTree = "<group>"; };
 		4C2BEB632C3864C1008F8F0D /* KeysExcludedFromContainer.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = KeysExcludedFromContainer.plist; sourceTree = "<group>"; };
 		4C2E92202C1E4463003BB92D /* Caffeine.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Caffeine.bundle; path = "../../../.tmp/SharedBuildProducts-Extensions/Caffeine.bundle"; sourceTree = "<group>"; };
 		4C2F0C701F2AF3860017D3B7 /* Textual-Extras.pkg */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Textual-Extras.pkg"; path = "Scripting/Script Files/Textual Extras Installer/Packages/Textual-Extras.pkg"; sourceTree = "<group>"; };
+		4C2F42042C3F4218000D962D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		4C31511420EB673E00448776 /* TPCApplicationInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TPCApplicationInfo.m; sourceTree = "<group>"; };
 		4C31511520EB673E00448776 /* TPCPreferencesLocal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TPCPreferencesLocal.m; sourceTree = "<group>"; };
 		4C31511620EB673E00448776 /* TPCPreferencesImportExport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TPCPreferencesImportExport.m; sourceTree = "<group>"; };
@@ -2016,10 +2018,10 @@
 		4C315EE82C36581A001A16B4 /* PreferenceKeyMasterList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PreferenceKeyMasterList.plist; sourceTree = "<group>"; };
 		4C33341B20CC471A00ACB9AD /* Bundled Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Bundled Scripts"; sourceTree = "<group>"; };
 		4C33342020CC475300ACB9AD /* Bundled Styles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Bundled Styles"; sourceTree = "<group>"; };
-		4C46CCBC1580469E00846B64 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		4C46CCC01580469E00846B64 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
-		4C46CCC11580469E00846B64 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
-		4C46CCC21580469E00846B64 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		4C46CCBC1580469E00846B64 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		4C46CCC01580469E00846B64 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		4C46CCC11580469E00846B64 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		4C46CCC21580469E00846B64 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4C48B46320E4D06900CF5F84 /* MergeSwift.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = MergeSwift.sh; path = "Build Scripts/MergeSwift.sh"; sourceTree = "<group>"; };
 		4C4A0D6C1C973E9000064A23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Application Properties/Info.plist"; sourceTree = "<group>"; };
 		4C51327720F76E980033B703 /* TLOLocalization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TLOLocalization.swift; path = ../../../Shared/Library/TLOLocalization.swift; sourceTree = "<group>"; };
@@ -2072,6 +2074,7 @@
 				4C06E48A20EC542C0055D09A /* CoreServices.framework in Frameworks */,
 				4C06E48C20EC542C0055D09A /* IOKit.framework in Frameworks */,
 				4C06E48E20EC542C0055D09A /* QuartzCore.framework in Frameworks */,
+				4C2F42062C3F4218000D962D /* UserNotifications.framework in Frameworks */,
 				4C06E48F20EC542C0055D09A /* Security.framework in Frameworks */,
 				4C06E49020EC542C0055D09A /* SecurityInterface.framework in Frameworks */,
 				4C06E49220EC542C0055D09A /* SystemConfiguration.framework in Frameworks */,
@@ -2093,6 +2096,7 @@
 				4C06E42A20EC53620055D09A /* Cocoa.framework in Frameworks */,
 				4C06E42B20EC53620055D09A /* CoreServices.framework in Frameworks */,
 				4C06E43520EC539E0055D09A /* AutoHyperlinks.framework in Frameworks */,
+				4C2F42052C3F4218000D962D /* UserNotifications.framework in Frameworks */,
 				4C06E42D20EC53620055D09A /* IOKit.framework in Frameworks */,
 				4C06E44120EC539E0055D09A /* Sparkle.framework in Frameworks */,
 				4C06E43920EC539E0055D09A /* EncryptionKit.framework in Frameworks */,
@@ -3477,8 +3481,8 @@
 				4CF4D6B619837C1700FB5AF0 /* QuartzCore.framework */,
 				4C46CCC01580469E00846B64 /* Security.framework */,
 				4C3154EF20EB6BD000448776 /* SecurityInterface.framework */,
-				4C250F361F381320001A92D1 /* StoreKit.framework */,
 				4C46CCC11580469E00846B64 /* SystemConfiguration.framework */,
+				4C2F42042C3F4218000D962D /* UserNotifications.framework */,
 				4C46CCC21580469E00846B64 /* WebKit.framework */,
 			);
 			name = "System Frameworks";

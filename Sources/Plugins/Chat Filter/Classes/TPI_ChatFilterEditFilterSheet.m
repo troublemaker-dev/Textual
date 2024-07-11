@@ -494,10 +494,10 @@ typedef NS_ENUM(NSUInteger, TPI_ChatFilterEditFilterSheetSelection)
 - (NSTokenStyle)tokenField:(NSTokenField *)tokenField styleForRepresentedObject:(id)representedObject
 {
 	if ([representedObject isKindOfClass:[TPI_ChatFilterFilterActionToken class]]) {
-		return NSRoundedTokenStyle;
+		return NSTokenStyleRounded;
 	}
 
-	return NSPlainTextTokenStyle;
+	return NSTokenStyleNone;
 }
 
 - (nullable NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject

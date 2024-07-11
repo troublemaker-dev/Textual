@@ -237,48 +237,51 @@ NSString * const TVCLogViewCommonUserAgentString = @"Textual/1.0 (+https://help.
 	NSParameterAssert(string != nil);
 	NSParameterAssert(baseURL != nil);
 
-	if (self.isUsingWebKit2)
-	{
-		[self recreateTemporaryCopyOfThemeIfNecessary];
-
-		WKWebView *webView = self.webViewBacking;
-
-		NSString *filename = [NSString stringWithFormat:@"%@.html", [NSString stringWithUUID]];
-
-		NSURL *filePath = [baseURL URLByAppendingPathComponent:filename];
-
-		NSError *fileWriteError = nil;
-
-		if ([string writeToURL:filePath atomically:NO encoding:NSUTF8StringEncoding error:&fileWriteError] == NO) {
-			LogToConsoleError("Failed to write temporary file: %@", fileWriteError.localizedDescription);
-
-			return;
-		}
-
-		[webView loadFileURL:filePath
-	 allowingReadAccessToURL:themeController().temporaryURL];
-	}
-	else
-	{
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
+	if (self.isUsingWebKit2 == NO) {
 		WebFrame *webViewFrame = [self.webViewBacking mainFrame];
 
 		[webViewFrame loadHTMLString:string baseURL:baseURL];
+
+		return;
 	}
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
+
+	[self recreateTemporaryCopyOfThemeIfNecessary];
+
+	WKWebView *webView = self.webViewBacking;
+
+	NSString *filename = [NSString stringWithFormat:@"%@.html", [NSString stringWithUUID]];
+
+	NSURL *filePath = [baseURL URLByAppendingPathComponent:filename];
+
+	NSError *fileWriteError = nil;
+
+	if ([string writeToURL:filePath atomically:NO encoding:NSUTF8StringEncoding error:&fileWriteError] == NO) {
+		LogToConsoleError("Failed to write temporary file: %{public}@", fileWriteError.localizedDescription);
+
+		return;
+	}
+
+	[webView loadFileURL:filePath
+ allowingReadAccessToURL:themeController().temporaryURL];
 }
 
 - (void)stopLoading
 {
-	if (self.isUsingWebKit2) {
-		WKWebView *webView = self.webViewBacking;
-
-		[webView stopLoading];
-	} else {
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
+	if (self.isUsingWebKit2 == NO) {
 		WebFrame *webViewFrame = [self.webViewBacking mainFrame];
 
 		[webViewFrame stopLoading];
-	}
 
-	self.layingOutView = NO;
+		return;
+	}
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
+
+	WKWebView *webView = self.webViewBacking;
+
+	[webView stopLoading];
 }
 
 - (void)findString:(NSString *)searchString movingForward:(BOOL)movingForward
@@ -558,7 +561,7 @@ NSString * const TVCLogViewCommonUserAgentString = @"Textual/1.0 (+https://help.
 	[objects enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
 		/* Perform check to make sure the key we are using is actually a string. */
 		if ([key isKindOfClass:[NSString class]] == NO) {
-			LogToConsoleDebug("Silently ignoring non-string key: %@", NSStringFromClass([key class]));
+			LogToConsoleDebug("Silently ignoring non-string key: %{public}@", NSStringFromClass([key class]));
 
 			return;
 		}
@@ -679,6 +682,7 @@ NSString * const TVCLogViewCommonUserAgentString = @"Textual/1.0 (+https://help.
 	return [compiledScript copy];
 }
 
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
 - (id)webScriptObjectToCommon:(WebScriptObject *)object
 {
 	NSParameterAssert(object != nil);
@@ -692,6 +696,7 @@ NSString * const TVCLogViewCommonUserAgentString = @"Textual/1.0 (+https://help.
 
 	return [object toCommonInContext:jsContextRef];
 }
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
 
 @end
 

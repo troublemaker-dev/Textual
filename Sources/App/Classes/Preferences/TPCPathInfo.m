@@ -43,12 +43,6 @@
 #import "TPCPreferencesUserDefaults.h"
 #import "TPCPathInfoPrivate.h"
 
-#if TEXTUAL_BUILT_INSIDE_SANDBOX == 1
-#include <pwd.h>            // -------
-#include <sys/types.h>      // --- | For +userHomeDirectoryPathOutsideSandbox
-#include <unistd.h>         // -------
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation TPCPathInfo
@@ -67,8 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 	NSError *createDirectoryError = nil;
 
 	if ([RZFileManager() createDirectoryAtPath:directoryPath withIntermediateDirectories:YES attributes:nil error:&createDirectoryError] == NO) {
-		LogToConsoleError("Failed to create directory at path: '%@' - %@",
-			directoryPath.description, createDirectoryError.localizedDescription);
+		LogToConsoleError("Failed to create directory at path: '%{public}@' - %{public}@",
+			directoryPath.standardizedTildePath, createDirectoryError.localizedDescription);
 	}
 }
 
@@ -83,8 +77,8 @@ NS_ASSUME_NONNULL_BEGIN
 	NSError *createDirectoryError = nil;
 
 	if ([RZFileManager() createDirectoryAtURL:directoryURL withIntermediateDirectories:YES attributes:nil error:&createDirectoryError] == NO) {
-		LogToConsoleError("Failed to create directory at path: '%@' - %@",
-			directoryURL.description, createDirectoryError.localizedDescription);
+		LogToConsoleError("Failed to create directory at path: '%{public}@' - %{public}@",
+			directoryURL.standardizedTildePath, createDirectoryError.localizedDescription);
 	}
 }
 
@@ -509,20 +503,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)userHome
 {
-#if TEXTUAL_BUILT_INSIDE_SANDBOX == 1
-	uid_t userId = getuid();
-
-	struct passwd *pw = getpwuid(userId);
-
-	return @(pw->pw_dir);
-#else
-	return NSHomeDirectory();
-#endif
+	return [NSFileManager pathOfHomeDirectoryOutsideSandbox];
 }
 
 + (NSURL *)userHomeURL
 {
-	return [NSURL fileURLWithPath:self.userHome isDirectory:YES];
+	return [NSFileManager URLOfHomeDirectoryOutsideSandbox];
 }
 
 + (nullable NSString *)userPreferences
@@ -634,7 +620,7 @@ static NSURL * _Nullable _transcriptFolderURL = nil;
 	}
 
 	if (resolvedBookmark == nil) {
-		LogToConsoleError("Error creating bookmark for URL: %@",
+		LogToConsoleError("Error creating bookmark for URL: %{public}@",
 			  resolvedBookmarkError.localizedDescription);
 
 		[self warnUserAboutStaleTranscriptFolderURL];

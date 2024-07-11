@@ -124,7 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
 				@try {
 					[client removeObserver:self forKeyPath:@"isLoggedIn"];
 				} @catch (NSException *exception) {
-					LogToConsoleFaultWithSubsystem(THOPluginLoggingSubsystem(), "Caught exception: %@", [exception reason]);
+					LogToConsoleFaultWithSubsystem(THOPluginLoggingSubsystem(), "Caught exception: %{public}@", [exception reason]);
 
 					LogStackTraceWithSubsystem(THOPluginLoggingSubsystem());
 				}

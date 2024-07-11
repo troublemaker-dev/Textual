@@ -40,6 +40,7 @@
 #import "GCDAsyncSocket.h"
 #import "TXGlobalModels.h"
 #import "IRCClientPrivate.h"
+#import "TPCPathInfo.h"
 #import "TPCPreferencesLocal.h"
 #import "TLOEncryptionManagerPrivate.h"
 #import "TLOLocalization.h"
@@ -338,6 +339,17 @@ NS_ASSUME_NONNULL_BEGIN
 	[self openWithPath:nil];
 }
 
+- (void)openWithPathOrUserDownloads
+{
+	NSString *path = nil;
+
+	if (self.path == nil) {
+		path = [TPCPathInfo userDownloads];
+	}
+
+	[self openWithPath:path];
+}
+
 - (void)openWithPath:(nullable NSString *)path
 {
 	if (self.path == nil) {
@@ -409,7 +421,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	if (isConnected == NO) {
 		if (connectionError) {
-			LogToConsoleError("DCC Connect Error: %@", connectionError.localizedDescription);
+			LogToConsoleError("DCC Connect Error: %{public}@", connectionError.localizedDescription);
 		}
 
 		[self closeWithLocalizedError:@"TDCFileTransferDialog[fn8-sx]"];
@@ -495,12 +507,12 @@ NS_ASSUME_NONNULL_BEGIN
 	if (self.portMapping.isMapped) {
 		[self updateIPAddress];
 
-		LogToConsoleInfo("Successful port mapping on port %hu", self.hostPort);
+		LogToConsoleInfo("Successful port mapping on port %{public}hu", self.hostPort);
 
 		return;
 	}
 
-	LogToConsoleError("Port mapping failed with error code: %i", self.portMapping.error);
+	LogToConsoleError("Port mapping failed with error code: %{public}i", self.portMapping.error);
 
 	if (self.isReversed) {
 		[self closeWithLocalizedError:@"TDCFileTransferDialog[vxc-sd]"];
@@ -521,7 +533,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 	NSString *address = self.transferDialog.IPAddress;
 
-	LogToConsoleDebug("TDCFileTransferDialog cached IP address: %@", address);
+	LogToConsoleDebug("TDCFileTransferDialog cached IP address: %{private}@", address);
 
 	TXFileTransferIPAddressMethodDetection detectionMethod = [TPCPreferences fileTransferIPAddressDetectionMethod];
 	
@@ -530,7 +542,7 @@ NS_ASSUME_NONNULL_BEGIN
 	if (address == nil && manuallyDetect == NO) {
 		NSString *publicAddress = self.portMapping.publicAddress;
 
-		LogToConsoleDebug("Port mapper public IP address: %@", publicAddress);
+		LogToConsoleDebug("Port mapper public IP address: %{private}@", publicAddress);
 
 		if (publicAddress.isIPAddress) {
 			self.transferDialog.IPAddress = publicAddress;
@@ -1017,7 +1029,7 @@ NS_ASSUME_NONNULL_BEGIN
 			[self.fileHandle writeData:data];
 		}
 		@catch (NSException *exception) {
-			LogToConsoleError("Caught exception: %@", exception.reason);
+			LogToConsoleError("Caught exception: %{public}@", exception.reason);
 			LogStackTrace();
 
 			if ([exception.reason contains:@"No space left on device"]) {

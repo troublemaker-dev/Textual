@@ -648,14 +648,14 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 {
 	self.isTerminating = YES;
 
-	LogToConsoleTerminationProgress("Preparing client: <%@>", self.uniqueIdentifier);
+	LogToConsoleTerminationProgress("Preparing client: <%{public}@>", self.uniqueIdentifier);
 
-	LogToConsoleTerminationProgress("[%@] Closing dialogs.", self.uniqueIdentifier);
+	LogToConsoleTerminationProgress("[%{public}@] Closing dialogs", self.uniqueIdentifier);
 
 	[self closeDialogs];
 
 	if (self.isConnecting || self.isConnected) {
-		LogToConsoleTerminationProgress("[%@] Performing disconnect.", self.uniqueIdentifier);
+		LogToConsoleTerminationProgress("[%{public}@] Performing disconnect", self.uniqueIdentifier);
 
 		__weak IRCClient *weakSelf = self;
 
@@ -673,34 +673,34 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 
 - (void)prepareForApplicationTerminationPostflight
 {
-	LogToConsoleTerminationProgress("[%@] Closing log file.", self.uniqueIdentifier);
+	LogToConsoleTerminationProgress("[%{public}@] Closing log file", self.uniqueIdentifier);
 
 	[self closeLogFile];
 
-	LogToConsoleTerminationProgress("[%@] Removing unspoken messages from speech synthesizer.", self.uniqueIdentifier);
+	LogToConsoleTerminationProgress("[%{public}@] Removing unspoken messages from speech synthesizer", self.uniqueIdentifier);
 
 	[self clearEventsToSpeak];
 
-	LogToConsoleTerminationProgress("[%@] Emptying Address Book cache.", self.uniqueIdentifier);
+	LogToConsoleTerminationProgress("[%{public}@] Emptying Address Book cache", self.uniqueIdentifier);
 
 	[self clearAddressBookCache];
 
-	LogToConsoleTerminationProgress("[%@] Removing all tracked users.", self.uniqueIdentifier);
+	LogToConsoleTerminationProgress("[%{public}@] Removing all tracked users", self.uniqueIdentifier);
 
 	[self clearTrackedUsers];
 
-	LogToConsoleTerminationProgress("[%@] Preparing channels: %ld", self.uniqueIdentifier, self.channelCount);
+	LogToConsoleTerminationProgress("[%{public}@] Preparing channels: %{public}ld", self.uniqueIdentifier, self.channelCount);
 
 	for (IRCChannel *c in self.channelList) {
 		[c prepareForApplicationTermination];
 	}
 
-	LogToConsoleTerminationProgress("[%@] Preparing view controller: <%@>",
+	LogToConsoleTerminationProgress("[%{public}@] Preparing view controller: <%{public}@>",
 					self.uniqueIdentifier, self.viewController.uniqueIdentifier);
 
 	[self.viewController prepareForApplicationTermination];
 
-	LogToConsoleTerminationProgress("[%@] Decrementing client count.", self.uniqueIdentifier);
+	LogToConsoleTerminationProgress("[%{public}@] Decrementing client count", self.uniqueIdentifier);
 
 	masterController().terminatingClientCount -= 1;
 }
@@ -1342,7 +1342,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 	}
 
 	if (data == nil) {
-		LogToConsoleError("NSData encode failure (%@)", string);
+		LogToConsoleError("NSData encode failure");
 		LogStackTrace();
 	}
 
@@ -1364,7 +1364,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 	}
 
 	if (string == nil) {
-		LogToConsoleError("NSData decode failure (%@)", data);
+		LogToConsoleError("NSData decode failure");
 		LogStackTrace();
 	}
 
@@ -2016,9 +2016,10 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 
 	if (userInfo == nil) {
 		if (target) {
-			userInfo = @{@"clientId": self.uniqueIdentifier, @"channelId": target.uniqueIdentifier};
+			userInfo = @{TXNotificationUserInfoClientIdentifierKey : self.uniqueIdentifier,
+						 TXNotificationUserInfoChannelIdentifierKey: target.uniqueIdentifier};
 		} else {
-			userInfo = @{@"clientId": self.uniqueIdentifier};
+			userInfo = @{TXNotificationUserInfoClientIdentifierKey : self.uniqueIdentifier};
 		}
 	}
 
@@ -4041,21 +4042,14 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 				break;
 			}
 
-			NSUserNotification *notification = [NSUserNotification new];
+			NSString *title = [TPCApplicationInfo applicationNameWithoutVersion];
 
-			notification.deliveryDate = [NSDate date];
+			NSString *message = stringIn.string;
 
-			notification.title = [TPCApplicationInfo applicationNameWithoutVersion];
-
-			notification.informativeText = stringIn.string;
-
-			if (targetChannel) {
-				notification.userInfo = @{@"clientId": self.uniqueIdentifier, @"channelId": targetChannel.uniqueIdentifier};
-			} else {
-				notification.userInfo = @{@"clientId": self.uniqueIdentifier};
-			}
-
-			[RZUserNotificationCenter() deliverNotification:notification];
+			[sharedNotificationController() scheduleNotificationWithTitle:title
+																  message:message
+															   forChannel:targetChannel
+																 onClient:self];
 
 			break;
 		}
@@ -8055,7 +8049,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 	NSString *username = [m paramAt:0];
 
 	if ([username isHostmaskUsernameOn:self] == NO) {
-		LogToConsole("Username ('%@') received from CHGHOST command is improperly formatted", username);
+		LogToConsoleError("Username ('%{private}@') received from CHGHOST command is improperly formatted", username);
 
 		return;
 	}
@@ -8063,7 +8057,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 	NSString *address = [m paramAt:1];
 
 	if ([address isHostmaskAddressOn:self] == NO) {
-		LogToConsole("Address ('%@') received from CHGHOST command is improperly formatted", address);
+		LogToConsoleError("Address ('%{private}@') received from CHGHOST command is improperly formatted", address);
 
 		return;
 	}
@@ -11041,7 +11035,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 
 	[self printDebugInformation:TXTLS(@"IRC[2mc-h0]", filename, inputString, errorDescription)];
 
-	LogToConsoleError("%@", TXTLS(@"IRC[ax0-mt]", errorDescription));
+	LogToConsoleError("%{public}@", TXTLS(@"IRC[ax0-mt]", errorDescription));
 }
 
 - (void)sendTextualCmdScriptResult:(NSString *)resultString toChannel:(nullable NSString *)channel
@@ -11057,7 +11051,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 	}
 
 	if (destination == nil) {
-		LogToConsoleError("A script returned a result but its destination no longer exists");
+		LogToConsoleFault("A script returned a result but its destination no longer exists");
 
 		return;
 	}
@@ -11297,7 +11291,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 
 	/* Check if system is sleeping. */
 	if ([XRSystemInformation systemIsSleeping]) {
-		LogToConsole("Refusing to connect because system is sleeping");
+		LogToConsoleInfo("Refusing to connect because system is sleeping");
 
 		return;
 	}
@@ -12468,7 +12462,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 			if (hostPortInt == 0)
 			{
 				if (e != nil) {
-					LogToConsoleError("Fatal error: Received reverse DCC request with token '%@' but the token already exists.", transferToken);
+					LogToConsoleError("Fatal error: Received reverse DCC request with token '%{public}@' but the token already exists", transferToken);
 
 					goto present_error;
 				}

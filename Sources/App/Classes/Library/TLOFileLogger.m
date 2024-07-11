@@ -167,7 +167,7 @@ static NSUInteger _numberOfOpenFileHandles = 0;
 			[self.fileHandle writeData:dataToWrite];
 		}
 		@catch (NSException *exception) {
-			LogToConsoleError("Caught exception: %@", exception.reason);
+			LogToConsoleError("Caught exception: %{public}@", exception.reason);
 			LogStackTrace();
 
 			if ([exception.reason contains:@"No space left on device"]) {
@@ -233,7 +233,7 @@ static NSUInteger _numberOfOpenFileHandles = 0;
 		[self.fileHandle synchronizeFile];
 	}
 	@catch (NSException *exception) {
-		LogToConsoleError("Caught exception: %@", exception.reason);
+		LogToConsoleError("Caught exception: %{public}@", exception.reason);
 		LogStackTrace();
 	}
 
@@ -292,7 +292,7 @@ static NSUInteger _numberOfOpenFileHandles = 0;
 		NSError *createDirectoryError = nil;
 
 		if ([RZFileManager() createDirectoryAtPath:writePath withIntermediateDirectories:YES attributes:nil error:&createDirectoryError] == NO) {
-			LogToConsoleError("Error Creating Folder: %@",
+			LogToConsoleError("Error Creating Folder: %{public}@",
 				 createDirectoryError.localizedDescription);
 
 			return;
@@ -303,7 +303,7 @@ static NSUInteger _numberOfOpenFileHandles = 0;
 		NSError *writeFileError = nil;
 
 		if ([@"" writeToFile:filePath atomically:NO encoding:NSUTF8StringEncoding error:&writeFileError] == NO) {
-			LogToConsoleError("Error Creating File: %@",
+			LogToConsoleError("Error Creating File: %{public}@",
 				  writeFileError.localizedDescription);
 
 			return;
@@ -313,7 +313,7 @@ static NSUInteger _numberOfOpenFileHandles = 0;
 	NSFileHandle *fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:filePath];
 
 	if (fileHandle == nil) {
-		LogToConsoleError("Failed to open file handle at path '%@'", filePath);
+		LogToConsoleError("Failed to open file handle at path '%{public}@'", filePath.standardizedTildePath);
 
 		return;
 	}
@@ -399,7 +399,7 @@ static NSUInteger _numberOfOpenFileHandles = 0;
 		return;
 	}
 
-	LogToConsoleDebug("Closing %@ because it's idle.", self);
+	LogToConsoleDebug("Closing %{public}@ because it's idle", self);
 
 	[self close];
 }

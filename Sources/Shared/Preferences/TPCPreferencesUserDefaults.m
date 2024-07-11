@@ -60,23 +60,13 @@ NSString * const TPCPreferencesUserDefaultsDidChangeNotification = @"TPCPreferen
 	static dispatch_once_t onceToken;
 
 	dispatch_once(&onceToken, ^{
-		sharedSelf = [[super allocWithZone:NULL] _init];
+		sharedSelf = [[self alloc] _initGroupContainer];
 	});
 
 	return sharedSelf;
 }
 
-+ (instancetype)alloc
-{
-	return [self sharedUserDefaults];
-}
-
-+ (instancetype)allocWithZone:(struct _NSZone *)zone
-{
-	return [self sharedUserDefaults];
-}
-
-- (instancetype)_init
+- (instancetype)_initGroupContainer
 {
 	TPCPreferencesUserDefaults *defaults = [super initWithSuiteName:TXBundleBuildGroupContainerIdentifier];
 
@@ -227,6 +217,35 @@ NSString * const TPCPreferencesUserDefaultsDidChangeNotification = @"TPCPreferen
 - (NSDictionary<NSString *, id> *)registeredDefaults
 {
 	return [self volatileDomainForName:NSRegistrationDomain];
+}
+
+@end
+
+#pragma mark -
+#pragma mark Object KVO Proxying
+
+@implementation TPCPreferencesUserDefaultsController
+
+- (instancetype)_initWithSharedDefaults
+{
+	TPCPreferencesUserDefaults *defaults = [TPCPreferencesUserDefaults sharedUserDefaults];
+
+	return [super initWithDefaults:defaults initialValues:nil];
+}
+
+- (instancetype)init
+{
+	return [self _initWithSharedDefaults];
+}
+
+- (nullable instancetype)initWithCoder:(NSCoder *)coder
+{
+	return [self _initWithSharedDefaults];
+}
+
+- (instancetype)initWithDefaults:(nullable NSUserDefaults *)defaults initialValues:(nullable NSDictionary<NSString *, id> *)initialValues
+{
+	return [self _initWithSharedDefaults];
 }
 
 @end
