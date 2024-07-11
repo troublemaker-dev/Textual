@@ -89,15 +89,31 @@
 
 #define TEXTUAL_DEPRECATED_WARNING				COCOA_EXTENSIONS_DEPRECATED_WARNING
 
-#define TEXTUAL_IGNORE_DEPRECATION_BEGIN		_Pragma("clang diagnostic push")									\
-												_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"")
-
-#define TEXTUAL_IGNORE_DEPRECATION_END			_Pragma("clang diagnostic pop")
+#define TEXTUAL_IGNORE_DEPRECATION_BEGIN		COCOA_EXTENSIONS_IGNORE_DEPRECATION_BEGIN
+#define TEXTUAL_IGNORE_DEPRECATION_END			COCOA_EXTENSIONS_IGNORE_DEPRECATION_END
 
 #define TEXTUAL_IGNORE_AVAILABILITY_BEGIN		_Pragma("clang diagnostic push")									\
 												_Pragma("clang diagnostic ignored \"-Wpartial-availability\"")
 
 #define TEXTUAL_IGNORE_AVAILABILITY_END			_Pragma("clang diagnostic pop")
+
+/* WebView deprecation */
+/* The entirety of pre-WebKit2 code is deprecated by Apple.
+ Textual uses a great deal of this code and if left unchecked, a large number
+ of deprecation warnings will appear during build. It would be overwhelming
+ to suppress every warning individually. Entire files have been marked to
+ ignore deprecation warnings. As we cannot ignore WebKit specific deprecation
+ warnings, this leaves the problem of unrelated deprecation warnings ignored.
+ Modify the following flag routinely to check for unrelated deprecations. */
+#define TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS	1
+
+#if TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS == 1
+	#define TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN TEXTUAL_IGNORE_DEPRECATION_BEGIN
+	#define TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END TEXTUAL_IGNORE_DEPRECATION_END
+#else
+	#define TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
+	#define TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
+#endif
 
 /* Helper function */
 #define StringFromBOOL(value) ((value) ? @"YES" : @"NO")

@@ -137,9 +137,11 @@ NS_ASSUME_NONNULL_BEGIN
 	if (arguments && arguments.count > 0) {
 		argument = arguments[0];
 
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
 		if ([argument isKindOfClass:[WebScriptObject class]]) {
 			argument = [self.webView webScriptObjectToCommon:argument];
 		}
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
 	}
 
 	NSMethodSignature *signature = [self methodSignatureForSelector:handlerSelector];
@@ -172,7 +174,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable id)objectValueToCommon:(id)object
 {
 	if ([object isKindOfClass:[NSNull class]] ||
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
 		[object isKindOfClass:[WebUndefined class]])
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
 	{
 		return nil;
 	}
@@ -337,7 +341,9 @@ NS_ASSUME_NONNULL_BEGIN
 		}
 	}
 	else if ([inputData isKindOfClass:[NSNull class]] ||
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
 			 [inputData isKindOfClass:[WebUndefined class]])
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
 	{
 		if (minimumArgumentCount > 0) {
 			values = @[[NSNull null]];

@@ -92,7 +92,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TVCLogView (TVCLogViewJavaScriptHandlerPrivate)
 - (NSString *)compiledFunctionCall:(NSString *)function withArguments:(nullable NSArray *)arguments;
 
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
 - (id)webScriptObjectToCommon:(WebScriptObject *)object;
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
 @end
 
 NS_ASSUME_NONNULL_END

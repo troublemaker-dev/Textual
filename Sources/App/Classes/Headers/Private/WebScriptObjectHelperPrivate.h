@@ -30,6 +30,8 @@
 
  *********************************************************************** */
 
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
+
 #import <JavaScriptCore/JavaScriptCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -37,5 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WebScriptObject (TXWebScriptObjectHelper)
 - (nullable id)toCommonInContext:(JSContextRef)jsContextRef;
 @end
+
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
 
 NS_ASSUME_NONNULL_END

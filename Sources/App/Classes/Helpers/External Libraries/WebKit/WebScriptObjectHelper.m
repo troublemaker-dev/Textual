@@ -30,6 +30,8 @@
 
  *********************************************************************** */
 
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
+
 #import "WebScriptObjectHelperPrivate.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -145,3 +147,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END

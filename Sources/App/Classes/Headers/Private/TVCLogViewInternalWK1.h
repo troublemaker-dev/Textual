@@ -35,6 +35,8 @@
  *
  *********************************************************************** */
 
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_BEGIN
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class TVCLogPolicy, TVCLogView;
@@ -56,3 +58,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+TEXTUAL_IGNORE_WEBKIT_DEPRECATIONS_END
