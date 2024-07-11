@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, TDCPreferencesControllerSelection) {
 	TDCPreferencesControllerSelectionDefault = 0,
+	TDCPreferencesControllerSelectionNotifications,
 	TDCPreferencesControllerSelectionStyle,
 	TDCPreferencesControllerSelectionHiddenPreferences
 };

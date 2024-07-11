@@ -3727,6 +3727,11 @@ NS_ASSUME_NONNULL_BEGIN
 	[self showPreferencesWindowWithSelection:TDCPreferencesControllerSelectionDefault];
 }
 
+- (void)showNotificationPreferences:(id)sender
+{
+	[self showPreferencesWindowWithSelection:TDCPreferencesControllerSelectionNotifications];
+}
+
 - (void)showStylePreferences:(id)sender
 {
 	[self showPreferencesWindowWithSelection:TDCPreferencesControllerSelectionStyle];

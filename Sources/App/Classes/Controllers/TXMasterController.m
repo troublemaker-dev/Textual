@@ -287,6 +287,15 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark NSApplication Delegate
 
+- (void)applicationWillFinishLaunching:(NSNotification *)notification
+{
+	/* UserNotifications.framework wants delegation set before app has
+	 finished launching. A simple access to the singleton will set this
+	 for us which we can just do here. */
+	LogToConsoleDebug("Preparing notification controller singeton: %@",
+			sharedNotificationController().description);
+}
+
 - (void)applicationDidFinishLaunching
 {
 	[self removeObserver:self forKeyPath:@"applicationLaunchRemainder"];

@@ -59,7 +59,7 @@
 #define RZSharedApplication()					[NSApplication sharedApplication]
 #define RZSpellChecker()						[NSSpellChecker	sharedSpellChecker]
 #define RZUbiquitousKeyValueStore()				[NSUbiquitousKeyValueStore defaultStore]
-#define RZUserNotificationCenter()				[NSUserNotificationCenter defaultUserNotificationCenter]
+#define RZUserNotificationCenter()				[UNUserNotificationCenter currentNotificationCenter]
 #define RZWorkspace()							[NSWorkspace sharedWorkspace]
 #define RZWorkspaceNotificationCenter()			[[NSWorkspace sharedWorkspace] notificationCenter]
 

@@ -2016,9 +2016,10 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 
 	if (userInfo == nil) {
 		if (target) {
-			userInfo = @{@"clientId": self.uniqueIdentifier, @"channelId": target.uniqueIdentifier};
+			userInfo = @{TXNotificationUserInfoClientIdentifierKey : self.uniqueIdentifier,
+						 TXNotificationUserInfoChannelIdentifierKey: target.uniqueIdentifier};
 		} else {
-			userInfo = @{@"clientId": self.uniqueIdentifier};
+			userInfo = @{TXNotificationUserInfoClientIdentifierKey : self.uniqueIdentifier};
 		}
 	}
 
@@ -4041,21 +4042,14 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 				break;
 			}
 
-			NSUserNotification *notification = [NSUserNotification new];
+			NSString *title = [TPCApplicationInfo applicationNameWithoutVersion];
 
-			notification.deliveryDate = [NSDate date];
+			NSString *message = stringIn.string;
 
-			notification.title = [TPCApplicationInfo applicationNameWithoutVersion];
-
-			notification.informativeText = stringIn.string;
-
-			if (targetChannel) {
-				notification.userInfo = @{@"clientId": self.uniqueIdentifier, @"channelId": targetChannel.uniqueIdentifier};
-			} else {
-				notification.userInfo = @{@"clientId": self.uniqueIdentifier};
-			}
-
-			[RZUserNotificationCenter() deliverNotification:notification];
+			[sharedNotificationController() scheduleNotificationWithTitle:title
+																  message:message
+															   forChannel:targetChannel
+																 onClient:self];
 
 			break;
 		}

@@ -311,6 +311,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)show:(TDCPreferencesControllerSelection)selection
 {
 	switch (selection) {
+		case TDCPreferencesControllerSelectionNotifications:
+		{
+			[self _showPane:self.contentViewNotifications selectedItem:_toolbarItemIndexNotifications];
+
+			break;
+		}
 		case TDCPreferencesControllerSelectionStyle:
 		{
 			[self _showPane:self.contentViewStyle selectedItem:_toolbarItemIndexStyle];

@@ -40,6 +40,7 @@
 #import "GCDAsyncSocket.h"
 #import "TXGlobalModels.h"
 #import "IRCClientPrivate.h"
+#import "TPCPathInfo.h"
 #import "TPCPreferencesLocal.h"
 #import "TLOEncryptionManagerPrivate.h"
 #import "TLOLocalization.h"
@@ -336,6 +337,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)open
 {
 	[self openWithPath:nil];
+}
+
+- (void)openWithPathOrUserDownloads
+{
+	NSString *path = nil;
+
+	if (self.path == nil) {
+		path = [TPCPathInfo userDownloads];
+	}
+
+	[self openWithPath:path];
 }
 
 - (void)openWithPath:(nullable NSString *)path

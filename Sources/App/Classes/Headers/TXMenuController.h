@@ -470,6 +470,7 @@ enum
 - (IBAction)showHiddenPreferences:(id)sender;
 - (IBAction)showIgnoreList:(id)sender;
 - (IBAction)showMainWindow:(id)sender;
+- (IBAction)showNotificationPreferences:(id)sender;
 - (IBAction)showPreferencesWindow:(id)sender;
 - (IBAction)showServerChangeNicknameSheet:(id)sender;
 - (IBAction)showServerChannelList:(id)sender;
