@@ -171,7 +171,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 	NSMutableData *hashedData = [NSMutableData dataWithLength:CC_MD5_DIGEST_LENGTH];
 
+TEXTUAL_IGNORE_DEPRECATION_BEGIN
 	CC_MD5(stringToHashData.bytes, (CC_LONG)stringToHashData.length, hashedData.mutableBytes);
+TEXTUAL_IGNORE_DEPRECATION_END
 
 	unsigned int hashedValue;
 	[hashedData getBytes:&hashedValue length:sizeof(unsigned int)];

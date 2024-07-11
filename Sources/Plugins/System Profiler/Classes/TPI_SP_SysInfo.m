@@ -332,9 +332,11 @@ NS_ASSUME_NONNULL_BEGIN
 			modelTitle = modelsDictionary[modelIdentifier];
 		}
 
+TEXTUAL_IGNORE_DEPRECATION_BEGIN
 		if (modelTitle == nil) {
 			modelTitle = [XRSystemInformation systemModelName];
 		}
+TEXTUAL_IGNORE_DEPRECATION_END
 
 		[resultString appendString:
 		 TPILocalizedString(@"BasicLanguage[7g5-pf]", modelTitle)];
