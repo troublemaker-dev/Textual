@@ -1091,11 +1091,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	}
 }
 
-- (void)setConnectionPrefersModernCiphers:(BOOL)connectionPrefersModernCiphers
-{
-	TEXTUAL_DEPRECATED_WARNING
-}
-
 - (void)setHideAutojoinDelayedWarnings:(BOOL)hideAutojoinDelayedWarnings
 {
 	if (self->_hideAutojoinDelayedWarnings != hideAutojoinDelayedWarnings) {

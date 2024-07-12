@@ -5782,7 +5782,7 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 {
 	NSParameterAssert(sender == self.socket);
 
-	NSString *protocolDescription = [RCMSecureTransport descriptionForProtocolVersion:protocolVersion];
+	NSString *protocolDescription = [RCMSecureTransport descriptionForDeprecatedProtocol:protocolVersion];
 
 	NSString *cipherDescription = [RCMSecureTransport descriptionForCipherSuite:cipherSuite];
 

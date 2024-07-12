@@ -42,8 +42,6 @@
 
 #import "NSObjectHelperPrivate.h"
 #import "GCDAsyncSocketExtensions.h"
-#import "RCMSecureTransport.h"
-#import "RCMTrustPanel.h"
 #import "TLOLocalization.h"
 #import "TPCPreferencesLocal.h"
 #import "IRCClient.h"
@@ -270,7 +268,7 @@ NS_ASSUME_NONNULL_BEGIN
 			return;
 		}
 
-		NSString *protocolDescription = [RCMSecureTransport descriptionForProtocolVersion:protocolVersion];
+		NSString *protocolDescription = [RCMSecureTransport descriptionForDeprecatedProtocol:protocolVersion];
 
 		NSString *cipherDescription = [RCMSecureTransport descriptionForCipherSuite:cipherSuites];
 
