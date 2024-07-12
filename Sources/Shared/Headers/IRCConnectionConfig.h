@@ -35,8 +35,6 @@
  *
  *********************************************************************** */
 
-#import "RCMSecureTransport.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 #define IRCConnectionConfigFloodControlDefaultDelayInterval					2

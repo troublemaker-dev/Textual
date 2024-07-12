@@ -37,8 +37,6 @@
 
 /* *** XPC PROTOCOL HEADERS ARE PRIVATE *** */
 
-#import "RCMTrustPanel.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 @class IRCConnectionConfig;

@@ -307,14 +307,10 @@
 		4C06E3B220EC51380055D09A /* GCDAsyncSocketExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E36B20EC51370055D09A /* GCDAsyncSocketExtensions.h */; };
 		4C06E3B520EC51380055D09A /* GCDAsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E36C20EC51370055D09A /* GCDAsyncSocket.h */; };
 		4C06E3B620EC51380055D09A /* GCDAsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E36C20EC51370055D09A /* GCDAsyncSocket.h */; };
-		4C06E3B920EC51380055D09A /* RCMSecureTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E36D20EC51370055D09A /* RCMSecureTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C06E3BA20EC51380055D09A /* RCMSecureTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E36D20EC51370055D09A /* RCMSecureTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C06E3C920EC51380055D09A /* ICLPayloadInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E37220EC51370055D09A /* ICLPayloadInternal.h */; };
 		4C06E3CA20EC51380055D09A /* ICLPayloadInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E37220EC51370055D09A /* ICLPayloadInternal.h */; };
 		4C06E3D520EC51380055D09A /* ICLPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E37520EC51370055D09A /* ICLPayload.h */; };
 		4C06E3D620EC51380055D09A /* ICLPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E37520EC51370055D09A /* ICLPayload.h */; };
-		4C06E3ED20EC51380055D09A /* RCMTrustPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E37C20EC51370055D09A /* RCMTrustPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C06E3EE20EC51380055D09A /* RCMTrustPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E37C20EC51370055D09A /* RCMTrustPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C06E3F520EC51380055D09A /* RCMConnectionManagerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E37F20EC51370055D09A /* RCMConnectionManagerProtocol.h */; };
 		4C06E3F620EC51380055D09A /* RCMConnectionManagerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E37F20EC51370055D09A /* RCMConnectionManagerProtocol.h */; };
 		4C06E3F920EC51380055D09A /* ICLInlineContentProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06E38020EC51370055D09A /* ICLInlineContentProtocol.h */; };
@@ -331,7 +327,6 @@
 		4C06E42D20EC53620055D09A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C10C00D1F37E59B0004C624 /* IOKit.framework */; };
 		4C06E42F20EC53620055D09A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF4D6B619837C1700FB5AF0 /* QuartzCore.framework */; };
 		4C06E43020EC53620055D09A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C46CCC01580469E00846B64 /* Security.framework */; };
-		4C06E43120EC53620055D09A /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3154EF20EB6BD000448776 /* SecurityInterface.framework */; };
 		4C06E43320EC53620055D09A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C46CCC11580469E00846B64 /* SystemConfiguration.framework */; };
 		4C06E43420EC53620055D09A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C46CCC21580469E00846B64 /* WebKit.framework */; };
 		4C06E43520EC539E0055D09A /* AutoHyperlinks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF76A371A91153A0088BF9A /* AutoHyperlinks.framework */; };
@@ -360,7 +355,6 @@
 		4C06E48C20EC542C0055D09A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C10C00D1F37E59B0004C624 /* IOKit.framework */; };
 		4C06E48E20EC542C0055D09A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF4D6B619837C1700FB5AF0 /* QuartzCore.framework */; };
 		4C06E48F20EC542C0055D09A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C46CCC01580469E00846B64 /* Security.framework */; };
-		4C06E49020EC542C0055D09A /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3154EF20EB6BD000448776 /* SecurityInterface.framework */; };
 		4C06E49220EC542C0055D09A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C46CCC11580469E00846B64 /* SystemConfiguration.framework */; };
 		4C06E49320EC542C0055D09A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C46CCC21580469E00846B64 /* WebKit.framework */; };
 		4C06E57F20EC553A0055D09A /* TXAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31529E20EB673E00448776 /* TXAppearance.m */; };
@@ -483,10 +477,8 @@
 		4C06E60120EC553A0055D09A /* TPCPreferencesUserDefaultsLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31511920EB673E00448776 /* TPCPreferencesUserDefaultsLocal.m */; };
 		4C06E60320EC553A0055D09A /* TPCResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31511820EB673E00448776 /* TPCResourceManager.m */; };
 		4C06E60420EC553A0055D09A /* ICLPayloadLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E34E20EC50D40055D09A /* ICLPayloadLocal.m */; };
-		4C06E60520EC553A0055D09A /* RCMTrustPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E38320EC51370055D09A /* RCMTrustPanel.m */; };
 		4C06E60620EC553A0055D09A /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E36320EC51370055D09A /* GCDAsyncSocket.m */; settings = {COMPILER_FLAGS = "-Wno-implicit-retain-self"; }; };
 		4C06E60720EC553A0055D09A /* GCDAsyncSocketExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E36520EC51370055D09A /* GCDAsyncSocketExtensions.m */; };
-		4C06E60820EC553A0055D09A /* RCMSecureTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E36820EC51370055D09A /* RCMSecureTransport.m */; };
 		4C06E60920EC553A0055D09A /* ICLPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E38B20EC51370055D09A /* ICLPayload.m */; };
 		4C06E60A20EC553A0055D09A /* TVCLogLineXPC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E38620EC51370055D09A /* TVCLogLineXPC.m */; };
 		4C06E60B20EC553A0055D09A /* TVCChannelSelectionOutlineCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152AE20EB673E00448776 /* TVCChannelSelectionOutlineCellView.m */; };
@@ -653,10 +645,8 @@
 		4C06E6BA20EC55B90055D09A /* TPCPreferencesUserDefaultsLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31511920EB673E00448776 /* TPCPreferencesUserDefaultsLocal.m */; };
 		4C06E6BC20EC55B90055D09A /* TPCResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31511820EB673E00448776 /* TPCResourceManager.m */; };
 		4C06E6BD20EC55B90055D09A /* ICLPayloadLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E34E20EC50D40055D09A /* ICLPayloadLocal.m */; };
-		4C06E6BE20EC55B90055D09A /* RCMTrustPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E38320EC51370055D09A /* RCMTrustPanel.m */; };
 		4C06E6BF20EC55B90055D09A /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E36320EC51370055D09A /* GCDAsyncSocket.m */; settings = {COMPILER_FLAGS = "-Wno-implicit-retain-self"; }; };
 		4C06E6C020EC55B90055D09A /* GCDAsyncSocketExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E36520EC51370055D09A /* GCDAsyncSocketExtensions.m */; };
-		4C06E6C120EC55B90055D09A /* RCMSecureTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E36820EC51370055D09A /* RCMSecureTransport.m */; };
 		4C06E6C220EC55B90055D09A /* ICLPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E38B20EC51370055D09A /* ICLPayload.m */; };
 		4C06E6C320EC55B90055D09A /* TVCLogLineXPC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06E38620EC51370055D09A /* TVCLogLineXPC.m */; };
 		4C06E6C420EC55B90055D09A /* TVCChannelSelectionOutlineCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3152AE20EB673E00448776 /* TVCChannelSelectionOutlineCellView.m */; };
@@ -1492,17 +1482,13 @@
 		4C06E34E20EC50D40055D09A /* ICLPayloadLocal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICLPayloadLocal.m; sourceTree = "<group>"; };
 		4C06E36320EC51370055D09A /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		4C06E36520EC51370055D09A /* GCDAsyncSocketExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocketExtensions.m; sourceTree = "<group>"; };
-		4C06E36820EC51370055D09A /* RCMSecureTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCMSecureTransport.m; sourceTree = "<group>"; };
 		4C06E36B20EC51370055D09A /* GCDAsyncSocketExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocketExtensions.h; sourceTree = "<group>"; };
 		4C06E36C20EC51370055D09A /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
-		4C06E36D20EC51370055D09A /* RCMSecureTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCMSecureTransport.h; sourceTree = "<group>"; };
 		4C06E37220EC51370055D09A /* ICLPayloadInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICLPayloadInternal.h; sourceTree = "<group>"; };
 		4C06E37520EC51370055D09A /* ICLPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICLPayload.h; sourceTree = "<group>"; };
-		4C06E37C20EC51370055D09A /* RCMTrustPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCMTrustPanel.h; sourceTree = "<group>"; };
 		4C06E37F20EC51370055D09A /* RCMConnectionManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCMConnectionManagerProtocol.h; sourceTree = "<group>"; };
 		4C06E38020EC51370055D09A /* ICLInlineContentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICLInlineContentProtocol.h; sourceTree = "<group>"; };
 		4C06E38120EC51370055D09A /* HLSHistoricLogProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLSHistoricLogProtocol.h; sourceTree = "<group>"; };
-		4C06E38320EC51370055D09A /* RCMTrustPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCMTrustPanel.m; sourceTree = "<group>"; };
 		4C06E38620EC51370055D09A /* TVCLogLineXPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVCLogLineXPC.m; sourceTree = "<group>"; };
 		4C06E38B20EC51370055D09A /* ICLPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICLPayload.m; sourceTree = "<group>"; };
 		4C06E41020EC52240055D09A /* TVCLogLineXPCPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVCLogLineXPCPrivate.h; sourceTree = "<group>"; };
@@ -2013,7 +1999,6 @@
 		4C3154E520EB685700448776 /* Enabled Features.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Enabled Features.xcconfig"; sourceTree = "<group>"; };
 		4C3154E720EB68A900448776 /* Standard Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Standard Release.entitlements"; sourceTree = "<group>"; };
 		4C3154E820EB68A900448776 /* Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Debug.entitlements; sourceTree = "<group>"; };
-		4C3154EF20EB6BD000448776 /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = System/Library/Frameworks/SecurityInterface.framework; sourceTree = SDKROOT; };
 		4C315EE72C36581A001A16B4 /* KeysExcludedFromExport.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = KeysExcludedFromExport.plist; sourceTree = "<group>"; };
 		4C315EE82C36581A001A16B4 /* PreferenceKeyMasterList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PreferenceKeyMasterList.plist; sourceTree = "<group>"; };
 		4C33341B20CC471A00ACB9AD /* Bundled Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Bundled Scripts"; sourceTree = "<group>"; };
@@ -2076,7 +2061,6 @@
 				4C06E48E20EC542C0055D09A /* QuartzCore.framework in Frameworks */,
 				4C2F42062C3F4218000D962D /* UserNotifications.framework in Frameworks */,
 				4C06E48F20EC542C0055D09A /* Security.framework in Frameworks */,
-				4C06E49020EC542C0055D09A /* SecurityInterface.framework in Frameworks */,
 				4C06E49220EC542C0055D09A /* SystemConfiguration.framework in Frameworks */,
 				4C06E49320EC542C0055D09A /* WebKit.framework in Frameworks */,
 				4C06E48120EC54260055D09A /* AutoHyperlinks.framework in Frameworks */,
@@ -2102,7 +2086,6 @@
 				4C06E43920EC539E0055D09A /* EncryptionKit.framework in Frameworks */,
 				4C06E42F20EC53620055D09A /* QuartzCore.framework in Frameworks */,
 				4C06E43020EC53620055D09A /* Security.framework in Frameworks */,
-				4C06E43120EC53620055D09A /* SecurityInterface.framework in Frameworks */,
 				4C06E43320EC53620055D09A /* SystemConfiguration.framework in Frameworks */,
 				4C06E43720EC539E0055D09A /* CocoaExtensions.framework in Frameworks */,
 				4C06E43420EC53620055D09A /* WebKit.framework in Frameworks */,
@@ -2211,7 +2194,6 @@
 		4C06E35A20EC51370055D09A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				4C06E38220EC51370055D09A /* Dialogs */,
 				4C06E36920EC51370055D09A /* Headers */,
 				4C06E36020EC51370055D09A /* Library */,
 				4C06E38A20EC51370055D09A /* Services */,
@@ -2225,7 +2207,6 @@
 			isa = PBXGroup;
 			children = (
 				4C06E36120EC51370055D09A /* External Libraries */,
-				4C06E36820EC51370055D09A /* RCMSecureTransport.m */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -2255,8 +2236,6 @@
 				4C06E37120EC51370055D09A /* Internal */,
 				4C06E37720EC51370055D09A /* Private */,
 				4C06E37E20EC51370055D09A /* Services */,
-				4C06E36D20EC51370055D09A /* RCMSecureTransport.h */,
-				4C06E37C20EC51370055D09A /* RCMTrustPanel.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -2294,14 +2273,6 @@
 				4C06E38120EC51370055D09A /* HLSHistoricLogProtocol.h */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		4C06E38220EC51370055D09A /* Dialogs */ = {
-			isa = PBXGroup;
-			children = (
-				4C06E38320EC51370055D09A /* RCMTrustPanel.m */,
-			);
-			path = Dialogs;
 			sourceTree = "<group>";
 		};
 		4C06E38420EC51370055D09A /* Views */ = {
@@ -3480,7 +3451,6 @@
 				4C10C00D1F37E59B0004C624 /* IOKit.framework */,
 				4CF4D6B619837C1700FB5AF0 /* QuartzCore.framework */,
 				4C46CCC01580469E00846B64 /* Security.framework */,
-				4C3154EF20EB6BD000448776 /* SecurityInterface.framework */,
 				4C46CCC11580469E00846B64 /* SystemConfiguration.framework */,
 				4C2F42042C3F4218000D962D /* UserNotifications.framework */,
 				4C46CCC21580469E00846B64 /* WebKit.framework */,
@@ -3608,7 +3578,6 @@
 				4C3157B120EB6D0600448776 /* TDCLicenseManagerRecoverLostLicenseSheetPrivate.h in Headers */,
 				4C06E3B120EC51380055D09A /* GCDAsyncSocketExtensions.h in Headers */,
 				4C3157D320EB6D0600448776 /* TPCApplicationInfoPrivate.h in Headers */,
-				4C06E3ED20EC51380055D09A /* RCMTrustPanel.h in Headers */,
 				4C31580220EB6D0600448776 /* TXAppearancePrivate.h in Headers */,
 				4C31555620EB6CB300448776 /* IRCCommandIndex.h in Headers */,
 				4C31579620EB6D0600448776 /* TDCAboutDialogPrivate.h in Headers */,
@@ -3826,7 +3795,6 @@
 				4C31555020EB6CB300448776 /* IRCChannelConfig.h in Headers */,
 				4C31559320EB6CB300448776 /* TVCMainWindowSplitView.h in Headers */,
 				4C3157DF20EB6D0600448776 /* TVCChannelSelectionOutlineViewCellPrivate.h in Headers */,
-				4C06E3B920EC51380055D09A /* RCMSecureTransport.h in Headers */,
 				4C3157A120EB6D0600448776 /* TDCChannelPropertiesSheetPrivate.h in Headers */,
 				4C31579720EB6D0600448776 /* TDCAddressBookSheetPrivate.h in Headers */,
 				4C3157E520EB6D0600448776 /* TVCLogControllerOperationQueuePrivate.h in Headers */,
@@ -3877,7 +3845,6 @@
 				4C31571E20EB6D0500448776 /* TDCLicenseManagerRecoverLostLicenseSheetPrivate.h in Headers */,
 				4C06E3B220EC51380055D09A /* GCDAsyncSocketExtensions.h in Headers */,
 				4C31574020EB6D0500448776 /* TPCApplicationInfoPrivate.h in Headers */,
-				4C06E3EE20EC51380055D09A /* RCMTrustPanel.h in Headers */,
 				4C31576F20EB6D0500448776 /* TXAppearancePrivate.h in Headers */,
 				4C3155AD20EB6CB400448776 /* IRCCommandIndex.h in Headers */,
 				4C31570320EB6D0500448776 /* TDCAboutDialogPrivate.h in Headers */,
@@ -4095,7 +4062,6 @@
 				4C3155A720EB6CB400448776 /* IRCChannelConfig.h in Headers */,
 				4C3155EA20EB6CB400448776 /* TVCMainWindowSplitView.h in Headers */,
 				4C31574C20EB6D0500448776 /* TVCChannelSelectionOutlineViewCellPrivate.h in Headers */,
-				4C06E3BA20EC51380055D09A /* RCMSecureTransport.h in Headers */,
 				4C31570E20EB6D0500448776 /* TDCChannelPropertiesSheetPrivate.h in Headers */,
 				4C31570420EB6D0500448776 /* TDCAddressBookSheetPrivate.h in Headers */,
 				4C31575220EB6D0500448776 /* TVCLogControllerOperationQueuePrivate.h in Headers */,
@@ -4782,10 +4748,8 @@
 				4C06E60120EC553A0055D09A /* TPCPreferencesUserDefaultsLocal.m in Sources */,
 				4C06E60320EC553A0055D09A /* TPCResourceManager.m in Sources */,
 				4C06E60420EC553A0055D09A /* ICLPayloadLocal.m in Sources */,
-				4C06E60520EC553A0055D09A /* RCMTrustPanel.m in Sources */,
 				4C06E60620EC553A0055D09A /* GCDAsyncSocket.m in Sources */,
 				4C06E60720EC553A0055D09A /* GCDAsyncSocketExtensions.m in Sources */,
-				4C06E60820EC553A0055D09A /* RCMSecureTransport.m in Sources */,
 				4C06E60920EC553A0055D09A /* ICLPayload.m in Sources */,
 				4C06E60A20EC553A0055D09A /* TVCLogLineXPC.m in Sources */,
 				4C06E60B20EC553A0055D09A /* TVCChannelSelectionOutlineCellView.m in Sources */,
@@ -4968,10 +4932,8 @@
 				4C06E6BA20EC55B90055D09A /* TPCPreferencesUserDefaultsLocal.m in Sources */,
 				4C06E6BC20EC55B90055D09A /* TPCResourceManager.m in Sources */,
 				4C06E6BD20EC55B90055D09A /* ICLPayloadLocal.m in Sources */,
-				4C06E6BE20EC55B90055D09A /* RCMTrustPanel.m in Sources */,
 				4C06E6BF20EC55B90055D09A /* GCDAsyncSocket.m in Sources */,
 				4C06E6C020EC55B90055D09A /* GCDAsyncSocketExtensions.m in Sources */,
-				4C06E6C120EC55B90055D09A /* RCMSecureTransport.m in Sources */,
 				4C06E6C220EC55B90055D09A /* ICLPayload.m in Sources */,
 				4C06E6C320EC55B90055D09A /* TVCLogLineXPC.m in Sources */,
 				4C06E6C420EC55B90055D09A /* TVCChannelSelectionOutlineCellView.m in Sources */,
