@@ -10,7 +10,6 @@
 		4C06DE7E20EC48560055D09A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAC2A071F12AFFB00D06046 /* Security.framework */; };
 		4C06DE7F20EC48560055D09A /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAC2A081F12AFFB00D06046 /* SecurityInterface.framework */; };
 		4C06DE8020EC48570055D09A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAC2A0B1F12B01700D06046 /* SystemConfiguration.framework */; };
-		4C36AAD120F27BDA007CA939 /* SecureTransportErrorCodes.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C36AACF20F27BDA007CA939 /* SecureTransportErrorCodes.strings */; };
 		4C46A06920EC68B800094EA4 /* NSObjectHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C46A05720EC67E300094EA4 /* NSObjectHelper.m */; };
 		4C46A06A20EC68B800094EA4 /* IRCConnectionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C46A02B20EC67E300094EA4 /* IRCConnectionConfig.m */; };
 		4C46A06B20EC68B800094EA4 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C46A02F20EC67E300094EA4 /* GCDAsyncSocket.m */; settings = {COMPILER_FLAGS = "-Wno-implicit-retain-self"; }; };
@@ -32,7 +31,6 @@
 
 /* Begin PBXFileReference section */
 		4C1406421F11942B00C73D53 /* IRC Connection Host.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = "IRC Connection Host.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C36AAD020F27BDA007CA939 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SecureTransportErrorCodes.strings; sourceTree = "<group>"; };
 		4C469FFD20EC626E00094EA4 /* IRCConnectionSocketNWF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCConnectionSocketNWF.swift; sourceTree = "<group>"; };
 		4C469FFE20EC626E00094EA4 /* IRCConnectionSocketClassic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCConnectionSocketClassic.swift; sourceTree = "<group>"; };
 		4C469FFF20EC626E00094EA4 /* IRCConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCConnection.swift; sourceTree = "<group>"; };
@@ -202,7 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				4C5274DA20F7D49000B18F9D /* ConnectionErrors.strings */,
-				4C36AACF20F27BDA007CA939 /* SecureTransportErrorCodes.strings */,
 			);
 			path = "Language Files";
 			sourceTree = "<group>";
@@ -468,7 +465,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C5274DC20F7D49000B18F9D /* ConnectionErrors.strings in Resources */,
-				4C36AAD120F27BDA007CA939 /* SecureTransportErrorCodes.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,14 +496,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		4C36AACF20F27BDA007CA939 /* SecureTransportErrorCodes.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4C36AAD020F27BDA007CA939 /* en */,
-			);
-			name = SecureTransportErrorCodes.strings;
-			sourceTree = "<group>";
-		};
 		4C5274DA20F7D49000B18F9D /* ConnectionErrors.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
