@@ -389,7 +389,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 @dynamic receivedAt;
 @dynamic sender;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

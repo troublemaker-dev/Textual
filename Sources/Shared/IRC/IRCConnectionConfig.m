@@ -187,7 +187,7 @@ uint16_t const IRCConnectionDefaultProxyPort = 1080;
 @dynamic fallbackEncoding;
 @dynamic cipherSuites;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

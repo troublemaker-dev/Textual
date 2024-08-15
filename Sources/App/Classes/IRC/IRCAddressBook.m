@@ -310,7 +310,7 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic trackUserActivity;
 @dynamic parentEntries;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

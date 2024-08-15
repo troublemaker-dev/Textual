@@ -257,7 +257,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)openSecuredConnectionCertificateModal
 {
-	[[self remoteObjectProxy] exportSecureConnectionInformation:^(NSString * _Nullable policyName, SSLProtocol protocolVersion, SSLCipherSuite cipherSuites, NSArray<NSData *> *certificateChain) {
+	[[self remoteObjectProxy] exportSecureConnectionInformation:^(NSString * _Nullable policyName, tls_protocol_version_t protocolType, tls_ciphersuite_t cipherSuites, NSArray<NSData *> *certificateChain) {
 		if (policyName == nil) {
 			return;
 		}
@@ -268,7 +268,7 @@ NS_ASSUME_NONNULL_BEGIN
 			return;
 		}
 
-		NSString *protocolDescription = [RCMSecureTransport descriptionForDeprecatedProtocol:protocolVersion];
+		NSString *protocolDescription = [RCMSecureTransport descriptionForProtocolType:protocolType];
 
 		NSString *cipherDescription = [RCMSecureTransport descriptionForCipherSuite:cipherSuites];
 
@@ -323,7 +323,7 @@ NS_ASSUME_NONNULL_BEGIN
 		return;
 	}
 
-	[[self remoteObjectProxy] exportSecureConnectionInformation:^(NSString * _Nullable policyName, SSLProtocol protocolVersion, SSLCipherSuite cipherSuites, NSArray<NSData *> *certificateChain) {
+	[[self remoteObjectProxy] exportSecureConnectionInformation:^(NSString * _Nullable policyName, tls_protocol_version_t protocolType, tls_ciphersuite_t cipherSuites, NSArray<NSData *> *certificateChain) {
 		if (policyName == nil) {
 			return;
 		}
@@ -461,7 +461,7 @@ NS_ASSUME_NONNULL_BEGIN
 	});
 }
 
-- (void)ircConnectionDidSecureConnectionWithProtocolVersion:(SSLProtocol)protocolVersion cipherSuite:(SSLCipherSuite)cipherSuite
+- (void)ircConnectionDidSecureConnectionWithProtocolType:(tls_protocol_version_t)protocolType cipherSuite:(tls_ciphersuite_t)cipherSuite
 {
 	self.isSecured = YES;
 
@@ -470,7 +470,7 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 
 	XRPerformBlockSynchronouslyOnMainQueue(^{
-		[self.client ircConnectionDidSecureConnection:self withProtocolVersion:protocolVersion cipherSuite:cipherSuite];
+		[self.client ircConnectionDidSecureConnection:self withProtocolType:protocolType cipherSuite:cipherSuite];
 	});
 }
 

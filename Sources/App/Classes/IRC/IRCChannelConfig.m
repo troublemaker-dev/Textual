@@ -465,7 +465,7 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic secretKey;
 @dynamic showTreeBadgeCount;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

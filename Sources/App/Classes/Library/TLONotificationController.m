@@ -546,8 +546,6 @@ NSString * const TXNotificationActionIdentifierLicenseManagerMoreInfo = @"TXNoti
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)(void))completionHandler
 {
-#warning TODO: Do we need to dismiss or does completion handler do that?
-
 	NSString *message = nil;
 
 	if ([response isKindOfClass:[UNTextInputNotificationResponse class]]) {

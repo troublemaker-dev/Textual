@@ -137,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic modeSymbol;
 @dynamic modeParameter;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

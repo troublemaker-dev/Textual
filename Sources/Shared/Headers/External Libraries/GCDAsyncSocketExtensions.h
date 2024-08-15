@@ -42,8 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GCDAsyncSocket (GCDsyncSocketExtensions)
 + (instancetype)socketWithDelegate:(id)aDelegate delegateQueue:(dispatch_queue_t)dq socketQueue:(dispatch_queue_t)sq;
 
-@property (readonly) SSLProtocol tlsNegotiatedProtocol;
-@property (readonly) SSLCipherSuite tlsNegotiatedCipherSuite;
+@property (readonly) tls_protocol_version_t tlsNegotiatedProtocol;
+@property (readonly) tls_ciphersuite_t tlsNegotiatedCipherSuite;
 @property (readonly) SecTrustRef tlsTrustRef;
 @property (readonly, copy, nullable) NSArray<NSData *> *tlsCertificateChainData;
 @property (readonly, copy, nullable) NSString *tlsPolicyName;

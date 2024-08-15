@@ -1260,8 +1260,8 @@ NSString * const TVCLogControllerViewFinishedLoadingNotification = @"TVCLogContr
 
 			[self appendToDocumentBody:html withLineNumbers:@[lineNumber]];
 
-#warning TODO: Modify logic of inline media to only truly \
-	process images if the line is in fact on the WebView.
+			/* TODO: Modify logic of inline media to only truly
+			 process images if the line is in fact on the WebView. */
 			/* Begin processing inline media */
 			/* We go through the inline media list here and pass to the loader now so
 			 that we know the links have hit the WebView before we even try loading them. */

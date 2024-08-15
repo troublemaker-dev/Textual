@@ -346,9 +346,9 @@ final class Connection: NSObject, ConnectionSocketDelegate
 		remoteObjectProxy.ircConnectionDidConnect(toHost: address)
 	}
 
-	final func connection(_ connection: ConnectionSocket, securedWith protocol: SSLProtocol, cipherSuite: SSLCipherSuite)
+	final func connection(_ connection: ConnectionSocket, securedWith protocol: tls_protocol_version_t, cipherSuite: tls_ciphersuite_t)
 	{
-		remoteObjectProxy.ircConnectionDidSecureConnection(withProtocolVersion: `protocol`, cipherSuite: cipherSuite)
+		remoteObjectProxy.ircConnectionDidSecureConnection(withProtocolType: `protocol`, cipherSuite: cipherSuite)
 	}
 
 	final func connection(_ connection: ConnectionSocket, requiresTrust response: @escaping (Bool) -> Void)

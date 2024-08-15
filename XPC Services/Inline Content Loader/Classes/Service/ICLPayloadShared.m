@@ -247,7 +247,7 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic entrypointPayload;
 @dynamic classAttribute;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

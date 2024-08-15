@@ -72,8 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
 				 port:(uint16_t)proxyPort;
 - (void)ircConnectionDidConnect:(IRCConnection *)sender;
 - (void)ircConnectionDidSecureConnection:(IRCConnection *)sender
-					 withProtocolVersion:(SSLProtocol)protocolVersion
-							 cipherSuite:(SSLCipherSuite)cipherSuite;
+						withProtocolType:(tls_protocol_version_t)protocolType
+							 cipherSuite:(tls_ciphersuite_t)cipherSuite;
 - (void)ircConnectionDidCloseReadStream:(IRCConnection *)sender;
 - (void)ircConnection:(IRCConnection *)sender didDisconnectWithError:(nullable NSError *)disconnectError;
 - (void)ircConnection:(IRCConnection *)sender didReceiveData:(NSString *)data;

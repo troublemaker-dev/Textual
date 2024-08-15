@@ -410,7 +410,7 @@ NS_ASSUME_NONNULL_BEGIN
 	return [self initWithNickname:@"" onClient:client];
 }
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

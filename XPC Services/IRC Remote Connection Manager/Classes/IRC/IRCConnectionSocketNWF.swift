@@ -102,22 +102,14 @@ final class ConnectionSocketNWF: ConnectionSocket, ConnectionSocketProtocol
 		}
 
 		if (config.cipherSuites == .none) {
-			sec_protocol_options_add_tls_ciphersuite_group(secOptions, .default)
+			sec_protocol_options_append_tls_ciphersuite_group(secOptions, .default)
 		} else {
-			let cipherSuites = RCMSecureTransport.cipherSuites(in:  config.cipherSuites,
-												includeDeprecated: (config.connectionPrefersModernCiphersOnly == false))
-
-			for cipherSuite in cipherSuites {
-#if ((os(iOS) && !targetEnvironment(macCatalyst)) || (os(macOS) && arch(arm64)))
-				let coercedSuite = cipherSuite.uint16Value as SSLCipherSuite;
-#else
-				let coercedSuite = cipherSuite.uint32Value as SSLCipherSuite;
-#endif
-				sec_protocol_options_add_tls_ciphersuite(secOptions, coercedSuite);
-			}
+			RCMSecureTransport.appendCipherSuites(in: config.cipherSuites,
+												  includeDeprecated: (config.connectionPrefersModernCiphersOnly == false),
+												  to: secOptions)
 		}
 
-		sec_protocol_options_set_tls_min_version(secOptions, .tlsProtocol1)
+		sec_protocol_options_set_min_tls_protocol_version(secOptions, RCMSecureTransport.minimumProtocolType)
 
 		sec_protocol_options_set_verify_block(secOptions, { [weak self] (_, trust, completionBlock) in
 			self?.tlsVerifySecProtocol(trust, response: completionBlock)
@@ -307,15 +299,15 @@ final class ConnectionSocketNWF: ConnectionSocket, ConnectionSocketProtocol
 	{
 		/* We call onSecured() regardless of other preconditions then
 		 only mark ourselves as secured if we have protocol information. */
-		guard  let protocolVersion 	= tlsNegotiatedProtocol,
-			   let cipherSuite 		= tlsNegotiatedCipherSuite else
+		guard  let protocolType = tlsNegotiatedProtocol,
+			   let cipherSuite 	= tlsNegotiatedCipherSuite else
 		{
 			return
 		}
 
 		secured = true
 
-		delegate?.connection(self, securedWith: protocolVersion, cipherSuite: cipherSuite)
+		delegate?.connection(self, securedWith: protocolType, cipherSuite: cipherSuite)
 	}
 
 	fileprivate func onDisconnect(with error: Error?)
@@ -418,23 +410,23 @@ final class ConnectionSocketNWF: ConnectionSocket, ConnectionSocketProtocol
 		}
 	}
 
-	var tlsNegotiatedProtocol: SSLProtocol?
+	var tlsNegotiatedProtocol: tls_protocol_version_t?
 	{
-		var protocolVersion: SSLProtocol?
+		var protocolType: tls_protocol_version_t?
 
 		accessTLSMetadata { (metadata) in
-			protocolVersion = sec_protocol_metadata_get_negotiated_protocol_version(metadata)
+			protocolType = sec_protocol_metadata_get_negotiated_tls_protocol_version(metadata)
 		}
 
-		return protocolVersion
+		return protocolType
 	}
 
-	var tlsNegotiatedCipherSuite: SSLCipherSuite?
+	var tlsNegotiatedCipherSuite: tls_ciphersuite_t?
 	{
-		var cipherSuite: SSLCipherSuite?
+		var cipherSuite: tls_ciphersuite_t?
 
 		accessTLSMetadata { (metadata) in
-			cipherSuite = sec_protocol_metadata_get_negotiated_ciphersuite(metadata)
+			cipherSuite = sec_protocol_metadata_get_negotiated_tls_ciphersuite(metadata)
 		}
 
 		return cipherSuite

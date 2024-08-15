@@ -107,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic address;
 @dynamic hostmask;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

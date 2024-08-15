@@ -42,10 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 @class IRCConnectionConfig;
 
 typedef void (^RCMSecureConnectionInformationCompletionBlock)(
-											  NSString * _Nullable policyName,
-											  SSLProtocol protocolVersion,
-											  SSLCipherSuite cipherSuites,
-											  NSArray<NSData *> *certificateChain);
+										NSString * _Nullable policyName,
+										tls_protocol_version_t ptocoolType,
+										tls_ciphersuite_t cipherSuites,
+										NSArray<NSData *> *certificateChain);
 
 #pragma mark -
 #pragma mark Server Protocol
@@ -90,8 +90,8 @@ typedef void (^RCMSecureConnectionInformationCompletionBlock)(
 /* host is nil if we are connected to a proxy because we do not have enough context
  at the point this delegate method is called to know where the proxy itself connected. */
 - (void)ircConnectionDidConnectToHost:(nullable NSString *)host;
-- (void)ircConnectionDidSecureConnectionWithProtocolVersion:(SSLProtocol)protocolVersion
-												cipherSuite:(SSLCipherSuite)cipherSuite;
+- (void)ircConnectionDidSecureConnectionWithProtocolType:(tls_protocol_version_t)protocolType
+											 cipherSuite:(tls_ciphersuite_t)cipherSuite;
 - (void)ircConnectionDidCloseReadStream;
 - (void)ircConnectionDidDisconnectWithError:(nullable NSError *)disconnectError;
 - (void)ircConnectionDidReceiveData:(NSData *)data;

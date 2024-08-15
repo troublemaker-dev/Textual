@@ -393,7 +393,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @dynamic modes;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

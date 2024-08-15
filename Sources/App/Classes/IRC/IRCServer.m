@@ -215,7 +215,7 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic serverPassword;
 @dynamic serverPort;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

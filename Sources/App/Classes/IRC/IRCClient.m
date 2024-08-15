@@ -5778,11 +5778,11 @@ NSString * const IRCClientUserNicknameChangedNotification = @"IRCClientUserNickn
 	}
 }
 
-- (void)ircConnectionDidSecureConnection:(IRCConnection *)sender withProtocolVersion:(SSLProtocol)protocolVersion cipherSuite:(SSLCipherSuite)cipherSuite
+- (void)ircConnectionDidSecureConnection:(IRCConnection *)sender withProtocolType:(tls_protocol_version_t)protocolType cipherSuite:(tls_ciphersuite_t)cipherSuite
 {
 	NSParameterAssert(sender == self.socket);
 
-	NSString *protocolDescription = [RCMSecureTransport descriptionForDeprecatedProtocol:protocolVersion];
+	NSString *protocolDescription = [RCMSecureTransport descriptionForProtocolType:protocolType];
 
 	NSString *cipherDescription = [RCMSecureTransport descriptionForCipherSuite:cipherSuite];
 

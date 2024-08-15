@@ -239,14 +239,15 @@ final class ConnectionSocketClassic: ConnectionSocket, ConnectionSocketProtocol,
 		/* This makes me cry */
 		var settings:[String : NSObject] = [
 			GCDAsyncSocketManuallyEvaluateTrust : NSNumber(value: true),
-			GCDAsyncSocketSSLProtocolVersionMin : NSNumber(value: SSLProtocol.tlsProtocol1.rawValue),
+			GCDAsyncSocketSSLProtocolVersionMin : NSNumber(value: RCMSecureTransport.minimumDeprecatedProtocol.rawValue),
 			kCFStreamSSLIsServer as String : NSNumber(value: false),
 			kCFStreamSSLPeerName as String : config.serverAddress as NSString
 		]
 
 		if (config.cipherSuites != .none) {
 			settings[GCDAsyncSocketSSLCipherSuites] =
-				RCMSecureTransport.cipherSuites(in: config.cipherSuites, includeDeprecated: (config.connectionPrefersModernCiphersOnly == false)) as NSArray
+				RCMSecureTransport.cipherSuites(in: config.cipherSuites, includeDeprecated:
+													(config.connectionPrefersModernCiphersOnly == false)) as NSArray
 		}
 
 		if let certificate = clientSideCertificate {
@@ -274,11 +275,11 @@ final class ConnectionSocketClassic: ConnectionSocket, ConnectionSocketProtocol,
 	{
 		secured = true
 
-		let protocolVersion = tlsNegotiatedProtocol ?? SSLProtocol.sslProtocolUnknown
+		let protocolType = tlsNegotiatedProtocol ?? tls_protocol_version_unknown
 
-		let cipherSuite = tlsNegotiatedCipherSuite ?? SSL_NO_SUCH_CIPHERSUITE
+		let cipherSuite = tlsNegotiatedCipherSuite ?? tls_ciphersuite_unknown
 
-		delegate?.connection(self, securedWith: protocolVersion, cipherSuite: cipherSuite)
+		delegate?.connection(self, securedWith: protocolType, cipherSuite: cipherSuite)
 	}
 
 	fileprivate func onDisconnect(with error: Error?)
@@ -381,12 +382,12 @@ final class ConnectionSocketClassic: ConnectionSocket, ConnectionSocketProtocol,
 
 	// MARK: - Security
 
-	var tlsNegotiatedProtocol: SSLProtocol?
+	var tlsNegotiatedProtocol: tls_protocol_version_t?
 	{
 		return connection?.tlsNegotiatedProtocol
 	}
 
-	var tlsNegotiatedCipherSuite: SSLCipherSuite?
+	var tlsNegotiatedCipherSuite: tls_ciphersuite_t?
 	{
 		return connection?.tlsNegotiatedCipherSuite
 	}

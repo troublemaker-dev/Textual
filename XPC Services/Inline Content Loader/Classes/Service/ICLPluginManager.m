@@ -35,7 +35,7 @@
  *
  *********************************************************************** */
 
-#warning TODO: Entitlements do not allow access to plugins outside app in Standard Release
+/* TODO: Entitlements do not allow access to plugins outside app in Standard Release */
 
 #import "ICLPluginProtocol.h"
 #import "ICLPluginManagerPrivate.h"

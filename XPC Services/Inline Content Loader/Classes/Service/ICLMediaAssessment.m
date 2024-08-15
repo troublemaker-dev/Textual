@@ -134,7 +134,7 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic contentType;
 @dynamic contentLength;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

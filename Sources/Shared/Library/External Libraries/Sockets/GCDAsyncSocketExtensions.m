@@ -46,34 +46,39 @@ NS_ASSUME_NONNULL_BEGIN
 	return [[self alloc] initWithDelegate:aDelegate delegateQueue:dq socketQueue:sq];
 }
 
-- (SSLProtocol)tlsNegotiatedProtocol
+- (tls_protocol_version_t)tlsNegotiatedProtocol
 {
 	__block SSLProtocol protocol;
 
 	dispatch_block_t block = ^{
+TEXTUAL_IGNORE_DEPRECATION_BEGIN
 		OSStatus status = SSLGetNegotiatedProtocolVersion(self.sslContext, &protocol);
+TEXTUAL_IGNORE_DEPRECATION_END
 
 #pragma unused(status)
 	};
 
 	[self performBlock:block];
 
-	return protocol;
+	return [RCMSecureTransport protocolTypeFromDeprecated:protocol];
 }
 
-- (SSLCipherSuite)tlsNegotiatedCipherSuite
+- (tls_ciphersuite_t)tlsNegotiatedCipherSuite
 {
 	__block SSLCipherSuite cipher;
 
 	dispatch_block_t block = ^{
+TEXTUAL_IGNORE_DEPRECATION_BEGIN
 		OSStatus status = SSLGetNegotiatedCipher(self.sslContext, &cipher);
+TEXTUAL_IGNORE_DEPRECATION_END
 
 #pragma unused(status)
 	};
 
 	[self performBlock:block];
 
-	return cipher;
+	/* This can be easily cast because they refer to the same code points. */
+	return (tls_ciphersuite_t)cipher;
 }
 
 - (SecTrustRef)tlsTrustRef
@@ -81,7 +86,9 @@ NS_ASSUME_NONNULL_BEGIN
 	__block SecTrustRef trust;
 
 	dispatch_block_t block = ^{
+TEXTUAL_IGNORE_DEPRECATION_BEGIN
 		OSStatus status = SSLCopyPeerTrust(self.sslContext, &trust);
+TEXTUAL_IGNORE_DEPRECATION_END
 
 #pragma unused(status)
 	};

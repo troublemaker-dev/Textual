@@ -228,7 +228,7 @@ protocol ConnectionSocketDelegate: AnyObject
 	func connection(_ connection: ConnectionSocket, willConnectToProxy address: String, on port: UInt16)
 	func connection(_ connection: ConnectionSocket, willConnectTo address: String, on port: UInt16)
 	func connection(_ connection: ConnectionSocket, didConnectTo address: String?) // address is nil when connecting to proxy
-	func connection(_ connection: ConnectionSocket, securedWith protocol: SSLProtocol, cipherSuite: SSLCipherSuite)
+	func connection(_ connection: ConnectionSocket, securedWith protocol: tls_protocol_version_t, cipherSuite: tls_ciphersuite_t)
 	func connection(_ connection: ConnectionSocket, requiresTrust response: @escaping (Bool) -> Void)
 	func connectionClosedReadStream(_ connection: ConnectionSocket)
 	func connectionDisconnected(_ connection: ConnectionSocket)
@@ -263,8 +263,8 @@ protocol ConnectionSocketProtocol
 	func exportSecureConnectionInformation(to receiver: RCMSecureConnectionInformationCompletionBlock) throws
 
 	/// TLS Information
-	var tlsNegotiatedProtocol: SSLProtocol? { get }
-	var tlsNegotiatedCipherSuite: SSLCipherSuite? { get }
+	var tlsNegotiatedProtocol: tls_protocol_version_t? { get }
+	var tlsNegotiatedCipherSuite: tls_ciphersuite_t? { get }
 	var tlsCertificateChainData: [Data]? { get }
 	var tlsPolicyName: String? { get }
 }
@@ -293,12 +293,12 @@ extension ConnectionSocketProtocol where Self: ConnectionSocket
 	{
 		let policyName = tlsPolicyName
 
-		let protocolVersion = tlsNegotiatedProtocol ?? SSLProtocol.sslProtocolUnknown
+		let protocolType = tlsNegotiatedProtocol ?? tls_protocol_version_unknown
 
-		let cipherSuite = tlsNegotiatedCipherSuite ?? SSL_NO_SUCH_CIPHERSUITE
+		let cipherSuite = tlsNegotiatedCipherSuite ?? tls_ciphersuite_unknown
 
 		let certificateChain = tlsCertificateChainData ?? []
 
-		receiver(policyName, protocolVersion, cipherSuite, certificateChain)
+		receiver(policyName, protocolType, cipherSuite, certificateChain)
 	}
 }

@@ -111,7 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic matchIsExcluded;
 @dynamic matchKeyword;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

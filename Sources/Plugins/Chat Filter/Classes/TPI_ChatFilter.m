@@ -354,7 +354,7 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic filterSenderMatch;
 @dynamic filterTitle;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }

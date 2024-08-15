@@ -169,7 +169,7 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic clientId;
 @dynamic channelId;
 
-- (BOOL)isMutable
++ (BOOL)isMutable
 {
 	return YES;
 }
