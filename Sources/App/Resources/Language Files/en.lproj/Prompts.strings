@@ -83,9 +83,10 @@ Do you want to add these channels to that connection or would you rather create 
 "0hh-sl" = "Use Existing Connection";
 "sv9-8s" = "Create New Connection";
 
-"82q-zi" = "WARNING: The inline media feature may leak your IP address if you do not have a system-wide proxy setup";
-"vcq-sz" = "Click “Configure Proxy” to open System Preferences.";
-"x3e-ur" = "Configure Proxy";
+"82q-zi" = "Are you sure you wish to enable inline media?";
+"vcq-sz" = "Inline media does not use the proxy you may have configured for connecting to IRC. Your IP address will be leaked without configuring a system-wide proxy. If you wish to configure a proxy before continuing, click the “Open System Settings” button.";
+"xkj-nw" = "Turn On";
+"x3e-ur" = "Open System Settings";
 
 "9mb-o5" = "An update is available for these addons: %@";
 "x4w-is" = "Would you like to open the “Textual Extras” installer to perform an update?";

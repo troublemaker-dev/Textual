@@ -83,6 +83,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setScrollbackSaveLimit:(NSUInteger)scrollbackSaveLimit;
 + (void)setScrollbackVisibleLimit:(NSUInteger)scrollbackVisibleLimit;
 
++ (void)setShowInlineMedia:(BOOL)showInlineMedia;
+
 + (void)setSoundIsMuted:(BOOL)soundIsMuted;
 
 + (void)setSound:(nullable NSString *)value forEvent:(TXNotificationType)event;

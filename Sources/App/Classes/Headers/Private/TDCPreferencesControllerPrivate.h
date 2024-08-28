@@ -50,7 +50,6 @@ typedef NS_ENUM(NSUInteger, TDCPreferencesControllerSelection) {
 @protocol TDCPreferencesControllerDelegate;
 
 @interface TDCPreferencesController : TDCWindowBase
-+ (void)showTorAnonymityNetworkInlineMediaWarning;
 + (void)openProxySettingsInSystemPreferences;
 
 - (void)show:(TDCPreferencesControllerSelection)selection;

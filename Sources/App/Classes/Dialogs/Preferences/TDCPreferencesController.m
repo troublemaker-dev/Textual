@@ -54,6 +54,7 @@
 #import "TLOLocalization.h"
 #import "TLOpenLink.h"
 #import "TVCMainWindowPrivate.h"
+#import "TVCLogControllerInlineMediaServicePrivate.H"
 #import "TVCNotificationConfigurationViewControllerPrivate.h"
 #import "TDCAlert.h"
 #import "TDCFileTransferDialogPrivate.h"
@@ -150,6 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) IBOutlet NSButton *forwardNoticeToServerConsoleButton;
 @property (nonatomic, weak) IBOutlet NSButton *forwardNoticeToSelectedChannelButton;
 @property (nonatomic, weak) IBOutlet NSButton *forwardNoticeToQueryButton;
+@property (nonatomic, weak) IBOutlet NSButton *inlineMediaEnabledButton;
 @property (nonatomic, weak) IBOutlet NSStackView *contentViewGeneralStackView;
 @property (nonatomic, weak) IBOutlet NSView *contentViewGeneralCheckForUpdatesView;
 @property (nonatomic, weak) IBOutlet NSView *contentViewGeneralShareDataView;
@@ -263,6 +265,7 @@ NS_ASSUME_NONNULL_BEGIN
 	[self updateCheckForUpdatesMatrix];
 	[self updateFileTransferDownloadDestinationFolder];
 	[self updateForwardNoticeToMatrix];
+	[self updateInlineMediaEnabled];
 	[self updateThemeSelection];
 	[self updateTranscriptFolder];
 
@@ -1324,44 +1327,6 @@ NS_ASSUME_NONNULL_BEGIN
 	});
 }
 
-+ (void)showTorAnonymityNetworkInlineMediaWarning
-{
-	BOOL presentDialog = NO;
-
-	for (IRCClient *u in worldController().clientList) {
-		if (u.config.proxyType != IRCConnectionProxyTypeNone) {
-			presentDialog = YES;
-			
-			break;
-		}
-	}
-
-	if (presentDialog == NO) {
-		NSUInteger applicationIndex =
-		[RZWorkspace().runningApplications indexOfObjectPassingTest:^BOOL(NSRunningApplication *application, NSUInteger index, BOOL *stop) {
-			return
-			([application.localizedName isEqualToString:@"TorBrowser"] ||
-			 [application.localizedName isEqualToString:@"Tor Browser"]);
-		}];
-
-		presentDialog = (applicationIndex != NSNotFound);
-	}
-
-	if (presentDialog == NO) {
-		return;
-	}
-
-	BOOL clickResult =
-	[TDCAlert modalAlertWithMessage:TXTLS(@"Prompts[vcq-sz]")
-							  title:TXTLS(@"Prompts[82q-zi]")
-					  defaultButton:TXTLS(@"Prompts[c7s-dq]")
-					alternateButton:TXTLS(@"Prompts[x3e-ur]")];
-
-	if (clickResult == NO) {
-		[self openProxySettingsInSystemPreferences];
-	}
-}
-
 + (void)openProxySettingsInSystemPreferences
 {
 	AEDesc aeDesc = { typeNull, NULL };
@@ -1387,13 +1352,34 @@ NS_ASSUME_NONNULL_BEGIN
 	(void)LSOpenFromURLSpec(&launchSpec, NULL);
 }
 
-- (void)onChangedInlineMediaOption:(id)sender
+- (void)updateInlineMediaEnabled
 {
 	if ([TPCPreferences showInlineMedia]) {
-		[self.class showTorAnonymityNetworkInlineMediaWarning];
+		self.inlineMediaEnabledButton.state = NSControlStateValueOn;
+	} else {
+		self.inlineMediaEnabledButton.state = NSControlStateValueOff;
+	}
+}
+
+- (void)onChangedInlineMediaOption:(id)sender
+{
+	if (self.inlineMediaEnabledButton.state == NSControlStateValueOff) {
+		[TPCPreferences setShowInlineMedia:NO];
+
+		[self onChangedTheme:nil];
+
+		return;
 	}
 
-	[self onChangedTheme:nil];
+	[TVCLogControllerInlineMediaService askPermissionToEnableInlineMediaWithCompletionBlock:^(BOOL granted) {
+		if (granted) {
+			[TPCPreferences setShowInlineMedia:YES];
+
+			[self onChangedTheme:nil];
+		} else {
+			self.inlineMediaEnabledButton.state = NSControlStateValueOff;
+		}
+	}];
 }
 
 - (void)onResetUserListModeColorsToDefaults:(id)sender

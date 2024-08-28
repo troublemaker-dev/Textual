@@ -43,10 +43,10 @@
 #import "IRCISupportInfo.h"
 #import "TPCPreferencesLocal.h"
 #import "TLOLocalization.h"
+#import "TVCLogControllerInlineMediaServicePrivate.h"
 #import "TVCNotificationConfigurationViewControllerPrivate.h"
 #import "TVCValidatedTextField.h"
 #import "TDCAlert.h"
-#import "TDCPreferencesControllerPrivate.h"
 #import "TDCChannelPropertiesNotificationConfigurationPrivate.h"
 #import "TDCChannelPropertiesSheetInternal.h"
 
@@ -410,7 +410,11 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 		return;
 	}
 
-	[TDCPreferencesController showTorAnonymityNetworkInlineMediaWarning];
+	[TVCLogControllerInlineMediaService askPermissionToEnableInlineMediaWithCompletionBlock:^(BOOL granted) {
+		if (granted == NO) {
+			self.enableInlineMediaCheck.state = NSControlStateValueOff;
+		}
+	}];
 }
 
 - (void)onPushNotificationsCheckChanged:(id)sender

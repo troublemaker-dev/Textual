@@ -41,16 +41,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, TVCAlertType) {
-	TVCAlertTypeNonblockingPanel = 0,
-	TVCAlertTypeModal,
-	TVCAlertTypeSheet
+typedef NS_ENUM(NSUInteger, TVCAlertLaunchedAs) {
+	TVCAlertLaunchedAsNonblockingPanel = 0,
+	TVCAlertLaunchedAsModal,
+	TVCAlertLaunchedAsSheet
 };
 
 @interface TVCAlert ()
 @property (nonatomic, assign) NSUInteger buttonsCount;
 @property (nonatomic, strong, readwrite) IBOutlet NSPanel *panel;
 @property (nonatomic, weak) IBOutlet NSImageView *iconImageView;
+@property (nonatomic, weak) IBOutlet NSImageView *warningIconImageView;
 @property (nonatomic, weak) IBOutlet NSTextField *messageTextField;
 @property (nonatomic, weak) IBOutlet NSTextField *informativeTextField;
 @property (nonatomic, weak) IBOutlet NSButton *firstButton;
@@ -61,7 +62,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 @property (nonatomic, assign) BOOL alertImmutable;
 @property (nonatomic, assign) BOOL alertVisible;
 @property (nonatomic, assign) BOOL layoutPerformed;
-@property (nonatomic, assign) TVCAlertType alertType;
+@property (nonatomic, assign) TVCAlertLaunchedAs launchedAs;
 @property (nonatomic, copy, nullable) TVCAlertCompletionBlock completionBlock;
 @property (nonatomic, copy, nullable) TVCAlertButtonClickedBlock firstButtonAction;
 @property (nonatomic, copy, nullable) TVCAlertButtonClickedBlock secondButtonAction;
@@ -152,14 +153,14 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	}
 
 	if (window) {
-		self.alertType = TVCAlertTypeSheet;
+		self.launchedAs = TVCAlertLaunchedAsSheet;
 
 		[window beginSheet:self.panel
 		 completionHandler:^(NSModalResponse returnCode) {
 			[self _alertSheetDidEndWithReturnCode:returnCode];
 		}];
 	} else {
-		self.alertType = TVCAlertTypeNonblockingPanel;
+		self.launchedAs = TVCAlertLaunchedAsNonblockingPanel;
 
 		[self.panel makeKeyAndOrderFront:nil];
 	}
@@ -183,7 +184,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 	/* Present alert */
 	self.alertVisible = YES;
 
-	self.alertType = TVCAlertTypeModal;
+	self.launchedAs = TVCAlertLaunchedAsModal;
 
 	LogToConsoleDebug("[%{public}@] Running modal alert", self);
 
@@ -200,6 +201,8 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 		@"Cannot perform layout multiple times");
 
 	/* Context */
+	self.warningIconImageView.hidden = (self.type != TVCAlertTypeWarning);
+
 	NSView *contentView = self.panel.contentView;
 
 	NSTextField *messageTextField = self.messageTextField;
@@ -494,8 +497,8 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 
 	self.alertFinished = YES;
 
-	switch (self.alertType) {
-		case TVCAlertTypeNonblockingPanel:
+	switch (self.launchedAs) {
+		case TVCAlertLaunchedAsNonblockingPanel:
 		{
 			[self _postCompletionBlockWithResponse:response];
 
@@ -503,13 +506,13 @@ typedef NS_ENUM(NSUInteger, TVCAlertType) {
 
 			break;
 		}
-		case TVCAlertTypeSheet:
+		case TVCAlertLaunchedAsSheet:
 		{
 			[NSApp endSheet:self.panel returnCode:response];
 
 			break;
 		}
-		case TVCAlertTypeModal:
+		case TVCAlertLaunchedAsModal:
 		{
 			[NSApp stopModalWithCode:response];
 

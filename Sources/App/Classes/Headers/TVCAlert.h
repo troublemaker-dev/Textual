@@ -45,6 +45,15 @@ typedef NS_ENUM(NSUInteger, TVCAlertResponseButton) {
 	TVCAlertResponseButtonThird = 1002
 };
 
+typedef NS_ENUM(NSUInteger, TVCAlertType)
+{
+	/* Standard alert */
+	TVCAlertTypeInformational = 0,
+
+	/* Warning icon appears above icon. No other difference. */
+	TVCAlertTypeWarning
+};
+
 @class TVCAlert;
 
 typedef void (^TVCAlertCompletionBlock)(TVCAlert *sender, TVCAlertResponseButton buttonClicked);
@@ -56,6 +65,8 @@ typedef BOOL (^TVCAlertButtonClickedBlock)(TVCAlert *sender, TVCAlertResponseBut
 @property (nonatomic, copy) NSString *informativeText;
 
 @property (nonatomic, strong, null_resettable) NSImage *icon;
+
+@property (nonatomic, assign) TVCAlertType type;
 
 - (NSButton *)addButtonWithTitle:(NSString *)title; // Increments from first button, to second, then third
 - (NSButton *)addButtonWithTitle:(NSString *)title forButton:(TVCAlertResponseButton)button;

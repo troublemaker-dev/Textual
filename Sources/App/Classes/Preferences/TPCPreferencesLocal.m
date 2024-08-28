@@ -388,6 +388,11 @@ NSUInteger const TPCPreferencesDictionaryVersion = 602;
 	return [RZUserDefaults() boolForKey:@"DisplayEventInLogView -> Date Changes"];
 }
 
++ (void)setShowInlineMedia:(BOOL)showInlineMedia
+{
+	[RZUserDefaults() setBool:showInlineMedia forKey:@"DisplayEventInLogView -> Inline Media"];
+}
+
 + (BOOL)showInlineMedia
 {
 	return [RZUserDefaults() boolForKey:@"DisplayEventInLogView -> Inline Media"];

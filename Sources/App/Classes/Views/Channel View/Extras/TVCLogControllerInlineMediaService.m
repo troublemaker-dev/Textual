@@ -38,10 +38,16 @@
 #import "ICLInlineContentProtocol.h"
 #import "ICLPayload.h"
 #import "TXMasterController.h"
+#import "IRCClient.h"
+#import "IRCClientConfig.h"
+#import "IRCConnectionConfig.h"
 #import "IRCTreeItem.h"
 #import "IRCWorld.h"
+#import "TLOLocalization.h"
 #import "TPCPathInfoPrivate.h"
 #import "TPCPreferencesUserDefaults.h"
+#import "TDCPreferencesControllerPrivate.h"
+#import "TVCAlert.h"
 #import "TVCLogControllerPrivate.h"
 #import "TVCLogControllerInlineMediaServicePrivate.h"
 
@@ -274,6 +280,50 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	[item.viewController processingInlineMediaPayload:payload failedWithError:error];
 }
+
+#pragma mark -
+#pragma mark Helpers
+
++ (void)askPermissionToEnableInlineMediaWithCompletionBlock:(void (NS_NOESCAPE ^)(BOOL granted))completionBlock
+{
+	BOOL presentDialog = NO;
+
+	for (IRCClient *u in worldController().clientList) {
+		if (u.config.proxyType != IRCConnectionProxyTypeNone) {
+			presentDialog = YES;
+
+			break;
+		}
+	}
+
+	if (presentDialog == NO) {
+		completionBlock(YES);
+
+		return;
+	}
+
+	TVCAlert *alert = [TVCAlert new];
+
+	alert.messageText = TXTLS(@"Prompts[82q-zi]");
+	alert.informativeText = TXTLS(@"Prompts[vcq-sz]");
+
+	alert.type = TVCAlertTypeWarning;
+
+	[alert addButtonWithTitle:TXTLS(@"Prompts[xkj-nw]") forButton:TVCAlertResponseButtonFirst];
+	[alert addButtonWithTitle:TXTLS(@"Prompts[qso-2g]") forButton:TVCAlertResponseButtonSecond];
+	[alert addButtonWithTitle:TXTLS(@"Prompts[x3e-ur]") forButton:TVCAlertResponseButtonThird];
+
+	[alert setButtonClickedBlock:^BOOL(TVCAlert *sender, TVCAlertResponseButton buttonClicked) {
+		[TDCPreferencesController openProxySettingsInSystemPreferences];
+
+		return NO;
+	} forButton:TVCAlertResponseButtonThird];
+
+	TVCAlertResponseButton response = [alert runModal];
+
+	completionBlock(response == TVCAlertResponseButtonFirst);
+}
+
 
 @end
 

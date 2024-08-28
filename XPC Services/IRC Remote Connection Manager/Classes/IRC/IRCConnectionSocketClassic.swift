@@ -478,7 +478,7 @@ final class ConnectionSocketClassic: ConnectionSocket, ConnectionSocketProtocol,
 				let queryStatus = SecItemCopyMatching(queryParameters as CFDictionary, &queryResultRef)
 
 				if (queryStatus != noErr) {
-					failureReason = "SOCKS Error: Textual encountered a problem trying to retrieve the SOCKS proxy password from System Preferences"
+					failureReason = "SOCKS Error: Textual encountered a problem trying to retrieve the SOCKS proxy password from System Settings"
 
 					return false
 				}

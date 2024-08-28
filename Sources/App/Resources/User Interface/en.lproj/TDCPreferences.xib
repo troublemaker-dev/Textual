@@ -43,6 +43,7 @@
                 <outlet property="highlightKeywordsArrayController" destination="4310" id="Wre-n3-NQF"/>
                 <outlet property="highlightKeywordsTable" destination="nIO-jH-FEm" id="rwr-Mr-P5g"/>
                 <outlet property="highlightNicknameButton" destination="IVv-zw-dDv" id="5mn-VV-cM3"/>
+                <outlet property="inlineMediaEnabledButton" destination="Clr-Kc-72d" id="l5P-Kw-58h"/>
                 <outlet property="installedAddonsMenu" destination="mgV-ad-4kQ" id="ysw-NY-ZxI"/>
                 <outlet property="installedScriptsController" destination="92m-WJ-gkY" id="Wsq-Rt-t4M"/>
                 <outlet property="installedScriptsTable" destination="rGf-Ih-C97" id="v8k-0K-zxF"/>
@@ -3958,7 +3959,6 @@ A lower value is always better especially when in a large number of channels.</s
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
                                             </binding>
-                                            <binding destination="G2Q-fc-ddg" name="value" keyPath="values.DisplayEventInLogView -&gt; Inline Media" id="bwj-aE-Vam"/>
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c91-O6-lXk">

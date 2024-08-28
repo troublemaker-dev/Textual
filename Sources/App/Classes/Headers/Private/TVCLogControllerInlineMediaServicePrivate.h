@@ -51,6 +51,12 @@ NS_ASSUME_NONNULL_BEGIN
 			   forItem:(IRCTreeItem *)item;
 
 - (void)reloadService;
+
+/* This will present a modal alert asking user for permission
+ to enable inline media so that they are aware of the risk of
+ IP address leaks. Completion block returns YES on permission
+ granted. NO in all other cases. */
++ (void)askPermissionToEnableInlineMediaWithCompletionBlock:(void (NS_NOESCAPE ^)(BOOL granted))completionBlock;
 @end
 
 NS_ASSUME_NONNULL_END

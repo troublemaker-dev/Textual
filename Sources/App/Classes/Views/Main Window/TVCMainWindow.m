@@ -1284,7 +1284,7 @@ NSString * const TVCMainWindowSelectionChangedNotification = @"TVCMainWindowSele
 
 /* Three Finger Swipe Event
 	This event will only work if 
-		System Preferences -> Trackpad -> More Gestures -> Swipe between full-screen apps
+		System Settings -> Trackpad -> More Gestures -> Swipe between full-screen apps
 	is not set to "Swipe left or right with three fingers"
  */
 - (void)swipeWithEvent:(NSEvent *)event
