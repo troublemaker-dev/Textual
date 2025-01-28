@@ -195,22 +195,7 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 }
 
-- (NSDictionary<NSString *, id> *)dictionaryValue
-{
-	return [self _dictionaryValueForCopyOperation:NO];
-}
-
-- (NSDictionary<NSString *, id> *)dictionaryValueForCloud
-{
-	return [self _dictionaryValueForCopyOperation:NO];
-}
-
-- (NSDictionary<NSString *, id> *)dictionaryValueForCopy
-{
-	return [self _dictionaryValueForCopyOperation:YES];
-}
-
-- (NSDictionary<NSString *, id> *)_dictionaryValueForCopyOperation:(BOOL)isCopyOperation
+- (NSDictionary<NSString *, id> *)dictionaryValueForTarget:(XRPortablePropertyDictTarget)target
 {
 	NSMutableDictionary<NSString *, id> *dic = [NSMutableDictionary dictionary];
 
@@ -238,6 +223,12 @@ NS_ASSUME_NONNULL_BEGIN
 	[dic maybeSetObject:self.uniqueIdentifier forKey:@"uniqueIdentifier"];
 
 	[dic setUnsignedInteger:self.type forKey:@"channelType"];
+
+	if (target == XRPortablePropertyDictTargetCopy ||
+		target == XRPortablePropertyDictTargetMutableCopy)
+	{
+		return [dic copy];
+	}
 
 	return [dic dictionaryByRemovingDefaults:self->_defaults allowEmptyValues:YES];
 }

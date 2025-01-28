@@ -4019,7 +4019,7 @@ A lower value is always better especially when in a large number of channels.</s
                                                                 </items>
                                                             </menu>
                                                         </popUpButtonCell>
-                                                        <accessibility description="Maxium File Size for Inline Images"/>
+                                                        <accessibility description="Maximum File Size for Inline Images"/>
                                                         <connections>
                                                             <binding destination="G2Q-fc-ddg" name="selectedTag" keyPath="values.InlineMediaMaximumFilesize" id="fxh-DZ-zVo"/>
                                                         </connections>

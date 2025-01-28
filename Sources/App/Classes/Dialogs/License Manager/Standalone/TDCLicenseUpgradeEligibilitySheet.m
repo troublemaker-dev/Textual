@@ -239,7 +239,7 @@ NS_ASSUME_NONNULL_BEGIN
 	if (statusCode != 0) {
 		NSString *errorMessage = nil;
 
-		if (statusCode == TLOLicenseManagerDownloaderRequestStatusCodeTryAgainLater) {
+		if (statusCode == TLOLicenseManagerDownloaderRequestStatusCodeServiceIsBusy) {
 			errorMessage = TXTLS(@"TDCLicenseUpgradeEligibilitySheet[9uu-go]");
 		} else {
 			errorMessage = TXTLS(@"TDCLicenseUpgradeEligibilitySheet[awy-4i]", statusCode);

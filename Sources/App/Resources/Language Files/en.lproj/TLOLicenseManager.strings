@@ -35,9 +35,12 @@
  *
  *********************************************************************** */
 
-"nhh-ts" = "A problem was encountered while communicating with the web server located at www.codeux.com";
+"nhh-ts" = "A problem was encountered while communicating with the web server located at codeux.com";
 "1cv-0v" = "Try again in a few minutes then contact support if the problem persists.";
 "bqw-cv" = "Contact Support";
+
+"13u-4p" = "codeux.com has denied your request because too many requests have been received in a short period of time";
+"fvx-90" = "Access to license information for Textual is rate limited to prevent misuse or abuse. Please try again in a few minutes.";
 
 "u8h-qv" = "The license key “%@“ cannot be activated because it is blacklisted";
 "w1n-n0" = "Contact support for more information.";

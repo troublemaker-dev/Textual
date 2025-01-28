@@ -685,22 +685,7 @@ TEXTUAL_IGNORE_DEPRECATION_END
 	return [IRCClientConfigMutable self];
 }
 
-- (NSDictionary<NSString *, id> *)dictionaryValue
-{
-	return [self _dictionaryValueForCopyOperation:NO];
-}
-
-- (NSDictionary<NSString *, id> *)dictionaryValueForCloud
-{
-	return [self _dictionaryValueForCopyOperation:NO];
-}
-
-- (NSDictionary<NSString *, id> *)dictionaryValueForCopy
-{
-	return [self _dictionaryValueForCopyOperation:YES];
-}
-
-- (NSDictionary<NSString *, id> *)_dictionaryValueForCopyOperation:(BOOL)isCopyOperation
+- (NSDictionary<NSString *, id> *)dictionaryValueForTarget:(XRPortablePropertyDictTarget)target
 {
 	NSMutableDictionary<NSString *, id> *dic = [NSMutableDictionary dictionary];
 
@@ -771,61 +756,65 @@ TEXTUAL_IGNORE_DEPRECATION_END
 
 	[dic setUnsignedShort:self.legacyServerPort forKey:@"serverPort"];
 
-	/* Channel List */
 	/* During a copy operation, it is faster to copy these arrays as a whole.
 	 It also preserves -secretKey value in IRCChannelConfig since that will
 	 be lost when reconstructing from dictionary value. */
-	if (isCopyOperation == NO) {
-		NSMutableArray<NSDictionary *> *channelListOut = [NSMutableArray array];
+	if (target == XRPortablePropertyDictTargetCopy ||
+		target == XRPortablePropertyDictTargetMutableCopy)
+	{
+		return [dic copy];
+	}
 
-		for (IRCChannelConfig *e in self.channelList) {
-			NSDictionary *d = e.dictionaryValue;
+	/* Channel List */
+	NSMutableArray<NSDictionary *> *channelListOut = [NSMutableArray array];
 
-			[channelListOut addObject:d];
-		}
+	for (IRCChannelConfig *e in self.channelList) {
+		NSDictionary *d = e.dictionaryValue;
 
-		if (channelListOut.count > 0) {
-			dic[@"channelList"] = [channelListOut copy];
-		}
+		[channelListOut addObject:d];
+	}
 
-		/* Highlight list */
-		NSMutableArray<NSDictionary *> *highlightListOut = [NSMutableArray array];
+	if (channelListOut.count > 0) {
+		dic[@"channelList"] = [channelListOut copy];
+	}
 
-		for (IRCHighlightMatchCondition *e in self.highlightList) {
-			NSDictionary *d = e.dictionaryValue;
+	/* Highlight list */
+	NSMutableArray<NSDictionary *> *highlightListOut = [NSMutableArray array];
 
-			[highlightListOut addObject:d];
-		}
+	for (IRCHighlightMatchCondition *e in self.highlightList) {
+		NSDictionary *d = e.dictionaryValue;
 
-		if (highlightListOut.count > 0) {
-			dic[@"highlightList"] = [highlightListOut copy];
-		}
+		[highlightListOut addObject:d];
+	}
 
-		/* Ignore list */
-		NSMutableArray<NSDictionary *> *ignoreListOut = [NSMutableArray array];
+	if (highlightListOut.count > 0) {
+		dic[@"highlightList"] = [highlightListOut copy];
+	}
 
-		for (IRCAddressBookEntry *e in self.ignoreList) {
-			NSDictionary *d = e.dictionaryValue;
+	/* Ignore list */
+	NSMutableArray<NSDictionary *> *ignoreListOut = [NSMutableArray array];
 
-			[ignoreListOut addObject:d];
-		}
+	for (IRCAddressBookEntry *e in self.ignoreList) {
+		NSDictionary *d = e.dictionaryValue;
 
-		if (ignoreListOut.count > 0) {
-			dic[@"ignoreList"] = [ignoreListOut copy];
-		}
+		[ignoreListOut addObject:d];
+	}
 
-		/* Servers */
-		NSMutableArray<NSDictionary *> *serverListOut = [NSMutableArray array];
+	if (ignoreListOut.count > 0) {
+		dic[@"ignoreList"] = [ignoreListOut copy];
+	}
 
-		for (IRCServer *e in self.serverList) {
-			NSDictionary *d = e.dictionaryValue;
+	/* Servers */
+	NSMutableArray<NSDictionary *> *serverListOut = [NSMutableArray array];
 
-			[serverListOut addObject:d];
-		}
+	for (IRCServer *e in self.serverList) {
+		NSDictionary *d = e.dictionaryValue;
 
-		if (serverListOut.count > 0) {
-			dic[@"serverList"] = [serverListOut copy];
-		}
+		[serverListOut addObject:d];
+	}
+
+	if (serverListOut.count > 0) {
+		dic[@"serverList"] = [serverListOut copy];
 	}
 
 	return [dic dictionaryByRemovingDefaults:self->_defaults allowEmptyValues:YES];

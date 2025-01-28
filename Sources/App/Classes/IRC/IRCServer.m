@@ -108,7 +108,7 @@ NS_ASSUME_NONNULL_BEGIN
 	[defaultsMutable assignUnsignedShortTo:&self->_serverPort forKey:@"serverPort"];
 }
 
-- (NSDictionary<NSString *, id> *)dictionaryValue
+- (NSDictionary<NSString *, id> *)dictionaryValueForTarget:(XRPortablePropertyDictTarget)target
 {
 	NSMutableDictionary<NSString *, id> *dic = [NSMutableDictionary dictionary];
 

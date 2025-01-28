@@ -441,6 +441,8 @@ NSString * const TDCLicenseManagerTrialExpiredNotification = @"TDCLicenseManager
 		weakSelf.operationInProgress = NO;
 	};
 
+	self.operationInProgress = YES;
+
 	licenseManagerDownloader.isSilentOnSuccess = self.isSilentOnSuccess;
 
 	[licenseManagerDownloader activateLicense:licenseKey.trim];

@@ -398,7 +398,7 @@ NS_ASSUME_NONNULL_BEGIN
 	return YES;
 }
 
-- (__kindof XRPortablePropertyDict *)immutableClass
+- (__kindof XRPortablePropertyObject *)immutableClass
 {
 	return [IRCChannelUser self];
 }

@@ -2006,7 +2006,7 @@
                     <rect key="frame" x="18" y="144" width="484" height="48"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="J9b-GU-Ie0">
                         <font key="font" metaFont="system"/>
-                        <string key="title">Thank you for trying Textual or the past 30 days. 
+                        <string key="title">Thank you for trying Textual for the past 30 days. 
 
 To continue using Textual, you will need to purchase it.</string>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>

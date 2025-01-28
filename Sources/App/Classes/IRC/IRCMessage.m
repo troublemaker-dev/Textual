@@ -394,7 +394,7 @@ DESIGNATED_INITIALIZER_EXCEPTION_BODY_END
 	return YES;
 }
 
-- (__kindof XRPortablePropertyDict *)immutableClass
+- (__kindof XRPortablePropertyObject *)immutableClass
 {
 	return [IRCMessage self];
 }

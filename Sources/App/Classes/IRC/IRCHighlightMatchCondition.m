@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 	SetVariableIfNil(self->_uniqueIdentifier, [NSString stringWithUUID])
 }
 
-- (NSDictionary<NSString *, id> *)dictionaryValue
+- (NSDictionary<NSString *, id> *)dictionaryValueForTarget:(XRPortablePropertyDictTarget)target
 {
 	NSMutableDictionary<NSString *, id> *dic = [NSMutableDictionary dictionary];
 

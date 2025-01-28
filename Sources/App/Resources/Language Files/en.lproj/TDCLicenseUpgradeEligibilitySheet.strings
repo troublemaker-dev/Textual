@@ -43,4 +43,4 @@
 "z70-6s" = "Service returned an empty status context.";
 "gc5-ko" = "Service returned an malformed status context.";
 "5s6-sb" = "Service returned an unusual eligibility: %lu";
-"9uu-go" = "Request cannot be completed at this time.";
+"9uu-go" = "Request cannot be completed at this time because it was rate limited.";

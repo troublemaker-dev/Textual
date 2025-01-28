@@ -126,13 +126,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	TPCMigrateSandboxInstallationStandaloneClassic 	= 100,
 
 	/* Mac App Store */
-	TPCMigrateSandboxInstallationMacAppStore		= 200,
-
-	/* Standalone Beta */
-	/* First beta of sandboxed Textual used a different group container.
-	 We will now migrate beta users a 2nd time just for the fun of it. */
-#warning TODO: Remove beta migration after we are confident most users are taken care of.
-	TPCMigrateSandboxInstallationStandaloneBeta 		= 300,
+	TPCMigrateSandboxInstallationMacAppStore		= 200
 };
 
 @interface TPCPathInfo (TPCSandboxMigration)
@@ -184,8 +178,7 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	 If one migrates, then it stops there. */
 	/* I acknowledge creating a list of numbers just to enumerate them
 	 is not efficient. This will be ran once. It's okay. :) */
-	NSArray *installations = @[@(TPCMigrateSandboxInstallationStandaloneBeta),
-							   @(TPCMigrateSandboxInstallationStandaloneClassic),
+	NSArray *installations = @[@(TPCMigrateSandboxInstallationStandaloneClassic),
 							   @(TPCMigrateSandboxInstallationMacAppStore)];
 
 	for (NSNumber *installationRef in installations) {
@@ -673,8 +666,6 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	switch (installation) {
 		case TPCMigrateSandboxInstallationStandaloneClassic:
 			return @"Standalone Classic";
-		case TPCMigrateSandboxInstallationStandaloneBeta:
-			return @"Standalone Beta";
 		case TPCMigrateSandboxInstallationMacAppStore:
 			return @"Mac App Store";
 		default:
@@ -687,8 +678,6 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 	switch (installation) {
 		case TPCMigrateSandboxInstallationStandaloneClassic:
 			return @"com.codeux.apps.textual";
-		case TPCMigrateSandboxInstallationStandaloneBeta:
-			return @"com.codeux.apps.textual.group";
 		case TPCMigrateSandboxInstallationMacAppStore:
 			return @"8482Q6EPL6.com.codeux.irc.textual";
 		default:
@@ -701,8 +690,6 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 + (nullable NSString *)_defaultsSuiteNameForInstallation:(TPCMigrateSandboxInstallation)installation
 {
 	switch (installation) {
-		case TPCMigrateSandboxInstallationStandaloneBeta:
-			return @"com.codeux.apps.textual.group";
 		case TPCMigrateSandboxInstallationMacAppStore:
 			return @"8482Q6EPL6.com.codeux.irc.textual";
 		default:
@@ -715,7 +702,6 @@ typedef NS_ENUM(NSUInteger, TPCMigrateSandboxInstallation)
 + (BOOL)_isInstallationSupported:(TPCMigrateSandboxInstallation)installation
 {
 	return (installation == TPCMigrateSandboxInstallationStandaloneClassic ||
-			installation == TPCMigrateSandboxInstallationStandaloneBeta ||
 			installation == TPCMigrateSandboxInstallationMacAppStore);
 }
 

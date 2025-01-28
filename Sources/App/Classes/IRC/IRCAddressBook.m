@@ -233,7 +233,7 @@ NS_ASSUME_NONNULL_BEGIN
 	return [XRRegularExpression string:hostmask isMatchedByRegex:self.hostmaskRegularExpression withoutCase:YES];
 }
 
-- (NSDictionary<NSString *, id> *)dictionaryValue
+- (NSDictionary<NSString *, id> *)dictionaryValueForTarget:(XRPortablePropertyDictTarget)target
 {
 	NSMutableDictionary<NSString *, id> *dic = [NSMutableDictionary dictionary];
 
@@ -263,6 +263,12 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 
 	[dic setUnsignedInteger:entryType forKey:@"entryType"];
+
+	if (target == XRPortablePropertyDictTargetCopy ||
+		target == XRPortablePropertyDictTargetMutableCopy)
+	{
+		return [dic copy];
+	}
 
 	return [dic dictionaryByRemovingDefaults:self->_defaults];
 }

@@ -46,11 +46,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /* URLs for performing certain actions with license keys. */
-NSString * const TLOLicenseManagerDownloaderLicenseAPIActivationURL						= @"https://textual-license-key-backend.codeux.com/activateLicense.cs";
-NSString * const TLOLicenseManagerDownloaderLicenseAPISendLostLicenseURL				= @"https://textual-license-key-backend.codeux.com/sendLostLicense.cs";
-NSString * const TLOLicenseManagerDownloaderLicenseAPIMigrateAppStoreURL				= @"https://textual-license-key-backend.codeux.com/convertReceiptToLicense.cs";
-NSString * const TLOLicenseManagerDownloaderLicenseAPILicenseUpgradeEligibilityURL		= @"https://textual-license-key-backend.codeux.com/upgradeEligibility.cs";
-NSString * const TLOLicenseManagerDownloaderLicenseAPIReceiptUpgradeEligibilityURL		= @"https://textual-license-key-backend.codeux.com/upgradeEligibilityForReceipt.cs";
+NSString * const TLOLicenseManagerDownloaderLicenseAPIActivationURL						= @"https://licensing.textualapp.com/activateLicense.cs";
+NSString * const TLOLicenseManagerDownloaderLicenseAPISendLostLicenseURL				= @"https://licensing.textualapp.com/sendLostLicense.cs";
+NSString * const TLOLicenseManagerDownloaderLicenseAPIMigrateAppStoreURL				= @"https://licensing.textualapp.com/convertReceiptToLicense.cs";
+NSString * const TLOLicenseManagerDownloaderLicenseAPILicenseUpgradeEligibilityURL		= @"https://licensing.textualapp.com/upgradeEligibility.cs";
+NSString * const TLOLicenseManagerDownloaderLicenseAPIReceiptUpgradeEligibilityURL		= @"https://licensing.textualapp.com/upgradeEligibilityForReceipt.cs";
 
 /* The license API throttles requests to prevent abuse. The following HTTP status 
  code will inform Textual if it the license API has been overwhelmed. */
@@ -61,7 +61,7 @@ NSUInteger const TLOLicenseManagerDownloaderRequestHTTPStatusTryAgainLater = 503
  contents of a license API response body. This is not a complete list. */
 NSUInteger const TLOLicenseManagerDownloaderRequestStatusCodeSuccess = 0;
 NSUInteger const TLOLicenseManagerDownloaderRequestStatusCodeGenericError = 2000000;
-NSUInteger const TLOLicenseManagerDownloaderRequestStatusCodeTryAgainLater = 2000001;
+NSUInteger const TLOLicenseManagerDownloaderRequestStatusCodeServiceIsBusy = 2000001;
 
 /* Private header */
 typedef void (^TLOLicenseManagerDownloaderConnectionCompletionBlock)(TLOLicenseManagerDownloaderRequestType requestType, NSURLResponse * _Nullable response, NSData * _Nullable data);
@@ -237,13 +237,7 @@ typedef void (^TLOLicenseManagerDownloaderConnectionCompletionBlock)(TLOLicenseM
 	/* Define defaults */
 	id propertyList = nil;
 
-	__block NSUInteger apiStatusCode = 0;
-
-	if (responseStatusCode == TLOLicenseManagerDownloaderRequestHTTPStatusTryAgainLater) {
-		apiStatusCode = TLOLicenseManagerDownloaderRequestStatusCodeTryAgainLater;
-	} else {
-		apiStatusCode = TLOLicenseManagerDownloaderRequestStatusCodeGenericError;
-	}
+	__block NSUInteger apiStatusCode = TLOLicenseManagerDownloaderRequestStatusCodeGenericError;
 
 	__block id apiStatusContext = nil;
 
@@ -442,7 +436,14 @@ typedef void (^TLOLicenseManagerDownloaderConnectionCompletionBlock)(TLOLicenseM
 		/* Errors related to license activation. */
 		BOOL presentError = NO;
 
-		if (requestType == TLOLicenseManagerDownloaderRequestTypeActivation && apiStatusCode == 6500000)
+		if (apiStatusCode == TLOLicenseManagerDownloaderRequestStatusCodeServiceIsBusy)
+		{
+			[TDCAlert modalAlertWithMessage:TXTLS(@"TLOLicenseManager[fvx-90]")
+									  title:TXTLS(@"TLOLicenseManager[13u-4p]")
+							  defaultButton:TXTLS(@"Prompts[c7s-dq]")
+							alternateButton:nil];
+		}
+		else if (requestType == TLOLicenseManagerDownloaderRequestTypeActivation && apiStatusCode == 6500000)
 		{
 			[TDCAlert modalAlertWithMessage:TXTLS(@"TLOLicenseManager[wc7-mn]")
 									  title:TXTLS(@"TLOLicenseManager[fg6-gf]")
@@ -693,7 +694,7 @@ typedef void (^TLOLicenseManagerDownloaderConnectionCompletionBlock)(TLOLicenseM
 	{
 		NSString *encodedContextInfo = [self encodedRequestContextValue:@"licenseKey"];
 
-		requestBodyString = [NSString stringWithFormat:@"licenseKey=%@&lang=%@&outputFormat=plist&version=%@",
+		requestBodyString = [NSString stringWithFormat:@"licenseKey=%@&lang=%@&version=%@",
 				 encodedContextInfo, currentUserLanguage, applicationVersion];
 	}
 	else if (self.requestType == TLOLicenseManagerDownloaderRequestTypeReceiptUpgradeEligibility)
@@ -701,7 +702,7 @@ typedef void (^TLOLicenseManagerDownloaderConnectionCompletionBlock)(TLOLicenseM
 		NSString *receiptData = [self encodedRequestContextValue:@"receiptData"];
 		NSString *licenseOwnerMacAddress = [self encodedRequestContextValue:@"licenseOwnerMacAddress"];
 
-		requestBodyString = [NSString stringWithFormat:@"receiptData=%@&licenseOwnerMacAddress=%@&lang=%@&outputFormat=plist&version=%@",
+		requestBodyString = [NSString stringWithFormat:@"receiptData=%@&licenseOwnerMacAddress=%@&lang=%@&version=%@",
 				 receiptData, licenseOwnerMacAddress, currentUserLanguage, applicationVersion];
 	}
 

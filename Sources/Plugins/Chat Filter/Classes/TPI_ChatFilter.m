@@ -176,7 +176,7 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 }
 
-- (NSDictionary<NSString *, id> *)dictionaryValue
+- (NSDictionary<NSString *, id> *)dictionaryValueForTarget:(XRPortablePropertyDictTarget)target
 {
 	NSMutableDictionary<NSString *, id> *dic = [NSMutableDictionary dictionary];
 
@@ -208,6 +208,12 @@ NS_ASSUME_NONNULL_BEGIN
 	[dic setUnsignedInteger:self.filterLimitedToValue forKey:@"filterLimitedToValue"];
 	[dic setUnsignedInteger:self.filterAgeComparator forKey:@"filterAgeComparator"];
 	[dic setUnsignedInteger:self.filterAgeLimit forKey:@"filterAgeLimit"];
+
+	if (target == XRPortablePropertyDictTargetCopy ||
+		target == XRPortablePropertyDictTargetMutableCopy)
+	{
+		return [dic copy];
+	}
 
 	return [dic dictionaryByRemovingDefaults:self->_defaults];
 }

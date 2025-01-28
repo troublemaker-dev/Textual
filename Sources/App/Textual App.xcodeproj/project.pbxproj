@@ -1220,6 +1220,8 @@
 		4CAB276D253863D9009B1F07 /* IRCChannelMemberListControllerPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CAB276A253863D9009B1F07 /* IRCChannelMemberListControllerPrivate.h */; };
 		4CAC9D7B1F2B076100AD5F12 /* Textual-Extras.pkg in Resources */ = {isa = PBXBuildFile; fileRef = 4C2F0C701F2AF3860017D3B7 /* Textual-Extras.pkg */; };
 		4CAC9D831F2B076400AD5F12 /* Textual-Extras.pkg in Resources */ = {isa = PBXBuildFile; fileRef = 4C2F0C701F2AF3860017D3B7 /* Textual-Extras.pkg */; };
+		4CB638CC2D45A06C002B2CC3 /* FeatureFlags.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB638CB2D45A06C002B2CC3 /* FeatureFlags.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4CB638CD2D45A06C002B2CC3 /* FeatureFlags.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB638CB2D45A06C002B2CC3 /* FeatureFlags.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CB873DD22B4A56B005AB046 /* TDCPreferencesUserStyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB873DB22B4A56B005AB046 /* TDCPreferencesUserStyleSheet.m */; };
 		4CB873DE22B4A56B005AB046 /* TDCPreferencesUserStyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB873DB22B4A56B005AB046 /* TDCPreferencesUserStyleSheet.m */; };
 		4CCD93FE1CA7291300335381 /* JavaScript in Resources */ = {isa = PBXBuildFile; fileRef = 4CCD93FC1CA7291300335381 /* JavaScript */; };
@@ -2033,6 +2035,7 @@
 		4CAB275D2537F71B009B1F07 /* IRCChannelMemberList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRCChannelMemberList.h; sourceTree = "<group>"; };
 		4CAB2764253863BF009B1F07 /* IRCChannelMemberListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRCChannelMemberListController.m; sourceTree = "<group>"; };
 		4CAB276A253863D9009B1F07 /* IRCChannelMemberListControllerPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRCChannelMemberListControllerPrivate.h; sourceTree = "<group>"; };
+		4CB638CB2D45A06C002B2CC3 /* FeatureFlags.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeatureFlags.h; path = "../../.tmp/Build Headers/FeatureFlags.h"; sourceTree = SOURCE_ROOT; };
 		4CB873D622B4A497005AB046 /* TDCPreferencesUserStyleSheetPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCPreferencesUserStyleSheetPrivate.h; sourceTree = "<group>"; };
 		4CB873DB22B4A56B005AB046 /* TDCPreferencesUserStyleSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDCPreferencesUserStyleSheet.m; sourceTree = "<group>"; };
 		4CC4A7371F8A1404008FF15F /* GRMustache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GRMustache.framework; path = "../../Frameworks/Static Libraries/Libraries/GRMustache.framework"; sourceTree = SOURCE_ROOT; };
@@ -3511,6 +3514,7 @@
 				4C4A0D6B1C973E8100064A23 /* Application Properties */,
 				5D9B8EB1170A0EA700919CB0 /* Build Scripts */,
 				4C3154B120EB683200448776 /* Configurations */,
+				4CB638CB2D45A06C002B2CC3 /* FeatureFlags.h */,
 				4CC70202171E1CB400BDFAE0 /* BuildConfig.h */,
 			);
 			name = "Build Settings";
@@ -3538,6 +3542,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CB638CC2D45A06C002B2CC3 /* FeatureFlags.h in Headers */,
 				4C3157BF20EB6D0600448776 /* TDCServerPropertiesSheetPrivate.h in Headers */,
 				4C3157A820EB6D0600448776 /* TDCFileTransferDialogTableCellPrivate.h in Headers */,
 				4CAB275F2537F71B009B1F07 /* IRCChannelMemberList.h in Headers */,
@@ -3805,6 +3810,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CB638CD2D45A06C002B2CC3 /* FeatureFlags.h in Headers */,
 				4C31572C20EB6D0500448776 /* TDCServerPropertiesSheetPrivate.h in Headers */,
 				4CAB27602537F71B009B1F07 /* IRCChannelMemberList.h in Headers */,
 				4C31571520EB6D0500448776 /* TDCFileTransferDialogTableCellPrivate.h in Headers */,
