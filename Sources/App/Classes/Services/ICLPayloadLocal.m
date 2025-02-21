@@ -36,6 +36,7 @@
  *********************************************************************** */
 
 #import "TPCPathInfoPrivate.h"
+#import "TPCThemeController.h"
 #import "ICLPayloadInternal.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -44,7 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)_resourcesTemporaryLocation
 {
-	NSString *sourcePath = [TPCPathInfo applicationTemporaryProcessSpecific];
+//	NSString *sourcePath = [TPCPathInfo applicationTemporaryProcessSpecific];
+	NSString *sourcePath = themeController().temporaryPath;
 
 	NSString *basePath = [sourcePath stringByAppendingPathComponent:@"/ICLPayload-Resources/"];
 

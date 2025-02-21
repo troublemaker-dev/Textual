@@ -79,6 +79,8 @@ TEXTUAL_EXTERN NSUInteger TLOLicenseManagerLicenseGeneration(void);
 TEXTUAL_EXTERN NSString * _Nullable TLOLicenseManagerLicenseKey(void);
 TEXTUAL_EXTERN NSString * _Nullable TLOLicenseManagerLicenseOwnerContactAddress(void);
 TEXTUAL_EXTERN NSString * _Nullable TLOLicenseManagerLicenseOwnerName(void);
+
+TEXTUAL_EXTERN NSString * TLOLicenseManagerAuthorizationCode(void);
 #endif
 
 NS_ASSUME_NONNULL_END

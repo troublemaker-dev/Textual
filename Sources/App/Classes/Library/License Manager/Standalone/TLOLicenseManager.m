@@ -36,6 +36,7 @@
  *********************************************************************** */
 
 #import "TPCPathInfo.h"
+#import "TPCPreferencesUserDefaults.h"
 #import "TLOLicenseManagerPrivate.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -847,6 +848,20 @@ NSString * _Nullable TLOLicenseManagerLicenseCreationDateFormatted(void)
 	dateFormatter.timeStyle = NSDateFormatterNoStyle;
 
 	return [dateFormatter stringFromDate:creationDate];
+}
+
+#pragma mark -
+#pragma mark Authorization
+
+NSString * TLOLicenseManagerAuthorizationCode(void)
+{
+	NSString *code = [[NSUserDefaults standardUserDefaults] stringForKey:@"TLOLicenseManagerAuthorizationCode"];
+
+	if (code == nil) {
+		code = @"";
+	}
+
+	return code;
 }
 
 #pragma mark -
