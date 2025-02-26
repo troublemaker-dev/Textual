@@ -41,7 +41,6 @@
 #import "TDCAlert.h"
 #import "TPCApplicationInfo.h"
 #import "TLOLocalization.h"
-#import "TLOLicenseManagerPrivate.h"
 #import "TLOLicenseManagerDownloaderPrivate.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -669,23 +668,21 @@ typedef void (^TLOLicenseManagerDownloaderConnectionCompletionBlock)(TLOLicenseM
 
 	NSString *applicationVersion = [TPCApplicationInfo applicationVersion].percentEncodedString;
 
-	NSString *authorization = TLOLicenseManagerAuthorizationCode();
-
 	NSString *requestBodyString = nil;
 
 	if (self.requestType == TLOLicenseManagerDownloaderRequestTypeActivation)
 	{
 		NSString *encodedContextInfo = [self encodedRequestContextValue:@"licenseKey"];
 
-		requestBodyString = [NSString stringWithFormat:@"licenseKey=%@&lang=%@&version=%@&authorization=%@",
-							 encodedContextInfo, currentUserLanguage, applicationVersion, authorization];
+		requestBodyString = [NSString stringWithFormat:@"licenseKey=%@&lang=%@&version=%@",
+				 encodedContextInfo, currentUserLanguage, applicationVersion];
 	}
 	else if (self.requestType == TLOLicenseManagerDownloaderRequestTypeSendLostLicense)
 	{
 		NSString *encodedContextInfo = [self encodedRequestContextValue:@"licenseOwnerContactAddress"];
 
-		requestBodyString = [NSString stringWithFormat:@"licenseOwnerContactAddress=%@&lang=%@&version=%@&authorization=%@",
-				 encodedContextInfo, currentUserLanguage, applicationVersion, authorization];
+		requestBodyString = [NSString stringWithFormat:@"licenseOwnerContactAddress=%@&lang=%@&version=%@",
+				 encodedContextInfo, currentUserLanguage, applicationVersion];
 	}
 	else if (self.requestType == TLOLicenseManagerDownloaderRequestTypeMigrateAppStore)
 	{
@@ -695,23 +692,23 @@ typedef void (^TLOLicenseManagerDownloaderConnectionCompletionBlock)(TLOLicenseM
 		NSString *licenseOwnerMacAddress = [self encodedRequestContextValue:@"licenseOwnerMacAddress"];
 
 		requestBodyString =
-		[NSString stringWithFormat:@"receiptData=%@&licenseOwnerMacAddress=%@&licenseOwnerContactAddress=%@&licenseOwnerName=%@&lang=%@&version=%@&authorization=%@",
-				receiptData, licenseOwnerMacAddress, licenseOwnerContactAddress, licenseOwnerName, currentUserLanguage, applicationVersion, authorization];
+		[NSString stringWithFormat:@"receiptData=%@&licenseOwnerMacAddress=%@&licenseOwnerContactAddress=%@&licenseOwnerName=%@&lang=%@&version=%@",
+				receiptData, licenseOwnerMacAddress, licenseOwnerContactAddress, licenseOwnerName, currentUserLanguage, applicationVersion];
 	}
 	else if (self.requestType == TLOLicenseManagerDownloaderRequestTypeLicenseUpgradeEligibility)
 	{
 		NSString *encodedContextInfo = [self encodedRequestContextValue:@"licenseKey"];
 
-		requestBodyString = [NSString stringWithFormat:@"licenseKey=%@&lang=%@&version=%@&authorization=%@",
-				 encodedContextInfo, currentUserLanguage, applicationVersion, authorization];
+		requestBodyString = [NSString stringWithFormat:@"licenseKey=%@&lang=%@&version=%@",
+				 encodedContextInfo, currentUserLanguage, applicationVersion];
 	}
 	else if (self.requestType == TLOLicenseManagerDownloaderRequestTypeReceiptUpgradeEligibility)
 	{
 		NSString *receiptData = [self encodedRequestContextValue:@"receiptData"];
 		NSString *licenseOwnerMacAddress = [self encodedRequestContextValue:@"licenseOwnerMacAddress"];
 
-		requestBodyString = [NSString stringWithFormat:@"receiptData=%@&licenseOwnerMacAddress=%@&lang=%@&version=%@&authorization=%@",
-				 receiptData, licenseOwnerMacAddress, currentUserLanguage, applicationVersion, authorization];
+		requestBodyString = [NSString stringWithFormat:@"receiptData=%@&licenseOwnerMacAddress=%@&lang=%@&version=%@",
+				 receiptData, licenseOwnerMacAddress, currentUserLanguage, applicationVersion];
 	}
 
 	if (requestBodyString == nil) {
