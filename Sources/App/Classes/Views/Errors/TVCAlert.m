@@ -48,7 +48,6 @@ typedef NS_ENUM(NSUInteger, TVCAlertLaunchedAs) {
 };
 
 @interface TVCAlert ()
-@property (nonatomic, assign) NSUInteger buttonsCount;
 @property (nonatomic, strong, readwrite) IBOutlet NSPanel *panel;
 @property (nonatomic, weak) IBOutlet NSImageView *iconImageView;
 @property (nonatomic, weak) IBOutlet NSImageView *warningIconImageView;
@@ -357,39 +356,19 @@ typedef NS_ENUM(NSUInteger, TVCAlertLaunchedAs) {
 	return [buttons copy];
 }
 
-- (NSButton *)addButtonWithTitle:(NSString *)title
-{
-	NSUInteger buttonCount = self.buttonsCount;
-
-	NSAssert((buttonCount < 3),
-		@"Three buttons already exist in view");
-
-	NSButton *button = nil;
-
-	if (buttonCount == 0) {
-		button = self.firstButton;
-	} else if (buttonCount == 1) {
-		button = self.secondButton;
-	} else if (buttonCount == 2) {
-		button = self.thirdButton;
-	}
-
-	return [self _addButtonWithTitle:title withButton:button];
-}
-
-- (NSButton *)addButtonWithTitle:(NSString *)title forButton:(TVCAlertResponseButton)button
+- (NSButton *)setTitle:(NSString *)title forButton:(TVCAlertResponseButton)button
 {
 	switch (button) {
 		case TVCAlertResponseButtonFirst:
-			[self addButtonWithTitle:title atIndex:0];
+			[self setTitle:title forButtonAtIndex:0];
 
 			break;
 		case TVCAlertResponseButtonSecond:
-			[self addButtonWithTitle:title atIndex:1];
+			[self setTitle:title forButtonAtIndex:1];
 
 			break;
 		case TVCAlertResponseButtonThird:
-			[self addButtonWithTitle:title atIndex:2];
+			[self setTitle:title forButtonAtIndex:2];
 
 			break;
 		default:
@@ -401,7 +380,7 @@ typedef NS_ENUM(NSUInteger, TVCAlertLaunchedAs) {
 	return nil;
 }
 
-- (NSButton *)addButtonWithTitle:(NSString *)title atIndex:(NSUInteger)index
+- (NSButton *)setTitle:(NSString *)title forButtonAtIndex:(NSUInteger)index
 {
 	NSAssert((index >= 0 && index <= 2),
 		@"Index of button is out of bounds. "
@@ -417,10 +396,10 @@ typedef NS_ENUM(NSUInteger, TVCAlertLaunchedAs) {
 		button = self.thirdButton;
 	}
 
-	return [self _addButtonWithTitle:title withButton:button];
+	return [self _setTitle:title forButton:button];
 }
 
-- (NSButton *)_addButtonWithTitle:(NSString *)title withButton:(NSButton *)button
+- (NSButton *)_setTitle:(NSString *)title forButton:(NSButton *)button
 {
 	NSParameterAssert(title != nil);
 
@@ -429,8 +408,6 @@ typedef NS_ENUM(NSUInteger, TVCAlertLaunchedAs) {
 
 	if (button.hidden) {
 		button.hidden = NO;
-
-		self.buttonsCount += 1;
 	}
 
 	button.title = title;

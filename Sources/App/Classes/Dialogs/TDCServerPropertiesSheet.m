@@ -1669,7 +1669,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 		LogToConsoleError("Operation Failed (1): %{public}i", queryStatus);
 	}
 
-	identities = NULL;
 	if (identities == NULL || CFArrayGetCount(identities) == 0) {
 		[TDCAlert alertWithMessage:TXTLS(@"TDCServerPropertiesSheet[489-hG]")
 							 title:TXTLS(@"TDCServerPropertiesSheet[pmk-os]")

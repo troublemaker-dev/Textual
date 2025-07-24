@@ -2451,6 +2451,7 @@ NS_ASSUME_NONNULL_BEGIN
 	   @(MTMMHelpKBMenuFeatureRequests) 			: @"https://help.codeux.com/textual/Support.kb",
 	   @(MTMMHelpKBMenuKeyboardShortcuts) 			: @"https://help.codeux.com/textual/Keyboard-Shortcuts.kb",
 	   @(MTMMHelpKBMenuMemoryManagement) 			: @"https://help.codeux.com/textual/Memory-Management.kb",
+	   @(MTMMHelpKBMenuNetworkTimeouts)				: @"https://help.codeux.com/textual/Network-Timeouts.kb",
 	   @(MTMMHelpKBMenuTextFormatting) 				: @"https://help.codeux.com/textual/Text-Formatting.kb",
 	   @(MTMMHelpKBMenuStylingInformation) 			: @"https://help.codeux.com/textual/Styles.kb",
 	   @(MTMMHelpKBMenuConnectingWithCertificate) 	: @"https://help.codeux.com/textual/Using-CertFP.kb",

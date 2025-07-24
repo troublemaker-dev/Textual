@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,10 +38,10 @@
             <point key="canvasLocation" x="1284" y="-88"/>
         </window>
         <view translatesAutoresizingMaskIntoConstraints="NO" id="bea-Wk-5YZ" userLabel="Content View Unregistered Textual View">
-            <rect key="frame" x="0.0" y="0.0" width="590" height="341"/>
+            <rect key="frame" x="0.0" y="0.0" width="590" height="357"/>
             <subviews>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="xaT-du-Hgo">
-                    <rect key="frame" x="20" y="205" width="75" height="75"/>
+                    <rect key="frame" x="20" y="221" width="75" height="75"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="xaT-du-Hgo" secondAttribute="height" multiplier="1:1" id="DWq-cB-ykc"/>
                         <constraint firstAttribute="width" constant="75" id="qg9-Zg-6ln"/>
@@ -51,7 +50,7 @@
                     <accessibility description="Textual Logo"/>
                 </imageView>
                 <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uu0-L6-ebd">
-                    <rect key="frame" x="109" y="264" width="316" height="16"/>
+                    <rect key="frame" x="109" y="280" width="316" height="16"/>
                     <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="To activate Textual, enter your license key below" id="6U9-rS-tAa">
                         <font key="font" metaFont="systemBold"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -59,7 +58,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SKZ-Sh-8aW">
-                    <rect key="frame" x="109" y="193" width="81" height="16"/>
+                    <rect key="frame" x="109" y="209" width="81" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="License Key:" id="iji-CW-RF2">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -67,7 +66,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="nxy-E2-Vas">
-                    <rect key="frame" x="109" y="224" width="463" height="32"/>
+                    <rect key="frame" x="109" y="240" width="463" height="32"/>
                     <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="Your license key can be found in the e-mail that was sent to you after completing your purchase." id="9WE-Gi-yuN">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -75,7 +74,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kAU-WO-mIJ">
-                    <rect key="frame" x="196" y="190" width="374" height="22"/>
+                    <rect key="frame" x="196" y="206" width="374" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="vbh-eP-CmJ"/>
                     </constraints>
@@ -90,7 +89,7 @@
                     </connections>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c0t-Vn-Ofk">
-                    <rect key="frame" x="447" y="143" width="130" height="32"/>
+                    <rect key="frame" x="447" y="159" width="130" height="32"/>
                     <buttonCell key="cell" type="push" title="Activate Textual" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="THe-1N-yO3">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -101,13 +100,13 @@
                     </connections>
                 </button>
                 <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="20p-td-tPI">
-                    <rect key="frame" x="0.0" y="127" width="590" height="5"/>
+                    <rect key="frame" x="0.0" y="143" width="590" height="5"/>
                 </box>
                 <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="WHr-3v-nQP">
-                    <rect key="frame" x="0.0" y="298" width="590" height="5"/>
+                    <rect key="frame" x="0.0" y="314" width="590" height="5"/>
                 </box>
                 <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="NPe-61-R0Z">
-                    <rect key="frame" x="0.0" y="300" width="590" height="41"/>
+                    <rect key="frame" x="0.0" y="316" width="590" height="41"/>
                     <view key="contentView" id="Y04-Ui-XYn">
                         <rect key="frame" x="0.0" y="0.0" width="590" height="41"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -146,13 +145,13 @@
                     <color key="fillColor" white="0.0" alpha="0.040000000000000001" colorSpace="calibratedWhite"/>
                 </box>
                 <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="gvB-hL-TZu">
-                    <rect key="frame" x="0.0" y="0.0" width="590" height="129"/>
+                    <rect key="frame" x="0.0" y="0.0" width="590" height="145"/>
                     <view key="contentView" id="kNO-08-Kd4">
-                        <rect key="frame" x="0.0" y="0.0" width="590" height="129"/>
+                        <rect key="frame" x="0.0" y="0.0" width="590" height="145"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView translatesAutoresizingMaskIntoConstraints="NO" id="jg7-PN-SWb">
-                                <rect key="frame" x="16" y="37" width="75" height="75"/>
+                                <rect key="frame" x="16" y="53" width="75" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="75" id="AlM-ow-021"/>
                                     <constraint firstAttribute="width" secondItem="jg7-PN-SWb" secondAttribute="height" multiplier="1:1" id="JfS-YS-1rG"/>
@@ -161,7 +160,7 @@
                                 <accessibility description="Mac App Store Logo"/>
                             </imageView>
                             <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x6V-ip-XZY">
-                                <rect key="frame" x="105" y="96" width="210" height="16"/>
+                                <rect key="frame" x="105" y="112" width="210" height="16"/>
                                 <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="Migrate from the Mac App Store" id="UVC-M1-5Bi">
                                     <font key="font" metaFont="systemBold"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -169,9 +168,10 @@
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="LBa-p3-Krv">
-                                <rect key="frame" x="105" y="56" width="467" height="32"/>
-                                <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="You can request a license key if you already own Textual 5 or a newer version in the Mac App Store." id="QVB-9e-QPb">
+                                <rect key="frame" x="105" y="56" width="467" height="48"/>
+                                <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" id="QVB-9e-QPb">
                                     <font key="font" metaFont="system"/>
+                                    <string key="title">You can request a license key if you already own Textual 5 or a newer version in the Mac App Store. To download a new copy of Textual from the Mac App Store, click on your name in the store to access your purchases.</string>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -208,7 +208,7 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yZF-Hy-PrY">
-                    <rect key="frame" x="373" y="143" width="76" height="32"/>
+                    <rect key="frame" x="373" y="159" width="76" height="32"/>
                     <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XhH-Zr-ZZE">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -221,7 +221,7 @@ Gw
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V4s-Va-UFF">
-                    <rect key="frame" x="13" y="143" width="163" height="32"/>
+                    <rect key="frame" x="13" y="159" width="163" height="32"/>
                     <buttonCell key="cell" type="push" title="Recover Lost License" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YAm-hP-iFo">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>

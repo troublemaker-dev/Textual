@@ -68,9 +68,8 @@ typedef BOOL (^TVCAlertButtonClickedBlock)(TVCAlert *sender, TVCAlertResponseBut
 
 @property (nonatomic, assign) TVCAlertType type;
 
-- (NSButton *)addButtonWithTitle:(NSString *)title; // Increments from first button, to second, then third
-- (NSButton *)addButtonWithTitle:(NSString *)title forButton:(TVCAlertResponseButton)button;
-- (NSButton *)addButtonWithTitle:(NSString *)title atIndex:(NSUInteger)index;
+- (NSButton *)setTitle:(NSString *)title forButton:(TVCAlertResponseButton)button;
+- (NSButton *)setTitle:(NSString *)title forButtonAtIndex:(NSUInteger)index;
 
 @property (copy, readonly) NSArray<NSButton *> *buttons;
 

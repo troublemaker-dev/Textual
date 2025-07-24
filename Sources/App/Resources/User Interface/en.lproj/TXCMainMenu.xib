@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23077.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23077.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TXApplication">
@@ -1036,6 +1035,12 @@ CQ
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="openHelpMenuItem:" target="267" id="yKU-Kd-2sX"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Network Timeouts" tag="9050016" id="tGD-xh-GnJ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="openHelpMenuItem:" target="267" id="yNp-EX-dir"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Text Formatting" tag="9050009" id="1693">

@@ -309,9 +309,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 	alert.type = TVCAlertTypeWarning;
 
-	[alert addButtonWithTitle:TXTLS(@"Prompts[xkj-nw]") forButton:TVCAlertResponseButtonFirst];
-	[alert addButtonWithTitle:TXTLS(@"Prompts[qso-2g]") forButton:TVCAlertResponseButtonSecond];
-	[alert addButtonWithTitle:TXTLS(@"Prompts[x3e-ur]") forButton:TVCAlertResponseButtonThird];
+	[alert setTitle:TXTLS(@"Prompts[xkj-nw]") forButton:TVCAlertResponseButtonFirst];
+	[alert setTitle:TXTLS(@"Prompts[qso-2g]") forButton:TVCAlertResponseButtonSecond];
+	[alert setTitle:TXTLS(@"Prompts[x3e-ur]") forButton:TVCAlertResponseButtonThird];
 
 	[alert setButtonClickedBlock:^BOOL(TVCAlert *sender, TVCAlertResponseButton buttonClicked) {
 		[TDCPreferencesController openProxySettingsInSystemPreferences];

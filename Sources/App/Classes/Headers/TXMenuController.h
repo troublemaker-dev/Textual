@@ -219,6 +219,7 @@ enum
 	MTMMHelpPrivacyPolicySeparator = 903, // "-"
 	MTMMHelpFrequentlyAskedQuestions = 904, // "Frequently Asked Questions"
 	MTMMHelpKnowledgeBaseMenu = 905, // "Knowledge Base"
+	/* Highest: 9050016 */
 	MTMMHelpKBMenuKnowledgeBaseHome = 9050000, // "Knowledge Base Home"
 	MTMMHelpKBMenuKnowledgeBaseHomeSeparator = 9050001, // "-"
 	MTMMHelpKBMenuChatEncryption = 9050004, // "Chat Encryption"
@@ -226,6 +227,7 @@ enum
 	MTMMHelpKBMenuFeatureRequests = 9050006, // "Feature Requests"
 	MTMMHelpKBMenuKeyboardShortcuts = 9050007, // "Keyboard Shortcuts"
 	MTMMHelpKBMenuMemoryManagement = 9050008, // "Memory Management"
+	MTMMHelpKBMenuNetworkTimeouts = 9050016, // "Network Timeouts"
 	MTMMHelpKBMenuTextFormatting = 9050009, // "Text Formatting"
 	MTMMHelpKBMenuStylingInformation = 9050010, // "Styling Information"
 	MTMMHelpKBMenuStylingInformationSeparator = 9050011, // "-"

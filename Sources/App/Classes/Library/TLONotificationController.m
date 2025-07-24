@@ -94,6 +94,16 @@ NSString * const TXNotificationActionIdentifierLicenseManagerMoreInfo = @"TXNoti
 
 	[RZNotificationCenter() addObserver:self selector:@selector(mainWindowSelectionChanged:) name:TVCMainWindowSelectionChangedNotification object:nil];
 
+	[RZUserNotificationCenter() requestAuthorizationWithOptions:(UNAuthorizationOptionAlert |
+																 UNAuthorizationOptionProvidesAppNotificationSettings)
+											  completionHandler:^(BOOL granted, NSError * _Nullable error) {
+		if (error) {
+			LogToConsoleError("Notifications failed to authorize: %{public}@", error.localizedDescription);
+		}
+
+		LogToConsoleInfo("Notification permission: %{public}@", StringFromBOOL(granted));
+	}];
+
 	[self registerCategories];
 }
 
