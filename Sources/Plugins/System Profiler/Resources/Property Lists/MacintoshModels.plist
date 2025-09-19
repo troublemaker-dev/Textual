@@ -24,6 +24,10 @@
 	<string>MacBook Pro (16-inch, Early 2023)</string>
 	<key>Mac14,12</key>
 	<string>Mac mini (2023)</string>
+	<key>Mac14,13</key>
+	<string>Mac Studio (2023)</string>
+	<key>Mac14,14</key>
+	<string>Mac Studio (2023)</string>
 	<key>Mac14,15</key>
 	<string>MacBook Air (15-inch, 2023)</string>
 	<key>Mac15,3</key>
@@ -48,6 +52,32 @@
 	<string>MacBook Air (13-inch, 2024)</string>
 	<key>Mac15,13</key>
 	<string>MacBook Air (15-inch, 2024)</string>
+	<key>Mac15,14</key>
+	<string>Mac Studio (2025)</string>
+	<key>Mac16,1</key>
+	<string>MacBook Pro (14-inch, 2024)</string>
+	<key>Mac16,2</key>
+	<string>iMac (24-inch, 2024)</string>
+	<key>Mac16,3</key>
+	<string>iMac (24-inch, 2024)</string>
+	<key>Mac16,5</key>
+	<string>MacBook Pro (16-inch, 2024)</string>
+	<key>Mac16,6</key>
+	<string>MacBook Pro (14-inch, 2024)</string>
+	<key>Mac16,7</key>
+	<string>MacBook Pro (16-inch, 2024)</string>
+	<key>Mac16,8</key>
+	<string>MacBook Pro (14-inch, 2024)</string>
+	<key>Mac16,9</key>
+	<string>Mac Studio (2025)</string>
+	<key>Mac16,10</key>
+	<string>Mac mini (2024)</string>
+	<key>Mac16,11</key>
+	<string>Mac mini (2024)</string>
+	<key>Mac16,12</key>
+	<string>MacBook Air (13-inch, 2025)</string>
+	<key>Mac16,13</key>
+	<string>MacBook Air (15-inch, 2025)</string>
 	<key>MacBook6,1</key>
 	<string>MacBook (13-inch, Late 2009)</string>
 	<key>MacBook7,1</key>
