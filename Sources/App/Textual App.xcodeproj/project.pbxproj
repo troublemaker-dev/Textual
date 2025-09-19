@@ -5457,6 +5457,7 @@
 		4C13442320C75C4900343AB7 /* Release (Sandboxed) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				TEXTUAL_BUILT_WITH_LICENSE_MANAGER = 0;
 			};
 			name = "Release (Sandboxed)";
 		};
@@ -5484,6 +5485,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C3154DF20EB685700448776 /* Textual App.xcconfig */;
 			buildSettings = {
+				TEXTUAL_BUILT_WITH_LICENSE_MANAGER = 0;
 			};
 			name = Debug;
 		};
@@ -5491,6 +5493,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C3154B720EB685700448776 /* Textual App.xcconfig */;
 			buildSettings = {
+				TEXTUAL_BUILT_WITH_LICENSE_MANAGER = 0;
 			};
 			name = Release;
 		};
