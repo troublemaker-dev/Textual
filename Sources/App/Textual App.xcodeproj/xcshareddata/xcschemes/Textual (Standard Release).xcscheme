@@ -97,7 +97,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "&#10;exec &quot;${PROJECT_DIR}/Build Scripts/ExportArchive.sh&quot;&#10;">
+               scriptText = "&#10;exec &quot;${PROJECT_DIR}/Build Scripts/ExportArchive.sh&quot; &gt; &quot;${TEXTUAL_WORKSPACE_TEMP_DIR}/Script-Logs/ExportArchive.txt&quot;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"

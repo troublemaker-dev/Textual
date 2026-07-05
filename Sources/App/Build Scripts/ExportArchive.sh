@@ -40,10 +40,12 @@ xcrun notarytool submit "${WORKING_ZIP_PATH}" \
 rm "${WORKING_ZIP_PATH}"
 
 # Stable app
-xcrun stapler staple --verbose "./${FULL_PRODUCT_NAME}/" 
+xcrun stapler staple --verbose "./${FULL_PRODUCT_NAME}/"
 
 # Create new zip with stapled app
 zip -y -r -X "${WORKING_ZIP_PATH}" "./${FULL_PRODUCT_NAME}/"
+
+WORKING_ZIP_FILE_SIZE=$(stat -f%z "${WORKING_ZIP_PATH}")
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
@@ -51,17 +53,22 @@ zip -y -r -X "${WORKING_ZIP_PATH}" "./${FULL_PRODUCT_NAME}/"
 # sure we are in a directory of a git repository.
 GIT_COMMIT_HASH=`git rev-parse --short HEAD`
 
-EXPORT_PATH="${HOME}/Desktop/Textual-${GIT_COMMIT_HASH}"
+EXPORT_PATH_NAME="Textual-${GIT_COMMIT_HASH}"
+EXPORT_PATH="${HOME}/Projects/Exports/${EXPORT_PATH_NAME}"
 
 mkdir -p "${EXPORT_PATH}"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 if [ "${TEXTUAL_BUILT_AS_UNIVERSAL_BINARY}" == "1" ]; then
-	ARCHSPEC_PATH="${EXPORT_PATH}/universal"
+	ARCHSPEC_TITLE="universal"
 else
-	ARCHSPEC_PATH="${EXPORT_PATH}/intel"
+	ARCHSPEC_TITLE="intel"
 fi
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+ARCHSPEC_PATH="${EXPORT_PATH}/${ARCHSPEC_TITLE}"
 
 mkdir -p "${ARCHSPEC_PATH}"
 
@@ -71,21 +78,79 @@ mv "${WORKING_ZIP_PATH}" "${ZIP_EXPORT_PATH}"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
+ONLINE_PATH_BASE="${EXPORT_PATH_NAME}/${ARCHSPEC_TITLE}/Textual"
+
+ONLINE_DMG_PATH_STABLE="/textual/downloads/builds/stable/${ONLINE_PATH_BASE}.dmg"
+ONLINE_ZIP_PATH_STABLE="/textual/downloads/builds/stable/${ONLINE_PATH_BASE}.zip"
+ONLINE_ZIP_PATH_BETA="/textual/downloads/builds/beta/${ONLINE_PATH_BASE}.zip"
+
+ONLINE_EXPORTER="cached.codeux.com"
+ONLINE_EXPORTER_DMG_PATH_STABLE="https://${ONLINE_EXPORTER}${ONLINE_DMG_PATH_STABLE}"
+ONLINE_EXPORTER_ZIP_PATH_STABLE="https://${ONLINE_EXPORTER}${ONLINE_ZIP_PATH_STABLE}"
+ONLINE_EXPORTER_ZIP_PATH_BETA="https://${ONLINE_EXPORTER}${ONLINE_ZIP_PATH_BETA}"
+
 BUNDLE_VERSION_LONG=$(/usr/libexec/PlistBuddy -c "Print \"CFBundleVersion\"" "./${FULL_PRODUCT_NAME}/Contents/Info.plist")
 BUNDLE_VERSION_SHORT=$(/usr/libexec/PlistBuddy -c "Print \"CFBundleShortVersionString\"" "./${FULL_PRODUCT_NAME}/Contents/Info.plist")
 BUNDLE_MINIMUM_TARGET=$(/usr/libexec/PlistBuddy -c "Print \"LSMinimumSystemVersion\"" "./${FULL_PRODUCT_NAME}/Contents/Info.plist")
 
-echo "<?php
+ARCHIVE_DATE=$(date -R -u)
 
-	/* Generated on: $(date) */
-" > ./buildInfo.php
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-echo "	\$current_release_version_short = \"${BUNDLE_VERSION_SHORT}\";" >> ./buildInfo.php
-echo "	\$current_release_version_long = \"${BUNDLE_VERSION_LONG}\";" >> ./buildInfo.php
-echo "	\$current_release_version_signature = \"${GIT_COMMIT_HASH}\";" >> ./buildInfo.php
-echo "	\$current_release_minimum_system_version = \"${BUNDLE_MINIMUM_TARGET}\";" >> buildInfo.php
+echo "
+# Stable
+rewrite ^/textual/downloads/Textual\.zip$ /${ONLINE_ZIP_PATH_STABLE} break;
+rewrite ^/textual/downloads/Textual\.dmg$ ${ONLINE_DMG_PATH_STABLE} break;
+rewrite ^/textual/downloads/Textual-Universal\.dmg$ ${ONLINE_DMG_PATH_STABLE} break;
+rewrite ^/textual/downloads/Textual7\.dmg$ ${ONLINE_DMG_PATH_STABLE} break;
 
-mv "./buildInfo.php" "${EXPORT_PATH}"
+# Stable Beta
+rewrite ^/textual/downloads/Textual-Beta\.zip$ ${ONLINE_ZIP_PATH_STABLE} break;
+rewrite ^/textual/downloads/Textual-Beta-Universal\.zip$ ${ONLINE_ZIP_PATH_STABLE} break;
+
+# Beta
+rewrite ^/textual/downloads/Textual-Beta\.zip$ ${ONLINE_ZIP_PATH_BETA} break;
+rewrite ^/textual/downloads/Textual-Beta-Universal\.zip$ ${ONLINE_ZIP_PATH_BETA} break;
+" > redirect.txt
+
+mv "./redirect.txt" "${EXPORT_PATH}"
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+echo "
+		<!-- STABLE -->
+
+		<item>
+			<title>Version ${BUNDLE_VERSION_LONG}</title>
+			<sparkle:releaseNotesLink>https://updates.textualapp.com/sparkle/release-notes/v7/feed-one.html</sparkle:releaseNotesLink>
+			<sparkle:fullReleaseNotesLink>https://help.codeux.com/textual/Release-Notes.kb</sparkle:fullReleaseNotesLink>
+			<pubDate>${ARCHIVE_DATE}</pubDate>
+			<enclosure  url=\"${ONLINE_EXPORTER_ZIP_PATH_STABLE}\"
+						sparkle:version=\"${BUNDLE_VERSION_LONG}\"
+						sparkle:shortVersionString=\"${BUNDLE_VERSION_SHORT}\"
+						length=\"${WORKING_ZIP_FILE_SIZE}\"
+						type=\"application/octet-stream\" />
+			<sparkle:minimumSystemVersion>${BUNDLE_MINIMUM_TARGET}</sparkle:minimumSystemVersion>
+		</item>
+
+		<!-- BETA -->
+
+		<item>
+			<title>Version ${BUNDLE_VERSION_LONG}</title>
+			<sparkle:releaseNotesLink>https://updates.textualapp.com/sparkle/release-notes/v7/feed-one-beta.html</sparkle:releaseNotesLink>
+			<sparkle:fullReleaseNotesLink>https://help.codeux.com/textual/Release-Notes.kb</sparkle:fullReleaseNotesLink>
+			<sparkle:channel>beta</sparkle:channel>
+			<pubDate>${ARCHIVE_DATE}</pubDate>
+			<enclosure  url=\"${ONLINE_EXPORTER_ZIP_PATH_BETA}\"
+						sparkle:version=\"${BUNDLE_VERSION_LONG}\"
+						sparkle:shortVersionString=\"${BUNDLE_VERSION_SHORT}\"
+						length=\"${WORKING_ZIP_FILE_SIZE}\"
+						type=\"application/octet-stream\" />
+			<sparkle:minimumSystemVersion>${BUNDLE_MINIMUM_TARGET}</sparkle:minimumSystemVersion>
+		</item>
+" > sparkle.txt
+
+mv "./sparkle.txt" "${EXPORT_PATH}"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
