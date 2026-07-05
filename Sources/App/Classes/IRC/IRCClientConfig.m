@@ -666,8 +666,6 @@ TEXTUAL_IGNORE_DEPRECATION_END
 		config->_highlightList = [highlightList copy];
 		config->_ignoreList = [ignoreList copy];
 		config->_serverList = [serverList copy];
-
-		config->_uniqueIdentifier = [NSString stringWithUUID];
 	} 
 	else // uniquing
 	{
@@ -677,7 +675,12 @@ TEXTUAL_IGNORE_DEPRECATION_END
 		config->_serverList = self->_serverList;
 	}
 
-	return [config initWithDictionary:self.dictionaryValueForCopy ignorePrivateMessages:NO];
+    config = [config initWithDictionary:self.dictionaryValueForCopy ignorePrivateMessages:NO];
+    if (uniquing) {
+        config->_uniqueIdentifier = [NSString stringWithUUID];
+    }
+    
+    return config;
 }
 
 - (__kindof XRPortablePropertyDict *)mutableClass
