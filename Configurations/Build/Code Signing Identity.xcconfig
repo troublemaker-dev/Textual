@@ -6,5 +6,5 @@ CODE_SIGN_IDENTITY = Developer ID Application: Ken Rachynski (AWMA9895VJ)
 
 // Set these values to empty
 
-DEVELOPMENT_TEAM = 
+DEVELOPMENT_TEAM = AWMA9895VJ
 PROVISIONING_PROFILE_SPECIFIER = 
