@@ -73,6 +73,22 @@ TextualScroller.scrollHeightPreviousValue = 0; /* PUBLIC */
 
 _TextualScroller._documentScrolledCallback = function() /* PRIVATE */
 {
+	/* Fix for scrolling on macOS 27.
+	 To quote "ilikepeaches" in the #textual support channel:
+
+	 "FYI I encountered some annoying behavior with Textual on the macOS 27 beta.
+	 When the user switches away from a channel and new messages arrive in that
+	 background channel, Textual fails to scroll to the bottom of the channel
+	 when the user returns to it. The cause here is that WebKit in macOS 27 has
+	 changed: it suspends the hidden view and shrinks the client height to zero,
+	 confusing the scroll script into thinking the user scrolled up."
+
+	"TextualScroller.documentIsVisible" is not used here in case of a possible
+	 unforseen race condition between the callback that sets this and here. */
+	if (document.hidden) {
+		return;
+	}
+
 	var scrolledElement = _TextualScroller._scrolledElement;
 
 	/* Height of scrollable area */
@@ -189,16 +205,9 @@ TextualScroller.restoreScrollPosition = function() /* PUBLIC */
 
 TextualScroller.restoreScrolledToBottom = function() /* PUBLIC */
 {
-    var scrolledElement = _TextualScroller._scrolledElement;
-
-    /* If we were following along (auto-scroll) when we were hidden,
-       restore the bottom. Trust the element's geometry, not the cached
-       userScrolled flag — mutations while hidden can desync it. */
-    if (TextualScroller.userScrolled === false ||
-        scrolledElement.isScrolledToBottom())
-    {
-        TextualScroller.scrollToBottom();
-    }
+	if (TextualScroller.userScrolled === false) {
+		TextualScroller.scrollToBottom();
+	}
 };
 
 /* ************************************************** */
