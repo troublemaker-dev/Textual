@@ -15,7 +15,8 @@ xcb() {
         CONFIGURATION_BUILD_DIR="${CONFIGURATION_BUILD_DIR}" \
         DEVELOPMENT_TEAM="${DEVELOPMENT_TEAM}" \
         PROVISIONING_PROFILE_SPECIFIER="" \
-        DWARF_DSYM_FOLDER_PATH="${DWARF_DSYM_FOLDER_PATH}"
+        DWARF_DSYM_FOLDER_PATH="${DWARF_DSYM_FOLDER_PATH}" \
+        MACOSX_DEPLOYMENT_TARGET="${MACOSX_DEPLOYMENT_TARGET}"
 }
 
 # Assumes the name and filename of the framework is the same just without spaces.
