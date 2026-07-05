@@ -189,9 +189,16 @@ TextualScroller.restoreScrollPosition = function() /* PUBLIC */
 
 TextualScroller.restoreScrolledToBottom = function() /* PUBLIC */
 {
-	if (TextualScroller.userScrolled === false) {
-		TextualScroller.scrollToBottom();
-	}
+    var scrolledElement = _TextualScroller._scrolledElement;
+
+    /* If we were following along (auto-scroll) when we were hidden,
+       restore the bottom. Trust the element's geometry, not the cached
+       userScrolled flag — mutations while hidden can desync it. */
+    if (TextualScroller.userScrolled === false ||
+        scrolledElement.isScrolledToBottom())
+    {
+        TextualScroller.scrollToBottom();
+    }
 };
 
 /* ************************************************** */
